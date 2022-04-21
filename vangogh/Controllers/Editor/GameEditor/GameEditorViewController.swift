@@ -6,7 +6,7 @@
 
 import AwaitToast
 import CoreData
-import PINRemoteImage
+import Kingfisher
 import SnapKit
 import UIKit
 
@@ -117,11 +117,10 @@ class GameEditorViewController: UIViewController {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let strongSelf = self else { return }
             for sceneView in strongSelf.sceneViewList {
-                sceneView.thumbImageView.pin_updateWithProgress = true
                 let url = MetaThumbManager.shared.getThumbImageFileURL(uuid: sceneView.scene.uuid, gameUUID: strongSelf.gameBundle.uuid)
                 if FileManager.default.fileExists(atPath: url.path) {
                     DispatchQueue.main.async {
-                        sceneView.thumbImageView.pin_setImage(from: url)
+                        sceneView.thumbImageView.kf.setImage(with: url)
                     }
                 }
             }

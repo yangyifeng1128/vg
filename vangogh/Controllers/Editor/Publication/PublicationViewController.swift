@@ -5,6 +5,7 @@
 ///
 
 import CoreData
+import Kingfisher
 import SnapKit
 import UIKit
 
@@ -267,32 +268,8 @@ extension PublicationViewController: UICollectionViewDataSource {
 
             // 准备缩略图视图
 
-            cell.thumbImageView.pin_updateWithProgress = true
             let thumbURL = URL(string: "\(GlobalURLConstants.templateThumbsBaseURLString)/\(archive.thumbFileName)")!
-            cell.thumbImageView.pin_setImage(from: thumbURL, processorKey: "scaleToFit") { result, _ -> UIImage? in
-
-                guard let image = result.image else { return nil }
-
-                // 根据默认的场景尺寸比例，计算新的图像尺寸
-
-                var newSize: CGSize
-                let originalSize = image.size
-                if originalSize.width / originalSize.height < GlobalViewLayoutConstants.defaultSceneAspectRatio {
-                    newSize = CGSize(width: originalSize.width, height: (originalSize.width / GlobalViewLayoutConstants.defaultSceneAspectRatio).rounded(.down))
-                } else {
-                    newSize = CGSize(width: (originalSize.height * GlobalViewLayoutConstants.defaultSceneAspectRatio).rounded(.down), height: originalSize.height)
-                }
-
-                // 根据新的图像尺寸，裁剪原图像
-
-                UIGraphicsBeginImageContext(newSize)
-                let drawRect = CGRect(x: (newSize.width - originalSize.width) / 2, y: (newSize.height - originalSize.height) / 2, width: originalSize.width, height: originalSize.height)
-                image.draw(in: drawRect)
-                let newImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-
-                return newImage
-            }
+            cell.thumbImageView.kf.setImage(with: thumbURL)
         }
 
         return cell

@@ -5,7 +5,6 @@
 ///
 
 import CoreData
-import PINRemoteImage
 import SnapKit
 import UIKit
 
