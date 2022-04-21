@@ -1,0 +1,6 @@
+framework module Pods_vangogh {
+  umbrella header "Pods-vangogh-umbrella.h"
+
+  export *
+  module * { export * }
+}

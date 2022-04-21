@@ -1,0 +1,9 @@
+///
+/// InfoPlist.strings
+///
+/// © 2022 Beijing Mengma Education Technology Co., Ltd
+///
+
+"CFBundleDisplayName" = "MetaGame";
+"NSCameraUsageDescription" = "Please allow MetaGame to access the Camera";
+"NSPhotoLibraryUsageDescription" = "Please allow MetaGame to access your Photos to insert picture or video assets";

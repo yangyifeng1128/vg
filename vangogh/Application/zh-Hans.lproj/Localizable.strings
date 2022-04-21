@@ -1,0 +1,159 @@
+///
+/// Localizable.strings
+///
+/// © 2022 Beijing Mengma Education Technology Co., Ltd
+///
+
+// ----- Application  -----
+
+"About" = "关于元互动";
+"Agree" = "同意";
+"Agreements" = "服务协议与隐私政策";
+"AgreementsInfo" = "如果您同意上述内容，请点击下面的「同意」按钮以接受我们的服务";
+"AddAsset" = "插入一条新素材";
+"AddCondition" = "插入一个新条件";
+"AddFootage" = "添加镜头片段";
+"AddNodeInfo" = "点击下面的按钮，插入互动组件";
+"AddScene" = "新建场景";
+"AddSceneIndicatorInfo" = "点击这里\n插入一个新场景";
+"AddSceneInfo" = "点击下面的按钮，为此作品插入一个新场景";
+"AddTransition" = "新建场景穿梭器";
+"AppSettings" = "设置";
+"ArchiveHistory" = "历史版本";
+"AspectRatio" = "尺寸比例";
+"Cancel" = "取消";
+"Compose" = "创作";
+"ConfigureConditions" = "当满足下面的条件时，会触发场景穿梭";
+"Confirm" = "确定";
+"DarkMode" = "深色模式";
+"DecideLater" = "稍后再说";
+"Delete" = "删除";
+"DeleteCondition" = "删除条件";
+"DeleteConditionInfo" = "确定要删除此条件吗？";
+"DeleteFootage" = "删除镜头片段";
+"DeleteFootageInfo" = "确定要删除此镜头片段吗？";
+"DeleteGame" = "删除作品";
+"DeleteGameInfo" = "确定要删除此作品吗？";
+"DeleteNode" = "删除组件";
+"DeleteNodeInfo" = "确定要删除此组件吗？";
+"DeleteScene" = "删除场景";
+"DeleteSceneInfo" = "确定要删除此场景吗？";
+"DeleteTransition" = "删除场景穿梭器";
+"DeleteTransitionInfo" = "确定要删除此场景穿梭器吗？";
+"Disabled" = "已关闭";
+"Disagree" = "不同意";
+"Dot" = ". ";
+"Download" = "下载";
+"Draft" = "草稿";
+"Drafts" = "草稿箱";
+"Edit" = "编辑";
+"EditAlias" = "修改别名";
+"EditGameTitle" = "编辑作品标题";
+"EditNode" = "编辑组件";
+"EditScene" = "编辑此场景";
+"EditSceneTitle" = "编辑场景标题";
+"EditTitle" = "编辑标题";
+"EditTransition" = "编辑场景穿梭器";
+"EmptyTitleNotAllowed" = "标题不能为空，请重新输入";
+"Enabled" = "已开启";
+"Feedback" = "意见反馈";
+"FollowSystem" = "跟随系统";
+"FollowSystemInfo" = "开启后，将跟随系统打开或关闭深色模式";
+"Footage" = "镜头片段";
+"GameSettings" = "作品设置";
+"GameThumbImage" = "作品封面";
+"GameTitle" = "作品标题";
+"GeneralSettings" = "通用设置";
+"If" = "如果";
+"LightMode" = "浅色模式";
+"Manage" = "管理";
+"NewBlankGame" = "新建空白作品";
+"NoConditionsAvailable" = "当前没有配置任何穿梭条件";
+"Node" = "组件";
+"NoGamesFound" = "没有找到作品";
+"NoGamesFoundInfo" = "请确认作品二维码是否正确";
+"NoPicturesAvailable" = "当前没有可用的图片";
+"NoRecordsFound" = "还没有访问过任何作品";
+"NoTargetScenesAvailable" = "当前没有可用的目标场景";
+"NoTemplatesAvailable" = "很抱歉，当前没有可用的模版";
+"NoTransitionsAvailable" = "还没有从此场景出发的穿梭器";
+"NoVideosAvailable" = "当前没有可用的视频";
+"OpenSettings" = "打开设置";
+"Or" = "或";
+"PhotoLibraryAuthorizationDenied" = "未被允许访问相册";
+"PhotoLibraryAuthorizationDeniedInfo" = "请点击「打开设置」按钮，然后选择「照片」-「允许访问所有照片」";
+"Pictures" = "图片";
+"Play" = "互动";
+"Preview" = "预览";
+"PrivacyPolicy" = "隐私政策";
+"Publish" = "发布作品";
+"PublishInitialVersion" = "发布第一个版本";
+"PublishNewVersion" = "发布新版本";
+"Rescan" = "重新扫描";
+"Return" = "返回";
+"Saved" = "已保存";
+"SavedToDrafts" = "已保存至草稿箱";
+"Scene" = "场景";
+"SceneEmulatorNoData" = "暂无可互动的内容";
+"SceneSettings" = "场景设置";
+"SceneThumbImage" = "场景封面";
+"SceneTitle" = "场景标题";
+"SelectManually" = "手动选择";
+"SelectTargetScene" = "从下面的列表中选择目标场景";
+"SelectTemplate" = "或选择下面的模版开始创作";
+"StartComposing" = "开始创作";
+"TermsOfService" = "服务协议";
+"Then" = "，则";
+"Untitled" = "无标题";
+"Version" = "版本号";
+"Videos" = "视频";
+"WillAddSceneInfo" = "点击上面的空白区域，完成插入场景操作";
+
+// ----- ToolBarItems  -----
+
+"Audio" = "声音";
+"Sticker" = "贴纸";
+"Ask" = "提问";
+"Answer" = "反馈";
+"Artboard" = "画板";
+"Camera" = "相机";
+"Microphone" = "麦克风";
+
+// ----- MetaNodes  -----
+
+"MusicNode" = "音乐";
+"VoiceOverNode" = "配音";
+
+"TextNode" = "文字";
+"AnimatedImageNode" = "动图";
+"ButtonNode" = "按钮";
+
+"VoteNode" = "投票器";
+"MultipleChoiceNode" = "选择题";
+"HotspotNode" = "热点题";
+
+"CheckpointNode" = "打卡点";
+"BulletScreenNode" = "弹幕区";
+
+"SketchNode" = "速写本";
+"ColoringNode" = "涂色板";
+
+"CameraNode" = "拍摄";
+"ARCameraNode" = "AR识别";
+
+"DuetNode" = "说话";
+
+// ----- MetaNodeEditorView  -----
+
+"SectionKey_Style" = "样式";
+"SectionKey_Interaction" = "互动";
+
+"RowKey_Background" = "背景";
+"RowKey_Corner" = "圆角";
+"RowKey_LocationAndSize" = "位置与尺寸";
+"RowKey_Options" = "选项";
+"RowKey_Padding" = "内边距";
+"RowKey_Question" = "问题";
+"RowKey_Rules" = "规则";
+"RowKey_Title" = "标题";
+"RowKey_Typography" = "排版";

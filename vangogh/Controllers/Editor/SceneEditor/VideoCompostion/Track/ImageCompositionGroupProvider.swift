@@ -1,0 +1,34 @@
+///
+/// ImageCompositionGroupProvider
+///
+/// © 2022 Beijing Mengma Education Technology Co., Ltd
+///
+
+import CoreImage
+import CoreMedia
+
+public protocol ImageCompositionProvider: CompositionTimeRangeProvider, VideoCompositionProvider { }
+
+public class ImageCompositionGroupProvider: VideoCompositionProvider {
+
+    public var passingThroughVideoCompositionProvider: VideoCompositionProvider?
+    public var imageCompositionProviders: [ImageCompositionProvider] = []
+
+    public func applyEffect(to sourceImage: CIImage, at time: CMTime, renderSize: CGSize) -> CIImage {
+        var sourceImage = sourceImage
+
+        imageCompositionProviders.forEach { (provider) in
+            if provider.timeRange.containsTime(time) {
+                sourceImage = provider.applyEffect(to: sourceImage, at: time, renderSize: renderSize)
+            }
+        }
+
+        if let provider = passingThroughVideoCompositionProvider {
+            sourceImage = provider.applyEffect(to: sourceImage, at: time, renderSize: renderSize)
+        }
+
+        return sourceImage
+    }
+
+    public init() { }
+}

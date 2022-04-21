@@ -1,0 +1,159 @@
+///
+/// Localizable.strings
+///
+/// © 2022 Beijing Mengma Education Technology Co., Ltd
+///
+
+// ----- Application  -----
+
+"About" = "About MetaGame";
+"Agree" = "Agree";
+"Agreements" = "Terms of Service and Privacy Policy";
+"AgreementsInfo" = "如果您同意上述内容，请点击下面的「同意」按钮以接受我们的服务";
+"AddAsset" = "Insert a New Asset";
+"AddCondition" = "Insert a New Condition";
+"AddFootage" = "Add Footage";
+"AddNodeInfo" = "Tap the button below to insert a new node";
+"AddScene" = "Add Scene";
+"AddSceneIndicatorInfo" = "Tap here to \ninsert a new scene";
+"AddSceneInfo" = "Tap the button below to insert a new scene";
+"AddTransition" = "Add Scene Transition";
+"AppSettings" = "Settings";
+"ArchiveHistory" = "Archive History";
+"AspectRatio" = "Aspect Ratio";
+"Cancel" = "Cancel";
+"Compose" = "Compose";
+"ConfigureConditions" = "Scene transition will be triggered if the following conditions are satisfied";
+"Confirm" = "Confirm";
+"DarkMode" = "Dark Mode";
+"DecideLater" = "Decide Later";
+"Delete" = "Delete";
+"DeleteCondition" = "Delete Condition";
+"DeleteConditionInfo" = "Are you sure to delete this condition?";
+"DeleteFootage" = "Delete Footage";
+"DeleteFootageInfo" = "Are you sure to delete this footage?";
+"DeleteGame" = "Delete Game";
+"DeleteGameInfo" = "Are you sure to delete this game?";
+"DeleteNode" = "Delete Node";
+"DeleteNodeInfo" = "Are you sure to delete this node?";
+"DeleteScene" = "Delete Scene";
+"DeleteSceneInfo" = "Are you sure to delete this scene?";
+"DeleteTransition" = "Delete Transition";
+"DeleteTransitionInfo" = "Are you sure to delete this transition?";
+"Disabled" = "Disabled";
+"Disagree" = "Disagree";
+"Dot" = ". ";
+"Download" = "Download";
+"Drafts" = "Draft";
+"Drafts" = "Drafts";
+"Edit" = "Edit";
+"EditAlias" = "Edit Alias";
+"EditGameTitle" = "Edit Game Title";
+"EditNode" = "Edit Node";
+"EditScene" = "Edit Scene";
+"EditSceneTitle" = "Edit Scene Title";
+"EditTitle" = "Edit Title";
+"EditTransition" = "Edit Scene Transition";
+"EmptyTitleNotAllowed" = "Title cannot be empty, please try again";
+"Enabled" = "Enabled";
+"Feedback" = "Feedback";
+"FollowSystem" = "Follow System";
+"FollowSystemInfo" = "When enabled, MetaGame will switch dark mode on/off to match your system settings";
+"Footage" = "Footage";
+"GameSettings" = "Game Settings";
+"GameThumbImage" = "Game Thumb Image";
+"GameTitle" = "Game Title";
+"GeneralSettings" = "General";
+"If" = "IF";
+"LightMode" = "Light Mode";
+"Manage" = "Manage";
+"NewBlankGame" = "New Blank Game";
+"NoConditionsAvailable" = "No transition conditions are configured";
+"Node" = "Node";
+"NoGamesFound" = "No Games Found";
+"NoGamesFoundInfo" = "Please make sure you scanned the correct MetaGame QRCode";
+"NoPicturesAvailable" = "No pictures available";
+"NoRecordsFound" = "No games played yet";
+"NoTargetScenesAvailable" = "No target scenes available";
+"NoTemplatesAvailable" = "Sorry, there are no templates available";
+"NoTransitionsAvailable" = "No transitions from this scene yet";
+"NoVideosAvailable" = "No videos available";
+"OpenSettings" = "Open Settings";
+"Or" = "OR";
+"PhotoLibraryAuthorizationDenied" = "Insufficient Permissions for Photo Library";
+"PhotoLibraryAuthorizationDeniedInfo" = "Please \"Open Settings\" then select \"Photos\" - \"Allow All Photos Access\"";
+"Pictures" = "Pictures";
+"Play" = "Play";
+"Preview" = "Preview";
+"PrivacyPolicy" = "Privacy Policy";
+"Publish" = "Publish Game";
+"PublishInitialVersion" = "Publish the Initial Version";
+"PublishNewVersion" = "Publish a New Version";
+"Rescan" = "Rescan";
+"Return" = "Return";
+"Saved" = "saved";
+"SavedToDrafts" = "saved to drafts";
+"Scene" = "Scene";
+"SceneEmulatorNoData" = "No Interactable Content";
+"SceneSettings" = "Scene Settings";
+"SceneThumbImage" = "Scene Thumb Image";
+"SceneTitle" = "Scene Title";
+"SelectManually" = "Select manually";
+"SelectTargetScene" = "Select the target scene from the list below";
+"SelectTemplate" = "or select a template below to start";
+"StartComposing" = "Start Composing";
+"TermsOfService" = "Terms of Service";
+"Then" = ", THEN";
+"Untitled" = "Untitled";
+"Version" = "Version";
+"Videos" = "Videos";
+"WillAddSceneInfo" = "Tap the blank area above to complete";
+
+// ----- ToolBarItems  -----
+
+"Audio" = "Audio";
+"Sticker" = "Sticker";
+"Ask" = "Ask";
+"Answer" = "Feedback";
+"Artboard" = "Artboard";
+"Camera" = "Camera";
+"Microphone" = "Microphone";
+
+// ----- MetaNodes  -----
+
+"MusicNode" = "Music";
+"VoiceOverNode" = "Voice Over";
+
+"TextNode" = "Text";
+"AnimatedImageNode" = "Animated Image";
+"ButtonNode" = "Button";
+
+"VoteNode" = "Vote";
+"MultipleChoiceNode" = "Multiple Choice";
+"HotspotNode" = "Hotspot";
+
+"CheckpointNode" = "Checkpoint";
+"BulletScreenNode" = "Bullet Screen";
+
+"SketchNode" = "Sketch";
+"ColoringNode" = "Coloring";
+
+"CameraNode" = "Camera";
+"ARCameraNode" = "AR Camera";
+
+"DuetNode" = "Duet";
+
+// ----- MetaNodeEditorView  -----
+
+"SectionKey_Style" = "Style";
+"SectionKey_Interaction" = "Interaction";
+
+"RowKey_Background" = "Background";
+"RowKey_Corner" = "Corner";
+"RowKey_LocationAndSize" = "Location and Size";
+"RowKey_Options" = "Options";
+"RowKey_Padding" = "Padding";
+"RowKey_Question" = "Question";
+"RowKey_Rules" = "Interaction Rules";
+"RowKey_Title" = "Title";
+"RowKey_Typography" = "Typography";

@@ -1,0 +1,12 @@
+${PODS_ROOT}/Target Support Files/Pods-vangogh/Pods-vangogh-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/AwaitToast/AwaitToast.framework
+${BUILT_PRODUCTS_DIR}/DanmakuKit/DanmakuKit.framework
+${BUILT_PRODUCTS_DIR}/EFQRCode/EFQRCode.framework
+${BUILT_PRODUCTS_DIR}/FittedSheets/FittedSheets.framework
+${BUILT_PRODUCTS_DIR}/Instructions/Instructions.framework
+${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
+${BUILT_PRODUCTS_DIR}/MercariQRScanner/MercariQRScanner.framework
+${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
+${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework
+${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework
