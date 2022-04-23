@@ -728,13 +728,13 @@
 		0F29374426A4967800ED1BC1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				0F6705F12814481300034BD6 /* CoachMarks */,
 				126AD0D126BD0D13007EBEBE /* ArrowView.swift */,
 				0F281349254C343200FB569A /* AttributedLabel.swift */,
 				0FAF2FC726D23CD50063E89E /* BorderedView.swift */,
 				0F2763EF27933A1800C317F3 /* BottomAlignedLabel.swift */,
 				0FEA352A256BD5C000A6B581 /* CircleNavigationBarButton.swift */,
 				0F8972CB273D6BAD001CD774 /* LoadingView.swift */,
+				0F6705F12814481300034BD6 /* CoachMarks */,
 				0F6705F0281447E300034BD6 /* RoundedViews */,
 				1283C6E727A7AABE00CF76D5 /* ScenePlayerView */,
 			);
