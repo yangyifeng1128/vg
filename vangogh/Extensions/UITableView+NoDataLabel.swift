@@ -8,13 +8,13 @@ import UIKit
 
 extension UITableView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let oopsStringFontSize: CGFloat = 64
         static let noDataTitleStringFontSize: CGFloat = 16
     }
 
+    /// 显示无数据信息
     func showNoDataInfo(title: String, oops: Bool = true) {
 
         let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height))
@@ -57,6 +57,7 @@ extension UITableView {
         backgroundView = noDataLabel
     }
 
+    /// 隐藏无数据信息
     func hideNoDataInfo() {
 
         backgroundView = nil

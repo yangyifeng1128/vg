@@ -91,6 +91,8 @@
 		0F5FB10F27B2C506005634B4 /* MetaRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FB10E27B2C506005634B4 /* MetaRule.swift */; };
 		0F5FB11127B2C50F005634B4 /* MetaGameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FB11027B2C50F005634B4 /* MetaGameEngine.swift */; };
 		0F5FB11327B2CAF6005634B4 /* MetaFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FB11227B2CAF6005634B4 /* MetaFact.swift */; };
+		0F6705E62814313500034BD6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705E52814313500034BD6 /* CoreDataManager.swift */; };
+		0F6705E82814323500034BD6 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705E72814323500034BD6 /* Logger+Extensions.swift */; };
 		0F684F4B2680F24200BC2FDE /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F684F4A2680F24200BC2FDE /* RoundedView.swift */; };
 		0F74CDEC2534738F0054D2CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F74CDEB2534738F0054D2CC /* SceneDelegate.swift */; };
 		0F74CDF4253473900054D2CC /* vangogh.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F74CDF2253473900054D2CC /* vangogh.xcdatamodeld */; };
@@ -346,6 +348,8 @@
 		0F5FB10E27B2C506005634B4 /* MetaRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaRule.swift; sourceTree = "<group>"; };
 		0F5FB11027B2C50F005634B4 /* MetaGameEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaGameEngine.swift; sourceTree = "<group>"; };
 		0F5FB11227B2CAF6005634B4 /* MetaFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaFact.swift; sourceTree = "<group>"; };
+		0F6705E52814313500034BD6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0F6705E72814323500034BD6 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		0F684F4A2680F24200BC2FDE /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		0F74CDE62534738F0054D2CC /* vangogh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vangogh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F74CDEB2534738F0054D2CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -568,24 +572,24 @@
 			path = GameEmulator;
 			sourceTree = "<group>";
 		};
-		0F210E4F26DAAB4E002CC564 /* VideoCompostion */ = {
+		0F210E4F26DAAB4E002CC564 /* AVCompostion */ = {
 			isa = PBXGroup;
 			children = (
 				0F210E5026DAADCC002CC564 /* Core */,
 				0F210E7626DAADCC002CC564 /* Resource */,
 				0F210E5E26DAADCC002CC564 /* Track */,
-				0F210E6E26DAADCC002CC564 /* Util */,
+				0F210E6E26DAADCC002CC564 /* Utils */,
 			);
-			path = VideoCompostion;
+			path = AVCompostion;
 			sourceTree = "<group>";
 		};
 		0F210E5026DAADCC002CC564 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				0F210E5126DAADCC002CC564 /* Video */,
 				0F210E5426DAADCC002CC564 /* CompositionGenerator.swift */,
 				0F210E5526DAADCC002CC564 /* Audio */,
 				0F210E5926DAADCC002CC564 /* Model */,
+				0F210E5126DAADCC002CC564 /* Video */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -602,9 +606,9 @@
 		0F210E5526DAADCC002CC564 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				0F210E5626DAADCC002CC564 /* AudioProcessingTapHolder.swift */,
 				0F210E5726DAADCC002CC564 /* AudioMixer.swift */,
 				0F210E5826DAADCC002CC564 /* AudioProcessingChain.swift */,
+				0F210E5626DAADCC002CC564 /* AudioProcessingTapHolder.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -612,10 +616,10 @@
 		0F210E5926DAADCC002CC564 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0F210E5A26DAADCC002CC564 /* VideoTransition.swift */,
-				0F210E5B26DAADCC002CC564 /* Timeline.swift */,
-				0F210E5C26DAADCC002CC564 /* CompositionProvider.swift */,
 				0F210E5D26DAADCC002CC564 /* AudioTransition.swift */,
+				0F210E5C26DAADCC002CC564 /* CompositionProvider.swift */,
+				0F210E5B26DAADCC002CC564 /* Timeline.swift */,
+				0F210E5A26DAADCC002CC564 /* VideoTransition.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -623,10 +627,10 @@
 		0F210E5E26DAADCC002CC564 /* Track */ = {
 			isa = PBXGroup;
 			children = (
-				0F210E5F26DAADCC002CC564 /* ImageOverlayItem.swift */,
-				0F210E6026DAADCC002CC564 /* Configuration */,
-				0F210E6326DAADCC002CC564 /* TrackItem.swift */,
 				0F210E6426DAADCC002CC564 /* ImageCompositionGroupProvider.swift */,
+				0F210E5F26DAADCC002CC564 /* ImageOverlayItem.swift */,
+				0F210E6326DAADCC002CC564 /* TrackItem.swift */,
+				0F210E6026DAADCC002CC564 /* Configuration */,
 				0F210E6526DAADCC002CC564 /* Resource */,
 			);
 			path = Track;
@@ -644,29 +648,29 @@
 		0F210E6526DAADCC002CC564 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				0F210E6626DAADCC002CC564 /* PHAssetLivePhotoResource.swift */,
-				0F210E6726DAADCC002CC564 /* PHAssetTrackResource.swift */,
-				0F210E6826DAADCC002CC564 /* ImageResource.swift */,
-				0F210E6926DAADCC002CC564 /* PHAssetImageResource.swift */,
-				0F210E6A26DAADCC002CC564 /* AVAssetTrackResource.swift */,
-				0F210E6B26DAADCC002CC564 /* Resource.swift */,
 				0F210E6C26DAADCC002CC564 /* AVAssetReaderImageResource.swift */,
 				0F210E6D26DAADCC002CC564 /* AVAssetReverseImageResource.swift */,
+				0F210E6A26DAADCC002CC564 /* AVAssetTrackResource.swift */,
+				0F210E6826DAADCC002CC564 /* ImageResource.swift */,
+				0F210E6926DAADCC002CC564 /* PHAssetImageResource.swift */,
+				0F210E6626DAADCC002CC564 /* PHAssetLivePhotoResource.swift */,
+				0F210E6726DAADCC002CC564 /* PHAssetTrackResource.swift */,
+				0F210E6B26DAADCC002CC564 /* Resource.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		0F210E6E26DAADCC002CC564 /* Util */ = {
+		0F210E6E26DAADCC002CC564 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				0F210E6F26DAADCC002CC564 /* CoreImageExtension.swift */,
-				0F210E7026DAADCC002CC564 /* TimingFunctionFactory.swift */,
-				0F210E7126DAADCC002CC564 /* Log.swift */,
 				0F210E7226DAADCC002CC564 /* CGMathFunctions.swift */,
+				0F210E6F26DAADCC002CC564 /* CoreImageExtension.swift */,
 				0F210E7426DAADCC002CC564 /* ImageGeneratorExtension.swift */,
+				0F210E7126DAADCC002CC564 /* Log.swift */,
 				0F210E7526DAADCC002CC564 /* TimeRangeExtension.swift */,
+				0F210E7026DAADCC002CC564 /* TimingFunctionFactory.swift */,
 			);
-			path = Util;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		0F210E7626DAADCC002CC564 /* Resource */ = {
@@ -706,11 +710,11 @@
 		0F281348254C33A700FB569A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1216848C27B0F7E100D597E0 /* OrderedDictionary */,
 				0FAB1464254F9AE100D09168 /* CGFloat+Rounded.swift */,
 				0F210E7326DAADCC002CC564 /* CMTime+Extensions.swift */,
 				129C2BE927AD3CA600850AFC /* Decimal+Extensions.swift */,
 				0F14DF0B277821DA0056872B /* Double+Rounded.swift */,
+				0F6705E72814323500034BD6 /* Logger+Extensions.swift */,
 				126AD0CF26BD09FA007EBEBE /* UIBezierPath+Arrow.swift */,
 				0F8CB7122739785A00D72DC3 /* UIBezierPath+Curve.swift */,
 				12C761812739180F00A91B2F /* UIBezierPath+Waterdrop.swift */,
@@ -718,6 +722,7 @@
 				12961198279ED1E20091DCDC /* UIColor+RGBA.swift */,
 				1284C1C226E9BB850055720C /* UIImage+Circle.swift */,
 				121D737E26BECFD900792DD4 /* UITableView+NoDataLabel.swift */,
+				1216848C27B0F7E100D597E0 /* OrderedDictionary */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -769,12 +774,13 @@
 			isa = PBXGroup;
 			children = (
 				0F3882D92537373D0069A1A4 /* CodingUserInfoKey.swift */,
+				0F6705E52814313500034BD6 /* CoreDataManager.swift */,
 				12433A43267D9DB8001633D8 /* MetaGame+CoreDataClass.swift */,
 				12433A46267D9DB8001633D8 /* MetaGame+CoreDataProperties.swift */,
-				12433A41267D9DB7001633D8 /* MetaTemplate+CoreDataClass.swift */,
-				12433A42267D9DB8001633D8 /* MetaTemplate+CoreDataProperties.swift */,
 				12433A44267D9DB8001633D8 /* MetaRecord+CoreDataClass.swift */,
 				12433A45267D9DB8001633D8 /* MetaRecord+CoreDataProperties.swift */,
+				12433A41267D9DB7001633D8 /* MetaTemplate+CoreDataClass.swift */,
+				12433A42267D9DB8001633D8 /* MetaTemplate+CoreDataProperties.swift */,
 				0F74CDF2253473900054D2CC /* vangogh.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -796,6 +802,24 @@
 				0F210EA026DE9BB6002CC564 /* Resources */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		0F6705E3281430E700034BD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0F6705E4281430FA00034BD6 /* Bundles */,
+				0F467E6C2549561B00BC09A1 /* CoreData */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0F6705E4281430FA00034BD6 /* Bundles */ = {
+			isa = PBXGroup;
+			children = (
+				1269E7A4267DDABB0077D05C /* MetaGameBundle */,
+				12216E3926DB2B2D00F5E0DA /* MetaSceneBundle */,
+			);
+			path = Bundles;
 			sourceTree = "<group>";
 		};
 		0F74CDDD2534738F0054D2CC = {
@@ -822,10 +846,10 @@
 				0F512226254AE520006B7A17 /* Application */,
 				0F29374426A4967800ED1BC1 /* Components */,
 				0FBEFF4A254A82D600C5EB30 /* Controllers */,
-				0F467E6C2549561B00BC09A1 /* CoreData */,
 				0F281348254C33A700FB569A /* Extensions */,
 				0FE5AEAC279C36DC000BD5AC /* GameEngine */,
-				0FB67587255A9A1A0036AABA /* Utilities */,
+				0F6705E3281430E700034BD6 /* Models */,
+				0FB67587255A9A1A0036AABA /* Services */,
 			);
 			path = vangogh;
 			sourceTree = "<group>";
@@ -1181,13 +1205,14 @@
 			path = Editor;
 			sourceTree = "<group>";
 		};
-		0FB67587255A9A1A0036AABA /* Utilities */ = {
+		0FB67587255A9A1A0036AABA /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0F210E4F26DAAB4E002CC564 /* AVCompostion */,
 				12E6B1F52719348D0077CCC0 /* LocalDocument */,
-				125B400D27A02751003FB6B2 /* MetaThumbManager */,
+				125B400D27A02751003FB6B2 /* MetaThumb */,
 			);
-			path = Utilities;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		0FB8D82726EDEA0C00D5C971 /* Controls */ = {
@@ -1235,8 +1260,6 @@
 			isa = PBXGroup;
 			children = (
 				0F5FB11027B2C50F005634B4 /* MetaGameEngine.swift */,
-				1269E7A4267DDABB0077D05C /* MetaGameBundle */,
-				12216E3926DB2B2D00F5E0DA /* MetaSceneBundle */,
 			);
 			path = GameEngine;
 			sourceTree = "<group>";
@@ -1637,12 +1660,12 @@
 		12216E3926DB2B2D00F5E0DA /* MetaSceneBundle */ = {
 			isa = PBXGroup;
 			children = (
-				1283C6E627A7AA9900CF76D5 /* MetaNodes */,
-				1216849927B1030E00D597E0 /* MetaRules */,
 				120F23872701D1860039CEC0 /* MetaFootage.swift */,
 				0FAAE3DE272C5D01000A7681 /* MetaSceneAspectRatioType.swift */,
 				12216E3C26DB2B9700F5E0DA /* MetaSceneBundle.swift */,
 				12216E3A26DB2B6000F5E0DA /* MetaSceneBundleManager.swift */,
+				1283C6E627A7AA9900CF76D5 /* MetaNodes */,
+				1216849927B1030E00D597E0 /* MetaRules */,
 			);
 			path = MetaSceneBundle;
 			sourceTree = "<group>";
@@ -1696,12 +1719,12 @@
 			path = TransitionEditor;
 			sourceTree = "<group>";
 		};
-		125B400D27A02751003FB6B2 /* MetaThumbManager */ = {
+		125B400D27A02751003FB6B2 /* MetaThumb */ = {
 			isa = PBXGroup;
 			children = (
 				1269E7B5267DE4B60077D05C /* MetaThumbManager.swift */,
 			);
-			path = MetaThumbManager;
+			path = MetaThumb;
 			sourceTree = "<group>";
 		};
 		12666CE226D50FA700660A4B /* Controls */ = {
@@ -1874,7 +1897,6 @@
 			children = (
 				1251B0D62680657600813936 /* SceneEditorViewController.swift */,
 				12666CE226D50FA700660A4B /* Controls */,
-				0F210E4F26DAAB4E002CC564 /* VideoCompostion */,
 				12C2C895267F47F50070913C /* WorkspaceView */,
 			);
 			path = SceneEditor;
@@ -2109,6 +2131,7 @@
 				0F79565226FA1D4100963099 /* TargetAssetsViewController.swift in Sources */,
 				0F210E8A26DAADCC002CC564 /* PHAssetImageResource.swift in Sources */,
 				12433A49267D9DB8001633D8 /* MetaTemplate+CoreDataClass.swift in Sources */,
+				0F6705E82814323500034BD6 /* Logger+Extensions.swift in Sources */,
 				0F95E705271DB34C005EE818 /* WorkspaceNoDataView.swift in Sources */,
 				0F8972CC273D6BAD001CD774 /* LoadingView.swift in Sources */,
 				0F210E8F26DAADCC002CC564 /* CoreImageExtension.swift in Sources */,
@@ -2221,6 +2244,7 @@
 				0F14DF41278206D10056872B /* MetaTextEditorView.swift in Sources */,
 				125B400C27A01FC3003FB6B2 /* GameSettingTableThumbImageViewCell.swift in Sources */,
 				0F1769A626FEEB7900307A48 /* TargetAssetCollectionViewCell.swift in Sources */,
+				0F6705E62814313500034BD6 /* CoreDataManager.swift in Sources */,
 				12E6B1FD271982800077CCC0 /* TrackItemContentView.swift in Sources */,
 				12349D9D271D219600BC4626 /* MetaAnimatedImageView.swift in Sources */,
 				0FAAE3D9272C4C82000A7681 /* SceneSettingsViewController.swift in Sources */,

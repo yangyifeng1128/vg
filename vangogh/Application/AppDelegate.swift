@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //
     //
-    // MARK: - Application Lifecycle
+    // MARK: - 应用程序生命周期
     //
     //
 
@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //
     //
-    // MARK: - Orientations
+    // MARK: - 设备方向
     //
     //
 
@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //
     //
-    // MARK: - Background URL Session Handler
+    // MARK: - 后台处理 URL Session
     //
     //
 
