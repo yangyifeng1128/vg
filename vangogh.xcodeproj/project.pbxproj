@@ -845,7 +845,7 @@
 			children = (
 				0F512226254AE520006B7A17 /* Application */,
 				0F29374426A4967800ED1BC1 /* Components */,
-				0FBEFF4A254A82D600C5EB30 /* Controllers */,
+				0FBEFF4A254A82D600C5EB30 /* Modules */,
 				0F281348254C33A700FB569A /* Extensions */,
 				0FE5AEAC279C36DC000BD5AC /* GameEngine */,
 				0F6705E3281430E700034BD6 /* Models */,
@@ -1185,7 +1185,6 @@
 		0FAB980C256A19D1005CBF6E /* UserAssets */ = {
 			isa = PBXGroup;
 			children = (
-				0FD3777827188AC000D09DDA /* AppSettings */,
 				120F238126FDE6C60039CEC0 /* AgreementsViewController.swift */,
 			);
 			path = UserAssets;
@@ -1224,16 +1223,17 @@
 			path = Controls;
 			sourceTree = "<group>";
 		};
-		0FBEFF4A254A82D600C5EB30 /* Controllers */ = {
+		0FBEFF4A254A82D600C5EB30 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0FD3777827188AC000D09DDA /* AppSettings */,
 				12E41BE0266634B40094CB44 /* Composition */,
 				0FAB9817256A54D9005CBF6E /* Editor */,
 				1290E50626AC822B006EA422 /* Emulator */,
 				121D738226BF970C00792DD4 /* Home */,
 				0FAB980C256A19D1005CBF6E /* UserAssets */,
 			);
-			path = Controllers;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		0FD3777827188AC000D09DDA /* AppSettings */ = {
