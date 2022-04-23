@@ -118,7 +118,7 @@ class HomeViewController: UIViewController {
         scanButton.addTarget(self, action: #selector(scanButtonDidTap), for: .touchUpInside)
         scanButtonContainer.addSubview(scanButton)
         scanButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.left.equalToSuperview().offset(ViewLayoutConstants.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
@@ -214,7 +214,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let cellSpacing = ViewLayoutConstants.recordCollectionViewCellSpacing
 
         recordCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        recordCollectionViewCellHeight = (recordCollectionViewCellWidth / GlobalViewLayoutConstants.defaultSceneAspectRatio).rounded(.down)
+        recordCollectionViewCellHeight = (recordCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
         return CGSize(width: recordCollectionViewCellWidth, height: recordCollectionViewCellHeight)
     }

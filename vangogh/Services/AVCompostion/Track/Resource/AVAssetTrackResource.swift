@@ -16,7 +16,7 @@ public class AVAssetTrackResource: Resource {
         super.init()
 
         self.asset = asset
-        let duration = CMTimeMakeWithSeconds(asset.duration.seconds, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        let duration = CMTimeMakeWithSeconds(asset.duration.seconds, preferredTimescale: GVC.preferredTimescale)
         self.duration = duration
         selectedTimeRange = CMTimeRange(start: CMTime.zero, duration: duration)
     }

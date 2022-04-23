@@ -35,7 +35,7 @@ open class AVAssetReaderImageResource: ImageResource {
 
         self.asset = asset
         self.videoComposition = videoComposition
-        let duration = CMTimeMakeWithSeconds(asset.duration.seconds, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        let duration = CMTimeMakeWithSeconds(asset.duration.seconds, preferredTimescale: GVC.preferredTimescale)
         selectedTimeRange = CMTimeRange(start: CMTime.zero, duration: duration)
     }
 

@@ -6,9 +6,8 @@
 
 import UIKit
 
-// 全局键常量
-
-enum GlobalKeyConstants {
+/// 全局键常量
+enum GKC {
 
     static let agreementsSigned: String = "agreementsSigned"
     static let currentMainTabBarItemIndex: String = "currentMainTabBarItemIndex"
@@ -69,9 +68,10 @@ enum GlobalKeyConstants {
     static let templatesDirectoryName: String = "templates"
 }
 
-// 全局值常量
+/// 全局值常量
+enum GVC {
 
-enum GlobalValueConstants {
+    // 全局值
 
     static let appVersion: String = "1.0.0"
     static let defaultImageTrackItemDurationMilliseconds: Int64 = 5000 /* 5s */
@@ -83,22 +83,8 @@ enum GlobalValueConstants {
     static let nilSceneUUID: String = "0"
     static let preferredTimescale: Int32 = 1000
     static let snappedTimeMillisecondsThreshold: Int64 = 300 /* 300ms */
-}
 
-// 全局 URL 常量
-
-enum GlobalURLConstants {
-
-    static let baseURLString: String = "https://api.artbean.cn/v1/vangogh"
-    static let templatesURLString: String = "\(baseURLString)/sample-drawings"
-    static let templateBundlesBaseURLString: String = "https://api.artbean.cn/sample-drawing-bundles"
-    static let templateThumbsBaseURLString: String = "https://api.artbean.cn/sample-drawing-thumbs"
-    static let metaGameURLScheme: String = "metagame"
-}
-
-// 全局视图布局常量
-
-enum GlobalViewLayoutConstants {
+    // 全局视图布局
 
     static let addSceneViewBackgroundColor: UIColor? = .accent
     static let alertTextFieldFontSize: CGFloat = 16
@@ -119,8 +105,17 @@ enum GlobalViewLayoutConstants {
     static let timelineItemEarViewWidth: CGFloat = 24
 }
 
-// 自定义颜色
+/// 全局 URL 常量
+enum GUC {
 
+    static let baseURLString: String = "https://api.artbean.cn/v1/vangogh"
+    static let templatesURLString: String = "\(baseURLString)/sample-drawings"
+    static let templateBundlesBaseURLString: String = "https://api.artbean.cn/sample-drawing-bundles"
+    static let templateThumbsBaseURLString: String = "https://api.artbean.cn/sample-drawing-thumbs"
+    static let metaGameURLScheme: String = "metagame"
+}
+
+/// 自定义颜色
 extension UIColor {
 
     static let accent: UIColor? = UIColor(named: "Accent")
@@ -146,8 +141,7 @@ extension UIColor {
     static let fcYellow: UIColor? = UIColor(named: "FCYellow")
 }
 
-// 自定义图像
-
+/// 自定义图像
 extension UIImage {
 
     static let add: UIImage? = UIImage(named: "Add")
@@ -204,6 +198,8 @@ extension UIImage {
     static let settings: UIImage? = UIImage(named: "Settings")
     static let share: UIImage? = UIImage(named: "Share")
     static let sketch: UIImage? = UIImage(named: "Sketch")
+    static let sketchArrowDown: UIImage? = UIImage(named: "SketchArrowDown")
+    static let sketchArrowUp: UIImage? = UIImage(named: "SketchArrowUp")
     static let star: UIImage? = UIImage(named: "Star")
     static let stickerPlus: UIImage? = UIImage(named: "StickerPlus")
     static let text: UIImage? = UIImage(named: "Text")

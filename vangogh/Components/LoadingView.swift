@@ -9,16 +9,23 @@ import UIKit
 
 class LoadingView: RoundedView {
 
-    /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    /// 视图常量枚举值
+    enum VC {
         static let width: CGFloat = 80
         static let indicatorViewWidth: CGFloat = 32
         static let infoLabelFontSize: CGFloat = 13
     }
 
+    // 视图
+
+    /// 指示器视图
     private var indicatorView: UIActivityIndicatorView!
+    /// 信息标签
     private var infoLabel: UILabel!
 
+    // 属性
+
+    /// 加载进度
     var progress: CGFloat = 0 {
         didSet {
             let percentage: Int = Int(round(progress * 100))
@@ -26,37 +33,48 @@ class LoadingView: RoundedView {
         }
     }
 
+    // 生命周期
+
+    /// 初始化
     init() {
 
-        super.init(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        super.init(cornerRadius: GVC.defaultViewCornerRadius)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
 
         fatalError("init(coder:) has not been implemented")
     }
+}
 
-    private func initSubviews() {
+extension LoadingView {
+
+    /// 初始化视图
+    private func initViews() {
 
         isHidden = true
 
-        backgroundColor = GlobalViewLayoutConstants.defaultSceneControlBackgroundColor
+        backgroundColor = GVC.defaultSceneControlBackgroundColor
+
+        // 初始化「指示器视图」
 
         indicatorView = UIActivityIndicatorView()
         indicatorView.hidesWhenStopped = true
         indicatorView.color = .white
         addSubview(indicatorView)
         indicatorView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.indicatorViewWidth)
+            make.width.height.equalTo(VC.indicatorViewWidth)
             make.center.equalToSuperview()
         }
 
+        // 初始化「信息标签」
+
         infoLabel = UILabel()
-        infoLabel.font = .systemFont(ofSize: ViewLayoutConstants.infoLabelFontSize, weight: .regular)
+        infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .white
         infoLabel.textAlignment = .center
         addSubview(infoLabel)
@@ -70,12 +88,14 @@ class LoadingView: RoundedView {
 
 extension LoadingView {
 
+    /// 启动加载动画
     func startAnimating() {
 
         indicatorView.startAnimating()
         isHidden = false
     }
 
+    /// 结束加载动画
     func stopAnimating() {
 
         indicatorView.stopAnimating()

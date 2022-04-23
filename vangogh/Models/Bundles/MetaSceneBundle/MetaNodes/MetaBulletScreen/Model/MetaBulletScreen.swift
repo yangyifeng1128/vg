@@ -28,7 +28,7 @@ class MetaBulletScreen: MetaNode {
         case backgroundColorCode = "background_color_code"
     }
 
-    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .bulletScreen, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GlobalValueConstants.defaultNodeItemDurationMilliseconds, comments: [MetaComment] = [], backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultBulletScreenBackgroundColorCode) {
+    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .bulletScreen, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GVC.defaultNodeItemDurationMilliseconds, comments: [MetaComment] = [], backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultBulletScreenBackgroundColorCode) {
 
         self.index = index
         self.uuid = uuid

@@ -48,7 +48,7 @@ open class Resource: NSObject, NSCopying, ResourceTrackInfoProvider {
 
         let seconds = selectedTimeRange.start.seconds + timelineTime.seconds * (selectedTimeRange.duration.seconds / scaledDuration.seconds)
 
-        return CMTimeMakeWithSeconds(seconds, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        return CMTimeMakeWithSeconds(seconds, preferredTimescale: GVC.preferredTimescale)
     }
 
     /// Natural frame size of this resource

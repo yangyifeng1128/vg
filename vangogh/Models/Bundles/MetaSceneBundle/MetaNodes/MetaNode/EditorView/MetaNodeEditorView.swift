@@ -102,7 +102,7 @@ class MetaNodeEditorView: UIView {
         sectionControl.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview().dividedBy(2)
             make.left.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(GlobalViewLayoutConstants.bottomSheetViewPullBarHeight + 8)
+            make.top.equalToSuperview().offset(GVC.bottomSheetViewPullBarHeight + 8)
         }
 
         // 初始化删除按钮

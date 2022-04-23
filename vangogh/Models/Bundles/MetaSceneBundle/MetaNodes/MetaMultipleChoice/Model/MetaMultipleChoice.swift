@@ -32,7 +32,7 @@ class MetaMultipleChoice: MetaNode {
         case backgroundColorCode = "background_color_code"
     }
 
-    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .multipleChoice, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GlobalValueConstants.defaultNodeItemDurationMilliseconds, question: String = MetaNodeValueConstants.defaultMultipleChoiceQuestion, options: [String] = MetaNodeValueConstants.defaultMultipleChoiceOptions, nodeAlignment: MetaNodeAlignment = .bottomRight, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode) {
+    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .multipleChoice, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GVC.defaultNodeItemDurationMilliseconds, question: String = MetaNodeValueConstants.defaultMultipleChoiceQuestion, options: [String] = MetaNodeValueConstants.defaultMultipleChoiceOptions, nodeAlignment: MetaNodeAlignment = .bottomRight, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode) {
 
         self.index = index
         self.uuid = uuid

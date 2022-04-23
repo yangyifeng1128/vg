@@ -93,7 +93,7 @@ class AppSettingsViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -128,7 +128,7 @@ class AppSettingsViewController: UIViewController {
 
         copyrightLabel = UILabel()
         let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
-        copyrightLabel.text = appName + " \(NSLocalizedString("Version", comment: "")) " + GlobalValueConstants.appVersion
+        copyrightLabel.text = appName + " \(NSLocalizedString("Version", comment: "")) " + GVC.appVersion
         copyrightLabel.font = .systemFont(ofSize: ViewLayoutConstants.copyrightLabelFontSize, weight: .regular)
         copyrightLabel.textColor = .tertiaryLabel
         copyrightLabel.textAlignment = .center

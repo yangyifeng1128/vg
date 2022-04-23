@@ -29,7 +29,7 @@ class TrackItemView: UIView {
     var contentView: TrackItemContentView!
 
     var width: CGFloat {
-        return contentView.width + GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        return contentView.width + GVC.timelineItemEarViewWidth * 2
     } // 视图宽度
     var isActive: Bool = false { // 激活状态
         willSet {
@@ -73,7 +73,7 @@ class TrackItemView: UIView {
         leftEarView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(earViewDidPan)))
         addSubview(leftEarView)
         leftEarView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(GlobalViewLayoutConstants.timelineItemEarViewWidth)
+            make.width.equalTo(GVC.timelineItemEarViewWidth)
             make.height.equalToSuperview()
             make.left.top.equalToSuperview()
         }
@@ -116,7 +116,7 @@ extension TrackItemView {
         }
 
         rightEarView.snp.remakeConstraints { make -> Void in
-            make.width.equalTo(GlobalViewLayoutConstants.timelineItemEarViewWidth)
+            make.width.equalTo(GVC.timelineItemEarViewWidth)
             make.height.equalToSuperview()
             make.left.equalTo(contentView.snp.right)
         }

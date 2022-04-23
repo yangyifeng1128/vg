@@ -125,7 +125,7 @@ class SceneSettingsViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -298,7 +298,7 @@ extension SceneSettingsViewController {
 
             guard let strongSelf = self else { return }
 
-            textField.font = .systemFont(ofSize: GlobalViewLayoutConstants.alertTextFieldFontSize, weight: .regular)
+            textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
             textField.text = strongSelf.gameBundle.selectedScene()?.title
             textField.returnKeyType = .done
             textField.delegate = self

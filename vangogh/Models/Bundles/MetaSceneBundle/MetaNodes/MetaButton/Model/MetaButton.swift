@@ -42,7 +42,7 @@ class MetaButton: MetaNode {
         case foregroundColorCode = "foreground_color_code"
     }
 
-    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .button, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GlobalValueConstants.defaultNodeItemDurationMilliseconds, info: String = MetaNodeValueConstants.defaultButtonInfo, center: CGPoint = MetaNodeValueConstants.defaultButtonCenter, size: CGSize = MetaNodeValueConstants.defaultButtonSize, cornerRadius: CGFloat = MetaNodeValueConstants.defaultButtonCornerRadius, fontSize: CGFloat = MetaNodeValueConstants.defaultButtonFontSize, backgroundImageName: String, highlightedBackgroundImageName: String, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultButtonBackgroundColorCode, foregroundColorCode: [Decimal] = MetaNodeValueConstants.defaultButtonForegroundColorCode) {
+    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .button, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GVC.defaultNodeItemDurationMilliseconds, info: String = MetaNodeValueConstants.defaultButtonInfo, center: CGPoint = MetaNodeValueConstants.defaultButtonCenter, size: CGSize = MetaNodeValueConstants.defaultButtonSize, cornerRadius: CGFloat = MetaNodeValueConstants.defaultButtonCornerRadius, fontSize: CGFloat = MetaNodeValueConstants.defaultButtonFontSize, backgroundImageName: String, highlightedBackgroundImageName: String, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultButtonBackgroundColorCode, foregroundColorCode: [Decimal] = MetaNodeValueConstants.defaultButtonForegroundColorCode) {
 
         self.index = index
         self.uuid = uuid

@@ -5,34 +5,45 @@
 ///
 
 import AwaitToast
+import OSLog
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    /// 窗体
     var window: UIWindow?
 
+    /// 即将连接应用
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
-        customizeToast()
 
         if let windowScene = scene as? UIWindowScene {
 
+            // 创建窗体
+
             let window = UIWindow(windowScene: windowScene)
             window.tintColor = .accent
-            if UserDefaults.standard.bool(forKey: "ignoresSystemUserInterfaceStyle") {
-                let isInLightMode: Bool = UserDefaults.standard.bool(forKey: "isInLightMode")
-                window.overrideUserInterfaceStyle = isInLightMode ? .light : .dark
-            }
+
+            // 定制吐司提示
+
+            customizeToast()
+
+            // 重写用户界面风格
+
+            overrideUserInterfaceStyle(window: window)
+
+            // 设置「标签栏」为根视图控制器
 
             setTabBarAsRootController(window: window)
             // setNavigationBarAsRootController(window: window)
 
-            self.window = window
+            // 显示窗体
 
+            self.window = window
             window.makeKeyAndVisible()
         }
     }
 
+    /// 设置「导航栏」为根视图控制器
     private func setNavigationBarAsRootController(window: UIWindow) {
 
         let compositionVC = CompositionViewController()
@@ -40,6 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = mainNavigation
     }
 
+    /// 设置「标签栏」为根视图控制器
     private func setTabBarAsRootController(window: UIWindow) {
 
         let mainTabBar = MainTabBarController()
@@ -64,6 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate {
 
+    /// 定制吐司提示
     private func customizeToast () {
 
         let defaultAppearance = ToastAppearanceManager.default
@@ -75,5 +88,18 @@ extension SceneDelegate {
 
         let defaultBehavior = ToastBehaviorManager.default
         defaultBehavior.duration = 0.8
+    }
+
+    /// 重写用户界面风格
+    private func overrideUserInterfaceStyle(window: UIWindow) {
+
+        if UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle) {
+            let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
+            window.overrideUserInterfaceStyle = isInLightMode ? .light : .dark
+        } else {
+            window.overrideUserInterfaceStyle = .unspecified
+        }
+
+        Logger.application.info("overrided user interface style: \(window.overrideUserInterfaceStyle.rawValue)")
     }
 }

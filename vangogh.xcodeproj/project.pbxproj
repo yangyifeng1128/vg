@@ -93,6 +93,9 @@
 		0F5FB11327B2CAF6005634B4 /* MetaFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FB11227B2CAF6005634B4 /* MetaFact.swift */; };
 		0F6705E62814313500034BD6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705E52814313500034BD6 /* CoreDataManager.swift */; };
 		0F6705E82814323500034BD6 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705E72814323500034BD6 /* Logger+Extensions.swift */; };
+		0F6705F32814482400034BD6 /* TransparentCoachMarkArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705F22814482400034BD6 /* TransparentCoachMarkArrowView.swift */; };
+		0F6705F52814483300034BD6 /* TransparentCoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705F42814483300034BD6 /* TransparentCoachMarkBodyView.swift */; };
+		0F6705F72814498800034BD6 /* RoundedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705F62814498800034BD6 /* RoundedCollectionViewCell.swift */; };
 		0F684F4B2680F24200BC2FDE /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F684F4A2680F24200BC2FDE /* RoundedView.swift */; };
 		0F74CDEC2534738F0054D2CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F74CDEB2534738F0054D2CC /* SceneDelegate.swift */; };
 		0F74CDF4253473900054D2CC /* vangogh.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F74CDF2253473900054D2CC /* vangogh.xcdatamodeld */; };
@@ -350,6 +353,9 @@
 		0F5FB11227B2CAF6005634B4 /* MetaFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaFact.swift; sourceTree = "<group>"; };
 		0F6705E52814313500034BD6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0F6705E72814323500034BD6 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
+		0F6705F22814482400034BD6 /* TransparentCoachMarkArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentCoachMarkArrowView.swift; sourceTree = "<group>"; };
+		0F6705F42814483300034BD6 /* TransparentCoachMarkBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentCoachMarkBodyView.swift; sourceTree = "<group>"; };
+		0F6705F62814498800034BD6 /* RoundedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F684F4A2680F24200BC2FDE /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		0F74CDE62534738F0054D2CC /* vangogh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vangogh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F74CDEB2534738F0054D2CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -681,20 +687,12 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		0F210E9F26DE9AD9002CC564 /* VideoClips */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = VideoClips;
-			sourceTree = "<group>";
-		};
 		0F210EA026DE9BB6002CC564 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				129375F626D76BC40081DF3F /* AnimatedIcons */,
 				0F21F5FC27AAABD9002404A2 /* AnimatedImages */,
 				12E6B1F0271929210077CCC0 /* Documents */,
-				129375F626D76BC40081DF3F /* AnimatedIcons */,
-				0F210E9F26DE9AD9002CC564 /* VideoClips */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -730,15 +728,14 @@
 		0F29374426A4967800ED1BC1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0F6705F12814481300034BD6 /* CoachMarks */,
 				126AD0D126BD0D13007EBEBE /* ArrowView.swift */,
 				0F281349254C343200FB569A /* AttributedLabel.swift */,
 				0FAF2FC726D23CD50063E89E /* BorderedView.swift */,
 				0F2763EF27933A1800C317F3 /* BottomAlignedLabel.swift */,
 				0FEA352A256BD5C000A6B581 /* CircleNavigationBarButton.swift */,
 				0F8972CB273D6BAD001CD774 /* LoadingView.swift */,
-				12FC02B3269AB215004C32C0 /* RoundedButton.swift */,
-				12725F5E26A2D10100C8EE01 /* RoundedImageView.swift */,
-				0F684F4A2680F24200BC2FDE /* RoundedView.swift */,
+				0F6705F0281447E300034BD6 /* RoundedViews */,
 				1283C6E727A7AABE00CF76D5 /* ScenePlayerView */,
 			);
 			path = Components;
@@ -884,6 +881,26 @@
 			path = TermsOfService;
 			sourceTree = "<group>";
 		};
+		0F6705F0281447E300034BD6 /* RoundedViews */ = {
+			isa = PBXGroup;
+			children = (
+				12FC02B3269AB215004C32C0 /* RoundedButton.swift */,
+				0F6705F62814498800034BD6 /* RoundedCollectionViewCell.swift */,
+				12725F5E26A2D10100C8EE01 /* RoundedImageView.swift */,
+				0F684F4A2680F24200BC2FDE /* RoundedView.swift */,
+			);
+			path = RoundedViews;
+			sourceTree = "<group>";
+		};
+		0F6705F12814481300034BD6 /* CoachMarks */ = {
+			isa = PBXGroup;
+			children = (
+				0F6705F22814482400034BD6 /* TransparentCoachMarkArrowView.swift */,
+				0F6705F42814483300034BD6 /* TransparentCoachMarkBodyView.swift */,
+			);
+			path = CoachMarks;
+			sourceTree = "<group>";
+		};
 		0F74CDDD2534738F0054D2CC = {
 			isa = PBXGroup;
 			children = (
@@ -907,10 +924,10 @@
 			children = (
 				0F512226254AE520006B7A17 /* Application */,
 				0F29374426A4967800ED1BC1 /* Components */,
-				0FBEFF4A254A82D600C5EB30 /* Modules */,
 				0F281348254C33A700FB569A /* Extensions */,
 				0FE5AEAC279C36DC000BD5AC /* GameEngine */,
 				0F6705E3281430E700034BD6 /* Models */,
+				0FBEFF4A254A82D600C5EB30 /* Modules */,
 				0FB67587255A9A1A0036AABA /* Services */,
 			);
 			path = vangogh;
@@ -1922,10 +1939,10 @@
 		12E6B1F0271929210077CCC0 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				12E6B1F3271933E80077CCC0 /* privacy_policy.txt */,
-				12E6B1F12719339E0077CCC0 /* terms_of_service.txt */,
 				12E6B1F8271951630077CCC0 /* about.txt */,
 				12E6B1FA271951730077CCC0 /* feedback.txt */,
+				12E6B1F3271933E80077CCC0 /* privacy_policy.txt */,
+				12E6B1F12719339E0077CCC0 /* terms_of_service.txt */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -2178,6 +2195,7 @@
 				1269E7B6267DE4B60077D05C /* MetaThumbManager.swift in Sources */,
 				0F2763F027933A1800C317F3 /* BottomAlignedLabel.swift in Sources */,
 				12653CF5273D452B005D90A6 /* GeneralSettingsViewController.swift in Sources */,
+				0F6705F32814482400034BD6 /* TransparentCoachMarkArrowView.swift in Sources */,
 				0FAF2FC826D23CD50063E89E /* BorderedView.swift in Sources */,
 				0FE1D1CF254AF89B0097CFF8 /* GlobalConstants.swift in Sources */,
 				128B164F271865BD00CD917B /* PrivacyPolicyViewController.swift in Sources */,
@@ -2236,6 +2254,7 @@
 				122748A7268453F40002684F /* GameEditorDefaultBottomView.swift in Sources */,
 				0FCA7A5327342DD60051CCC1 /* MetaHotspot.swift in Sources */,
 				0F1FBF31274149F000289748 /* NodeItemBottomBarItem.swift in Sources */,
+				0F6705F52814483300034BD6 /* TransparentCoachMarkBodyView.swift in Sources */,
 				12C985B42735160D00299AF3 /* MetaHotspotView.swift in Sources */,
 				0F1FBF2D2741487000289748 /* NodeItemBottomBarItemCell.swift in Sources */,
 				0F51FAED273ADDA000D90811 /* MetaSketch.swift in Sources */,
@@ -2311,6 +2330,7 @@
 				0F684F4B2680F24200BC2FDE /* RoundedView.swift in Sources */,
 				124363CA2711BA18003FEAE3 /* TrackItemEarView.swift in Sources */,
 				1296119B279EE4A00091DCDC /* MetaNodeAlignment.swift in Sources */,
+				0F6705F72814498800034BD6 /* RoundedCollectionViewCell.swift in Sources */,
 				0F478C3F26C18E9200D1EF94 /* GameEditorTransitionTableViewCell.swift in Sources */,
 				126656202678733D00774510 /* GameEditorSceneBottomView.swift in Sources */,
 				0F210E8126DAADCC002CC564 /* AudioTransition.swift in Sources */,

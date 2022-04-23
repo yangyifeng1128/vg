@@ -29,7 +29,7 @@ class MetaSketch: MetaNode {
         case strokeColorCode = "stroke_color_code"
     }
 
-    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .sketch, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GlobalValueConstants.defaultNodeItemDurationMilliseconds, nodeAlignment: MetaNodeAlignment = .bottomRight, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode, strokeColorCode: [Decimal] = MetaNodeValueConstants.defaultSketchStrokeColorCode) {
+    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .sketch, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GVC.defaultNodeItemDurationMilliseconds, nodeAlignment: MetaNodeAlignment = .bottomRight, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode, strokeColorCode: [Decimal] = MetaNodeValueConstants.defaultSketchStrokeColorCode) {
 
         self.index = index
         self.uuid = uuid

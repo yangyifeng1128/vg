@@ -129,7 +129,7 @@ class TargetScenesViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -170,7 +170,7 @@ class TargetScenesViewController: UIViewController {
             make.top.equalToSuperview().offset(ViewLayoutConstants.diagramSceneViewTopOffset + ViewLayoutConstants.diagramSceneViewHeight / 2 - ViewLayoutConstants.diagramArrowViewHeight / 2)
         }
 
-        let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         startSceneView.contentMode = .scaleAspectFill
         startSceneView.image = .sceneBackgroundThumb
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -223,7 +223,7 @@ class TargetScenesViewController: UIViewController {
             make.top.equalTo(startSceneView.snp.bottom).offset(8)
         }
 
-        let endSceneView: RoundedImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        let endSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneView.backgroundColor = .systemFill
         diagramView.addSubview(endSceneView)
         endSceneView.snp.makeConstraints { make -> Void in

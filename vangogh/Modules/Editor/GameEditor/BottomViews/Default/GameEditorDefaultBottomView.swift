@@ -53,7 +53,7 @@ class GameEditorDefaultBottomView: BorderedView {
             make.left.top.equalToSuperview()
         }
 
-        addSceneButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        addSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         addSceneButton.backgroundColor = .secondarySystemBackground
         addSceneButton.tintColor = .mgLabel
         addSceneButton.setTitle(NSLocalizedString("AddScene", comment: ""), for: .normal)

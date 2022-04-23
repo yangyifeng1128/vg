@@ -73,7 +73,7 @@ class SceneEmulatorNoDataView: UIView {
 
         // 初始化「立即编辑场景」按钮
 
-        editSceneImmediatelyButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        editSceneImmediatelyButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         editSceneImmediatelyButton.backgroundColor = .white
         editSceneImmediatelyButton.tintColor = .darkText
         editSceneImmediatelyButton.setTitle(NSLocalizedString("EditScene", comment: ""), for: .normal)
@@ -90,7 +90,7 @@ class SceneEmulatorNoDataView: UIView {
 
         // 初始化「稍后编辑场景」按钮
 
-        editSceneLaterButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        editSceneLaterButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         editSceneLaterButton.backgroundColor = .clear
         editSceneLaterButton.tintColor = .lightText
         editSceneLaterButton.setTitle(NSLocalizedString("DecideLater", comment: ""), for: .normal)

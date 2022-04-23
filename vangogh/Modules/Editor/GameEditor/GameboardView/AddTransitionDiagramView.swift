@@ -71,7 +71,7 @@ class AddTransitionDiagramView: RoundedView {
         }
 
         let sceneViewHeight: CGFloat = ViewLayoutConstants.height - 20
-        let sceneViewWidth: CGFloat = sceneViewHeight * GlobalViewLayoutConstants.defaultSceneAspectRatio
+        let sceneViewWidth: CGFloat = sceneViewHeight * GVC.defaultSceneAspectRatio
         startSceneView = RoundedImageView(cornerRadius: 4)
         startSceneView.contentMode = .scaleAspectFill
         startSceneView.image = .sceneBackgroundThumb

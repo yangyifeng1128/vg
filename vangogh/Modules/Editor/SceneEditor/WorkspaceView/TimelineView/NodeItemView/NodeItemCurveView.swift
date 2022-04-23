@@ -47,7 +47,7 @@ class NodeItemCurveView: UIButton {
         borderLayer.strokeColor = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: nodeType)?.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.frame = bounds
-        borderLayer.path = UIBezierPath.curve(width: bounds.width, height: bounds.height, cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius * 0.75).cgPath
+        borderLayer.path = UIBezierPath.curve(width: bounds.width, height: bounds.height, cornerRadius: GVC.defaultViewCornerRadius * 0.75).cgPath
         layer.addSublayer(borderLayer)
     }
 }

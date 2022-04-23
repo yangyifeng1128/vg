@@ -89,7 +89,7 @@ class TimelineView: UIView {
     private var trackItemThumbImageSize: CGSize! // 组件项缩略图视图尺寸
 
     private var timeline: Timeline!
-    private let loadTrackItemContentViewThumbImageQueue: DispatchQueue = DispatchQueue(label: GlobalKeyConstants.loadTrackItemContentViewThumbImageQueueIdentifier)
+    private let loadTrackItemContentViewThumbImageQueue: DispatchQueue = DispatchQueue(label: GKC.loadTrackItemContentViewThumbImageQueueIdentifier)
 
     var isEnabled: Bool = true {
         willSet {
@@ -243,7 +243,7 @@ class TimelineView: UIView {
 
         contentView = UIView()
         contentViewContainer.addSubview(contentView)
-        let contentViewLeftOffset: CGFloat = UIScreen.main.bounds.width / 2 - GlobalViewLayoutConstants.timelineItemEarViewWidth
+        let contentViewLeftOffset: CGFloat = UIScreen.main.bounds.width / 2 - GVC.timelineItemEarViewWidth
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalTo(0) // 以备后续更新
             make.height.equalToSuperview()
@@ -367,7 +367,7 @@ extension TimelineView {
 
             guard let trackItem = trackItem as? TrackItem else { return }
             let selectedTimeRange: CMTimeRange = trackItem.resource.selectedTimeRange
-            let maxDuration: CMTime = CMTimeMake(value: footages[i].maxDurationMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+            let maxDuration: CMTime = CMTimeMake(value: footages[i].maxDurationMilliseconds, timescale: GVC.preferredTimescale)
             let trackItemContentView: TrackItemContentView = TrackItemContentView(footageType: footages[i].footageType, leftMarkTime: selectedTimeRange.start, rightMarkTime: selectedTimeRange.end, thumbImageSize: trackItemThumbImageSize, maxDuration: maxDuration)
             trackItemContentView.loadThumbImageQueue = loadTrackItemContentViewThumbImageQueue
             if let imageGenerator = trackItem.generateFullRangeImageGenerator(size: trackItemContentView.thumbImageSize) {
@@ -384,7 +384,7 @@ extension TimelineView {
                 make.width.equalTo(trackItemView.width)
                 make.height.equalToSuperview()
                 if i > 0 {
-                    make.left.equalTo(trackItemViewList[i - 1].snp.right).offset(-GlobalViewLayoutConstants.timelineItemEarViewWidth * 2)
+                    make.left.equalTo(trackItemViewList[i - 1].snp.right).offset(-GVC.timelineItemEarViewWidth * 2)
                 } else {
                     make.left.equalToSuperview()
                 }
@@ -400,14 +400,14 @@ extension TimelineView {
 
         // 更新轨道项视图容器的宽度
 
-        trackItemViewContainerWidth = leftOffset + GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        trackItemViewContainerWidth = leftOffset + GVC.timelineItemEarViewWidth * 2
 
         // 更新内容视图容器的宽度
         // FIXME：根据 trackItemViewContainerWidth 和 nodeItemViewContainerWidth 更新 contentViewWidth
 
-        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GVC.timelineItemEarViewWidth * 2
 
-        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GVC.timelineItemEarViewWidth * 2
 
         // 更新「添加镜头片段」按钮的布局
 
@@ -462,9 +462,9 @@ extension TimelineView: TrackItemViewDelegate {
         // 更新内容视图容器的宽度
         // FIXME：根据 trackItemViewContainerWidth 和 nodeItemViewContainerWidth 更新 contentViewWidth
 
-        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GVC.timelineItemEarViewWidth * 2
 
-        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GVC.timelineItemEarViewWidth * 2
 
         if withLeftEar { // 拖拽左执耳视图
 
@@ -515,8 +515,8 @@ extension TimelineView {
 
     func addNodeItemView(node: MetaNode) {
 
-        let startTime: CMTime = CMTimeMake(value: node.startTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
-        let endTime: CMTime = CMTimeAdd(startTime, CMTimeMake(value: node.durationMilliseconds, timescale: GlobalValueConstants.preferredTimescale))
+        let startTime: CMTime = CMTimeMake(value: node.startTimeMilliseconds, timescale: GVC.preferredTimescale)
+        let endTime: CMTime = CMTimeAdd(startTime, CMTimeMake(value: node.durationMilliseconds, timescale: GVC.preferredTimescale))
         let contentOffsetX: CGFloat = calculateContentOffsetX(at: startTime).0
 
         // 添加新的组件项标签视图
@@ -529,7 +529,7 @@ extension TimelineView {
         nodeItemTagView.snp.makeConstraints { make -> Void in
             make.width.equalTo(NodeItemTagView.ViewLayoutConstants.width)
             make.height.equalTo(NodeItemTagView.ViewLayoutConstants.height)
-            make.left.equalToSuperview().offset(contentOffsetX - NodeItemTagView.ViewLayoutConstants.width / 2 + GlobalViewLayoutConstants.timelineItemEarViewWidth)
+            make.left.equalToSuperview().offset(contentOffsetX - NodeItemTagView.ViewLayoutConstants.width / 2 + GVC.timelineItemEarViewWidth)
             make.top.equalToSuperview()
         }
 
@@ -575,7 +575,7 @@ extension TimelineView {
         contentViewContainer.layoutIfNeeded()
 
         if let lastNodeItemView = nodeItemViewList.max(by: { $0.barView.contentView.endTime < $1.barView.contentView.endTime }) {
-            nodeItemViewContainerWidth = lastNodeItemView.frame.origin.x + lastNodeItemView.barView.contentView.width + GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+            nodeItemViewContainerWidth = lastNodeItemView.frame.origin.x + lastNodeItemView.barView.contentView.width + GVC.timelineItemEarViewWidth * 2
         } else {
             nodeItemViewContainerWidth = 0
         }
@@ -583,9 +583,9 @@ extension TimelineView {
         // 更新内容视图容器的宽度
         // FIXME：根据 trackItemViewContainerWidth 和 nodeItemViewContainerWidth 更新 contentViewWidth
 
-        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GVC.timelineItemEarViewWidth * 2
 
-        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GVC.timelineItemEarViewWidth * 2
 
         // 重新加载组件项视图时，还原组件项视图容器在非激活状态下的高度
 
@@ -627,7 +627,7 @@ extension TimelineView: NodeItemViewDelegate {
 
             guard let nodeItemTagView = nodeItemTagViewList.first(where: { $0.node.uuid == node.uuid }) else { return }
             nodeItemTagView.snp.updateConstraints { make -> Void in
-                make.left.equalToSuperview().offset(edgeX - NodeItemTagView.ViewLayoutConstants.width / 2 + GlobalViewLayoutConstants.timelineItemEarViewWidth)
+                make.left.equalToSuperview().offset(edgeX - NodeItemTagView.ViewLayoutConstants.width / 2 + GVC.timelineItemEarViewWidth)
             }
 
         } else { // 拖拽右执耳视图
@@ -642,9 +642,9 @@ extension TimelineView: NodeItemViewDelegate {
         // 更新内容视图容器的宽度
         // FIXME：根据 trackItemViewContainerWidth 和 nodeItemViewContainerWidth 更新 contentViewWidth
 
-        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        // contentViewWidth = UIScreen.main.bounds.width + max(trackItemViewContainerWidth, nodeItemViewContainerWidth) - GVC.timelineItemEarViewWidth * 2
 
-        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        contentViewWidth = UIScreen.main.bounds.width + trackItemViewContainerWidth - GVC.timelineItemEarViewWidth * 2
     }
 
     func nodeItemViewDidEndExpanding(node: MetaNode) {
@@ -751,15 +751,15 @@ extension TimelineView: UIScrollViewDelegate {
 
         for nodeItemTagView in nodeItemTagViewList {
 
-            let leftMarkTimeMilliseconds: Int64 = Int64(UIScreen.main.bounds.width * 500 / GlobalValueConstants.defaultTimelineItemWidthPerSecond) + nodeItemTagView.node.startTimeMilliseconds
-            let rightMarkTimeMilliseconds: Int64 = Int64(UIScreen.main.bounds.width * 500 / GlobalValueConstants.defaultTimelineItemWidthPerSecond) + nodeItemTagView.node.startTimeMilliseconds + nodeItemTagView.node.durationMilliseconds
+            let leftMarkTimeMilliseconds: Int64 = Int64(UIScreen.main.bounds.width * 500 / GVC.defaultTimelineItemWidthPerSecond) + nodeItemTagView.node.startTimeMilliseconds
+            let rightMarkTimeMilliseconds: Int64 = Int64(UIScreen.main.bounds.width * 500 / GVC.defaultTimelineItemWidthPerSecond) + nodeItemTagView.node.startTimeMilliseconds + nodeItemTagView.node.durationMilliseconds
 
             print("\(leftMarkTimeMilliseconds), \(rightMarkTimeMilliseconds)")
 
             if currentTimeMilliseconds >= leftMarkTimeMilliseconds && currentTimeMilliseconds <= rightMarkTimeMilliseconds {
 
                 nodeItemTagView.snp.updateConstraints { make -> Void in
-                    make.left.equalToSuperview().offset(contentOffsetX - UIScreen.main.bounds.width / 2 - NodeItemTagView.ViewLayoutConstants.width / 2 + GlobalViewLayoutConstants.timelineItemEarViewWidth)
+                    make.left.equalToSuperview().offset(contentOffsetX - UIScreen.main.bounds.width / 2 - NodeItemTagView.ViewLayoutConstants.width / 2 + GVC.timelineItemEarViewWidth)
                 }
             }
         }
@@ -783,7 +783,7 @@ extension TimelineView: UIScrollViewDelegate {
             }
         }
 
-        let contentOffsetX: CGFloat = GlobalValueConstants.defaultTimelineItemWidthPerSecond * time.seconds
+        let contentOffsetX: CGFloat = GVC.defaultTimelineItemWidthPerSecond * time.seconds
 
         return (contentOffsetX, trackItemIndex)
     }
@@ -802,8 +802,8 @@ extension TimelineView: UIScrollViewDelegate {
             }
         }
 
-        let durationMilliseconds: Int64 = Int64((contentOffsetX * 1000 / GlobalValueConstants.defaultTimelineItemWidthPerSecond).rounded())
-        let duration: CMTime = CMTimeMake(value: durationMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+        let durationMilliseconds: Int64 = Int64((contentOffsetX * 1000 / GVC.defaultTimelineItemWidthPerSecond).rounded())
+        let duration: CMTime = CMTimeMake(value: durationMilliseconds, timescale: GVC.preferredTimescale)
 
         return (duration, trackItemIndex)
     }

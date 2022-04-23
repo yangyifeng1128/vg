@@ -29,10 +29,10 @@ class TrackItemContentView: UIView {
     var thumbImageSize: CGSize! // 缩略图尺寸
 
     var maxDuration: CMTime! // 最大时长
-    var minDuration: CMTime = CMTimeMake(value: GlobalValueConstants.minTrackItemDurationMilliseconds, timescale: GlobalValueConstants.preferredTimescale) // 最小时长
+    var minDuration: CMTime = CMTimeMake(value: GVC.minTrackItemDurationMilliseconds, timescale: GVC.preferredTimescale) // 最小时长
 
     var width: CGFloat {
-        return (GlobalValueConstants.defaultTimelineItemWidthPerSecond * (rightMarkTime.seconds - leftMarkTime.seconds)).rounded()
+        return (GVC.defaultTimelineItemWidthPerSecond * (rightMarkTime.seconds - leftMarkTime.seconds)).rounded()
     } // 视图宽度
 
     init(footageType: MetaFootageType, leftMarkTime: CMTime, rightMarkTime: CMTime, thumbImageSize: CGSize, maxDuration: CMTime = .zero) {
@@ -116,7 +116,7 @@ extension TrackItemContentView {
             startIndex = startIndex - ViewLayoutConstants.preheatThumbImageViewIndexCount
             startIndex = max(0, startIndex)
             endIndex = endIndex + ViewLayoutConstants.preheatThumbImageViewIndexCount
-            let maxIndex = Int(ceil(GlobalValueConstants.defaultTimelineItemWidthPerSecond * asset.duration.seconds / thumbImageSize.width))
+            let maxIndex = Int(ceil(GVC.defaultTimelineItemWidthPerSecond * asset.duration.seconds / thumbImageSize.width))
             endIndex = min(maxIndex, endIndex)
         }
 
@@ -182,7 +182,7 @@ extension TrackItemContentView {
 
         // 如果图像生成器缓存池中已存在对应的缓存图像，则直接更新该缩略图视图，退出
 
-        let durationMillisecondsPerImage: Int64 = Int64((thumbImageSize.width / GlobalValueConstants.defaultTimelineItemWidthPerSecond).rounded())
+        let durationMillisecondsPerImage: Int64 = Int64((thumbImageSize.width / GVC.defaultTimelineItemWidthPerSecond).rounded())
         let leftMarkTimeMilliseconds: Int64 = durationMillisecondsPerImage * Int64(index)
         let rightMarkTimeMilliseconds: Int64 = min(durationMillisecondsPerImage * Int64(index + 1), imageGenerator.asset.duration.milliseconds())
         let timeKey: CMTime = CMTimeMake(value: (leftMarkTimeMilliseconds + rightMarkTimeMilliseconds) / 2, timescale: imageGenerator.asset.duration.timescale) // 这里的时刻仅用作缓存池的 key
@@ -226,7 +226,7 @@ extension TrackItemContentView {
 
     func expand(translationOffsetX: CGFloat, withLeftEar: Bool) {
 
-        let translationDurationMilliseconds: Int64 = Int64((translationOffsetX * 1000 / GlobalValueConstants.defaultTimelineItemWidthPerSecond).rounded())
+        let translationDurationMilliseconds: Int64 = Int64((translationOffsetX * 1000 / GVC.defaultTimelineItemWidthPerSecond).rounded())
 
         if footageType == .video {
 
@@ -238,7 +238,7 @@ extension TrackItemContentView {
 
                 leftMarkTimeMilliseconds = min(max(0, leftMarkTimeMilliseconds), rightMarkTime.milliseconds() - minDuration.milliseconds())
 
-                leftMarkTime = CMTimeMake(value: leftMarkTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+                leftMarkTime = CMTimeMake(value: leftMarkTimeMilliseconds, timescale: GVC.preferredTimescale)
 
             } else {
 
@@ -248,7 +248,7 @@ extension TrackItemContentView {
 
                 rightMarkTimeMilliseconds = max(min(rightMarkTimeMilliseconds, maxDuration.milliseconds()), leftMarkTime.milliseconds() + minDuration.milliseconds())
 
-                rightMarkTime = CMTimeMake(value: rightMarkTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+                rightMarkTime = CMTimeMake(value: rightMarkTimeMilliseconds, timescale: GVC.preferredTimescale)
             }
 
         } else {
@@ -261,7 +261,7 @@ extension TrackItemContentView {
 
                 leftMarkTimeMilliseconds = min(leftMarkTimeMilliseconds, rightMarkTime.milliseconds() - minDuration.milliseconds())
 
-                leftMarkTime = CMTimeMake(value: leftMarkTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+                leftMarkTime = CMTimeMake(value: leftMarkTimeMilliseconds, timescale: GVC.preferredTimescale)
 
             } else {
 
@@ -271,7 +271,7 @@ extension TrackItemContentView {
 
                 rightMarkTimeMilliseconds = max(rightMarkTimeMilliseconds, leftMarkTime.milliseconds() + minDuration.milliseconds())
 
-                rightMarkTime = CMTimeMake(value: rightMarkTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+                rightMarkTime = CMTimeMake(value: rightMarkTimeMilliseconds, timescale: GVC.preferredTimescale)
             }
         }
     }

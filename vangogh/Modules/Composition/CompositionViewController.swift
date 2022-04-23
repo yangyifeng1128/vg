@@ -139,7 +139,7 @@ class CompositionViewController: UIViewController {
         settingsButton.addTarget(self, action: #selector(settingsButtonDidTap), for: .touchUpInside)
         settingsButtonContainer.addSubview(settingsButton)
         settingsButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.left.equalToSuperview().offset(ViewLayoutConstants.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
@@ -147,7 +147,7 @@ class CompositionViewController: UIViewController {
 
     private func initComposeButton() {
 
-        composeButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        composeButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         composeButton.backgroundColor = .secondarySystemGroupedBackground
         composeButton.tintColor = .mgLabel
         composeButton.contentHorizontalAlignment = .center
@@ -367,7 +367,7 @@ extension CompositionViewController {
             let editDraftTitleAlert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
             editDraftTitleAlert.addTextField { textField in
                 textField.text = game.title
-                textField.font = .systemFont(ofSize: GlobalViewLayoutConstants.alertTextFieldFontSize, weight: .regular)
+                textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
                 textField.returnKeyType = .done
                 textField.delegate = self
             }

@@ -24,7 +24,7 @@ class NodeItemEarView: UIButton {
         set {
             super.bounds = newValue
             maskLayer.frame = newValue
-            let cornerRadii: CGFloat = GlobalViewLayoutConstants.defaultViewCornerRadius * 0.75
+            let cornerRadii: CGFloat = GVC.defaultViewCornerRadius * 0.75
             var newPath: CGPath?
             if direction == .left {
                 newPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width: cornerRadii, height: cornerRadii)).cgPath

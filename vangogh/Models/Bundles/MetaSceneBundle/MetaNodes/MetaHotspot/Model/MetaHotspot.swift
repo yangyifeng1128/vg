@@ -27,7 +27,7 @@ class MetaHotspot: MetaNode {
         case backgroundColorCode = "background_color_code"
     }
 
-    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .hotspot, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GlobalValueConstants.defaultNodeItemDurationMilliseconds, size: CGSize = MetaNodeValueConstants.defaultHotspotSize, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode) {
+    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .hotspot, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GVC.defaultNodeItemDurationMilliseconds, size: CGSize = MetaNodeValueConstants.defaultHotspotSize, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode) {
 
         self.index = index
         self.uuid = uuid

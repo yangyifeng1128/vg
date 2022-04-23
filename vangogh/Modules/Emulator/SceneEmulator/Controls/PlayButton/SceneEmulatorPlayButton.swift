@@ -64,7 +64,7 @@ class SceneEmulatorPlayButton: UIButton {
 
         setToggled()
 
-        backgroundColor = GlobalViewLayoutConstants.defaultSceneControlBackgroundColor
+        backgroundColor = GVC.defaultSceneControlBackgroundColor
         tintColor = .white
         adjustsImageWhenHighlighted = false
         imageView?.tintColor = .white

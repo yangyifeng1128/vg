@@ -66,7 +66,7 @@ class NodeItemView: UIView {
         curveView.snp.makeConstraints { make -> Void in
             make.width.equalTo(0) // 以备后续更新
             make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height)
-            make.left.equalToSuperview().offset(GlobalViewLayoutConstants.timelineItemEarViewWidth)
+            make.left.equalToSuperview().offset(GVC.timelineItemEarViewWidth)
             make.bottom.equalToSuperview()
         }
 
@@ -91,7 +91,7 @@ class NodeItemView: UIView {
         connectorView.snp.makeConstraints { make -> Void in
             make.width.equalTo(NodeItemCurveView.ViewLayoutConstants.lineWidth)
             make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height - 6)
-            make.left.equalTo(GlobalViewLayoutConstants.timelineItemEarViewWidth - NodeItemCurveView.ViewLayoutConstants.lineWidth / 2)
+            make.left.equalTo(GVC.timelineItemEarViewWidth - NodeItemCurveView.ViewLayoutConstants.lineWidth / 2)
             make.bottom.equalToSuperview().offset(-3)
         }
     }

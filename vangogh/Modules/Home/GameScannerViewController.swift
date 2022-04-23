@@ -105,11 +105,11 @@ class GameScannerViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack, backgroundColor: GlobalViewLayoutConstants.defaultSceneControlBackgroundColor, tintColor: .white)
+        backButton = CircleNavigationBarButton(icon: .arrowBack, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -139,7 +139,7 @@ extension GameScannerViewController: QRScannerViewDelegate {
 
         print("[GameScanner] did scan QRCode successfully. code: \(code)")
 
-        if let url = URL(string: code), url.scheme == GlobalURLConstants.metaGameURLScheme, let gameUUID = url.host {
+        if let url = URL(string: code), url.scheme == GUC.metaGameURLScheme, let gameUUID = url.host {
 
             navigationController?.popViewController(animated: true)
             delegate?.scanDidSucceed(gameUUID: gameUUID)

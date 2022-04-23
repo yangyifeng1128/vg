@@ -44,11 +44,11 @@ class DraftTableViewCell: UITableViewCell {
 
         // 添加缩略图视图
 
-        thumbImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
-        thumbImageView.backgroundColor = GlobalViewLayoutConstants.defaultViewBackgroundColor
+        thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
+        thumbImageView.backgroundColor = GVC.defaultViewBackgroundColor
         contentView.addSubview(thumbImageView)
         let thumbImageViewHeight: CGFloat = CompositionViewController.ViewLayoutConstants.draftTableViewCellHeight - 16
-        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GlobalViewLayoutConstants.defaultSceneAspectRatio
+        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         thumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
             make.height.equalTo(thumbImageViewHeight)

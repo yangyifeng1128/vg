@@ -45,7 +45,7 @@ class GameEditorSceneView: RoundedView {
 
     init(scene: MetaScene) {
 
-        super.init(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        super.init(cornerRadius: GVC.defaultViewCornerRadius)
 
         self.scene = scene
 
@@ -172,7 +172,7 @@ class GameEditorSceneView: RoundedView {
 
     private func deactivate() {
 
-        cornerRadius = GlobalViewLayoutConstants.defaultViewCornerRadius
+        cornerRadius = GVC.defaultViewCornerRadius
         bounds = CGRect(origin: .zero, size: CGSize(width: ViewLayoutConstants.width, height: ViewLayoutConstants.height))
 
         // 删除边框

@@ -1,18 +1,22 @@
 ///
-/// RoundedButton
+/// RoundedCollectionViewCell
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
 import UIKit
 
-class RoundedButton: UIButton {
+class RoundedCollectionViewCell: UICollectionViewCell {
 
+    // 视图
+
+    /// 遮罩图层
     private lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
         return $0
     }(CAShapeLayer())
 
+    /// 重写边框大小
     override var bounds: CGRect {
         set {
             super.bounds = newValue
@@ -33,17 +37,20 @@ class RoundedButton: UIButton {
         }
     }
 
+    /// 圆角
     var cornerRadius: CGFloat!
 
-    init(cornerRadius: CGFloat = GlobalViewLayoutConstants.defaultViewCornerRadius) {
+    // 生命周期
 
-        super.init(frame: .zero)
+    /// 初始化
+    override init(frame: CGRect) {
 
-        self.cornerRadius = cornerRadius
+        super.init(frame: frame)
+
+        self.cornerRadius = GVC.defaultViewCornerRadius
     }
 
     required init?(coder: NSCoder) {
-
         fatalError("init(coder:) has not been implemented")
     }
 }

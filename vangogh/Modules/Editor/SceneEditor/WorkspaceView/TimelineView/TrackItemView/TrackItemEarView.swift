@@ -24,7 +24,7 @@ class TrackItemEarView: UIButton {
         set {
             super.bounds = newValue
             maskLayer.frame = newValue
-            let cornerRadii: CGFloat = GlobalViewLayoutConstants.defaultViewCornerRadius
+            let cornerRadii: CGFloat = GVC.defaultViewCornerRadius
             var newPath: CGPath?
             if direction == .left {
                 newPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width: cornerRadii, height: cornerRadii)).cgPath

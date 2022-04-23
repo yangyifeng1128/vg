@@ -21,14 +21,14 @@ open class AVAssetReverseImageResource: ImageResource {
 
     private var loadBufferQueue: DispatchQueue = DispatchQueue(label: "com.cabbage.reverse.loadbuffer")
 
-    private var bufferDuration = CMTimeMakeWithSeconds(0.3, preferredTimescale: GlobalValueConstants.preferredTimescale)
+    private var bufferDuration = CMTimeMakeWithSeconds(0.3, preferredTimescale: GVC.preferredTimescale)
 
     public init(asset: AVAsset) {
 
         super.init()
 
         self.asset = asset
-        let duration = CMTimeMakeWithSeconds(asset.duration.seconds, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        let duration = CMTimeMakeWithSeconds(asset.duration.seconds, preferredTimescale: GVC.preferredTimescale)
         selectedTimeRange = CMTimeRange(start: CMTime.zero, duration: duration)
     }
 
@@ -45,7 +45,7 @@ open class AVAssetReverseImageResource: ImageResource {
         }
         let realTime = max(0, selectedTimeRange.end.seconds - time.seconds) + selectedTimeRange.start.seconds
 
-        let sampleBuffer: CMSampleBuffer? = loadSamplebuffer(for: CMTimeMakeWithSeconds(realTime, preferredTimescale: GlobalValueConstants.preferredTimescale))
+        let sampleBuffer: CMSampleBuffer? = loadSamplebuffer(for: CMTimeMakeWithSeconds(realTime, preferredTimescale: GVC.preferredTimescale))
         if let sampleBuffer = sampleBuffer, let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
             return CIImage(cvPixelBuffer: imageBuffer)
         }
@@ -124,7 +124,7 @@ open class AVAssetReverseImageResource: ImageResource {
             endTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         }
         let startSeconds: Double = max(endTime.seconds - bufferDuration.seconds, selectedTimeRange.start.seconds)
-        let startTime = CMTimeMakeWithSeconds(startSeconds, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        let startTime = CMTimeMakeWithSeconds(startSeconds, preferredTimescale: GVC.preferredTimescale)
         let timeRange = CMTimeRange(start: startTime, end: endTime)
         let reader = createAssetReader(for: timeRange)
 
@@ -218,7 +218,7 @@ open class AVAssetReverseImageResource: ImageResource {
     private func createAssetReaderOutput(at time: CMTime) {
 
         let startSeconds: Double = max(time.seconds - bufferDuration.seconds, selectedTimeRange.start.seconds)
-        let startTime = CMTimeMakeWithSeconds(startSeconds, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        let startTime = CMTimeMakeWithSeconds(startSeconds, preferredTimescale: GVC.preferredTimescale)
         let timeRange = CMTimeRange(start: startTime, end: time)
         let reader = createAssetReader(for: timeRange)
 
@@ -237,7 +237,7 @@ open class AVAssetReverseImageResource: ImageResource {
             endTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         }
         let startSeconds: Double = max(endTime.seconds - bufferDuration.seconds, selectedTimeRange.start.seconds)
-        let startTime = CMTimeMakeWithSeconds(startSeconds, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        let startTime = CMTimeMakeWithSeconds(startSeconds, preferredTimescale: GVC.preferredTimescale)
         trackOutput.reset(forReadingTimeRanges: [NSValue(timeRange: CMTimeRange(start: startTime, end: endTime))])
     }
 

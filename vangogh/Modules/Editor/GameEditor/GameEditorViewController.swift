@@ -326,7 +326,7 @@ class GameEditorViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -349,7 +349,7 @@ class GameEditorViewController: UIViewController {
         publishButton.addTarget(self, action: #selector(publishButtonDidTap), for: .touchUpInside)
         publishButtonContainer.addSubview(publishButton)
         publishButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
@@ -373,7 +373,7 @@ class GameEditorViewController: UIViewController {
         gameSettingsButton.addTarget(self, action: #selector(gameSettingsButtonDidTap), for: .touchUpInside)
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
         gameSettingsButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
@@ -750,7 +750,7 @@ extension GameEditorViewController {
         } else { // 直接读取资源包中的内容偏移量
 
             var contentOffset: CGPoint = gameBundle.contentOffset
-            if contentOffset == GlobalViewLayoutConstants.defaultGameboardViewContentOffset {
+            if contentOffset == GVC.defaultGameboardViewContentOffset {
                 contentOffset = CGPoint(x: (ViewLayoutConstants.gameboardViewWidth - view.bounds.width) / 2, y: (ViewLayoutConstants.gameboardViewHeight - view.bounds.height) / 2) // 当前作品板居中
             }
             gameboardViewContainer.contentOffset = contentOffset
@@ -1297,7 +1297,7 @@ extension GameEditorViewController {
 
             guard let strongSelf = self else { return }
 
-            textField.font = .systemFont(ofSize: GlobalViewLayoutConstants.alertTextFieldFontSize, weight: .regular)
+            textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
             textField.text = strongSelf.gameBundle.selectedScene()?.title
             textField.returnKeyType = .done
             textField.delegate = self

@@ -27,7 +27,7 @@ class SceneEmulatorProgressBarView: UIView {
     private func initSubviews() {
 
         isUserInteractionEnabled = false
-        layer.backgroundColor = GlobalViewLayoutConstants.defaultSceneControlBackgroundColor.cgColor
+        layer.backgroundColor = GVC.defaultSceneControlBackgroundColor.cgColor
 
         maskLayer = CAShapeLayer()
         layer.mask = maskLayer

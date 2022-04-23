@@ -20,7 +20,7 @@ class NodeItemBarView: UIView {
     var contentView: NodeItemContentView!
 
     var width: CGFloat {
-        return contentView.width + GlobalViewLayoutConstants.timelineItemEarViewWidth * 2
+        return contentView.width + GVC.timelineItemEarViewWidth * 2
     } // 视图宽度
 
     private var nodeType: MetaNodeType!
@@ -50,7 +50,7 @@ class NodeItemBarView: UIView {
         leftEarView = NodeItemEarView(direction: .left, tintColor: nodeTypeBackgroundColor)
         addSubview(leftEarView)
         leftEarView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(GlobalViewLayoutConstants.timelineItemEarViewWidth)
+            make.width.equalTo(GVC.timelineItemEarViewWidth)
             make.height.equalTo(ViewLayoutConstants.height)
             make.left.top.equalToSuperview()
         }
@@ -89,7 +89,7 @@ extension NodeItemBarView {
         }
 
         rightEarView.snp.remakeConstraints { make -> Void in
-            make.width.equalTo(GlobalViewLayoutConstants.timelineItemEarViewWidth)
+            make.width.equalTo(GVC.timelineItemEarViewWidth)
             make.height.equalTo(leftEarView)
             make.left.equalTo(contentView.snp.right)
         }

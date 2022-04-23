@@ -8,11 +8,15 @@ import UIKit
 
 class RoundedView: UIView {
 
+    // 视图
+
+    /// 遮罩图层
     private(set) lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
         return $0
     }(CAShapeLayer())
 
+    /// 重写边框大小
     override var bounds: CGRect {
         set {
             super.bounds = newValue
@@ -33,15 +37,20 @@ class RoundedView: UIView {
         }
     }
 
+    /// 圆角
     var cornerRadius: CGFloat!
 
-    init(cornerRadius: CGFloat = GlobalViewLayoutConstants.defaultViewCornerRadius) {
+    // 生命周期
+
+    /// 初始化
+    init(cornerRadius: CGFloat = GVC.defaultViewCornerRadius) {
 
         super.init(frame: .zero)
 
         self.cornerRadius = cornerRadius
     }
 
+    /// 初始化
     init(frame: CGRect, cornerRadius: CGFloat) {
 
         super.init(frame: frame)

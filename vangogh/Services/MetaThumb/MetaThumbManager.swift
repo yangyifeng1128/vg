@@ -61,7 +61,7 @@ class MetaThumbManager: NSObject {
 
     private func getThumbImageFilesRootDirectoryURL(gameUUID: String) -> URL {
 
-        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.editorDirectoryName).appendingPathComponent(gameUUID).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName).appendingPathComponent(GlobalKeyConstants.thumbImageFilesDirectoryName)
+        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GKC.editorDirectoryName).appendingPathComponent(gameUUID).appendingPathComponent(GKC.sourceDirectoryName).appendingPathComponent(GKC.thumbImageFilesDirectoryName)
         var isDirectory: ObjCBool = true
         if !FileManager.default.fileExists(atPath: rootDirectoryURL.path, isDirectory: &isDirectory) {
             try? FileManager.default.createDirectory(at: rootDirectoryURL, withIntermediateDirectories: true, attributes: nil)

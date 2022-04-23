@@ -153,7 +153,7 @@ class TargetAssetsViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -231,7 +231,7 @@ class TargetAssetsViewController: UIViewController {
         let cellSpacing = ViewLayoutConstants.collectionViewCellSpacing
 
         let cellWidth: CGFloat = ((view.bounds.width - ViewLayoutConstants.collectionViewInsetX * 2 - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        let cellHeight: CGFloat = (cellWidth / GlobalViewLayoutConstants.defaultSceneAspectRatio).rounded(.down)
+        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
         thumbSize = CGSize(width: cellWidth, height: cellHeight)
     }

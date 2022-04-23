@@ -117,7 +117,7 @@ class PublicationViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -153,7 +153,7 @@ class PublicationViewController: UIViewController {
         gameSettingsButton.addTarget(self, action: #selector(gameSettingsButtonDidTap), for: .touchUpInside)
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
         gameSettingsButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.left.equalToSuperview().offset(ViewLayoutConstants.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
@@ -161,7 +161,7 @@ class PublicationViewController: UIViewController {
 
     private func initPublishButton() {
 
-        publishButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        publishButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         publishButton.backgroundColor = .secondarySystemGroupedBackground
         publishButton.contentHorizontalAlignment = .center
         publishButton.contentVerticalAlignment = .center
@@ -264,7 +264,7 @@ extension PublicationViewController: UICollectionViewDataSource {
 
             // 准备缩略图视图
 
-            let thumbURL = URL(string: "\(GlobalURLConstants.templateThumbsBaseURLString)/\(archive.thumbFileName)")!
+            let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(archive.thumbFileName)")!
             cell.thumbImageView.kf.setImage(with: thumbURL)
         }
 
@@ -303,7 +303,7 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
         let cellSpacing = ViewLayoutConstants.archiveCollectionViewCellSpacing
 
         archiveCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        archiveCollectionViewCellHeight = (archiveCollectionViewCellWidth / GlobalViewLayoutConstants.defaultSceneAspectRatio).rounded(.down)
+        archiveCollectionViewCellHeight = (archiveCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
         return CGSize(width: archiveCollectionViewCellWidth, height: archiveCollectionViewCellHeight)
     }
@@ -376,7 +376,7 @@ extension PublicationViewController {
 
     private func syncArchives(completion handler: (() -> Void)? = nil) {
 
-        let archivesURL = URL(string: "\(GlobalURLConstants.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
+        let archivesURL = URL(string: "\(GUC.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
 
         URLSession.shared.dataTask(with: archivesURL) { data, _, error in
 

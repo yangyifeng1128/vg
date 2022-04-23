@@ -26,7 +26,7 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
         set {
             super.bounds = newValue
             maskLayer.frame = newValue
-            let newPath: CGPath = UIBezierPath(roundedRect: newValue, cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius).cgPath
+            let newPath: CGPath = UIBezierPath(roundedRect: newValue, cornerRadius: GVC.defaultViewCornerRadius).cgPath
             if let animation = self.layer.animation(forKey: "bounds.size")?.copy() as? CABasicAnimation {
                 animation.keyPath = "path"
                 animation.fromValue = maskLayer.path
@@ -63,7 +63,7 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
 
     private func initSubviews() {
 
-        contentView.backgroundColor = GlobalViewLayoutConstants.defaultViewBackgroundColor
+        contentView.backgroundColor = GVC.defaultViewBackgroundColor
 
         // 添加缩略图视图
 

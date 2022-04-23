@@ -109,7 +109,7 @@ class AgreementsViewController: UIViewController {
             make.left.bottom.equalToSuperview()
         }
 
-        disagreeButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        disagreeButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         disagreeButton.tintColor = .secondaryLabel
         disagreeButton.setTitle(NSLocalizedString("Disagree", comment: ""), for: .normal)
         disagreeButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.disagreeButtonTitleLabelFontSize, weight: .regular)
@@ -122,7 +122,7 @@ class AgreementsViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-8)
         }
 
-        agreeButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        agreeButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         agreeButton.backgroundColor = .accent
         agreeButton.tintColor = .white
         agreeButton.setTitle(NSLocalizedString("Agree", comment: ""), for: .normal)

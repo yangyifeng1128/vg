@@ -51,7 +51,7 @@ class AddSceneIndicatorView: UIView {
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
 
         contentView = RoundedView()
-        contentView.backgroundColor = GlobalViewLayoutConstants.addSceneViewBackgroundColor
+        contentView.backgroundColor = GVC.addSceneViewBackgroundColor
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalTo(ViewLayoutConstants.width - ViewLayoutConstants.closeButtonWidth / 2)

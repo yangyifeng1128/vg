@@ -45,7 +45,7 @@ class GameEditorWillAddSceneBottomView: UIView {
     private func initSubviews() {
 
         contentView = UIView()
-        contentView.backgroundColor = GlobalViewLayoutConstants.addSceneViewBackgroundColor
+        contentView.backgroundColor = GVC.addSceneViewBackgroundColor
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()

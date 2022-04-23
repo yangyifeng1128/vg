@@ -142,7 +142,7 @@ class GameEditorSceneBottomView: BorderedView {
             make.top.equalTo(closeSceneButton).offset(14)
         }
 
-        previewSceneButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        previewSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         previewSceneButton.backgroundColor = .accent
         previewSceneButton.tintColor = .white
         previewSceneButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
@@ -162,7 +162,7 @@ class GameEditorSceneBottomView: BorderedView {
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        editSceneButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        editSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         editSceneButton.backgroundColor = .secondarySystemBackground
         editSceneButton.tintColor = .mgLabel
         editSceneButton.setTitle(NSLocalizedString("EditScene", comment: ""), for: .normal)

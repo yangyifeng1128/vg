@@ -65,7 +65,7 @@ class GameScannerTorchButton: UIButton {
 
         setToggled()
 
-        backgroundColor = GlobalViewLayoutConstants.defaultSceneControlBackgroundColor
+        backgroundColor = GVC.defaultSceneControlBackgroundColor
         adjustsImageWhenHighlighted = false
     }
 

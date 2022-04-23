@@ -64,11 +64,11 @@ class GameSettingTableThumbImageViewCell: UITableViewCell {
 
         // 准备缩略图视图
 
-        thumbImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
         let thumbImageViewHeight: CGFloat = GameSettingTableThumbImageViewCell.ViewLayoutConstants.thumbImageViewHeight
-        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GlobalViewLayoutConstants.defaultSceneAspectRatio
+        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         thumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
             make.height.equalTo(thumbImageViewHeight)

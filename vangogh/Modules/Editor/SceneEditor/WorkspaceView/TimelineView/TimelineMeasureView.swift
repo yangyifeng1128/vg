@@ -103,11 +103,11 @@ class TimelineMeasureLayer: CALayer {
         }
 
         let measureLayerWidth: CGFloat = bounds.width - UIScreen.main.bounds.width
-        let totalMarkCount: Int = Int(ceil(measureLayerWidth / GlobalValueConstants.defaultTimelineItemWidthPerSecond))
+        let totalMarkCount: Int = Int(ceil(measureLayerWidth / GVC.defaultTimelineItemWidthPerSecond))
 
         for i in 0...totalMarkCount {
 
-            let markOffsetX: CGFloat = GlobalValueConstants.defaultTimelineItemWidthPerSecond * CGFloat(i) + GlobalViewLayoutConstants.timelineItemEarViewWidth
+            let markOffsetX: CGFloat = GVC.defaultTimelineItemWidthPerSecond * CGFloat(i) + GVC.timelineItemEarViewWidth
             let markOrigin: CGPoint = CGPoint(x: markOffsetX - TimelineMeasureView.ViewLayoutConstants.markWidth / 2, y: 0)
 
             let mark: TimelineMeasureMark = (i % 5 == 0) ? majorMark : minorMark
@@ -117,7 +117,7 @@ class TimelineMeasureLayer: CALayer {
             context.fill(rect)
 
             if i % 5 == 0 {
-                let timeString: String = CMTimeMakeWithSeconds(Double(i), preferredTimescale: GlobalValueConstants.preferredTimescale).toString()
+                let timeString: String = CMTimeMakeWithSeconds(Double(i), preferredTimescale: GVC.preferredTimescale).toString()
                 let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray, .font: UIFont.systemFont(ofSize: TimelineMeasureView.ViewLayoutConstants.majorMarkTimeStringFontSize, weight: .regular)]
                 let attributedString: NSAttributedString = NSAttributedString(string: timeString, attributes: attributes)
                 let attributedStringSize: CGSize = attributedString.size()

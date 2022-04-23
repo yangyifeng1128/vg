@@ -80,11 +80,11 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
 
         // 添加缩略图视图
 
-        endSceneThumbImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        endSceneThumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneThumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(endSceneThumbImageView)
         let thumbImageViewHeight: CGFloat = GameEditorSceneBottomView.ViewLayoutConstants.transitionTableViewCellHeight - 16
-        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GlobalViewLayoutConstants.defaultSceneAspectRatio
+        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         endSceneThumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
             make.height.equalTo(thumbImageViewHeight)

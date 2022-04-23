@@ -3,16 +3,6 @@
     {
       "filename" : "game_background_thumb.jpg",
       "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "game_background_thumb_dark.jpg",
-      "idiom" : "universal"
     }
   ],
   "info" : {

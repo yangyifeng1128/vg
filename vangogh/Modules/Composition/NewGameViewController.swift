@@ -127,7 +127,7 @@ class NewGameViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -148,7 +148,7 @@ class NewGameViewController: UIViewController {
 
     private func initNewBlankGameButton() {
 
-        newBlankGameButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        newBlankGameButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         newBlankGameButton.backgroundColor = .secondarySystemGroupedBackground
         newBlankGameButton.contentHorizontalAlignment = .center
         newBlankGameButton.contentVerticalAlignment = .center
@@ -254,7 +254,7 @@ extension NewGameViewController: UICollectionViewDataSource {
 
             // 准备缩略图视图
 
-            let thumbURL = URL(string: "\(GlobalURLConstants.templateThumbsBaseURLString)/\(template.thumbFileName)")!
+            let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(template.thumbFileName)")!
             cell.thumbImageView.kf.setImage(with: thumbURL)
         }
 
@@ -303,7 +303,7 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
         let cellSpacing = ViewLayoutConstants.templateCollectionViewCellSpacing
 
         templateCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        templateCollectionViewCellHeight = (templateCollectionViewCellWidth / GlobalViewLayoutConstants.defaultSceneAspectRatio).rounded(.down)
+        templateCollectionViewCellHeight = (templateCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
         return CGSize(width: templateCollectionViewCellWidth, height: templateCollectionViewCellHeight)
     }
@@ -397,9 +397,9 @@ extension NewGameViewController {
         game.uuid = UUID().uuidString.lowercased()
         game.ctime = Int64(Date().timeIntervalSince1970)
         game.mtime = game.ctime
-        var counter: Int = UserDefaults.standard.integer(forKey: GlobalKeyConstants.localGamesCounter)
+        var counter: Int = UserDefaults.standard.integer(forKey: GKC.localGamesCounter)
         counter = counter + 1
-        UserDefaults.standard.setValue(counter, forKey: GlobalKeyConstants.localGamesCounter)
+        UserDefaults.standard.setValue(counter, forKey: GKC.localGamesCounter)
         game.title = NSLocalizedString("Draft", comment: "") + " " + counter.description
         game.status = 1
         games.append(game)
@@ -416,7 +416,7 @@ extension NewGameViewController {
 
     private func syncTemplates(completion handler: (() -> Void)? = nil) {
 
-        let templatesURL = URL(string: "\(GlobalURLConstants.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
+        let templatesURL = URL(string: "\(GUC.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
 
         URLSession.shared.dataTask(with: templatesURL) { data, _, error in
 

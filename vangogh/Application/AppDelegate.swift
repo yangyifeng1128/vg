@@ -4,7 +4,7 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import CoreData
+import OSLog
 import UIKit
 
 @main
@@ -62,10 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
 
-        print("Handle events for background URL session: \(identifier)")
-
-        if identifier == GlobalKeyConstants.downloadTemplatesURLSessionIdentifier {
+        if identifier == GKC.downloadTemplatesURLSessionIdentifier {
             backgroundCompletionHandler = completionHandler
         }
+
+        Logger.application.info("handling events for background URL session: \(identifier)")
     }
 }

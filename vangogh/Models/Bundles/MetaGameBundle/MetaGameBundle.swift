@@ -12,7 +12,7 @@ class MetaGameBundle: Codable {
 
     var selectedSceneIndex: Int = 0
     var maxSceneIndex: Int = 0
-    var contentOffset: CGPoint = GlobalViewLayoutConstants.defaultGameboardViewContentOffset {
+    var contentOffset: CGPoint = GVC.defaultGameboardViewContentOffset {
         didSet {
             let snappedContentOffset: CGPoint = CGPoint(x: contentOffset.x.rounded(), y: contentOffset.y.rounded())
             contentOffset = snappedContentOffset

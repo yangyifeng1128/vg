@@ -23,7 +23,7 @@ class SceneRendererView: RoundedImageView {
     init(renderScale: CGFloat) {
 
         self.renderScale = renderScale
-        super.init(cornerRadius: GlobalViewLayoutConstants.standardDeviceCornerRadius * renderScale)
+        super.init(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
         
         backgroundColor = .black
     }

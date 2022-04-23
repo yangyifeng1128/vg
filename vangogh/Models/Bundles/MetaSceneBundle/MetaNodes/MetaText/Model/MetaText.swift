@@ -36,7 +36,7 @@ class MetaText: MetaNode {
         case foregroundColorCode = "foreground_color_code"
     }
 
-    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .text, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GlobalValueConstants.defaultNodeItemDurationMilliseconds, info: String = MetaNodeValueConstants.defaultTextInfo, center: CGPoint = MetaNodeValueConstants.defaultTextCenter, size: CGSize = MetaNodeValueConstants.defaultTextSize, fontSize: CGFloat = MetaNodeValueConstants.defaultTextFontSize, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode, foregroundColorCode: [Decimal] = MetaNodeValueConstants.defaultTextForegroundColorCode) {
+    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .text, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GVC.defaultNodeItemDurationMilliseconds, info: String = MetaNodeValueConstants.defaultTextInfo, center: CGPoint = MetaNodeValueConstants.defaultTextCenter, size: CGSize = MetaNodeValueConstants.defaultTextSize, fontSize: CGFloat = MetaNodeValueConstants.defaultTextFontSize, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultNodeBackgroundColorCode, foregroundColorCode: [Decimal] = MetaNodeValueConstants.defaultTextForegroundColorCode) {
 
         self.index = index
         self.uuid = uuid

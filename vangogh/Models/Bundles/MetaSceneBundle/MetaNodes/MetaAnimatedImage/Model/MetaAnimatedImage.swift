@@ -29,7 +29,7 @@ class MetaAnimatedImage: MetaNode {
         case backgroundColorCode = "background_color_code"
     }
 
-    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .animatedImage, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GlobalValueConstants.defaultNodeItemDurationMilliseconds, center: CGPoint = MetaNodeValueConstants.defaultAnimatedImageCenter, size: CGSize = MetaNodeValueConstants.defaultAnimatedImageSize, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultAnimatedImageBackgroundColorCode) {
+    init(index: Int, uuid: String = UUID().uuidString.lowercased(), nodeType: MetaNodeType = .animatedImage, startTimeMilliseconds: Int64 = 0, durationMilliseconds: Int64 = GVC.defaultNodeItemDurationMilliseconds, center: CGPoint = MetaNodeValueConstants.defaultAnimatedImageCenter, size: CGSize = MetaNodeValueConstants.defaultAnimatedImageSize, backgroundColorCode: [Decimal] = MetaNodeValueConstants.defaultAnimatedImageBackgroundColorCode) {
 
         self.index = index
         self.uuid = uuid

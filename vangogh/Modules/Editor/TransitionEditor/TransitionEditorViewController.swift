@@ -133,7 +133,7 @@ class TransitionEditorViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -174,7 +174,7 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalToSuperview().offset(ViewLayoutConstants.diagramSceneViewTopOffset + ViewLayoutConstants.diagramSceneViewHeight / 2 - ViewLayoutConstants.diagramArrowViewHeight / 2)
         }
 
-        let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         startSceneView.contentMode = .scaleAspectFill
         startSceneView.image = .sceneBackgroundThumb
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -227,7 +227,7 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalTo(startSceneView.snp.bottom).offset(8)
         }
 
-        let endSceneView: RoundedImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        let endSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneView.contentMode = .scaleAspectFill
         endSceneView.image = .sceneBackgroundThumb
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -283,7 +283,7 @@ class TransitionEditorViewController: UIViewController {
 
     private func initAddConditionButton() {
 
-        addConditionButton = RoundedButton(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        addConditionButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         addConditionButton.backgroundColor = .secondarySystemGroupedBackground
         addConditionButton.tintColor = .mgLabel
         addConditionButton.setTitle(NSLocalizedString("AddCondition", comment: ""), for: .normal)

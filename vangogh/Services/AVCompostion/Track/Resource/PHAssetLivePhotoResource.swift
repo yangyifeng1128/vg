@@ -16,7 +16,7 @@ public class PHAssetLivePhotoResource: AVAssetTrackResource {
         super.init()
 
         self.phasset = phasset
-        let duration = CMTimeMakeWithSeconds(phasset.duration, preferredTimescale: GlobalValueConstants.preferredTimescale)
+        let duration = CMTimeMakeWithSeconds(phasset.duration, preferredTimescale: GVC.preferredTimescale)
         selectedTimeRange = CMTimeRange(start: CMTime.zero, duration: duration)
     }
 

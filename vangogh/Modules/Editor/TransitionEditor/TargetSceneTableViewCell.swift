@@ -44,11 +44,11 @@ class TargetSceneTableViewCell: UITableViewCell {
 
         // 添加缩略图视图
 
-        thumbImageView = RoundedImageView(cornerRadius: GlobalViewLayoutConstants.defaultViewCornerRadius)
+        thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
         let thumbImageViewHeight: CGFloat = TargetScenesViewController.ViewLayoutConstants.targetSceneTableViewCellHeight - 16
-        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GlobalViewLayoutConstants.defaultSceneAspectRatio
+        let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         thumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
             make.height.equalTo(thumbImageViewHeight)

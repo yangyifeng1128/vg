@@ -121,7 +121,7 @@ class SceneEmulatorViewController: UIViewController {
         } else { // 不重新加载播放器，但是需要重新定位播放时刻
 
             if let player = player {
-                player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+                player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
             }
         }
     }
@@ -216,7 +216,7 @@ class SceneEmulatorViewController: UIViewController {
         var renderAlignment: ScenePlayerView.RenderAlignment
         if isSceneBundleEmpty() {
             renderHeight = UIScreen.main.bounds.height
-            renderWidth = renderHeight * GlobalViewLayoutConstants.defaultSceneAspectRatio
+            renderWidth = renderHeight * GVC.defaultSceneAspectRatio
             renderAlignment = .center
         } else {
             if UIDevice.current.userInterfaceIdiom == .phone { // 如果是手机设备
@@ -250,7 +250,7 @@ class SceneEmulatorViewController: UIViewController {
         loadingView = LoadingView()
         view.addSubview(loadingView)
         loadingView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(LoadingView.ViewLayoutConstants.width)
+            make.width.height.equalTo(LoadingView.VC.width)
             make.center.equalToSuperview()
         }
     }
@@ -271,11 +271,11 @@ class SceneEmulatorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
-        closeButton = CircleNavigationBarButton(icon: .close, backgroundColor: GlobalViewLayoutConstants.defaultSceneControlBackgroundColor, tintColor: .white)
+        closeButton = CircleNavigationBarButton(icon: .close, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
         closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
         closeButtonContainer.addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
     }
@@ -384,7 +384,7 @@ extension SceneEmulatorViewController: SceneEmulatorProgressViewDelegate {
         if let duration = player.currentItem?.duration {
 
             let currentTimeMilliseconds: Int64 = Int64((duration.seconds * 1000 * value / SceneEmulatorProgressView.maximumValue).rounded())
-            player.seek(to: CMTimeMake(value: currentTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+            player.seek(to: CMTimeMake(value: currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
         }
     }
 }
@@ -417,7 +417,7 @@ extension SceneEmulatorViewController {
                 NotificationCenter.default.removeObserver(strongSelf) // 移除其他全部监听器
                 strongSelf.player.replaceCurrentItem(with: strongSelf.playerItem)
             }
-            strongSelf.player.seek(to: CMTimeMake(value: strongSelf.sceneBundle.currentTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+            strongSelf.player.seek(to: CMTimeMake(value: strongSelf.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
             strongSelf.addPeriodicTimeObserver() // 添加「周期时间」监听器
             NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.playerItemDidPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: strongSelf.player.currentItem) // 添加「播放完毕」监听器
             NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil) // 添加「进入后台」监听器
@@ -451,7 +451,7 @@ extension SceneEmulatorViewController {
                 let footageURL: URL = MetaSceneBundleManager.shared.getMetaImageFootageFileURL(footageUUID: footage.uuid, sceneUUID: sceneBundle.sceneUUID, gameUUID: sceneBundle.gameUUID)
 
                 if let image = CIImage(contentsOf: footageURL) {
-                    let resource: ImageResource = ImageResource(image: image, duration: CMTimeMake(value: footage.durationMilliseconds, timescale: GlobalValueConstants.preferredTimescale))
+                    let resource: ImageResource = ImageResource(image: image, duration: CMTimeMake(value: footage.durationMilliseconds, timescale: GVC.preferredTimescale))
                     trackItem = TrackItem(resource: resource)
                 }
 
@@ -461,7 +461,7 @@ extension SceneEmulatorViewController {
 
                 let asset: AVAsset = AVAsset(url: footageURL)
                 let resource: AVAssetTrackResource = AVAssetTrackResource(asset: asset)
-                resource.selectedTimeRange = CMTimeRange(start: CMTimeMake(value: footage.leftMarkTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), duration: CMTimeMake(value: footage.durationMilliseconds, timescale: GlobalValueConstants.preferredTimescale))
+                resource.selectedTimeRange = CMTimeRange(start: CMTimeMake(value: footage.leftMarkTimeMilliseconds, timescale: GVC.preferredTimescale), duration: CMTimeMake(value: footage.durationMilliseconds, timescale: GVC.preferredTimescale))
                 trackItem = TrackItem(resource: resource)
             }
 

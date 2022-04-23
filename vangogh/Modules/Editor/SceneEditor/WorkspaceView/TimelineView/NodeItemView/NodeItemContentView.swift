@@ -19,10 +19,10 @@ class NodeItemContentView: UIView {
     var startTime: CMTime! // 开始时刻
     var endTime: CMTime! // 结束时刻
 
-    var minDuration: CMTime = CMTimeMake(value: GlobalValueConstants.minNodeItemDurationMilliseconds, timescale: GlobalValueConstants.preferredTimescale) // 最小时长
+    var minDuration: CMTime = CMTimeMake(value: GVC.minNodeItemDurationMilliseconds, timescale: GVC.preferredTimescale) // 最小时长
 
     var width: CGFloat {
-        return (GlobalValueConstants.defaultTimelineItemWidthPerSecond * (endTime.seconds - startTime.seconds)).rounded()
+        return (GVC.defaultTimelineItemWidthPerSecond * (endTime.seconds - startTime.seconds)).rounded()
     } // 视图宽度
 
     private var previousSnappedTimeMilliseconds: Int64 = -1 // 先前对齐的边缘时刻
@@ -55,7 +55,7 @@ extension NodeItemContentView {
 
     func expand(translationOffsetX: CGFloat, withLeftEar: Bool) {
 
-        let translationDurationMilliseconds: Int64 = Int64((translationOffsetX * 1000 / GlobalValueConstants.defaultTimelineItemWidthPerSecond).rounded())
+        let translationDurationMilliseconds: Int64 = Int64((translationOffsetX * 1000 / GVC.defaultTimelineItemWidthPerSecond).rounded())
 
         if withLeftEar {
 
@@ -65,7 +65,7 @@ extension NodeItemContentView {
 
             guard let snappedTimeMillisecondsPool = UserDefaults.standard.array(forKey: "snappedTimeMillisecondsPool") as? [Int64] else { return }
             for snappedTimeMilliseconds in snappedTimeMillisecondsPool {
-                if abs(startTimeMilliseconds - snappedTimeMilliseconds) <= GlobalValueConstants.snappedTimeMillisecondsThreshold {
+                if abs(startTimeMilliseconds - snappedTimeMilliseconds) <= GVC.snappedTimeMillisecondsThreshold {
                     startTimeMilliseconds = snappedTimeMilliseconds
                     if snappedTimeMilliseconds != previousSnappedTimeMilliseconds {
                         UIImpactFeedbackGenerator().impactOccurred()
@@ -74,7 +74,7 @@ extension NodeItemContentView {
                     break
                 }
             }
-            if abs(startTimeMilliseconds - previousSnappedTimeMilliseconds) > GlobalValueConstants.snappedTimeMillisecondsThreshold {
+            if abs(startTimeMilliseconds - previousSnappedTimeMilliseconds) > GVC.snappedTimeMillisecondsThreshold {
                 previousSnappedTimeMilliseconds = -1
             }
 
@@ -82,7 +82,7 @@ extension NodeItemContentView {
 
             startTimeMilliseconds = min(max(0, startTimeMilliseconds), endTime.milliseconds() - minDuration.milliseconds())
 
-            startTime = CMTimeMake(value: startTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+            startTime = CMTimeMake(value: startTimeMilliseconds, timescale: GVC.preferredTimescale)
 
         } else {
 
@@ -92,7 +92,7 @@ extension NodeItemContentView {
 
             guard let snappedTimeMillisecondsPool = UserDefaults.standard.array(forKey: "snappedTimeMillisecondsPool") as? [Int64] else { return }
             for snappedTimeMilliseconds in snappedTimeMillisecondsPool {
-                if abs(endTimeMilliseconds - snappedTimeMilliseconds) <= GlobalValueConstants.snappedTimeMillisecondsThreshold {
+                if abs(endTimeMilliseconds - snappedTimeMilliseconds) <= GVC.snappedTimeMillisecondsThreshold {
                     endTimeMilliseconds = snappedTimeMilliseconds
                     if snappedTimeMilliseconds != previousSnappedTimeMilliseconds {
                         UIImpactFeedbackGenerator().impactOccurred()
@@ -101,7 +101,7 @@ extension NodeItemContentView {
                     break
                 }
             }
-            if abs(endTimeMilliseconds - previousSnappedTimeMilliseconds) > GlobalValueConstants.snappedTimeMillisecondsThreshold {
+            if abs(endTimeMilliseconds - previousSnappedTimeMilliseconds) > GVC.snappedTimeMillisecondsThreshold {
                 previousSnappedTimeMilliseconds = -1
             }
 
@@ -109,7 +109,7 @@ extension NodeItemContentView {
 
             endTimeMilliseconds = max(endTimeMilliseconds, startTime.milliseconds() + minDuration.milliseconds())
 
-            endTime = CMTimeMake(value: endTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+            endTime = CMTimeMake(value: endTimeMilliseconds, timescale: GVC.preferredTimescale)
         }
     }
 }

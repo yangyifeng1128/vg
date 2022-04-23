@@ -46,9 +46,9 @@ class ScenePlayerView: UIView {
 
         var multiplier: CGFloat = 1
         if UIDevice.current.userInterfaceIdiom == .pad {
-            multiplier = 768 / GlobalViewLayoutConstants.standardDeviceSize.width // 计算 multiplier，以兼容不同设备（phone、pad）之间的标准设备尺寸
+            multiplier = 768 / GVC.standardDeviceSize.width // 计算 multiplier，以兼容不同设备（phone、pad）之间的标准设备尺寸
         }
-        renderScale = (renderSize.height / (GlobalViewLayoutConstants.standardDeviceSize.height * multiplier)).rounded(toPlaces: 4) // 以高度为基准，计算渲染缩放比例
+        renderScale = (renderSize.height / (GVC.standardDeviceSize.height * multiplier)).rounded(toPlaces: 4) // 以高度为基准，计算渲染缩放比例
 
         // 初始化子视图
 
@@ -95,7 +95,7 @@ class ScenePlayerView: UIView {
 
         // 初始化组件视图
 
-        nodeViewContainer = RoundedView(cornerRadius: GlobalViewLayoutConstants.standardDeviceCornerRadius * renderScale)
+        nodeViewContainer = RoundedView(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
         addSubview(nodeViewContainer)
         nodeViewContainer.snp.makeConstraints { make -> Void in
             make.edges.equalTo(rendererView)

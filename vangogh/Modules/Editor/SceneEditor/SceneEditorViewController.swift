@@ -136,7 +136,7 @@ class SceneEditorViewController: UIViewController {
         } else { // 不重新加载播放器
 
             if let player = player {
-                player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero) // 但是需要重新定位播放时刻
+                player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero) // 但是需要重新定位播放时刻
             }
         }
     }
@@ -231,7 +231,7 @@ class SceneEditorViewController: UIViewController {
         closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
         closeButtonContainer.addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
 
@@ -254,7 +254,7 @@ class SceneEditorViewController: UIViewController {
         saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         saveButtonContainer.addSubview(saveButton)
         saveButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
@@ -278,7 +278,7 @@ class SceneEditorViewController: UIViewController {
         sceneSettingsButton.addTarget(self, action: #selector(sceneSettingsButtonDidTap), for: .touchUpInside)
         sceneSettingsButtonContainer.addSubview(sceneSettingsButton)
         sceneSettingsButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.ViewLayoutConstants.width)
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
         }
@@ -398,7 +398,7 @@ class SceneEditorViewController: UIViewController {
         loadingView = LoadingView()
         playerView.addSubview(loadingView)
         loadingView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(LoadingView.ViewLayoutConstants.width)
+            make.width.height.equalTo(LoadingView.VC.width)
             make.center.equalToSuperview()
         }
 
@@ -753,7 +753,7 @@ extension SceneEditorViewController: TimelineToolBarViewDelegate, AddNodeItemVie
 
             // 重新定位播放时刻
 
-            player.seek(to: CMTimeMake(value: node.startTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+            player.seek(to: CMTimeMake(value: node.startTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
 
             // 展示「编辑组件项」 Sheet 视图控制器
 
@@ -937,7 +937,7 @@ extension SceneEditorViewController {
                 NotificationCenter.default.removeObserver(strongSelf) // 移除其他全部监听器
                 strongSelf.player.replaceCurrentItem(with: strongSelf.playerItem)
             }
-            strongSelf.player.seek(to: CMTimeMake(value: strongSelf.sceneBundle.currentTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+            strongSelf.player.seek(to: CMTimeMake(value: strongSelf.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
             strongSelf.addPeriodicTimeObserver() // 添加「周期时间」监听器
             NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.playerItemDidPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: strongSelf.player.currentItem) // 添加「播放完毕」监听器
             NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil) // 添加「进入后台」监听器
@@ -965,7 +965,7 @@ extension SceneEditorViewController {
                 let footageURL: URL = MetaSceneBundleManager.shared.getMetaImageFootageFileURL(footageUUID: footage.uuid, sceneUUID: sceneBundle.sceneUUID, gameUUID: sceneBundle.gameUUID)
 
                 if let image = CIImage(contentsOf: footageURL) {
-                    let resource: ImageResource = ImageResource(image: image, duration: CMTimeMake(value: footage.durationMilliseconds - footage.leftMarkTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale))
+                    let resource: ImageResource = ImageResource(image: image, duration: CMTimeMake(value: footage.durationMilliseconds - footage.leftMarkTimeMilliseconds, timescale: GVC.preferredTimescale))
                     trackItem = TrackItem(resource: resource)
                 }
 
@@ -975,7 +975,7 @@ extension SceneEditorViewController {
 
                 let asset: AVAsset = AVAsset(url: footageURL)
                 let resource: AVAssetTrackResource = AVAssetTrackResource(asset: asset)
-                resource.selectedTimeRange = CMTimeRange(start: CMTimeMake(value: footage.leftMarkTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale), duration: CMTimeMake(value: footage.durationMilliseconds, timescale: GlobalValueConstants.preferredTimescale))
+                resource.selectedTimeRange = CMTimeRange(start: CMTimeMake(value: footage.leftMarkTimeMilliseconds, timescale: GVC.preferredTimescale), duration: CMTimeMake(value: footage.durationMilliseconds, timescale: GVC.preferredTimescale))
                 trackItem = TrackItem(resource: resource)
             }
 
@@ -1024,7 +1024,7 @@ extension SceneEditorViewController {
         }
 
         playerView.updateNodeViews(nodes: sceneBundle.nodes)
-        playerView.showOrHideNodeViews(at: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale))
+        playerView.showOrHideNodeViews(at: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale))
         timelineView.updateTrackItemViews(timeline: timeline, footages: sceneBundle.footages)
         timelineView.updateNodeItemViews(nodes: sceneBundle.nodes)
         timelineView.resetBottomView(bottomViewType: .timeline)
@@ -1267,7 +1267,7 @@ extension SceneEditorViewController {
                 MetaSceneBundleManager.shared.deleteMetaFootage(sceneBundle: strongSelf.sceneBundle, footage: footage)
                 DispatchQueue.main.sync {
                     strongSelf.loadingView.startAnimating()
-                    strongSelf.currentTime = CMTimeMake(value: strongSelf.sceneBundle.currentTimeMilliseconds, timescale: GlobalValueConstants.preferredTimescale)
+                    strongSelf.currentTime = CMTimeMake(value: strongSelf.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale)
                     strongSelf.reloadPlayer()
                 }
             }
@@ -1361,7 +1361,7 @@ extension SceneEditorViewController {
 
         let sheetHeight: CGFloat = view.safeAreaInsets.bottom + AddNodeItemViewController.ViewLayoutConstants.height
 
-        presentSheetViewController(controller: addNodeItemVC, sizes: [.fixed(sheetHeight)], cornerRadius: GlobalViewLayoutConstants.bottomSheetViewCornerRadius)
+        presentSheetViewController(controller: addNodeItemVC, sizes: [.fixed(sheetHeight)], cornerRadius: GVC.bottomSheetViewCornerRadius)
     }
 
     private func presentEditNodeItemSheetViewController(node: MetaNode) {
@@ -1392,14 +1392,14 @@ extension SceneEditorViewController {
         // 展示 Sheet 视图控制器
 
         let options: SheetOptions = SheetOptions(
-            pullBarHeight: GlobalViewLayoutConstants.bottomSheetViewPullBarHeight,
+            pullBarHeight: GVC.bottomSheetViewPullBarHeight,
             shouldExtendBackground: true,
             useInlineMode: true
         )
 
         bottomSheetViewController = SheetViewController(controller: controller, sizes: sizes, options: options)
         if let vc = bottomSheetViewController {
-            vc.gripSize = CGSize(width: GlobalViewLayoutConstants.bottomSheetViewGripWidth, height: GlobalViewLayoutConstants.bottomSheetViewGripHeight)
+            vc.gripSize = CGSize(width: GVC.bottomSheetViewGripWidth, height: GVC.bottomSheetViewGripHeight)
             vc.gripColor = .mgLabel
             vc.cornerRadius = cornerRadius
             vc.allowGestureThroughOverlay = true
