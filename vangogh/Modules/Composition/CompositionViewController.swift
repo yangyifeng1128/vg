@@ -6,6 +6,7 @@
 
 import AwaitToast
 import CoreData
+import OSLog
 import SnapKit
 import UIKit
 
@@ -26,10 +27,6 @@ class CompositionViewController: UIViewController {
     private var draftsTitleLabel: UILabel! // 草稿标题标签
     private var draftsTableView: UITableView! // 草稿表格视图
 
-    private var persistentContainer: NSPersistentContainer = {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        return appDelegate!.persistentContainer
-    }() // 持久化容器
     private var games: [NSManagedObject] = [NSManagedObject]() // 作品列表
 
     var gameSavedMessage: String? // 「作品已保存」消息
@@ -277,7 +274,7 @@ extension CompositionViewController: UITableViewDelegate {
         // 保存最近修改时间
 
         game.mtime = Int64(Date().timeIntervalSince1970)
-        saveContext()
+        CoreDataManager.shared.saveContext()
 
         // 跳转至子视图
 
@@ -363,59 +360,59 @@ extension CompositionViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
 
-                guard let strongSelf = self else { return }
+            guard let strongSelf = self else { return }
 
-                // 弹出编辑草稿标题提示框
+            // 弹出编辑草稿标题提示框
 
-                let editDraftTitleAlert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
-                editDraftTitleAlert.addTextField { textField in
-                    textField.text = game.title
-                    textField.font = .systemFont(ofSize: GlobalViewLayoutConstants.alertTextFieldFontSize, weight: .regular)
-                    textField.returnKeyType = .done
-                    textField.delegate = self
+            let editDraftTitleAlert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
+            editDraftTitleAlert.addTextField { textField in
+                textField.text = game.title
+                textField.font = .systemFont(ofSize: GlobalViewLayoutConstants.alertTextFieldFontSize, weight: .regular)
+                textField.returnKeyType = .done
+                textField.delegate = self
+            }
+
+            editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
+                guard let title = editDraftTitleAlert.textFields?.first?.text, !title.isEmpty else {
+                    let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
+                    toast.show()
+                    return
                 }
-
-                editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
-                        guard let title = editDraftTitleAlert.textFields?.first?.text, !title.isEmpty else {
-                            let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
-                            toast.show()
-                            return
-                        }
-                        game.title = title
-                        strongSelf.saveContext()
-                        strongSelf.draftsTableView.reloadData()
-                    })
-
-                editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-                    })
-
-                strongSelf.present(editDraftTitleAlert, animated: true, completion: nil)
+                game.title = title
+                CoreDataManager.shared.saveContext()
+                strongSelf.draftsTableView.reloadData()
             })
+
+            editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            })
+
+            strongSelf.present(editDraftTitleAlert, animated: true, completion: nil)
+        })
 
         // 删除草稿
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
 
-                guard let strongSelf = self else { return }
+            guard let strongSelf = self else { return }
 
-                // 弹出删除草稿提示框
+            // 弹出删除草稿提示框
 
-                let deleteDraftAlert = UIAlertController(title: NSLocalizedString("DeleteGame", comment: ""), message: NSLocalizedString("DeleteGameInfo", comment: ""), preferredStyle: .alert)
+            let deleteDraftAlert = UIAlertController(title: NSLocalizedString("DeleteGame", comment: ""), message: NSLocalizedString("DeleteGameInfo", comment: ""), preferredStyle: .alert)
 
-                deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
-                        strongSelf.deleteGame(index: index)
-                        strongSelf.draftsTableView.reloadData()
-                        strongSelf.showGames()
-                    })
-
-                deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-                    })
-
-                strongSelf.present(deleteDraftAlert, animated: true, completion: nil)
+            deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
+                strongSelf.deleteGame(index: index)
+                strongSelf.draftsTableView.reloadData()
+                strongSelf.showGames()
             })
+
+            deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            })
+
+            strongSelf.present(deleteDraftAlert, animated: true, completion: nil)
+        })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-            })
+        })
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sender
@@ -431,17 +428,18 @@ extension CompositionViewController {
     //
     //
 
+    /// 加载作品
     private func loadGames() {
 
         let request: NSFetchRequest<MetaGame> = MetaGame.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "mtime", ascending: false)]
 
         do {
-            games = try persistentContainer.viewContext.fetch(request)
+            games = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
             draftsTableView.reloadData()
-            print("[Composition] load meta games: ok")
+            Logger.composition.info("loading meta games: ok")
         } catch {
-            print("[Composition] load meta games error: \(error)")
+            Logger.composition.info("loading meta games error: \(error.localizedDescription)")
         }
     }
 
@@ -466,22 +464,10 @@ extension CompositionViewController {
 
         games.remove(at: index)
         draftsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-        persistentContainer.viewContext.delete(game)
-        saveContext()
+        CoreDataManager.shared.persistentContainer.viewContext.delete(game)
+        CoreDataManager.shared.saveContext()
 
-        print("[Composition] delete meta game at index \(index): ok")
-    }
-
-    private func saveContext() {
-
-        if persistentContainer.viewContext.hasChanges {
-            do {
-                try persistentContainer.viewContext.save()
-                print("[Composition] save meta games: ok")
-            } catch {
-                print("[Composition] save meta games error: \(error)")
-            }
-        }
+        Logger.composition.info("delete meta game at index \(index): ok")
     }
 }
 

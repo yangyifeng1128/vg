@@ -35,7 +35,7 @@ class MetaSceneBundleManager: NSObject {
 
     func delete(sceneUUID: String, gameUUID: String) {
 
-        let sceneDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.composerDirectoryName).appendingPathComponent(gameUUID).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName).appendingPathComponent(GlobalKeyConstants.scenesDirectoryName).appendingPathComponent(sceneUUID)
+        let sceneDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.editorDirectoryName).appendingPathComponent(gameUUID).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName).appendingPathComponent(GlobalKeyConstants.scenesDirectoryName).appendingPathComponent(sceneUUID)
         var isDirectory: ObjCBool = true
         if FileManager.default.fileExists(atPath: sceneDirectoryURL.path, isDirectory: &isDirectory) {
             try? FileManager.default.removeItem(at: sceneDirectoryURL)
@@ -107,7 +107,7 @@ class MetaSceneBundleManager: NSObject {
             break
         }
 
-        let footageDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.composerDirectoryName).appendingPathComponent(sceneBundle.gameUUID).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName).appendingPathComponent(GlobalKeyConstants.scenesDirectoryName).appendingPathComponent(sceneBundle.sceneUUID).appendingPathComponent(footage.uuid).appendingPathExtension(footageFileExtension)
+        let footageDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.editorDirectoryName).appendingPathComponent(sceneBundle.gameUUID).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName).appendingPathComponent(GlobalKeyConstants.scenesDirectoryName).appendingPathComponent(sceneBundle.sceneUUID).appendingPathComponent(footage.uuid).appendingPathExtension(footageFileExtension)
         var isDirectory: ObjCBool = true
         if FileManager.default.fileExists(atPath: footageDirectoryURL.path, isDirectory: &isDirectory) {
             try? FileManager.default.removeItem(at: footageDirectoryURL)
@@ -213,7 +213,7 @@ class MetaSceneBundleManager: NSObject {
 
     private func getMetaSceneDirectoryURL(sceneUUID: String, gameUUID: String) -> URL {
 
-        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.composerDirectoryName).appendingPathComponent(gameUUID).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName).appendingPathComponent(GlobalKeyConstants.scenesDirectoryName).appendingPathComponent(sceneUUID)
+        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.editorDirectoryName).appendingPathComponent(gameUUID).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName).appendingPathComponent(GlobalKeyConstants.scenesDirectoryName).appendingPathComponent(sceneUUID)
         var isDirectory: ObjCBool = true
         if !FileManager.default.fileExists(atPath: rootDirectoryURL.path, isDirectory: &isDirectory) {
             try? FileManager.default.createDirectory(at: rootDirectoryURL, withIntermediateDirectories: true, attributes: nil)

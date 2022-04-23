@@ -6,6 +6,7 @@
 
 import CoreData
 import Kingfisher
+import OSLog
 import SnapKit
 import UIKit
 
@@ -31,10 +32,6 @@ class NewGameViewController: UIViewController {
     private var templateCollectionViewCellWidth: CGFloat!
     private var templateCollectionViewCellHeight: CGFloat!
 
-    private var persistentContainer: NSPersistentContainer = {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        return appDelegate!.persistentContainer
-    }() // 持久化容器
     private var games: [NSManagedObject]! // 作品列表
     private var templates: [NSManagedObject] = [NSManagedObject]() // 模版列表
 
@@ -63,10 +60,6 @@ class NewGameViewController: UIViewController {
         // 初始化子视图
 
         initSubviews()
-
-        // 从服务器同步模版
-
-        syncTemplates()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +73,22 @@ class NewGameViewController: UIViewController {
         // 从本地加载模版列表
 
         loadTemplates()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+
+        super.viewDidAppear(animated)
+
+        // 同步模版
+
+        syncTemplates() { [weak self] in
+
+            guard let s = self else { return }
+
+            s.loadTemplates() {
+                s.templatesCollectionView.reloadData()
+            }
+        }
     }
 
     private func initSubviews() {
@@ -259,10 +268,17 @@ extension NewGameViewController: UICollectionViewDelegate {
 
         if let template = templates[indexPath.item] as? MetaTemplate {
 
-            print("[NewGame] did use template: \(template.bundleFileName)")
+            // 添加作品
 
-            let newGame: MetaGame = insertGame()
-            editGame(game: newGame)
+            addGame { [weak self] game in
+
+                guard let s = self else { return }
+
+                // 打开作品编辑器
+
+                s.openGameEditor(game: game)
+                Logger.composition.info("created a new game with template: \(template.title)")
+            }
         }
     }
 }
@@ -329,17 +345,37 @@ extension NewGameViewController {
 
         print("[NewGame] did tap newBlankGameButton")
 
-        let newGame: MetaGame = insertGame()
-        editGame(game: newGame)
+        // 添加作品
+
+        addGame { [weak self] game in
+
+            guard let s = self else { return }
+
+            // 打开作品编辑器
+
+            s.openGameEditor(game: game)
+            Logger.composition.info("created a new blank game")
+        }
     }
 
     @objc private func pullToRefreshTemplates() {
 
-        syncTemplates()
-        templatesCollectionView.refreshControl?.endRefreshing()
+        // 同步模版
+
+        syncTemplates() { [weak self] in
+
+            guard let s = self else { return }
+
+            // 加载模版
+
+            s.loadTemplates() {
+                s.templatesCollectionView.reloadData()
+                s.templatesCollectionView.refreshControl?.endRefreshing()
+            }
+        }
     }
 
-    private func editGame(game: MetaGame) {
+    private func openGameEditor(game: MetaGame) {
 
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: game.uuid) else { return }
 
@@ -355,69 +391,71 @@ extension NewGameViewController {
     //
     //
 
-    private func insertGame() -> MetaGame {
+    private func addGame(completion handler: ((MetaGame) -> Void)? = nil) {
 
-        let game = MetaGame(context: persistentContainer.viewContext)
+        let game: MetaGame = MetaGame(context: CoreDataManager.shared.persistentContainer.viewContext)
         game.uuid = UUID().uuidString.lowercased()
         game.ctime = Int64(Date().timeIntervalSince1970)
         game.mtime = game.ctime
-        var counter: Int = UserDefaults.standard.integer(forKey: "LocalGamesCounter")
+        var counter: Int = UserDefaults.standard.integer(forKey: GlobalKeyConstants.localGamesCounter)
         counter = counter + 1
-        UserDefaults.standard.setValue(counter, forKey: "LocalGamesCounter")
+        UserDefaults.standard.setValue(counter, forKey: GlobalKeyConstants.localGamesCounter)
         game.title = NSLocalizedString("Draft", comment: "") + " " + counter.description
         game.status = 1
         games.append(game)
-        saveContext()
+        CoreDataManager.shared.saveContext()
 
         MetaGameBundleManager.shared.save(MetaGameBundle(uuid: game.uuid))
 
-        return game
+        if let handler = handler {
+            DispatchQueue.main.async {
+                handler(game)
+            }
+        }
     }
 
-    private func syncTemplates() {
+    private func syncTemplates(completion handler: (() -> Void)? = nil) {
 
         let templatesURL = URL(string: "\(GlobalURLConstants.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
 
-        URLSession.shared.dataTask(with: templatesURL) { [weak self] data, _, error in
-            guard let strongSelf = self, let data = data else { return }
+        URLSession.shared.dataTask(with: templatesURL) { data, _, error in
+
+            guard let data = data else { return }
+
             do {
                 let decoder = JSONDecoder()
-                decoder.userInfo[CodingUserInfoKey.context!] = strongSelf.persistentContainer.viewContext
+                decoder.userInfo[CodingUserInfoKey.context!] = CoreDataManager.shared.persistentContainer.viewContext
                 let templatesData = try decoder.decode([MetaTemplate].self, from: data)
-                print("[NewGame] synchronize \(templatesData.count) meta templates: ok")
-                strongSelf.saveContext()
-                DispatchQueue.main.async {
-                    strongSelf.loadTemplates()
+                Logger.composition.info("synchronizing \(templatesData.count) templates: ok")
+                CoreDataManager.shared.saveContext()
+                if let handler = handler {
+                    DispatchQueue.main.async {
+                        handler()
+                    }
                 }
             } catch {
-                print("[NewGame] synchronize meta templates error: \(error)")
+                Logger.composition.error("synchronizing templates error: \(error.localizedDescription)")
             }
+
         }.resume()
     }
 
-    private func loadTemplates() {
+    private func loadTemplates(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaTemplate> = MetaTemplate.fetchRequest()
         request.predicate = NSPredicate(format: "status == 1")
         request.sortDescriptors = [NSSortDescriptor(key: "ctime", ascending: false)]
 
         do {
-            templates = try persistentContainer.viewContext.fetch(request)
-            templatesCollectionView.reloadData()
-            print("[NewGame] load meta templates: ok")
+            templates = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
+            Logger.composition.info("loading meta templates: ok")
         } catch {
-            print("[NewGame] load meta templates error: \(error)")
+            Logger.composition.error("loading meta templates error: \(error.localizedDescription)")
         }
-    }
 
-    private func saveContext() {
-
-        if persistentContainer.viewContext.hasChanges {
-            do {
-                try persistentContainer.viewContext.save()
-                print("[NewGame] save meta games: ok")
-            } catch {
-                print("[NewGame] save meta games error: \(error)")
+        if let handler = handler {
+            DispatchQueue.main.async {
+                handler()
             }
         }
     }

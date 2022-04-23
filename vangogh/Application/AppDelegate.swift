@@ -12,27 +12,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //
     //
-    // MARK: - Core Data
-    //
-    //
-
-    lazy var persistentContainer: NSPersistentContainer = {
-
-        let container = NSPersistentContainer(name: "vangogh")
-
-        container.loadPersistentStores(completionHandler: { _, error in
-            guard let error = error as NSError? else { return }
-            fatalError("Failed to load persistent stores:\(error)")
-        })
-
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
-        return container
-    }()
-
-    //
-    //
     // MARK: - 应用程序生命周期
     //
     //

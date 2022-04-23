@@ -26,10 +26,6 @@ class GameSettingsViewController: UIViewController {
     private var settingsView: UIView! // 作品设置视图
     private var settingsTableView: UITableView! // 作品设置表格视图
 
-    private var persistentContainer: NSPersistentContainer = {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        return appDelegate!.persistentContainer
-    }() // 持久化容器
     private var game: MetaGame! // 作品
 
     private var settings: [GameSetting]!
@@ -298,7 +294,7 @@ extension GameSettingsViewController {
             // 保存作品标题
 
             strongSelf.game.title = title
-            strongSelf.saveContext()
+            CoreDataManager.shared.saveContext()
             strongSelf.settingsTableView.reloadData()
             GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
         })
@@ -312,24 +308,6 @@ extension GameSettingsViewController {
         } // 兼容 iPad 应用
 
         present(alert, animated: true, completion: nil)
-    }
-
-    //
-    //
-    // MARK: - 数据操作
-    //
-    //
-
-    private func saveContext() {
-
-        if persistentContainer.viewContext.hasChanges {
-            do {
-                try persistentContainer.viewContext.save()
-                print("[GameSettings] save meta game: ok")
-            } catch {
-                print("[GameSettings] save meta game error: \(error)")
-            }
-        }
     }
 }
 

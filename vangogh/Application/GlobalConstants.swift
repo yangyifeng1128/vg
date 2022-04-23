@@ -10,45 +10,56 @@ import UIKit
 
 enum GlobalKeyConstants {
 
+    static let agreementsSigned: String = "agreementsSigned"
+    static let currentMainTabBarItemIndex: String = "currentMainTabBarItemIndex"
+    static let firstTourOfGameEditorEnded: String = "firstTourOfGameEditorEnded"
+    static let ignoresSystemUserInterfaceStyle: String = "ignoresSystemUserInterfaceStyle"
+    static let isInLightMode: String = "isInLightMode"
+    static let isOldFriend: String = "isOldFriend"
+    static let localGamesCounter: String = "localGamesCounter"
+    static let skippedCoachMarksCountOfGameEditor: String = "skippedCoachMarksCountOfGameEditor"
+    static let snappedTimeMillisecondsPool: String = "snappedTimeMillisecondsPool"
+
     static let downloadTemplatesURLSessionIdentifier: String = "\(Bundle.main.bundleIdentifier!).downloadTemplatesURLSession"
     static let loadTrackItemContentViewThumbImageQueueIdentifier: String = "\(Bundle.main.bundleIdentifier!).loadTrackItemContentViewThumbImageQueue"
 
     /**
-     * /composer/[user_uuid]
-     * /composer/[user_uuid]/[game_uuid]
-     * /composer/[user_uuid]/[game_uuid]/source
-     * /composer/[user_uuid]/[game_uuid]/source/[game_uuid].json
-     * /composer/[user_uuid]/[game_uuid]/source/scenes
-     * /composer/[user_uuid]/[game_uuid]/source/scenes/[scene_id]
-     * /composer/[user_uuid]/[game_uuid]/source/scenes/[scene_id]/[scene_id].json
-     * /composer/[user_uuid]/[game_uuid]/source/scenes/[scene_id]/...
-     * /composer/[user_uuid]/[game_uuid]/source/thumbs
-     * /composer/[user_uuid]/[game_uuid]/source/thumbs/...
-     * /composer/[user_uuid]/[game_uuid]/records
-     * /composer/[user_uuid]/[game_uuid]/records/1.0
-     * /composer/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]
-     * /composer/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/[record_uuid].json
-     * /composer/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/...
-     * /composer/[user_uuid]/[game_uuid]/archives
-     * /composer/[user_uuid]/[game_uuid]/archives/1.0
-     * /composer/shared/templates
-     * /composer/shared/templates/[template_uuid]
-     * /composer/shared/templates/[template_uuid]/...
+     * /editor/[user_uuid]
+     * /editor/[user_uuid]/[game_uuid]
+     * /editor/[user_uuid]/[game_uuid]/source
+     * /editor/[user_uuid]/[game_uuid]/source/[game_uuid].json
+     * /editor/[user_uuid]/[game_uuid]/source/scenes
+     * /editor/[user_uuid]/[game_uuid]/source/scenes/[scene_id]
+     * /editor/[user_uuid]/[game_uuid]/source/scenes/[scene_id]/[scene_id].json
+     * /editor/[user_uuid]/[game_uuid]/source/scenes/[scene_id]/...
+     * /editor/[user_uuid]/[game_uuid]/source/thumbs
+     * /editor/[user_uuid]/[game_uuid]/source/thumbs/...
+     * /editor/[user_uuid]/[game_uuid]/records
+     * /editor/[user_uuid]/[game_uuid]/records/1.0
+     * /editor/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]
+     * /editor/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/[record_uuid].json
+     * /editor/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/...
+     * /editor/[user_uuid]/[game_uuid]/archives
+     * /editor/[user_uuid]/[game_uuid]/archives/1.0
+     * /editor/shared/templates
+     * /editor/shared/templates/[template_uuid]
+     * /editor/shared/templates/[template_uuid]/...
      *
-     * /player/[user_uuid]
-     * /player/[user_uuid]/[game_uuid]
-     * /player/[user_uuid]/[game_uuid]/source
-     * /player/[user_uuid]/[game_uuid]/source/...
-     * /player/[user_uuid]/[game_uuid]/records
-     * /player/[user_uuid]/[game_uuid]/records/1.0
-     * /player/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]
-     * /player/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/[record_uuid].json
-     * /player/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/...
-     * /player/[user_uuid]/[game_uuid]/archives
-     * /player/[user_uuid]/[game_uuid]/archives/1.0
+     * /emulator/[user_uuid]
+     * /emulator/[user_uuid]/[game_uuid]
+     * /emulator/[user_uuid]/[game_uuid]/source
+     * /emulator/[user_uuid]/[game_uuid]/source/...
+     * /emulator/[user_uuid]/[game_uuid]/records
+     * /emulator/[user_uuid]/[game_uuid]/records/1.0
+     * /emulator/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]
+     * /emulator/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/[record_uuid].json
+     * /emulator/[user_uuid]/[game_uuid]/records/1.0/[record_uuid]/...
+     * /emulator/[user_uuid]/[game_uuid]/archives
+     * /emulator/[user_uuid]/[game_uuid]/archives/1.0
      */
-    static let composerDirectoryName: String = "composer"
-    static let playerDirectoryName: String = "player"
+
+    static let editorDirectoryName: String = "editor"
+    static let emulatorDirectoryName: String = "emulator"
     static let sourceDirectoryName: String = "source"
     static let recordsDirectoryName: String = "records"
     static let archivesDirectoryName: String = "archives"
@@ -63,17 +74,14 @@ enum GlobalKeyConstants {
 enum GlobalValueConstants {
 
     static let appVersion: String = "1.0.0"
-
     static let defaultImageTrackItemDurationMilliseconds: Int64 = 5000 /* 5s */
     static let defaultNodeItemDurationMilliseconds: Int64 = 5000 /* 5s */
-
     static let defaultTimelineItemWidthPerSecond: Double = 20 /* 20px */
-
     static let minTrackItemDurationMilliseconds: Int64 = 3000 /* 3s */
     static let minNodeItemDurationMilliseconds: Int64 = 3000 /* 3s */
-
+    static let nilGameUUID: String = "0"
+    static let nilSceneUUID: String = "0"
     static let preferredTimescale: Int32 = 1000
-
     static let snappedTimeMillisecondsThreshold: Int64 = 300 /* 300ms */
 }
 
@@ -85,7 +93,6 @@ enum GlobalURLConstants {
     static let templatesURLString: String = "\(baseURLString)/sample-drawings"
     static let templateBundlesBaseURLString: String = "https://api.artbean.cn/sample-drawing-bundles"
     static let templateThumbsBaseURLString: String = "https://api.artbean.cn/sample-drawing-thumbs"
-
     static let metaGameURLScheme: String = "metagame"
 }
 
@@ -94,23 +101,21 @@ enum GlobalURLConstants {
 enum GlobalViewLayoutConstants {
 
     static let addSceneViewBackgroundColor: UIColor? = .accent
-
     static let alertTextFieldFontSize: CGFloat = 16
-
     static let bottomSheetViewGripWidth: CGFloat = 64
     static let bottomSheetViewGripHeight: CGFloat = 5
     static let bottomSheetViewPullBarHeight: CGFloat = 24
     static let bottomSheetViewCornerRadius: CGFloat = 32
-
     static let defaultGameboardViewContentOffset: CGPoint = CGPoint(x: -1, y: -1) // 代表当前作品板居中
     static let defaultSceneAspectRatio: CGFloat = 0.75
     static let defaultSceneControlBackgroundColor: UIColor = UIColor.systemGroupedBackground.withAlphaComponent(0.9)
+    static let defaultTopBarButtonContainerWidth: CGFloat = 64
+    static let defaultTopBarButtonContainerPadding: CGFloat = 12
+    static let defaultTopBarTitleLabelFontSize: CGFloat = 16
     static let defaultViewBackgroundColor: UIColor = .systemGray3
     static let defaultViewCornerRadius: CGFloat = 8
-
     static let standardDeviceCornerRadius: CGFloat = 32 /* 39 */
     static let standardDeviceSize: CGSize = CGSize(width: 375, height: 667) /* CGSize(width: 390, height: 694) */
-
     static let timelineItemEarViewWidth: CGFloat = 24
 }
 

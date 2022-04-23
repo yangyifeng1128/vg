@@ -5,6 +5,7 @@
 ///
 
 import CoreData
+import OSLog
 import SnapKit
 import UIKit
 
@@ -25,10 +26,6 @@ class HomeViewController: UIViewController {
     private var recordCollectionViewCellWidth: CGFloat!
     private var recordCollectionViewCellHeight: CGFloat!
 
-    private var persistentContainer: NSPersistentContainer = {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        return appDelegate!.persistentContainer
-    }() // 持久化容器
     private var records = [NSManagedObject]() // 记录列表
 
     //
@@ -56,7 +53,7 @@ class HomeViewController: UIViewController {
 
         // 从本地加载记录列表
 
-        loadMetaRecords()
+        loadRecords()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -294,42 +291,22 @@ extension HomeViewController {
     //
     //
 
-    private func loadMetaRecords() {
+    /// 加载记录
+    func loadRecords(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaRecord> = MetaRecord.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "mtime", ascending: false)]
 
         do {
-            records = try persistentContainer.viewContext.fetch(request)
-            recordsCollectionView.reloadData()
-            print("[Home] load user records: ok")
+            records = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
+            Logger.home.info("loading meta records: ok")
         } catch {
-            print("[Home] load user records error: \(error)")
+            Logger.home.info("loading meta records error: \(error.localizedDescription)")
         }
-    }
 
-    private func deleteMetaRecord(index: Int) {
-
-        guard let record = records[index] as? MetaRecord else { return }
-        records.remove(at: index)
-        recordsCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-        persistentContainer.viewContext.delete(record)
-        saveContext()
-
-        // FIXME：删除记录
-        // MetaRecordBundleManager.shared.delete(uuid: record.uuid)
-
-        print("[Home] delete user record at index \(index): ok")
-    }
-
-    private func saveContext() {
-
-        if persistentContainer.viewContext.hasChanges {
-            do {
-                try persistentContainer.viewContext.save()
-                print("[Home] save user records: ok")
-            } catch {
-                print("[Home] save user records error: \(error)")
+        if let handler = handler {
+            DispatchQueue.main.async {
+                handler()
             }
         }
     }

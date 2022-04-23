@@ -6,6 +6,7 @@
 
 import CoreData
 import Kingfisher
+import OSLog
 import SnapKit
 import UIKit
 
@@ -33,10 +34,6 @@ class PublicationViewController: UIViewController {
     private var archiveCollectionViewCellWidth: CGFloat!
     private var archiveCollectionViewCellHeight: CGFloat!
 
-    private var persistentContainer: NSPersistentContainer = {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        return appDelegate!.persistentContainer
-    }() // 持久化容器
     private var game: MetaGame! // 作品
     private var archives: [NSManagedObject] = [NSManagedObject]() // 档案列表
 
@@ -377,50 +374,49 @@ extension PublicationViewController {
     //
     //
 
-    private func syncArchives() {
+    private func syncArchives(completion handler: (() -> Void)? = nil) {
 
         let archivesURL = URL(string: "\(GlobalURLConstants.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
 
-        URLSession.shared.dataTask(with: archivesURL) { [weak self] data, _, error in
-            guard let strongSelf = self, let data = data else { return }
+        URLSession.shared.dataTask(with: archivesURL) { data, _, error in
+
+            guard let data = data else { return }
+
             do {
                 let decoder = JSONDecoder()
-                decoder.userInfo[CodingUserInfoKey.context!] = strongSelf.persistentContainer.viewContext
+                decoder.userInfo[CodingUserInfoKey.context!] = CoreDataManager.shared.persistentContainer.viewContext
                 let archivesData = try decoder.decode([MetaTemplate].self, from: data)
-                print("[Publication] synchronize \(archivesData.count) meta archives: ok")
-                strongSelf.saveContext()
-                DispatchQueue.main.async {
-                    strongSelf.loadArchives()
+                Logger.gameEditor.info("synchronizing \(archivesData.count) archives: ok")
+                CoreDataManager.shared.saveContext()
+                if let handler = handler {
+                    DispatchQueue.main.async {
+                        handler()
+                    }
                 }
             } catch {
-                print("[Publication] synchronize meta archives error: \(error)")
+                Logger.gameEditor.info("synchronizing archives error: \(error.localizedDescription)")
             }
+
         }.resume()
     }
 
-    private func loadArchives() {
+    private func loadArchives(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaTemplate> = MetaTemplate.fetchRequest()
         request.predicate = NSPredicate(format: "status == 1")
         request.sortDescriptors = [NSSortDescriptor(key: "ctime", ascending: false)]
 
         do {
-            archives = try persistentContainer.viewContext.fetch(request)
+            archives = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
             archivesCollectionView.reloadData()
-            print("[Publication] load meta archives: ok")
+            Logger.gameEditor.info("loading meta archives: ok")
         } catch {
-            print("[Publication] load meta archives error: \(error)")
+            Logger.gameEditor.info("loading meta archives error: \(error.localizedDescription)")
         }
-    }
 
-    private func saveContext() {
-
-        if persistentContainer.viewContext.hasChanges {
-            do {
-                try persistentContainer.viewContext.save()
-                print("[Publication] save meta archives: ok")
-            } catch {
-                print("[Publication] save meta archives error: \(error)")
+        if let handler = handler {
+            DispatchQueue.main.async {
+                handler()
             }
         }
     }

@@ -34,7 +34,7 @@ class MetaGameBundleManager: NSObject {
 
     func delete(uuid: String) {
 
-        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.composerDirectoryName).appendingPathComponent(uuid)
+        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.editorDirectoryName).appendingPathComponent(uuid)
         var isDirectory: ObjCBool = true
         if FileManager.default.fileExists(atPath: rootDirectoryURL.path, isDirectory: &isDirectory) {
             try? FileManager.default.removeItem(at: rootDirectoryURL)
@@ -54,7 +54,7 @@ class MetaGameBundleManager: NSObject {
 
     private func getMetaGameSourceDirectoryURL(uuid: String) -> URL {
 
-        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.composerDirectoryName).appendingPathComponent(uuid).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName)
+        let rootDirectoryURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(GlobalKeyConstants.editorDirectoryName).appendingPathComponent(uuid).appendingPathComponent(GlobalKeyConstants.sourceDirectoryName)
         var isDirectory: ObjCBool = true
         if !FileManager.default.fileExists(atPath: rootDirectoryURL.path, isDirectory: &isDirectory) {
             try? FileManager.default.createDirectory(at: rootDirectoryURL, withIntermediateDirectories: true, attributes: nil)
