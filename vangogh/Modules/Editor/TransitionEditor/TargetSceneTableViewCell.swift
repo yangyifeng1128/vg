@@ -11,8 +11,7 @@ class TargetSceneTableViewCell: UITableViewCell {
 
     static let reuseId: String = "TargetSceneTableViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let indexLabelFontSize: CGFloat = 20
         static let titleLabelFontSize: CGFloat = 16

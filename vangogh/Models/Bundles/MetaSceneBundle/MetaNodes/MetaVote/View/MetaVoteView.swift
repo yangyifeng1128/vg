@@ -9,8 +9,7 @@ import UIKit
 
 class MetaVoteView: MetaNodeView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let width: CGFloat = 256
         static let marginRight: CGFloat = 24

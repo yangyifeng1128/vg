@@ -10,8 +10,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12

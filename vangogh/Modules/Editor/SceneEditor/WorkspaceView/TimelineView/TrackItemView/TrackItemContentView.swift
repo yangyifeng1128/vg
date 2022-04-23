@@ -10,8 +10,7 @@ import UIKit
 
 class TrackItemContentView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let height: CGFloat = 56
         static let preheatThumbImageViewIndexCount: Int = 4

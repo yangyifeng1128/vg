@@ -11,8 +11,7 @@ class ArchiveCollectionViewCell: UICollectionViewCell {
 
     static let reuseId: String = "ArchiveCollectionViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let titleLabelHeight: CGFloat = 48
         static let titleLabelFontSize: CGFloat = 13

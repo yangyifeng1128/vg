@@ -11,8 +11,7 @@ class TimelineToolBarItemCell: UICollectionViewCell {
 
     static let reuseId: String = "TimelineToolBarItemCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let titleLabelFontSize: CGFloat = 11
         static let iconViewWidth: CGFloat = 22

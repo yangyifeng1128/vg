@@ -11,8 +11,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
 
     static let reuseId: String = "TransitionEditorConditionTableViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let bodyViewHeight: CGFloat = 64
         static let editButtonWidth: CGFloat = 36

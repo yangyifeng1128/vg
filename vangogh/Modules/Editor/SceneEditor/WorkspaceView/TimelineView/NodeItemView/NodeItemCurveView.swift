@@ -8,8 +8,7 @@ import UIKit
 
 class NodeItemCurveView: UIButton {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let height: CGFloat = 16
         static let lineWidth: CGFloat = TimelineMeasureView.ViewLayoutConstants.markWidth * 2

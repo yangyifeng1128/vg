@@ -8,8 +8,7 @@ import UIKit
 
 class SceneEmulatorProgressTagView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let width: CGFloat = SceneEmulatorProgressView.ViewLayoutConstants.height / 2
         static let height: CGFloat = width * 5 / 4

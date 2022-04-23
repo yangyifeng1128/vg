@@ -14,8 +14,7 @@ protocol NodeItemBottomBarViewDelegate: AnyObject {
 
 class NodeItemBottomBarView: BorderedView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let actionBarItemCellWidth: CGFloat = 120
         static let actionBarItemCellHeight: CGFloat = 42

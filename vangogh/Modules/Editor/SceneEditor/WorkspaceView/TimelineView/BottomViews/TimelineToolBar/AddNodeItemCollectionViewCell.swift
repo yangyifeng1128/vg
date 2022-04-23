@@ -11,8 +11,7 @@ class AddNodeItemCollectionViewCell: UICollectionViewCell {
 
     static let reuseId: String = "AddNodeItemCollectionViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let titleLabelFontSize: CGFloat = 13
     }
@@ -67,8 +66,7 @@ class AddNodeItemCollectionViewCell: UICollectionViewCell {
 
 class AddNodeItemTagView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let width: CGFloat = 40
         static let height: CGFloat = width * 5 / 4

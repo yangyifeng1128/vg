@@ -8,8 +8,7 @@ import UIKit
 
 class MetaNodeView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let borderLayerWidth: CGFloat = 4
         static let progressViewHeight: CGFloat = 4

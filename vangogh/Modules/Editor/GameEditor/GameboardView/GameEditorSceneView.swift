@@ -16,8 +16,7 @@ protocol GameEditorSceneViewDelegate: AnyObject {
 
 class GameEditorSceneView: RoundedView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let width: CGFloat = 48
         static let height: CGFloat = 64

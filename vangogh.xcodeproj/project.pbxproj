@@ -822,6 +822,68 @@
 			path = Bundles;
 			sourceTree = "<group>";
 		};
+		0F6705E9281437BD00034BD6 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				128B164827185EAF00CD917B /* AppSetting.swift */,
+				128B1644271823CE00CD917B /* AppSettingsViewController.swift */,
+				128B16462718302500CD917B /* AppSettingTableViewCell.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		0F6705EA281437C200034BD6 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				128B1650271865F900CD917B /* AboutViewController.swift */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
+		0F6705EB281437C800034BD6 /* GeneralSettings */ = {
+			isa = PBXGroup;
+			children = (
+				12653CF6273D4803005D90A6 /* GeneralSetting.swift */,
+				12653CF4273D452B005D90A6 /* GeneralSettingsViewController.swift */,
+				12653CF8273D4873005D90A6 /* GeneralSettingTableViewCell.swift */,
+			);
+			path = GeneralSettings;
+			sourceTree = "<group>";
+		};
+		0F6705EC281437D700034BD6 /* DarkMode */ = {
+			isa = PBXGroup;
+			children = (
+				0F34D710274A524D00736DD5 /* DarkModeTableViewCell.swift */,
+				0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */,
+				0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */,
+			);
+			path = DarkMode;
+			sourceTree = "<group>";
+		};
+		0F6705ED281437DE00034BD6 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				128B164A2718654C00CD917B /* FeedbackViewController.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		0F6705EE281437EB00034BD6 /* PrivacyPolicy */ = {
+			isa = PBXGroup;
+			children = (
+				128B164E271865BD00CD917B /* PrivacyPolicyViewController.swift */,
+			);
+			path = PrivacyPolicy;
+			sourceTree = "<group>";
+		};
+		0F6705EF281437F300034BD6 /* TermsOfService */ = {
+			isa = PBXGroup;
+			children = (
+				128B164C2718659000CD917B /* TermsOfServiceViewController.swift */,
+			);
+			path = TermsOfService;
+			sourceTree = "<group>";
+		};
 		0F74CDDD2534738F0054D2CC = {
 			isa = PBXGroup;
 			children = (
@@ -1239,19 +1301,13 @@
 		0FD3777827188AC000D09DDA /* AppSettings */ = {
 			isa = PBXGroup;
 			children = (
-				128B1650271865F900CD917B /* AboutViewController.swift */,
-				128B164827185EAF00CD917B /* AppSetting.swift */,
-				128B1644271823CE00CD917B /* AppSettingsViewController.swift */,
-				128B16462718302500CD917B /* AppSettingTableViewCell.swift */,
-				0F34D710274A524D00736DD5 /* DarkModeTableViewCell.swift */,
-				0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */,
-				128B164A2718654C00CD917B /* FeedbackViewController.swift */,
-				12653CF6273D4803005D90A6 /* GeneralSetting.swift */,
-				12653CF4273D452B005D90A6 /* GeneralSettingsViewController.swift */,
-				12653CF8273D4873005D90A6 /* GeneralSettingTableViewCell.swift */,
-				128B164E271865BD00CD917B /* PrivacyPolicyViewController.swift */,
-				128B164C2718659000CD917B /* TermsOfServiceViewController.swift */,
-				0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */,
+				0F6705EA281437C200034BD6 /* About */,
+				0F6705E9281437BD00034BD6 /* Core */,
+				0F6705EC281437D700034BD6 /* DarkMode */,
+				0F6705ED281437DE00034BD6 /* Feedback */,
+				0F6705EB281437C800034BD6 /* GeneralSettings */,
+				0F6705EE281437EB00034BD6 /* PrivacyPolicy */,
+				0F6705EF281437F300034BD6 /* TermsOfService */,
 			);
 			path = AppSettings;
 			sourceTree = "<group>";

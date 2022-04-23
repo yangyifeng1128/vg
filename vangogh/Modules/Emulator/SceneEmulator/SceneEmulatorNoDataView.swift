@@ -14,8 +14,7 @@ protocol SceneEmulatorNoDataViewDelegate: AnyObject {
 
 class SceneEmulatorNoDataView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let contentViewWidth: CGFloat = 240
         static let contentViewHeight: CGFloat = 200

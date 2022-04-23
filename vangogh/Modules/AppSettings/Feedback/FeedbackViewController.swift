@@ -1,5 +1,5 @@
 ///
-/// AboutViewController
+/// FeedbackViewController
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -8,10 +8,9 @@ import SnapKit
 import UIKit
 import WebKit
 
-class AboutViewController: UIViewController {
+class FeedbackViewController: UIViewController {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
@@ -94,7 +93,7 @@ class AboutViewController: UIViewController {
         // 初始化标题标签
 
         titleLabel = UILabel()
-        titleLabel.text = NSLocalizedString("About", comment: "")
+        titleLabel.text = NSLocalizedString("Feedback", comment: "")
         titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
@@ -134,7 +133,7 @@ class AboutViewController: UIViewController {
 
         // 准备文本内容
 
-        let string = LocalDocumentManager.shared.load(type: .about)
+        let string = LocalDocumentManager.shared.load(type: .feedback)
         let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: ViewLayoutConstants.infoTextViewFontSize, weight: .regular)]
         let completeInfoTextString: NSMutableAttributedString = NSMutableAttributedString(string: string, attributes: stringAttributes)
 
@@ -149,11 +148,11 @@ class AboutViewController: UIViewController {
     }
 }
 
-extension AboutViewController {
+extension FeedbackViewController {
 
     @objc private func backButtonDidTap() {
 
-        print("[About] did tap backButton")
+        print("[Feedback] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

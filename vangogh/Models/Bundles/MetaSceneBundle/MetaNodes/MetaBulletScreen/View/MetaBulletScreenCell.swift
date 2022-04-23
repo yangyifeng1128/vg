@@ -10,8 +10,7 @@ import UIKit
 
 class MetaBulletScreenCell: DanmakuCell {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
     }
 

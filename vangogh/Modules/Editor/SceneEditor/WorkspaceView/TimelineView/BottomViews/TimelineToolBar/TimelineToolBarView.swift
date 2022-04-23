@@ -13,8 +13,7 @@ protocol TimelineToolBarViewDelegate: AnyObject {
 
 class TimelineToolBarView: BorderedView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let toolBarItemCellWidth: CGFloat = 64
     }

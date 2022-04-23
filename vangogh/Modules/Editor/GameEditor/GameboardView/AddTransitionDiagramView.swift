@@ -9,8 +9,7 @@ import UIKit
 
 class AddTransitionDiagramView: RoundedView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let width: CGFloat = 128
         static let height: CGFloat = 48

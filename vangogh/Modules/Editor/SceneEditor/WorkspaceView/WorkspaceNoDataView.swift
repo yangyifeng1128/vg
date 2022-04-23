@@ -13,8 +13,7 @@ protocol WorkspaceNoDataViewDelegate: AnyObject {
 
 class WorkspaceNoDataView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let initialFootageButtonWidth: CGFloat = 56
         static let initialFootageButtonImageEdgeInset: CGFloat = 11.2

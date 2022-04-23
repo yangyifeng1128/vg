@@ -14,8 +14,7 @@ protocol AddSceneIndicatorViewDelegate: AnyObject {
 
 class AddSceneIndicatorView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let width: CGFloat = 160
         static let height: CGFloat = 76

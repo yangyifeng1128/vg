@@ -9,8 +9,7 @@ import UIKit
 
 class TimelineCursorView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let width: CGFloat = TimelineMeasureView.ViewLayoutConstants.markWidth * 2
     }

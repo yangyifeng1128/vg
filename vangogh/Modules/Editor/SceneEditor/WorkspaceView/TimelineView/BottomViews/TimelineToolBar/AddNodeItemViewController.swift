@@ -13,8 +13,7 @@ protocol AddNodeItemViewControllerDelegate: AnyObject {
 
 class AddNodeItemViewController: UIViewController {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let height: CGFloat = 132
         static let collectionViewHeight: CGFloat = 92

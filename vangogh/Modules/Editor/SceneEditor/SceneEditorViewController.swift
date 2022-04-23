@@ -12,8 +12,7 @@ import UIKit
 
 class SceneEditorViewController: UIViewController {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let topButtonContainerWidth: CGFloat = 64
         static let topRightButtonContainerWidth: CGFloat = 52

@@ -11,8 +11,7 @@ class DraftTableViewCell: UITableViewCell {
 
     static let reuseId: String = "DraftTableViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let moreButtonWidth: CGFloat = 40
         static let mtimeLabelFontSize: CGFloat = 14

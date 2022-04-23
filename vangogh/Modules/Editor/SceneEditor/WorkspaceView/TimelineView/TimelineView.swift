@@ -25,8 +25,7 @@ protocol TimelineViewDelegate: AnyObject {
 
 class TimelineView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let bottomViewContainerHeight: CGFloat = 64
         static let newFootageButtonWidth: CGFloat = 40

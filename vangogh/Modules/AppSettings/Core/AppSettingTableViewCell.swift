@@ -11,8 +11,7 @@ class AppSettingTableViewCell: UITableViewCell {
 
     static let reuseId: String = "AppSettingTableViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let titleLabelFontSize: CGFloat = 16
         static let chevronViewWidth: CGFloat = 24

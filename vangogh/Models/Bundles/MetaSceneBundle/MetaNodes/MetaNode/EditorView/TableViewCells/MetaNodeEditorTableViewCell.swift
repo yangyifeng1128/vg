@@ -11,8 +11,7 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
 
     static let reuseId: String = "MetaNodeEditorTableViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let height: CGFloat = 96
         static let titleLabelHeight: CGFloat = 20

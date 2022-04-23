@@ -16,8 +16,7 @@ protocol TrackItemViewDelegate: AnyObject {
 
 class TrackItemView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let height: CGFloat = 64
     }

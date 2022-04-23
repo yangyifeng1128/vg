@@ -11,8 +11,7 @@ class NodeItemBottomBarItemCell: UICollectionViewCell {
 
     static let reuseId: String = "NodeItemBottomBarItemCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let titleLabelFontSize: CGFloat = 16
         static let iconViewWidth: CGFloat = 20

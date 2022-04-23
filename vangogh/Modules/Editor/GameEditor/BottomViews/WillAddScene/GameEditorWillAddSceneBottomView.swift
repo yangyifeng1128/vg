@@ -13,8 +13,7 @@ protocol GameEditorWillAddSceneBottomViewDelegate: AnyObject {
 
 class GameEditorWillAddSceneBottomView: UIView {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let contentViewHeight: CGFloat = 144
         static let cancelAddingSceneButtonHeight: CGFloat = 64

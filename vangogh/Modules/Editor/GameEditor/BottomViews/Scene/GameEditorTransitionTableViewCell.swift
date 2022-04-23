@@ -11,8 +11,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
 
     static let reuseId: String = "GameEditorTransitionTableViewCell"
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
         static let ifLabelFontSize: CGFloat = 14
         static let deleteButtonWidth: CGFloat = 44

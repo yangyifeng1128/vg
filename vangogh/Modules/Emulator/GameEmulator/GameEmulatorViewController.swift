@@ -8,8 +8,7 @@ import UIKit
 
 class GameEmulatorViewController: UIViewController {
 
-    // 视图布局常量枚举值
-
+    /// 视图布局常量枚举值
     enum ViewLayoutConstants {
     }
 
