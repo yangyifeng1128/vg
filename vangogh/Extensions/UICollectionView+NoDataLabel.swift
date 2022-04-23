@@ -8,7 +8,8 @@ import UIKit
 
 extension UICollectionView {
 
-    //// 视图布局常量枚举值    enum ViewLayoutConstants {
+    /// 视图布局常量枚举值
+    enum ViewLayoutConstants {
         static let oopsStringFontSize: CGFloat = 64
         static let noDataTitleStringFontSize: CGFloat = 16
     }

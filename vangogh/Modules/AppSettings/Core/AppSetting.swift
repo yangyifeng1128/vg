@@ -8,8 +8,7 @@ import Foundation
 
 class AppSetting {
 
-    // 应用设置类型枚举值
-
+    /// 应用设置类型枚举值
     enum AppSettingType: String, CaseIterable {
         case generalSettings = "GeneralSettings"
         case feedback = "Feedback"

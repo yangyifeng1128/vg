@@ -8,8 +8,7 @@ import Foundation
 
 class GameSetting {
 
-    // 作品设置枚举值
-
+    /// 作品设置枚举值
     enum GameSettingType: String, CaseIterable {
         case gameThumbImage = "GameThumbImage"
         case gameTitle = "GameTitle"
