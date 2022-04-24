@@ -35,6 +35,7 @@ class NewGameViewController: UIViewController {
     private var games: [NSManagedObject]! // 作品列表
     private var templates: [NSManagedObject] = [NSManagedObject]() // 模版列表
 
+    /// 初始化
     init(games: [NSManagedObject]) {
 
         super.init(nibName: nil, bundle: nil)
@@ -47,12 +48,7 @@ class NewGameViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -62,6 +58,7 @@ class NewGameViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -75,6 +72,7 @@ class NewGameViewController: UIViewController {
         loadTemplates()
     }
 
+    /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -91,26 +89,28 @@ class NewGameViewController: UIViewController {
         }
     }
 
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化「新建空白作品」按钮
+        // 初始化「新建空白作品按钮」
 
         initNewBlankGameButton()
 
-        // 初始化模版视图
+        // 初始化「模版视图」
 
         initTemplatesView()
     }
 
+    /// 初始化「导航栏」
     private func initNavigationBar() {
 
-        // 初始化返回按钮
+        // 初始化「返回按钮容器」
 
         backButtonContainer = UIView()
         backButtonContainer.backgroundColor = .clear
@@ -123,6 +123,8 @@ class NewGameViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「返回按钮」
+
         backButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
@@ -131,7 +133,7 @@ class NewGameViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("StartComposing", comment: "")
@@ -146,6 +148,7 @@ class NewGameViewController: UIViewController {
         }
     }
 
+    /// 初始化「新建空白作品按钮」
     private func initNewBlankGameButton() {
 
         newBlankGameButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
@@ -176,9 +179,10 @@ class NewGameViewController: UIViewController {
         }
     }
 
+    /// 初始化「模版视图」
     private func initTemplatesView() {
 
-        // 初始化模版视图
+        // 初始化「模版视图」
 
         templatesView = UIView()
         view.addSubview(templatesView)
@@ -188,7 +192,7 @@ class NewGameViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        // 初始化模版标题标签
+        // 初始化「模版标题标签」
 
         let templatesTitleLabel: UILabel = UILabel()
         templatesTitleLabel.text = NSLocalizedString("SelectTemplate", comment: "")
@@ -201,7 +205,7 @@ class NewGameViewController: UIViewController {
             make.top.equalToSuperview()
         }
 
-        // 初始化模版集合视图
+        // 初始化「模版集合视图」
 
         templatesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         templatesCollectionView.backgroundColor = .clear
@@ -210,7 +214,7 @@ class NewGameViewController: UIViewController {
         templatesCollectionView.delegate = self
         templatesCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseId)
 
-        // 为模版集合视图添加刷新控制器
+        // 为「模版集合视图」添加「刷新控制器」
 
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pullToRefreshTemplates), for: .valueChanged)
@@ -229,6 +233,7 @@ class NewGameViewController: UIViewController {
 
 extension NewGameViewController: UICollectionViewDataSource {
 
+    /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if templates.isEmpty {
@@ -240,6 +245,7 @@ extension NewGameViewController: UICollectionViewDataSource {
         return templates.count
     }
 
+    /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TemplateCollectionViewCell.reuseId, for: indexPath) as? TemplateCollectionViewCell else {
@@ -264,6 +270,7 @@ extension NewGameViewController: UICollectionViewDataSource {
 
 extension NewGameViewController: UICollectionViewDelegate {
 
+    /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         if let template = templates[indexPath.item] as? MetaTemplate {
@@ -285,6 +292,7 @@ extension NewGameViewController: UICollectionViewDelegate {
 
 extension NewGameViewController: UICollectionViewDelegateFlowLayout {
 
+    /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         var numberOfCellsPerRow: Int
@@ -328,18 +336,13 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
 
 extension NewGameViewController {
 
-    //
-    //
-    // MARK: - 界面操作
-    //
-    //
-
     /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)
     }
 
+    /// 点击「新建空白作品按钮」
     @objc private func newBlankGameButtonDidTap() {
 
         print("[NewGame] did tap newBlankGameButton")
@@ -357,6 +360,7 @@ extension NewGameViewController {
         }
     }
 
+    /// 下拉刷新模版
     @objc private func pullToRefreshTemplates() {
 
         // 同步模版
@@ -374,6 +378,7 @@ extension NewGameViewController {
         }
     }
 
+    /// 打开作品编辑器
     private func openGameEditor(game: MetaGame) {
 
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: game.uuid) else { return }

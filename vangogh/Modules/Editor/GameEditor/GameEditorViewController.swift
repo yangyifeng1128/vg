@@ -59,6 +59,7 @@ class GameEditorViewController: UIViewController {
     var sceneSavedMessage: String? // 「场景已保存」消息
     var needsContentOffsetUpdate: Bool = false // 是否需要重新计算内容偏移量
 
+    /// 初始化
     init(game: MetaGame, gameBundle: MetaGameBundle, parentType: GameEditorParentViewControllerType = .unspecified) {
 
         super.init(nibName: nil, bundle: nil)
@@ -74,12 +75,7 @@ class GameEditorViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -126,6 +122,7 @@ class GameEditorViewController: UIViewController {
         }
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -144,6 +141,7 @@ class GameEditorViewController: UIViewController {
         updateSelectionRelatedViews()
     }
 
+    /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -153,6 +151,7 @@ class GameEditorViewController: UIViewController {
         showMessage()
     }
 
+    /// 显示消息
     private func showMessage() {
 
         if let sceneSavedMessage = sceneSavedMessage {
@@ -162,6 +161,7 @@ class GameEditorViewController: UIViewController {
         }
     }
 
+    /// 视图即将消失
     override func viewWillDisappear(_ animated: Bool) {
 
         super.viewWillDisappear(animated)
@@ -191,6 +191,7 @@ class GameEditorViewController: UIViewController {
         }
     }
 
+    /// 视图已经消失
     override func viewDidDisappear(_ animated: Bool) {
 
         super.viewDidDisappear(animated)
@@ -209,6 +210,7 @@ class GameEditorViewController: UIViewController {
         unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
     }
 
+    /// 外观切换完成
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
@@ -243,30 +245,32 @@ class GameEditorViewController: UIViewController {
         addSceneIndicatorView.isHidden = true
     }
 
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemBackground
 
-        // 初始化作品板视图
+        // 初始化「作品板视图」
 
         initGameboardView()
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化操作栏视图
+        // 初始化「操作栏视图」
 
         initActionBarView()
 
-        // 初始化底部视图
+        // 初始化「底部视图」
 
         initBottomView()
     }
 
+    /// 初始化「作品板视图」
     private func initGameboardView() {
 
-        // 初始化作品板视图
+        // 初始化「作品板视图容器」
 
         gameboardViewContainer = UIScrollView()
         gameboardViewContainer.delegate = self
@@ -282,6 +286,8 @@ class GameEditorViewController: UIViewController {
         gameboardViewContainer.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
+
+        // 初始化「作品板视图」
 
         gameboardView = GameEditorGameboardView()
         gameboardView.isUserInteractionEnabled = true
@@ -307,9 +313,10 @@ class GameEditorViewController: UIViewController {
         }
     }
 
+    /// 初始化「导航栏视图」
     private func initNavigationBar() {
 
-        // 初始化返回按钮
+        // 初始化「返回按钮容器」
 
         let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
@@ -322,6 +329,8 @@ class GameEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「返回按钮」
+
         backButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
@@ -330,7 +339,7 @@ class GameEditorViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化发布按钮
+        // 初始化「发布按钮容器」
 
         publishButtonContainer = UIView()
         publishButtonContainer.backgroundColor = .clear
@@ -345,6 +354,8 @@ class GameEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「发布按钮」
+
         publishButton = CircleNavigationBarButton(icon: .publish, backgroundColor: .accent, tintColor: .white, imageEdgeInset: 10) // 此处 .publish 图标稍大，所以单独设置了 imageEdgeInset
         publishButton.addTarget(self, action: #selector(publishButtonDidTap), for: .touchUpInside)
         publishButtonContainer.addSubview(publishButton)
@@ -354,7 +365,7 @@ class GameEditorViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化作品设置按钮
+        // 初始化「作品设置按钮容器」
 
         gameSettingsButtonContainer = UIView()
         gameSettingsButtonContainer.backgroundColor = .clear
@@ -369,6 +380,8 @@ class GameEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「作品设置按钮」
+
         gameSettingsButton = CircleNavigationBarButton(icon: .gameSettings)
         gameSettingsButton.addTarget(self, action: #selector(gameSettingsButtonDidTap), for: .touchUpInside)
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
@@ -378,7 +391,7 @@ class GameEditorViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
         gameTitleLabel = UILabel()
         gameTitleLabel.text = game.title
@@ -398,6 +411,7 @@ class GameEditorViewController: UIViewController {
         }
     }
 
+    /// 初始化「操作栏视图」
     private func initActionBarView() {
 
         addTransitionDiagramView = AddTransitionDiagramView()
@@ -408,9 +422,8 @@ class GameEditorViewController: UIViewController {
 
     }
 
+    /// 初始化「底部视图」
     private func initBottomView() {
-
-        // 初始化底部视图容器
 
         bottomViewContainer = UIView()
         view.addSubview(bottomViewContainer)
@@ -622,21 +635,21 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
         // 编辑场景标题
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
-            // 弹出编辑场景标题提示框
-            strongSelf.editSceneTitle()
-        })
+                guard let strongSelf = self else { return }
+                // 弹出编辑场景标题提示框
+                strongSelf.editSceneTitle()
+            })
 
         // 删除场景
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
-            // 弹出删除场景提示框
-            strongSelf.deleteScene()
-        })
+                guard let strongSelf = self else { return }
+                // 弹出删除场景提示框
+                strongSelf.deleteScene()
+            })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sceneView
@@ -1220,69 +1233,69 @@ extension GameEditorViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
 
-            // 获取「当前选中场景」的索引和 UUID
+                // 获取「当前选中场景」的索引和 UUID
 
-            let selectedSceneIndex = strongSelf.gameBundle.selectedSceneIndex
-            guard let selectedScene = strongSelf.gameBundle.selectedScene() else { return }
-            let selectedSceneUUID = selectedScene.uuid
+                let selectedSceneIndex = strongSelf.gameBundle.selectedSceneIndex
+                guard let selectedScene = strongSelf.gameBundle.selectedScene() else { return }
+                let selectedSceneUUID = selectedScene.uuid
 
-            // 删除「当前选中场景」相关的全部穿梭器视图
+                // 删除「当前选中场景」相关的全部穿梭器视图
 
-            for (i, transitionView) in strongSelf.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+                for (i, transitionView) in strongSelf.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
 
-                if transitionView.startScene.index == selectedSceneIndex {
+                    if transitionView.startScene.index == selectedSceneIndex {
 
-                    // 取消高亮显示「当前选中穿梭器」相关的「结束场景」视图
+                        // 取消高亮显示「当前选中穿梭器」相关的「结束场景」视图
 
-                    let endSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
-                    endSceneView?.unhighlight()
+                        let endSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
+                        endSceneView?.unhighlight()
 
-                    // 删除「当前选中穿梭器」
+                        // 删除「当前选中穿梭器」
 
-                    transitionView.removeFromSuperview()
-                    strongSelf.transitionViewList.remove(at: i)
+                        transitionView.removeFromSuperview()
+                        strongSelf.transitionViewList.remove(at: i)
 
-                } else if transitionView.endScene.index == selectedSceneIndex {
+                    } else if transitionView.endScene.index == selectedSceneIndex {
 
-                    // 取消高亮显示「当前选中穿梭器」相关的「开始场景」视图
+                        // 取消高亮显示「当前选中穿梭器」相关的「开始场景」视图
 
-                    let startSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.startScene.index })
-                    startSceneView?.unhighlight()
+                        let startSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.startScene.index })
+                        startSceneView?.unhighlight()
 
-                    // 删除「当前选中穿梭器」
+                        // 删除「当前选中穿梭器」
 
-                    transitionView.removeFromSuperview()
-                    strongSelf.transitionViewList.remove(at: i)
+                        transitionView.removeFromSuperview()
+                        strongSelf.transitionViewList.remove(at: i)
+                    }
                 }
-            }
 
-            // 删除「当前选中场景」视图
+                // 删除「当前选中场景」视图
 
-            for (i, sceneView) in strongSelf.sceneViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
-                if sceneView.scene.index == selectedSceneIndex {
-                    sceneView.removeFromSuperview()
-                    strongSelf.sceneViewList.remove(at: i)
-                    break // 找到就退出
+                for (i, sceneView) in strongSelf.sceneViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+                    if sceneView.scene.index == selectedSceneIndex {
+                        sceneView.removeFromSuperview()
+                        strongSelf.sceneViewList.remove(at: i)
+                        break // 找到就退出
+                    }
                 }
-            }
 
-            // 保存「删除场景」信息
+                // 保存「删除场景」信息
 
-            strongSelf.gameBundle.deleteSelectedScene()
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-                MetaSceneBundleManager.shared.delete(sceneUUID: selectedSceneUUID, gameUUID: strongSelf.gameBundle.uuid)
-            }
+                strongSelf.gameBundle.deleteSelectedScene()
+                DispatchQueue.global(qos: .background).async {
+                    MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                    MetaSceneBundleManager.shared.delete(sceneUUID: selectedSceneUUID, gameUUID: strongSelf.gameBundle.uuid)
+                }
 
-            // 重置底部视图
+                // 重置底部视图
 
-            strongSelf.resetBottomView(sceneSelected: false, animated: true)
-        })
+                strongSelf.resetBottomView(sceneSelected: false, animated: true)
+            })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         present(alert, animated: true, completion: nil)
     }
@@ -1305,35 +1318,35 @@ extension GameEditorViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
 
-            guard let title = alert.textFields?.first?.text, !title.isEmpty else {
-                let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
-                toast.show()
-                return
-            }
+                guard let title = alert.textFields?.first?.text, !title.isEmpty else {
+                    let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
+                    toast.show()
+                    return
+                }
 
-            // 保存「当前选中场景」的标题
+                // 保存「当前选中场景」的标题
 
-            guard let scene = strongSelf.gameBundle.selectedScene() else { return }
-            scene.title = title
-            strongSelf.gameBundle.updateScene(scene)
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-            }
+                guard let scene = strongSelf.gameBundle.selectedScene() else { return }
+                scene.title = title
+                strongSelf.gameBundle.updateScene(scene)
+                DispatchQueue.global(qos: .background).async {
+                    MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                }
 
-            // 重置底部视图
+                // 重置底部视图
 
-            strongSelf.resetBottomView(sceneSelected: true, animated: true)
+                strongSelf.resetBottomView(sceneSelected: true, animated: true)
 
-            // 更新「当前选中场景」视图的标题标签
+                // 更新「当前选中场景」视图的标题标签
 
-            let sceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == strongSelf.gameBundle.selectedSceneIndex })
-            sceneView?.updateTitleLabelAttributedText()
-        })
+                let sceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == strongSelf.gameBundle.selectedSceneIndex })
+                sceneView?.updateTitleLabelAttributedText()
+            })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         present(alert, animated: true, completion: nil)
     }
@@ -1380,44 +1393,44 @@ extension GameEditorViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
 
-            for (i, transitionView) in strongSelf.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+                for (i, transitionView) in strongSelf.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
 
-                if transitionView.startScene.index == transition.from &&
-                    transitionView.endScene.index == transition.to {
+                    if transitionView.startScene.index == transition.from &&
+                        transitionView.endScene.index == transition.to {
 
-                    // 删除「待删除穿梭器」视图
+                        // 删除「待删除穿梭器」视图
 
-                    transitionView.removeFromSuperview()
-                    strongSelf.transitionViewList.remove(at: i)
+                        transitionView.removeFromSuperview()
+                        strongSelf.transitionViewList.remove(at: i)
 
-                    // 取消高亮显示「待删除穿梭器」相关的「结束场景」视图
+                        // 取消高亮显示「待删除穿梭器」相关的「结束场景」视图
 
-                    let oppositeTransitionView = strongSelf.transitionViewList.first(where: {
-                        $0.startScene.index == transition.to && $0.endScene.index == transition.from
-                    }) // 如果存在反向的穿梭器，就不需要取消高亮显示「结束场景」视图了
-                    if oppositeTransitionView == nil {
-                        let endSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
-                        endSceneView?.unhighlight()
+                        let oppositeTransitionView = strongSelf.transitionViewList.first(where: {
+                            $0.startScene.index == transition.to && $0.endScene.index == transition.from
+                        }) // 如果存在反向的穿梭器，就不需要取消高亮显示「结束场景」视图了
+                        if oppositeTransitionView == nil {
+                            let endSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
+                            endSceneView?.unhighlight()
+                        }
                     }
                 }
-            }
 
-            // 保存「删除穿梭器」信息
+                // 保存「删除穿梭器」信息
 
-            strongSelf.gameBundle.deleteTransition(transition)
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-            }
+                strongSelf.gameBundle.deleteTransition(transition)
+                DispatchQueue.global(qos: .background).async {
+                    MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                }
 
-            // 完成之后的回调
+                // 完成之后的回调
 
-            completion()
-        })
+                completion()
+            })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         present(alert, animated: true, completion: nil)
     }

@@ -39,6 +39,7 @@ class TargetAssetsViewController: UIViewController {
     private var thumbSize: CGSize!
     private var previousPreheatRect: CGRect!
 
+    /// 初始化
     init() {
 
         super.init(nibName: nil, bundle: nil)
@@ -59,12 +60,7 @@ class TargetAssetsViewController: UIViewController {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -74,6 +70,7 @@ class TargetAssetsViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -100,6 +97,7 @@ class TargetAssetsViewController: UIViewController {
         PHPhotoLibrary.shared().register(self)
     }
 
+    /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -109,6 +107,7 @@ class TargetAssetsViewController: UIViewController {
         updateCachedAssets()
     }
 
+    /// 视图即将消失
     override func viewWillDisappear(_ animated: Bool) {
 
         super.viewWillDisappear(animated)
@@ -121,22 +120,24 @@ class TargetAssetsViewController: UIViewController {
         }
     }
 
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化素材视图
+        // 初始化「素材视图」
 
         initAssetsView()
     }
 
+    /// 初始化「导航栏」
     private func initNavigationBar() {
 
-        // 初始化关闭按钮
+        // 初始化「返回按钮容器」
 
         backButtonContainer = UIView()
         backButtonContainer.backgroundColor = .clear
@@ -149,6 +150,8 @@ class TargetAssetsViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「返回按钮」
+
         backButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
@@ -157,7 +160,7 @@ class TargetAssetsViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("AddAsset", comment: "")
@@ -172,9 +175,10 @@ class TargetAssetsViewController: UIViewController {
         }
     }
 
+    /// 初始化「素材视图」
     private func initAssetsView() {
 
-        // 初始化菜单控制器
+        // 初始化「菜单控制器」
 
         menuControl = UISegmentedControl(items: menuItems)
         menuControl.selectedSegmentIndex = 0
@@ -187,7 +191,7 @@ class TargetAssetsViewController: UIViewController {
             make.top.equalTo(backButtonContainer.snp.bottom).offset(8)
         }
 
-        // 初始化素材集合视图
+        // 初始化「素材集合视图」
 
         prepareAssetThumbSize()
 
@@ -478,9 +482,9 @@ extension TargetAssetsViewController {
         // Update the assets the PHCachingImageManager is caching
 
         imageManager.startCachingImages(for: addedAssets,
-                                        targetSize: thumbSize, contentMode: .aspectFill, options: nil)
+            targetSize: thumbSize, contentMode: .aspectFill, options: nil)
         imageManager.stopCachingImages(for: removedAssets,
-                                       targetSize: thumbSize, contentMode: .aspectFill, options: nil)
+            targetSize: thumbSize, contentMode: .aspectFill, options: nil)
 
         // Store the computed rectangle for future comparison
 
@@ -493,20 +497,20 @@ extension TargetAssetsViewController {
             var added = [CGRect]()
             if new.maxY > old.maxY {
                 added += [CGRect(x: new.origin.x, y: old.maxY,
-                                 width: new.width, height: new.maxY - old.maxY)]
+                    width: new.width, height: new.maxY - old.maxY)]
             }
             if old.minY > new.minY {
                 added += [CGRect(x: new.origin.x, y: new.minY,
-                                 width: new.width, height: old.minY - new.minY)]
+                    width: new.width, height: old.minY - new.minY)]
             }
             var removed = [CGRect]()
             if new.maxY < old.maxY {
                 removed += [CGRect(x: new.origin.x, y: new.maxY,
-                                   width: new.width, height: old.maxY - new.maxY)]
+                    width: new.width, height: old.maxY - new.maxY)]
             }
             if old.minY < new.minY {
                 removed += [CGRect(x: new.origin.x, y: old.minY,
-                                   width: new.width, height: new.minY - old.minY)]
+                    width: new.width, height: new.minY - old.minY)]
             }
             return (added, removed)
         } else {

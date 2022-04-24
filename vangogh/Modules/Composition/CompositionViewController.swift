@@ -31,12 +31,7 @@ class CompositionViewController: UIViewController {
 
     var gameSavedMessage: String? // 「作品已保存」消息
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -46,6 +41,7 @@ class CompositionViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -63,6 +59,7 @@ class CompositionViewController: UIViewController {
         showGames()
     }
 
+    /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -76,6 +73,7 @@ class CompositionViewController: UIViewController {
         signAgreements()
     }
 
+    /// 显示消息
     private func showMessage() {
 
         if let message = gameSavedMessage {
@@ -85,6 +83,7 @@ class CompositionViewController: UIViewController {
         }
     }
 
+    /// 签署协议
     private func signAgreements() {
 
         let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: GKC.agreementsSigned)
@@ -96,32 +95,28 @@ class CompositionViewController: UIViewController {
         }
     }
 
-    //
-    //
-    // MARK: - 初始化子视图
-    //
-    //
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化创作按钮
+        // 初始化「创作按钮」
 
         initComposeButton()
 
-        // 初始化草稿视图
+        // 初始化「草稿视图」
 
         initDraftsView()
     }
 
+    /// 初始化「导航栏」
     private func initNavigationBar() {
 
-        // 初始化设置按钮
+        // 初始化「设置按钮容器」
 
         let settingsButtonContainer: UIView = UIView()
         settingsButtonContainer.backgroundColor = .clear
@@ -135,6 +130,8 @@ class CompositionViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「设置按钮」
+
         settingsButton = CircleNavigationBarButton(icon: .settings)
         settingsButton.addTarget(self, action: #selector(settingsButtonDidTap), for: .touchUpInside)
         settingsButtonContainer.addSubview(settingsButton)
@@ -145,6 +142,7 @@ class CompositionViewController: UIViewController {
         }
     }
 
+    /// 初始化「创作按钮」
     private func initComposeButton() {
 
         composeButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
@@ -181,7 +179,10 @@ class CompositionViewController: UIViewController {
         }
     }
 
+    /// 初始化「草稿视图」
     private func initDraftsView() {
+
+        // 初始化「草稿视图」
 
         draftsView = UIView()
         view.addSubview(draftsView)
@@ -191,6 +192,8 @@ class CompositionViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
+        // 初始化「草稿标题标签」
+
         draftsTitleLabel = UILabel()
         draftsTitleLabel.text = NSLocalizedString("Drafts", comment: "")
         draftsTitleLabel.font = .systemFont(ofSize: VC.draftsTitleLabelFontSize, weight: .regular)
@@ -199,6 +202,8 @@ class CompositionViewController: UIViewController {
         draftsTitleLabel.snp.makeConstraints { make -> Void in
             make.left.top.equalToSuperview()
         }
+
+        // 初始化「草稿表格视图」
 
         draftsTableView = UITableView()
         draftsTableView.backgroundColor = .clear
@@ -236,23 +241,23 @@ extension CompositionViewController: UITableViewDataSource {
             fatalError("Unexpected cell type")
         }
 
-        // 准备「更多」按钮
+        // 准备「更多按钮」
 
         cell.moreButton.tag = indexPath.row
         cell.moreButton.addTarget(self, action: #selector(moreButtonDidTap), for: .touchUpInside)
 
-        // 准备标题标签
+        // 准备「标题标签」
 
         cell.titleLabel.text = game.title
 
-        // 准备「最近修改时间」标签
+        // 准备「最近修改时间标签」
 
         let mtimeFormatter = DateFormatter()
         mtimeFormatter.dateStyle = .medium
         mtimeFormatter.timeStyle = .short
         cell.mtimeLabel.text = mtimeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(game.mtime)))
 
-        // 准备缩略图视图
+        // 准备「缩略图视图」
 
         cell.thumbImageView.image = .sceneBackgroundThumb
 
@@ -287,12 +292,6 @@ extension CompositionViewController: UITableViewDelegate {
 }
 
 extension CompositionViewController {
-
-    //
-    //
-    // MARK: - 界面操作
-    //
-    //
 
     @objc private func settingsButtonDidTap() {
 
