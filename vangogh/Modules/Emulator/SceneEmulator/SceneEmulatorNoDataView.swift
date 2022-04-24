@@ -15,7 +15,7 @@ protocol SceneEmulatorNoDataViewDelegate: AnyObject {
 class SceneEmulatorNoDataView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let contentViewWidth: CGFloat = 240
         static let contentViewHeight: CGFloat = 200
         static let titleLabelFontSize: CGFloat = 22
@@ -36,9 +36,9 @@ class SceneEmulatorNoDataView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -46,14 +46,14 @@ class SceneEmulatorNoDataView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         contentView = UIView()
         contentView.backgroundColor = .clear
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.contentViewWidth)
-            make.height.equalTo(ViewLayoutConstants.contentViewHeight)
+            make.width.equalTo(VC.contentViewWidth)
+            make.height.equalTo(VC.contentViewHeight)
             make.center.equalToSuperview()
         }
 
@@ -61,7 +61,7 @@ class SceneEmulatorNoDataView: UIView {
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("SceneEmulatorNoData", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .semibold)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .semibold)
         titleLabel.textColor = .lightText
         titleLabel.textAlignment = .center
         contentView.addSubview(titleLabel)
@@ -77,13 +77,13 @@ class SceneEmulatorNoDataView: UIView {
         editSceneImmediatelyButton.backgroundColor = .white
         editSceneImmediatelyButton.tintColor = .darkText
         editSceneImmediatelyButton.setTitle(NSLocalizedString("EditScene", comment: ""), for: .normal)
-        editSceneImmediatelyButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.editSceneImmediatelyButtonTitleLabelFontSize, weight: .regular)
+        editSceneImmediatelyButton.titleLabel?.font = .systemFont(ofSize: VC.editSceneImmediatelyButtonTitleLabelFontSize, weight: .regular)
         editSceneImmediatelyButton.setTitleColor(.darkText, for: .normal)
         editSceneImmediatelyButton.addTarget(self, action: #selector(editSceneImmediatelyButtonDidTap), for: .touchUpInside)
         contentView.addSubview(editSceneImmediatelyButton)
         editSceneImmediatelyButton.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.editSceneImmediatelyButtonHeight)
+            make.height.equalTo(VC.editSceneImmediatelyButtonHeight)
             make.left.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(48)
         }
@@ -94,13 +94,13 @@ class SceneEmulatorNoDataView: UIView {
         editSceneLaterButton.backgroundColor = .clear
         editSceneLaterButton.tintColor = .lightText
         editSceneLaterButton.setTitle(NSLocalizedString("DecideLater", comment: ""), for: .normal)
-        editSceneLaterButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.editSceneLaterButtonTitleLabelFontSize, weight: .regular)
+        editSceneLaterButton.titleLabel?.font = .systemFont(ofSize: VC.editSceneLaterButtonTitleLabelFontSize, weight: .regular)
         editSceneLaterButton.setTitleColor(.lightText, for: .normal)
         editSceneLaterButton.addTarget(self, action: #selector(editSceneLaterButtonDidTap), for: .touchUpInside)
         contentView.addSubview(editSceneLaterButton)
         editSceneLaterButton.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.editSceneLaterButtonHeight)
+            make.height.equalTo(VC.editSceneLaterButtonHeight)
             make.left.equalToSuperview()
             make.top.equalTo(editSceneImmediatelyButton.snp.bottom).offset(8)
         }

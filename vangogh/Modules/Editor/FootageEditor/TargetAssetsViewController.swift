@@ -15,7 +15,7 @@ protocol TargetAssetsViewControllerDelegate: AnyObject {
 class TargetAssetsViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -69,9 +69,9 @@ class TargetAssetsViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -121,7 +121,7 @@ class TargetAssetsViewController: UIViewController {
         }
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -144,7 +144,7 @@ class TargetAssetsViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -154,14 +154,14 @@ class TargetAssetsViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("AddAsset", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -178,7 +178,7 @@ class TargetAssetsViewController: UIViewController {
 
         menuControl = UISegmentedControl(items: menuItems)
         menuControl.selectedSegmentIndex = 0
-        menuControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: ViewLayoutConstants.menuControlTitleTextFontSize, weight: .regular)], for: .normal)
+        menuControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: VC.menuControlTitleTextFontSize, weight: .regular)], for: .normal)
         menuControl.addTarget(self, action: #selector(menuControlDidChange), for: .valueChanged)
         view.addSubview(menuControl)
         menuControl.snp.makeConstraints { make -> Void in
@@ -199,7 +199,7 @@ class TargetAssetsViewController: UIViewController {
         collectionView.register(TargetAssetCollectionViewCell.self, forCellWithReuseIdentifier: TargetAssetCollectionViewCell.reuseId)
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make -> Void in
-            make.left.right.equalToSuperview().inset(ViewLayoutConstants.collectionViewInsetX)
+            make.left.right.equalToSuperview().inset(VC.collectionViewInsetX)
             make.top.equalTo(menuControl.snp.bottom).offset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
@@ -228,9 +228,9 @@ class TargetAssetsViewController: UIViewController {
             break
         }
 
-        let cellSpacing = ViewLayoutConstants.collectionViewCellSpacing
+        let cellSpacing = VC.collectionViewCellSpacing
 
-        let cellWidth: CGFloat = ((view.bounds.width - ViewLayoutConstants.collectionViewInsetX * 2 - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
+        let cellWidth: CGFloat = ((view.bounds.width - VC.collectionViewInsetX * 2 - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
         let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
         thumbSize = CGSize(width: cellWidth, height: cellHeight)
@@ -322,19 +322,19 @@ extension TargetAssetsViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let inset = ViewLayoutConstants.collectionViewCellSpacing
+        let inset = VC.collectionViewCellSpacing
         return UIEdgeInsets(top: 0, left: inset, bottom: inset, right: inset)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = ViewLayoutConstants.collectionViewCellSpacing
+        let lineSpacing = VC.collectionViewCellSpacing
         return lineSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
-        return ViewLayoutConstants.collectionViewCellSpacing
+        return VC.collectionViewCellSpacing
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

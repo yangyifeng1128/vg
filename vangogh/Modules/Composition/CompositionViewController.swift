@@ -13,7 +13,7 @@ import UIKit
 class CompositionViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let composeButtonTitleLabelFontSize: CGFloat = 20
@@ -41,9 +41,9 @@ class CompositionViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -102,7 +102,7 @@ class CompositionViewController: UIViewController {
     //
     //
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -128,9 +128,9 @@ class CompositionViewController: UIViewController {
         settingsButtonContainer.isUserInteractionEnabled = true
         settingsButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsButtonDidTap)))
         view.addSubview(settingsButtonContainer)
-        let settingsButtonContainerLeft: CGFloat = view.bounds.width - ViewLayoutConstants.topButtonContainerWidth
+        let settingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topButtonContainerWidth
         settingsButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview().offset(settingsButtonContainerLeft)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -140,8 +140,8 @@ class CompositionViewController: UIViewController {
         settingsButtonContainer.addSubview(settingsButton)
         settingsButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.left.equalToSuperview().offset(ViewLayoutConstants.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.left.equalToSuperview().offset(VC.topButtonContainerPadding)
+            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
     }
 
@@ -155,7 +155,7 @@ class CompositionViewController: UIViewController {
         composeButton.setTitle(NSLocalizedString("StartComposing", comment: ""), for: .normal)
         composeButton.setTitleColor(.mgLabel, for: .normal)
         composeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        composeButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.composeButtonTitleLabelFontSize, weight: .regular)
+        composeButton.titleLabel?.font = .systemFont(ofSize: VC.composeButtonTitleLabelFontSize, weight: .regular)
         composeButton.setImage(.open, for: .normal)
         composeButton.adjustsImageWhenHighlighted = false
         composeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
@@ -193,7 +193,7 @@ class CompositionViewController: UIViewController {
 
         draftsTitleLabel = UILabel()
         draftsTitleLabel.text = NSLocalizedString("Drafts", comment: "")
-        draftsTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.draftsTitleLabelFontSize, weight: .regular)
+        draftsTitleLabel.font = .systemFont(ofSize: VC.draftsTitleLabelFontSize, weight: .regular)
         draftsTitleLabel.textColor = .secondaryLabel
         draftsView.addSubview(draftsTitleLabel)
         draftsTitleLabel.snp.makeConstraints { make -> Void in
@@ -262,7 +262,7 @@ extension CompositionViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.draftTableViewCellHeight
+        return VC.draftTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

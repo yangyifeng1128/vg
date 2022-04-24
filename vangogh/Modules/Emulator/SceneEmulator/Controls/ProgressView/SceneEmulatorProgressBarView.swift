@@ -14,9 +14,9 @@ class SceneEmulatorProgressBarView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -24,7 +24,7 @@ class SceneEmulatorProgressBarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         isUserInteractionEnabled = false
         layer.backgroundColor = GVC.defaultSceneControlBackgroundColor.cgColor
@@ -37,7 +37,7 @@ class SceneEmulatorProgressBarView: UIView {
 
         super.draw(rect)
 
-        let maskRect = CGRect(origin: CGPoint(x: 0, y: (SceneEmulatorProgressView.ViewLayoutConstants.barHeight - SceneEmulatorProgressView.ViewLayoutConstants.visibleBarHeight) / 2), size: CGSize(width: rect.width, height: SceneEmulatorProgressView.ViewLayoutConstants.visibleBarHeight))
-        maskLayer.path = UIBezierPath(roundedRect: maskRect, cornerRadius: SceneEmulatorProgressView.ViewLayoutConstants.visibleBarHeight / 2).cgPath
+        let maskRect = CGRect(origin: CGPoint(x: 0, y: (SceneEmulatorProgressView.VC.barHeight - SceneEmulatorProgressView.VC.visibleBarHeight) / 2), size: CGSize(width: rect.width, height: SceneEmulatorProgressView.VC.visibleBarHeight))
+        maskLayer.path = UIBezierPath(roundedRect: maskRect, cornerRadius: SceneEmulatorProgressView.VC.visibleBarHeight / 2).cgPath
     }
 }

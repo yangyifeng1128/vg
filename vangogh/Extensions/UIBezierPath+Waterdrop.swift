@@ -22,8 +22,8 @@ extension UIBezierPath {
 
         let path = CGMutablePath()
         path.addArc(center: CGPoint(x: width / 2, y: width * 3 / 4), radius: width / 2, startAngle: .pi * 7 / 4, endAngle: .pi * 5 / 4, clockwise: false)
-        path.addLine(to: CGPoint(x: (width - NodeItemCurveView.ViewLayoutConstants.lineWidth) / 2, y: 0))
-        path.addLine(to: CGPoint(x: (width + NodeItemCurveView.ViewLayoutConstants.lineWidth) / 2, y: 0))
+        path.addLine(to: CGPoint(x: (width - NodeItemCurveView.VC.lineWidth) / 2, y: 0))
+        path.addLine(to: CGPoint(x: (width + NodeItemCurveView.VC.lineWidth) / 2, y: 0))
         path.closeSubpath()
 
         return self.init(cgPath: path)

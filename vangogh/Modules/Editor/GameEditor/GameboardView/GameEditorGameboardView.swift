@@ -13,9 +13,9 @@ class GameEditorGameboardView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -23,6 +23,6 @@ class GameEditorGameboardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
     }
 }

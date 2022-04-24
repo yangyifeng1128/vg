@@ -13,7 +13,7 @@ import UIKit
 class SceneEditorViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topRightButtonContainerWidth: CGFloat = 52
         static let topButtonContainerPadding: CGFloat = 12
@@ -106,9 +106,9 @@ class SceneEditorViewController: UIViewController {
 
         overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -191,7 +191,7 @@ class SceneEditorViewController: UIViewController {
     //
     //
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -222,7 +222,7 @@ class SceneEditorViewController: UIViewController {
         closeButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonDidTap)))
         view.addSubview(closeButtonContainer)
         closeButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -232,7 +232,7 @@ class SceneEditorViewController: UIViewController {
         closeButtonContainer.addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化保存按钮
@@ -242,10 +242,10 @@ class SceneEditorViewController: UIViewController {
         saveButtonContainer.isUserInteractionEnabled = true
         saveButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(saveButtonDidTap)))
         view.addSubview(saveButtonContainer)
-        let saveButtonContainerLeft: CGFloat = view.bounds.width - ViewLayoutConstants.topRightButtonContainerWidth
+        let saveButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth
         saveButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.topRightButtonContainerWidth)
-            make.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.equalTo(VC.topRightButtonContainerWidth)
+            make.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview().offset(saveButtonContainerLeft)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -255,8 +255,8 @@ class SceneEditorViewController: UIViewController {
         saveButtonContainer.addSubview(saveButton)
         saveButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.equalToSuperview().offset(-VC.topButtonContainerPadding)
+            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化场景设置按钮
@@ -266,10 +266,10 @@ class SceneEditorViewController: UIViewController {
         sceneSettingsButtonContainer.isUserInteractionEnabled = true
         sceneSettingsButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sceneSettingsButtonDidTap)))
         view.addSubview(sceneSettingsButtonContainer)
-        let sceneSettingsButtonContainerLeft: CGFloat = view.bounds.width - ViewLayoutConstants.topRightButtonContainerWidth * 2
+        let sceneSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth * 2
         sceneSettingsButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.topRightButtonContainerWidth)
-            make.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.equalTo(VC.topRightButtonContainerWidth)
+            make.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview().offset(sceneSettingsButtonContainerLeft)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -279,8 +279,8 @@ class SceneEditorViewController: UIViewController {
         sceneSettingsButtonContainer.addSubview(sceneSettingsButton)
         sceneSettingsButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.equalToSuperview().offset(-VC.topButtonContainerPadding)
+            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化场景标题标签
@@ -293,7 +293,7 @@ class SceneEditorViewController: UIViewController {
         sceneTitleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sceneTitleLabelDidTap)))
         view.addSubview(sceneTitleLabel)
         sceneTitleLabel.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.sceneTitleLabelWidth)
+            make.width.equalTo(VC.sceneTitleLabelWidth)
             make.centerY.equalTo(closeButton)
             make.left.equalTo(closeButtonContainer.snp.right).offset(8)
         }
@@ -305,7 +305,7 @@ class SceneEditorViewController: UIViewController {
         view.addSubview(workspaceView)
         workspaceView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.workspaceViewHeight)
+            make.height.equalTo(VC.workspaceViewHeight)
             make.left.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -344,8 +344,8 @@ class SceneEditorViewController: UIViewController {
 
     private func initTimelineView() {
 
-        let trackItemThumbImageWidth: CGFloat = MetaSceneAspectRatioTypeManager.shared.calculateWidth(height: TrackItemContentView.ViewLayoutConstants.height, aspectRatioType: sceneBundle.aspectRatioType)
-        let trackItemThumbImageSize: CGSize = CGSize(width: trackItemThumbImageWidth, height: TrackItemContentView.ViewLayoutConstants.height)
+        let trackItemThumbImageWidth: CGFloat = MetaSceneAspectRatioTypeManager.shared.calculateWidth(height: TrackItemContentView.VC.height, aspectRatioType: sceneBundle.aspectRatioType)
+        let trackItemThumbImageSize: CGSize = CGSize(width: trackItemThumbImageWidth, height: TrackItemContentView.VC.height)
 
         timelineView = TimelineView(trackItemThumbImageSize: trackItemThumbImageSize)
         timelineView.isHidden = true
@@ -364,7 +364,7 @@ class SceneEditorViewController: UIViewController {
         // 初始化播放器视图尺寸
 
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-        let renderHeight: CGFloat = UIScreen.main.bounds.height - ViewLayoutConstants.topButtonContainerWidth - window.safeAreaInsets.top - ViewLayoutConstants.workspaceViewHeight - ViewLayoutConstants.actionBarViewHeight - window.safeAreaInsets.bottom
+        let renderHeight: CGFloat = UIScreen.main.bounds.height - VC.topButtonContainerWidth - window.safeAreaInsets.top - VC.workspaceViewHeight - VC.actionBarViewHeight - window.safeAreaInsets.bottom
         let renderWidth: CGFloat = MetaSceneAspectRatioTypeManager.shared.calculateWidth(height: renderHeight, aspectRatioType: sceneBundle.aspectRatioType)
         renderSize = CGSize(width: renderWidth, height: renderHeight)
 
@@ -379,7 +379,7 @@ class SceneEditorViewController: UIViewController {
             make.width.equalToSuperview()
             make.height.equalTo(renderSize.height)
             make.left.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(ViewLayoutConstants.topButtonContainerWidth)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(VC.topButtonContainerWidth)
         }
 
         // 初始化播放器视图
@@ -418,18 +418,18 @@ class SceneEditorViewController: UIViewController {
         view.addSubview(actionBarView)
         actionBarView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.actionBarViewHeight)
+            make.height.equalTo(VC.actionBarViewHeight)
             make.left.equalToSuperview()
             make.bottom.equalTo(workspaceView.snp.top)
         }
 
         // 初始化播放按钮
 
-        playButton = SceneEditorPlayButton(imageEdgeInset: ViewLayoutConstants.playButtonImageEdgeInset)
+        playButton = SceneEditorPlayButton(imageEdgeInset: VC.playButtonImageEdgeInset)
         playButton.addTarget(self, action: #selector(playButtonDidTap), for: .touchUpInside)
         actionBarView.addSubview(playButton)
         playButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.playButtonHeight)
+            make.width.height.equalTo(VC.playButtonHeight)
             make.center.equalToSuperview()
         }
 
@@ -437,18 +437,18 @@ class SceneEditorViewController: UIViewController {
 
         currentTimeLabel = UILabel()
         currentTimeLabel.text = "00:00"
-        currentTimeLabel.font = .systemFont(ofSize: ViewLayoutConstants.actionBarViewLabelFontSize, weight: .regular)
+        currentTimeLabel.font = .systemFont(ofSize: VC.actionBarViewLabelFontSize, weight: .regular)
         currentTimeLabel.textColor = .mgLabel
         actionBarView.addSubview(currentTimeLabel)
         currentTimeLabel.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.currentTimeLabelWidth)
+            make.width.equalTo(VC.currentTimeLabelWidth)
             make.left.equalToSuperview().offset(12)
             make.top.bottom.equalToSuperview()
         }
 
         let timeSeparatorLabel: UILabel = UILabel()
         timeSeparatorLabel.text = "/"
-        timeSeparatorLabel.font = .systemFont(ofSize: ViewLayoutConstants.timeSeparatorLabelFontSize, weight: .regular)
+        timeSeparatorLabel.font = .systemFont(ofSize: VC.timeSeparatorLabelFontSize, weight: .regular)
         timeSeparatorLabel.textColor = .secondaryLabel
         actionBarView.addSubview(timeSeparatorLabel)
         timeSeparatorLabel.snp.makeConstraints { make -> Void in
@@ -459,7 +459,7 @@ class SceneEditorViewController: UIViewController {
 
         sceneDurationLabel = UILabel()
         sceneDurationLabel.text = "00:00"
-        sceneDurationLabel.font = .systemFont(ofSize: ViewLayoutConstants.actionBarViewLabelFontSize, weight: .regular)
+        sceneDurationLabel.font = .systemFont(ofSize: VC.actionBarViewLabelFontSize, weight: .regular)
         sceneDurationLabel.textColor = .secondaryLabel
         actionBarView.addSubview(sceneDurationLabel)
         sceneDurationLabel.snp.makeConstraints { make -> Void in
@@ -478,7 +478,7 @@ class SceneEditorViewController: UIViewController {
         previewButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
         previewButton.setTitleColor(.mgLabel, for: .normal)
         previewButton.setTitleColor(UIColor.mgLabel?.withAlphaComponent(0.5), for: .disabled)
-        previewButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.previewButtonTitleLabelFontSize, weight: .regular)
+        previewButton.titleLabel?.font = .systemFont(ofSize: VC.previewButtonTitleLabelFontSize, weight: .regular)
         previewButton.setImage(.emulate, for: .normal)
         previewButton.adjustsImageWhenHighlighted = false
         previewButton.imageView?.tintColor = .mgLabel
@@ -486,10 +486,10 @@ class SceneEditorViewController: UIViewController {
         previewButton.addTarget(self, action: #selector(previewButtonDidTap), for: .touchUpInside)
         actionBarView.addSubview(previewButton)
         previewButton.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.previewButtonWidth)
+            make.width.equalTo(VC.previewButtonWidth)
             make.height.equalToSuperview()
             make.centerY.equalTo(playButton)
-            make.right.equalToSuperview().offset(-ViewLayoutConstants.previewButtonMarginRight)
+            make.right.equalToSuperview().offset(-VC.previewButtonMarginRight)
         }
     }
 
@@ -506,10 +506,10 @@ class SceneEditorViewController: UIViewController {
         var sceneIndexFontSize: CGFloat
         var sceneIndexColor: UIColor
         if let title = scene.title, !title.isEmpty {
-            sceneIndexFontSize = ViewLayoutConstants.sceneTitleLabelSmallFontSize
+            sceneIndexFontSize = VC.sceneTitleLabelSmallFontSize
             sceneIndexColor = .secondaryLabel
         } else {
-            sceneIndexFontSize = ViewLayoutConstants.sceneTitleLabelLargeFontSize
+            sceneIndexFontSize = VC.sceneTitleLabelLargeFontSize
             sceneIndexColor = .mgLabel!
         }
         let sceneIndexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: sceneIndexColor, .font: UIFont.systemFont(ofSize: sceneIndexFontSize, weight: .regular)]
@@ -520,7 +520,7 @@ class SceneEditorViewController: UIViewController {
         // 准备场景标题
 
         if let title = scene.title, !title.isEmpty {
-            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: ViewLayoutConstants.sceneTitleLabelSmallFontSize, weight: .regular)]
+            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: VC.sceneTitleLabelSmallFontSize, weight: .regular)]
             let sceneTitleString: NSAttributedString = NSAttributedString(string: "\n" + title, attributes: sceneTitleStringAttributes)
             completeSceneTitleString.append(sceneTitleString)
         }
@@ -1359,7 +1359,7 @@ extension SceneEditorViewController {
         let addNodeItemVC: AddNodeItemViewController = AddNodeItemViewController(toolBarItem: toolBarItem)
         addNodeItemVC.delegate = self
 
-        let sheetHeight: CGFloat = view.safeAreaInsets.bottom + AddNodeItemViewController.ViewLayoutConstants.height
+        let sheetHeight: CGFloat = view.safeAreaInsets.bottom + AddNodeItemViewController.VC.height
 
         presentSheetViewController(controller: addNodeItemVC, sizes: [.fixed(sheetHeight)], cornerRadius: GVC.bottomSheetViewCornerRadius)
     }
@@ -1381,8 +1381,8 @@ extension SceneEditorViewController {
         let editNodeItemVC = EditNodeItemViewController(node: node, rules: sceneBundle.findNodeRules(index: node.index))
         editNodeItemVC.delegate = self
 
-        let minSheetHeight: CGFloat = view.safeAreaInsets.bottom + SceneEditorViewController.ViewLayoutConstants.workspaceViewHeight + SceneEditorViewController.ViewLayoutConstants.actionBarViewHeight
-        let maxSheetHeight: CGFloat = view.safeAreaInsets.bottom + SceneEditorViewController.ViewLayoutConstants.workspaceViewHeight + SceneEditorViewController.ViewLayoutConstants.actionBarViewHeight + renderSize.height
+        let minSheetHeight: CGFloat = view.safeAreaInsets.bottom + SceneEditorViewController.VC.workspaceViewHeight + SceneEditorViewController.VC.actionBarViewHeight
+        let maxSheetHeight: CGFloat = view.safeAreaInsets.bottom + SceneEditorViewController.VC.workspaceViewHeight + SceneEditorViewController.VC.actionBarViewHeight + renderSize.height
 
         presentSheetViewController(controller: editNodeItemVC, sizes: [.fixed(minSheetHeight), .fixed(maxSheetHeight)], cornerRadius: 0)
     }

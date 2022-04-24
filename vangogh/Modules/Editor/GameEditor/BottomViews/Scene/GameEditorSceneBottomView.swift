@@ -22,7 +22,7 @@ protocol GameEditorSceneBottomViewDelegate: AnyObject {
 class GameEditorSceneBottomView: BorderedView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let contentViewHeight: CGFloat = {
             switch UIDevice.current.userInterfaceIdiom {
             case .phone:
@@ -70,9 +70,9 @@ class GameEditorSceneBottomView: BorderedView {
         selectedScene = gameBundle.selectedScene()
         transitions = gameBundle.selectedTransitions()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -80,14 +80,14 @@ class GameEditorSceneBottomView: BorderedView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         contentView = UIView()
         contentView.backgroundColor = .systemBackground
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(GameEditorSceneBottomView.ViewLayoutConstants.contentViewHeight)
+            make.height.equalTo(GameEditorSceneBottomView.VC.contentViewHeight)
             make.left.top.equalToSuperview()
         }
 
@@ -98,7 +98,7 @@ class GameEditorSceneBottomView: BorderedView {
         closeSceneButton.addTarget(self, action: #selector(closeSceneButtonDidTap), for: .touchUpInside)
         contentView.addSubview(closeSceneButton)
         closeSceneButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.rightTopButtonWidth)
+            make.width.height.equalTo(VC.rightTopButtonWidth)
             make.right.equalToSuperview().offset(-8)
             make.top.equalToSuperview().offset(8)
         }
@@ -110,7 +110,7 @@ class GameEditorSceneBottomView: BorderedView {
         deleteSceneButton.addTarget(self, action: #selector(deleteSceneButtonDidTap), for: .touchUpInside)
         contentView.addSubview(deleteSceneButton)
         deleteSceneButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.rightTopButtonWidth)
+            make.width.height.equalTo(VC.rightTopButtonWidth)
             make.right.equalTo(closeSceneButton.snp.left)
             make.top.equalTo(closeSceneButton)
         }
@@ -123,14 +123,14 @@ class GameEditorSceneBottomView: BorderedView {
         editSceneTitleButton.addTarget(self, action: #selector(editSceneTitleButtonDidTap), for: .touchUpInside)
         contentView.addSubview(editSceneTitleButton)
         editSceneTitleButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.rightTopButtonWidth)
+            make.width.height.equalTo(VC.rightTopButtonWidth)
             make.right.equalTo(deleteSceneButton.snp.left)
             make.top.equalTo(deleteSceneButton)
         }
 
         sceneTitleLabel = UILabel()
         sceneTitleLabel.attributedText = prepareSceneTitleLabelAttributedText()
-        sceneTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.sceneTitleLabelFontSize, weight: .regular)
+        sceneTitleLabel.font = .systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)
         sceneTitleLabel.numberOfLines = 2
         sceneTitleLabel.lineBreakMode = .byTruncatingTail
         sceneTitleLabel.isUserInteractionEnabled = true
@@ -148,7 +148,7 @@ class GameEditorSceneBottomView: BorderedView {
         previewSceneButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
         previewSceneButton.setTitleColor(.white, for: .normal)
         previewSceneButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
-        previewSceneButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.bottomButtonTitleLabelFontSize, weight: .regular)
+        previewSceneButton.titleLabel?.font = .systemFont(ofSize: VC.bottomButtonTitleLabelFontSize, weight: .regular)
         previewSceneButton.setImage(.emulate, for: .normal)
         previewSceneButton.adjustsImageWhenHighlighted = false
         previewSceneButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 6)
@@ -156,8 +156,8 @@ class GameEditorSceneBottomView: BorderedView {
         previewSceneButton.addTarget(self, action: #selector(previewSceneButtonDidTap), for: .touchUpInside)
         contentView.addSubview(previewSceneButton)
         previewSceneButton.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.previewSceneButtonWidth)
-            make.height.equalTo(ViewLayoutConstants.bottomButtonHeight)
+            make.width.equalTo(VC.previewSceneButtonWidth)
+            make.height.equalTo(VC.bottomButtonHeight)
             make.right.equalToSuperview().offset(-16)
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
@@ -167,7 +167,7 @@ class GameEditorSceneBottomView: BorderedView {
         editSceneButton.tintColor = .mgLabel
         editSceneButton.setTitle(NSLocalizedString("EditScene", comment: ""), for: .normal)
         editSceneButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
-        editSceneButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.bottomButtonTitleLabelFontSize, weight: .regular)
+        editSceneButton.titleLabel?.font = .systemFont(ofSize: VC.bottomButtonTitleLabelFontSize, weight: .regular)
         editSceneButton.setTitleColor(.mgLabel, for: .normal)
         editSceneButton.setImage(.edit, for: .normal)
         editSceneButton.adjustsImageWhenHighlighted = false
@@ -176,7 +176,7 @@ class GameEditorSceneBottomView: BorderedView {
         editSceneButton.addTarget(self, action: #selector(editSceneButtonDidTap), for: .touchUpInside)
         contentView.addSubview(editSceneButton)
         editSceneButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.bottomButtonHeight)
+            make.height.equalTo(VC.bottomButtonHeight)
             make.left.equalToSuperview().offset(16)
             make.right.equalTo(previewSceneButton.snp.left).offset(-12)
             make.bottom.equalTo(previewSceneButton)
@@ -195,7 +195,7 @@ class GameEditorSceneBottomView: BorderedView {
         manageTransitionsButton.tintColor = .secondaryLabel
         manageTransitionsButton.contentHorizontalAlignment = .right
         manageTransitionsButton.setTitle(NSLocalizedString("Manage", comment: ""), for: .normal)
-        manageTransitionsButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.manageTransitionsButtonTitleLabelFontSize, weight: .regular)
+        manageTransitionsButton.titleLabel?.font = .systemFont(ofSize: VC.manageTransitionsButtonTitleLabelFontSize, weight: .regular)
         manageTransitionsButton.setTitleColor(.secondaryLabel, for: .normal)
         manageTransitionsButton.setImage(.openInNew, for: .normal)
         manageTransitionsButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0)
@@ -204,8 +204,8 @@ class GameEditorSceneBottomView: BorderedView {
         manageTransitionsButton.addTarget(self, action: #selector(manageTransitionsButtonDidTap), for: .touchUpInside)
         transitionsView.addSubview(manageTransitionsButton)
         manageTransitionsButton.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.manageTransitionsButtonWidth)
-            make.height.equalTo(ViewLayoutConstants.manageTransitionsButtonHeight)
+            make.width.equalTo(VC.manageTransitionsButtonWidth)
+            make.height.equalTo(VC.manageTransitionsButtonHeight)
             make.right.equalToSuperview().offset(-14)
             make.bottom.equalToSuperview()
         }
@@ -222,7 +222,7 @@ class GameEditorSceneBottomView: BorderedView {
         transitionsTableView.snp.makeConstraints { make -> Void in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalTo(ViewLayoutConstants.manageTransitionsButtonMinHeight)
+            make.top.equalTo(VC.manageTransitionsButtonMinHeight)
             make.bottom.equalTo(manageTransitionsButton.snp.top)
         }
     }
@@ -265,7 +265,7 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
         if transitions.isEmpty {
 
             manageTransitionsButton.snp.updateConstraints { make -> Void in
-                make.height.equalTo(ViewLayoutConstants.manageTransitionsButtonMinHeight)
+                make.height.equalTo(VC.manageTransitionsButtonMinHeight)
             }
             manageTransitionsButton.isHidden = true
 
@@ -275,7 +275,7 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
         } else {
 
             manageTransitionsButton.snp.updateConstraints { make -> Void in
-                make.height.equalTo(ViewLayoutConstants.manageTransitionsButtonHeight)
+                make.height.equalTo(VC.manageTransitionsButtonHeight)
             }
             // manageTransitionsButton.isHidden = false
             manageTransitionsButton.isHidden = true
@@ -359,7 +359,7 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
 
         // 准备「点」
 
-        let dotStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.ViewLayoutConstants.conditionsTitleLabelFontSize, weight: .semibold)]
+        let dotStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.VC.conditionsTitleLabelFontSize, weight: .semibold)]
         let dotString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Dot", comment: ""), attributes: dotStringAttributes)
 
         // 准备「开始场景」
@@ -414,13 +414,13 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
 
         // 准备场景索引
 
-        let indexStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.ViewLayoutConstants.endSceneTitleLabelLargeFontSize, weight: .regular)]
+        let indexStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.VC.endSceneTitleLabelLargeFontSize, weight: .regular)]
         let indexString: NSAttributedString = NSAttributedString(string: endScene.index.description, attributes: indexStringAttributes)
         completeTitleString.append(indexString)
 
         // 准备场景标题
 
-        let titleStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.ViewLayoutConstants.endSceneTitleLabelSmallFontSize, weight: .regular)]
+        let titleStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.VC.endSceneTitleLabelSmallFontSize, weight: .regular)]
         var titleString: NSAttributedString
         if let title = endScene.title, !title.isEmpty {
             titleString = NSAttributedString(string: "\n" + title, attributes: titleStringAttributes)
@@ -441,7 +441,7 @@ extension GameEditorSceneBottomView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.transitionTableViewCellHeight
+        return VC.transitionTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

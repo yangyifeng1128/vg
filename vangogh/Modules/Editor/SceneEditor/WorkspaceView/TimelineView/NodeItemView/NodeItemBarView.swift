@@ -10,7 +10,7 @@ import UIKit
 class NodeItemBarView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 40
     }
 
@@ -31,9 +31,9 @@ class NodeItemBarView: UIView {
 
         self.nodeType = nodeType
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -41,7 +41,7 @@ class NodeItemBarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         let nodeTypeBackgroundColor: UIColor? = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: nodeType)
 
@@ -51,7 +51,7 @@ class NodeItemBarView: UIView {
         addSubview(leftEarView)
         leftEarView.snp.makeConstraints { make -> Void in
             make.width.equalTo(GVC.timelineItemEarViewWidth)
-            make.height.equalTo(ViewLayoutConstants.height)
+            make.height.equalTo(VC.height)
             make.left.top.equalToSuperview()
         }
 
@@ -83,9 +83,9 @@ extension NodeItemBarView {
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalTo(contentView.width)
-            make.height.equalTo(NodeItemContentView.ViewLayoutConstants.height)
+            make.height.equalTo(NodeItemContentView.VC.height)
             make.left.equalTo(leftEarView.snp.right)
-            make.top.equalTo((ViewLayoutConstants.height - NodeItemContentView.ViewLayoutConstants.height) / 2)
+            make.top.equalTo((VC.height - NodeItemContentView.VC.height) / 2)
         }
 
         rightEarView.snp.remakeConstraints { make -> Void in

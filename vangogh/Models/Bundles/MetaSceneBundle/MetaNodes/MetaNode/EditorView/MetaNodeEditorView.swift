@@ -9,7 +9,7 @@ import UIKit
 class MetaNodeEditorView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let tableViewHeaderHeight: CGFloat = 56
         static let sectionControlTitleTextFontSize: CGFloat = 13
         static let deleteButtonTitleLabelFontSize: CGFloat = 14
@@ -53,9 +53,9 @@ class MetaNodeEditorView: UIView {
             sections[sectionKey] = NSLocalizedString(sectionKey.rawValue, comment: "")
         }
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -63,7 +63,7 @@ class MetaNodeEditorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         // 初始化表格视图
 
@@ -95,7 +95,7 @@ class MetaNodeEditorView: UIView {
         // 初始化菜单控制器
 
         sectionControl = UISegmentedControl(items: sections.map { $0.value })
-        sectionControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: ViewLayoutConstants.sectionControlTitleTextFontSize, weight: .regular)], for: .normal)
+        sectionControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: VC.sectionControlTitleTextFontSize, weight: .regular)], for: .normal)
         sectionControl.selectedSegmentIndex = 0
         sectionControl.addTarget(self, action: #selector(sectionControlDidChange), for: .valueChanged)
         addSubview(sectionControl)
@@ -114,7 +114,7 @@ class MetaNodeEditorView: UIView {
         deleteButton.contentVerticalAlignment = .center
         deleteButton.setTitle(NSLocalizedString("DeleteNode", comment: ""), for: .normal)
         deleteButton.setTitleColor(.mgLabel, for: .normal)
-        deleteButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.deleteButtonTitleLabelFontSize, weight: .regular)
+        deleteButton.titleLabel?.font = .systemFont(ofSize: VC.deleteButtonTitleLabelFontSize, weight: .regular)
         deleteButton.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
         addSubview(deleteButton)
         deleteButton.snp.makeConstraints { make -> Void in
@@ -178,7 +178,7 @@ extension MetaNodeEditorView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 
-        return ViewLayoutConstants.tableViewHeaderHeight
+        return VC.tableViewHeaderHeight
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -201,7 +201,7 @@ extension MetaNodeEditorView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return MetaNodeEditorTableViewCell.ViewLayoutConstants.height
+        return MetaNodeEditorTableViewCell.VC.height
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

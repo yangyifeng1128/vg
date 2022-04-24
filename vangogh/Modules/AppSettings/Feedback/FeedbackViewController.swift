@@ -11,7 +11,7 @@ import WebKit
 class FeedbackViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -44,9 +44,9 @@ class FeedbackViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -54,7 +54,7 @@ class FeedbackViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -77,7 +77,7 @@ class FeedbackViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -87,14 +87,14 @@ class FeedbackViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("Feedback", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -134,7 +134,7 @@ class FeedbackViewController: UIViewController {
         // 准备文本内容
 
         let string = LocalDocumentManager.shared.load(type: .feedback)
-        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: ViewLayoutConstants.infoTextViewFontSize, weight: .regular)]
+        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: VC.infoTextViewFontSize, weight: .regular)]
         let completeInfoTextString: NSMutableAttributedString = NSMutableAttributedString(string: string, attributes: stringAttributes)
 
         // 准备段落样式

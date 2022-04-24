@@ -11,7 +11,7 @@ import UIKit
 class TrackItemContentView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 56
         static let preheatThumbImageViewIndexCount: Int = 4
     }
@@ -45,9 +45,9 @@ class TrackItemContentView: UIView {
         self.thumbImageSize = thumbImageSize
         self.maxDuration = maxDuration
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -60,7 +60,7 @@ class TrackItemContentView: UIView {
         imageGenerator?.cancelAllCGImageGeneration() // 取消生成缩略图
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .black
         clipsToBounds = true // 防止末尾的缩略图视图超出父视图的边界
@@ -112,10 +112,10 @@ extension TrackItemContentView {
         var startIndex: Int = Int(startOffset / thumbImageSize.width)
         var endIndex: Int = Int(ceil((availableRect.width + startOffset) / thumbImageSize.width))
 
-        if ViewLayoutConstants.preheatThumbImageViewIndexCount > 0 { // 在当前屏幕可视范围内的缩略图索引之外，预加载额外的索引
-            startIndex = startIndex - ViewLayoutConstants.preheatThumbImageViewIndexCount
+        if VC.preheatThumbImageViewIndexCount > 0 { // 在当前屏幕可视范围内的缩略图索引之外，预加载额外的索引
+            startIndex = startIndex - VC.preheatThumbImageViewIndexCount
             startIndex = max(0, startIndex)
-            endIndex = endIndex + ViewLayoutConstants.preheatThumbImageViewIndexCount
+            endIndex = endIndex + VC.preheatThumbImageViewIndexCount
             let maxIndex = Int(ceil(GVC.defaultTimelineItemWidthPerSecond * asset.duration.seconds / thumbImageSize.width))
             endIndex = min(maxIndex, endIndex)
         }

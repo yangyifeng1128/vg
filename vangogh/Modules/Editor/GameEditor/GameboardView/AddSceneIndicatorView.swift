@@ -15,7 +15,7 @@ protocol AddSceneIndicatorViewDelegate: AnyObject {
 class AddSceneIndicatorView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let width: CGFloat = 160
         static let height: CGFloat = 76
         static let infoLabelFontSize: CGFloat = 14
@@ -33,9 +33,9 @@ class AddSceneIndicatorView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -43,7 +43,7 @@ class AddSceneIndicatorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         isUserInteractionEnabled = true
@@ -54,14 +54,14 @@ class AddSceneIndicatorView: UIView {
         contentView.backgroundColor = GVC.addSceneViewBackgroundColor
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.width - ViewLayoutConstants.closeButtonWidth / 2)
-            make.height.equalTo(ViewLayoutConstants.height - ViewLayoutConstants.closeButtonWidth / 2)
+            make.width.equalTo(VC.width - VC.closeButtonWidth / 2)
+            make.height.equalTo(VC.height - VC.closeButtonWidth / 2)
             make.left.bottom.equalToSuperview()
         }
 
         infoLabel = UILabel()
         infoLabel.text = NSLocalizedString("AddSceneIndicatorInfo", comment: "")
-        infoLabel.font = .systemFont(ofSize: ViewLayoutConstants.infoLabelFontSize, weight: .regular)
+        infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.adjustsFontSizeToFitWidth = true
         infoLabel.textColor = .white
         infoLabel.textAlignment = .center
@@ -76,7 +76,7 @@ class AddSceneIndicatorView: UIView {
         closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
         addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.closeButtonWidth)
+            make.width.height.equalTo(VC.closeButtonWidth)
             make.right.top.equalToSuperview()
         }
     }
@@ -159,7 +159,7 @@ private class CloseButton: UIButton {
 
     override func backgroundRect(forBounds bounds: CGRect) -> CGRect {
 
-        let imageEdgeInset: CGFloat = AddSceneIndicatorView.ViewLayoutConstants.closeButtonImageEdgeInset
+        let imageEdgeInset: CGFloat = AddSceneIndicatorView.VC.closeButtonImageEdgeInset
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)
     }
 }

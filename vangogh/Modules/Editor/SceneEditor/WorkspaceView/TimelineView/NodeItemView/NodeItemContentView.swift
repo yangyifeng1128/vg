@@ -11,7 +11,7 @@ import UIKit
 class NodeItemContentView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 32
     }
 
@@ -35,9 +35,9 @@ class NodeItemContentView: UIView {
         self.startTime = startTime
         self.endTime = endTime
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -45,7 +45,7 @@ class NodeItemContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: nodeType)
     }

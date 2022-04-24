@@ -17,7 +17,7 @@ protocol TrackItemViewDelegate: AnyObject {
 class TrackItemView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 64
     }
 
@@ -53,9 +53,9 @@ class TrackItemView: UIView {
 
         self.footage = footage
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -63,7 +63,7 @@ class TrackItemView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         // 初始化左执耳视图
 
@@ -110,7 +110,7 @@ extension TrackItemView {
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalTo(contentView.width)
-            make.height.equalTo(TrackItemContentView.ViewLayoutConstants.height)
+            make.height.equalTo(TrackItemContentView.VC.height)
             make.centerY.equalToSuperview()
             make.left.equalTo(leftEarView.snp.right)
         }

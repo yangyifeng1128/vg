@@ -26,7 +26,7 @@ protocol TimelineViewDelegate: AnyObject {
 class TimelineView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let bottomViewContainerHeight: CGFloat = 64
         static let newFootageButtonWidth: CGFloat = 40
         static let newFootageButtonImageEdgeInset: CGFloat = 8
@@ -106,9 +106,9 @@ class TimelineView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -116,7 +116,7 @@ class TimelineView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         // 初始化底部视图
 
@@ -145,7 +145,7 @@ class TimelineView: UIView {
         addSubview(bottomViewContainer)
         bottomViewContainer.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.bottomViewContainerHeight)
+            make.height.equalTo(VC.bottomViewContainerHeight)
             make.left.bottom.equalToSuperview()
         }
 
@@ -270,7 +270,7 @@ class TimelineView: UIView {
         contentView.addSubview(measureView)
         measureView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(TimelineMeasureView.ViewLayoutConstants.height)
+            make.height.equalTo(TimelineMeasureView.VC.height)
             make.left.top.equalToSuperview()
         }
     }
@@ -283,9 +283,9 @@ class TimelineView: UIView {
         contentView.addSubview(trackItemViewContainer)
         trackItemViewContainer.snp.makeConstraints { make -> Void in
             make.width.equalTo(0) // 以备后续更新
-            make.height.equalTo(TrackItemView.ViewLayoutConstants.height)
+            make.height.equalTo(TrackItemView.VC.height)
             make.left.equalToSuperview()
-            make.bottom.equalTo(nodeItemViewContainer.snp.top).offset(-NodeItemCurveView.ViewLayoutConstants.lineWidth * 2)
+            make.bottom.equalTo(nodeItemViewContainer.snp.top).offset(-NodeItemCurveView.VC.lineWidth * 2)
         }
     }
 
@@ -297,9 +297,9 @@ class TimelineView: UIView {
         contentView.addSubview(nodeItemTagViewContainer)
         nodeItemTagViewContainer.snp.makeConstraints { make -> Void in
             make.width.equalTo(0) // 以备后续更新
-            make.height.equalTo(NodeItemTagView.ViewLayoutConstants.height)
+            make.height.equalTo(NodeItemTagView.VC.height)
             make.left.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.nodeItemTagViewContainerBottomOffset)
+            make.bottom.equalToSuperview().offset(-VC.nodeItemTagViewContainerBottomOffset)
         }
 
         // 初始化内容项视图容器
@@ -308,7 +308,7 @@ class TimelineView: UIView {
         contentView.addSubview(nodeItemViewContainer)
         nodeItemViewContainer.snp.makeConstraints { make -> Void in
             make.width.equalTo(0) // 以备后续更新
-            make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height)
+            make.height.equalTo(NodeItemCurveView.VC.height)
             make.left.equalToSuperview()
             make.bottom.equalTo(nodeItemTagViewContainer.snp.top)
         }
@@ -327,19 +327,19 @@ class TimelineView: UIView {
         cursorView = TimelineCursorView()
         addSubview(cursorView)
         cursorView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(TimelineCursorView.ViewLayoutConstants.width)
+            make.width.equalTo(TimelineCursorView.VC.width)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.bottomViewContainerHeight)
+            make.bottom.equalToSuperview().offset(-VC.bottomViewContainerHeight)
         }
 
         // 初始化「添加镜头片段」按钮
 
-        newFootageButton = AddFootageButton(imageEdgeInset: ViewLayoutConstants.newFootageButtonImageEdgeInset)
+        newFootageButton = AddFootageButton(imageEdgeInset: VC.newFootageButtonImageEdgeInset)
         newFootageButton.addTarget(self, action: #selector(newFootageButtonDidTap), for: .touchUpInside)
         addSubview(newFootageButton)
         newFootageButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.newFootageButtonWidth)
+            make.width.height.equalTo(VC.newFootageButtonWidth)
             make.right.equalToSuperview().offset(-12)
             make.bottom.equalTo(trackItemViewContainer).offset(-12)
         }
@@ -527,9 +527,9 @@ extension TimelineView {
         nodeItemTagViewContainer.addSubview(nodeItemTagView)
         nodeItemTagViewList.append(nodeItemTagView)
         nodeItemTagView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(NodeItemTagView.ViewLayoutConstants.width)
-            make.height.equalTo(NodeItemTagView.ViewLayoutConstants.height)
-            make.left.equalToSuperview().offset(contentOffsetX - NodeItemTagView.ViewLayoutConstants.width / 2 + GVC.timelineItemEarViewWidth)
+            make.width.equalTo(NodeItemTagView.VC.width)
+            make.height.equalTo(NodeItemTagView.VC.height)
+            make.left.equalToSuperview().offset(contentOffsetX - NodeItemTagView.VC.width / 2 + GVC.timelineItemEarViewWidth)
             make.top.equalToSuperview()
         }
 
@@ -590,7 +590,7 @@ extension TimelineView {
         // 重新加载组件项视图时，还原组件项视图容器在非激活状态下的高度
 
         nodeItemViewContainer.snp.updateConstraints { make -> Void in
-            make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height)
+            make.height.equalTo(NodeItemCurveView.VC.height)
         }
 
         // 添加调整布局动画
@@ -627,7 +627,7 @@ extension TimelineView: NodeItemViewDelegate {
 
             guard let nodeItemTagView = nodeItemTagViewList.first(where: { $0.node.uuid == node.uuid }) else { return }
             nodeItemTagView.snp.updateConstraints { make -> Void in
-                make.left.equalToSuperview().offset(edgeX - NodeItemTagView.ViewLayoutConstants.width / 2 + GVC.timelineItemEarViewWidth)
+                make.left.equalToSuperview().offset(edgeX - NodeItemTagView.VC.width / 2 + GVC.timelineItemEarViewWidth)
             }
 
         } else { // 拖拽右执耳视图
@@ -759,7 +759,7 @@ extension TimelineView: UIScrollViewDelegate {
             if currentTimeMilliseconds >= leftMarkTimeMilliseconds && currentTimeMilliseconds <= rightMarkTimeMilliseconds {
 
                 nodeItemTagView.snp.updateConstraints { make -> Void in
-                    make.left.equalToSuperview().offset(contentOffsetX - UIScreen.main.bounds.width / 2 - NodeItemTagView.ViewLayoutConstants.width / 2 + GVC.timelineItemEarViewWidth)
+                    make.left.equalToSuperview().offset(contentOffsetX - UIScreen.main.bounds.width / 2 - NodeItemTagView.VC.width / 2 + GVC.timelineItemEarViewWidth)
                 }
             }
         }
@@ -914,7 +914,7 @@ extension TimelineView {
             // 更新组件项视图容器在激活状态下的高度
 
             nodeItemViewContainer.snp.updateConstraints { make -> Void in
-                make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height + NodeItemBarView.ViewLayoutConstants.height)
+                make.height.equalTo(NodeItemCurveView.VC.height + NodeItemBarView.VC.height)
             }
 
             // 取消选中全部轨道项视图
@@ -952,7 +952,7 @@ extension TimelineView {
             // 更新组件项视图容器在非激活状态下的高度
 
             nodeItemViewContainer.snp.updateConstraints { make -> Void in
-                make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height)
+                make.height.equalTo(NodeItemCurveView.VC.height)
             }
 
             // 重置底部视图
@@ -1010,7 +1010,7 @@ extension TimelineView {
         // 更新组件项视图容器在非激活状态下的高度
 
         nodeItemViewContainer.snp.updateConstraints { make -> Void in
-            make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height)
+            make.height.equalTo(NodeItemCurveView.VC.height)
         }
 
         // 添加调整布局动画

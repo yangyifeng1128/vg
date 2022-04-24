@@ -13,7 +13,7 @@ import UIKit
 class GameEditorViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topRightButtonContainerWidth: CGFloat = 52
         static let topButtonContainerPadding: CGFloat = 12
@@ -88,9 +88,9 @@ class GameEditorViewController: UIViewController {
 
         resetParentViewControllers()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
 
         // 初始化全部场景和穿梭器视图
 
@@ -243,7 +243,7 @@ class GameEditorViewController: UIViewController {
         addSceneIndicatorView.isHidden = true
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemBackground
 
@@ -275,7 +275,7 @@ class GameEditorViewController: UIViewController {
         gameboardViewContainer.contentInsetAdjustmentBehavior = .never
         gameboardViewContainer.showsVerticalScrollIndicator = true
         gameboardViewContainer.showsHorizontalScrollIndicator = true
-        gameboardViewContainer.contentSize = CGSize(width: ViewLayoutConstants.gameboardViewWidth, height: ViewLayoutConstants.gameboardViewHeight)
+        gameboardViewContainer.contentSize = CGSize(width: VC.gameboardViewWidth, height: VC.gameboardViewHeight)
         gameboardViewContainer.maximumZoomScale = 1
         gameboardViewContainer.minimumZoomScale = 0.98
         view.addSubview(gameboardViewContainer)
@@ -289,8 +289,8 @@ class GameEditorViewController: UIViewController {
         gameboardView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(gameboardViewDidLongPress)))
         gameboardViewContainer.addSubview(gameboardView)
         gameboardView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.gameboardViewWidth)
-            make.height.equalTo(ViewLayoutConstants.gameboardViewHeight)
+            make.width.equalTo(VC.gameboardViewWidth)
+            make.height.equalTo(VC.gameboardViewHeight)
             make.left.top.equalToSuperview()
         }
 
@@ -301,8 +301,8 @@ class GameEditorViewController: UIViewController {
         addSceneIndicatorView.isHidden = true // 隐藏「添加场景提示器」视图
         gameboardView.addSubview(addSceneIndicatorView)
         addSceneIndicatorView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(AddSceneIndicatorView.ViewLayoutConstants.width)
-            make.height.equalTo(AddSceneIndicatorView.ViewLayoutConstants.height)
+            make.width.equalTo(AddSceneIndicatorView.VC.width)
+            make.height.equalTo(AddSceneIndicatorView.VC.height)
             make.center.equalToSuperview()
         }
     }
@@ -317,7 +317,7 @@ class GameEditorViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -327,7 +327,7 @@ class GameEditorViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化发布按钮
@@ -337,10 +337,10 @@ class GameEditorViewController: UIViewController {
         publishButtonContainer.isUserInteractionEnabled = true
         publishButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(publishButtonDidTap)))
         view.addSubview(publishButtonContainer)
-        let publishButtonContainerLeft: CGFloat = view.bounds.width - ViewLayoutConstants.topRightButtonContainerWidth
+        let publishButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth
         publishButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.topRightButtonContainerWidth)
-            make.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.equalTo(VC.topRightButtonContainerWidth)
+            make.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview().offset(publishButtonContainerLeft)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -350,8 +350,8 @@ class GameEditorViewController: UIViewController {
         publishButtonContainer.addSubview(publishButton)
         publishButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.equalToSuperview().offset(-VC.topButtonContainerPadding)
+            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化作品设置按钮
@@ -361,10 +361,10 @@ class GameEditorViewController: UIViewController {
         gameSettingsButtonContainer.isUserInteractionEnabled = true
         gameSettingsButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gameSettingsButtonDidTap)))
         view.addSubview(gameSettingsButtonContainer)
-        let gameSettingsButtonContainerLeft: CGFloat = view.bounds.width - ViewLayoutConstants.topRightButtonContainerWidth * 2
+        let gameSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth * 2
         gameSettingsButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.topRightButtonContainerWidth)
-            make.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.equalTo(VC.topRightButtonContainerWidth)
+            make.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview().offset(gameSettingsButtonContainerLeft)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -374,15 +374,15 @@ class GameEditorViewController: UIViewController {
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
         gameSettingsButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.equalToSuperview().offset(-VC.topButtonContainerPadding)
+            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         gameTitleLabel = UILabel()
         gameTitleLabel.text = game.title
-        gameTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.gameTitleLabelFontSize, weight: .regular)
+        gameTitleLabel.font = .systemFont(ofSize: VC.gameTitleLabelFontSize, weight: .regular)
         gameTitleLabel.textColor = .mgLabel
         gameTitleLabel.numberOfLines = 2
         gameTitleLabel.lineBreakMode = .byTruncatingTail
@@ -426,7 +426,7 @@ extension GameEditorViewController: UIScrollViewDelegate {
         var contentOffset = scrollView.contentOffset
 
         let minX: CGFloat = 0
-        let maxX: CGFloat = ViewLayoutConstants.gameboardViewWidth - scrollView.bounds.width
+        let maxX: CGFloat = VC.gameboardViewWidth - scrollView.bounds.width
         if contentOffset.x < minX {
             contentOffset.x = minX
         } else if contentOffset.x > maxX {
@@ -434,7 +434,7 @@ extension GameEditorViewController: UIScrollViewDelegate {
         }
 
         let minY: CGFloat = 0
-        let maxY: CGFloat = ViewLayoutConstants.gameboardViewHeight - scrollView.bounds.height
+        let maxY: CGFloat = VC.gameboardViewHeight - scrollView.bounds.height
         if contentOffset.y < minY {
             contentOffset.y = minY
         } else if contentOffset.y > maxY {
@@ -565,16 +565,16 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
 
         var location: CGPoint = scene.center
 
-        let minX: CGFloat = GameEditorSceneView.ViewLayoutConstants.width
-        let maxX: CGFloat = ViewLayoutConstants.gameboardViewWidth - GameEditorSceneView.ViewLayoutConstants.width
+        let minX: CGFloat = GameEditorSceneView.VC.width
+        let maxX: CGFloat = VC.gameboardViewWidth - GameEditorSceneView.VC.width
         if location.x < minX {
             location.x = minX
         } else if location.x > maxX {
             location.x = maxX
         }
 
-        let minY: CGFloat = GameEditorSceneView.ViewLayoutConstants.height
-        let maxY: CGFloat = ViewLayoutConstants.gameboardViewHeight - GameEditorSceneView.ViewLayoutConstants.height
+        let minY: CGFloat = GameEditorSceneView.VC.height
+        let maxY: CGFloat = VC.gameboardViewHeight - GameEditorSceneView.VC.height
         if location.y < minY {
             location.y = minY
         } else if location.y > maxY {
@@ -655,7 +655,7 @@ extension GameEditorViewController: AddSceneIndicatorViewDelegate {
 
         // 添加场景方式二
 
-        let location = CGPoint(x: view.center.x, y: view.center.y + AddSceneIndicatorView.ViewLayoutConstants.closeButtonWidth / 4)
+        let location = CGPoint(x: view.center.x, y: view.center.y + AddSceneIndicatorView.VC.closeButtonWidth / 4)
         doAddScene(center: location, forceSelection: true)
     }
 
@@ -751,7 +751,7 @@ extension GameEditorViewController {
 
             var contentOffset: CGPoint = gameBundle.contentOffset
             if contentOffset == GVC.defaultGameboardViewContentOffset {
-                contentOffset = CGPoint(x: (ViewLayoutConstants.gameboardViewWidth - view.bounds.width) / 2, y: (ViewLayoutConstants.gameboardViewHeight - view.bounds.height) / 2) // 当前作品板居中
+                contentOffset = CGPoint(x: (VC.gameboardViewWidth - view.bounds.width) / 2, y: (VC.gameboardViewHeight - view.bounds.height) / 2) // 当前作品板居中
             }
             gameboardViewContainer.contentOffset = contentOffset
         }
@@ -778,7 +778,7 @@ extension GameEditorViewController {
 
             bottomViewContainer.snp.updateConstraints { make -> Void in
                 make.width.equalToSuperview()
-                make.height.equalTo(GameEditorSceneBottomView.ViewLayoutConstants.contentViewHeight)
+                make.height.equalTo(GameEditorSceneBottomView.VC.contentViewHeight)
                 make.left.equalToSuperview()
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             }
@@ -833,10 +833,10 @@ extension GameEditorViewController {
             addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
             addTransitionDiagramView.isHidden = sceneViewList.count > 1 ? false : true
             let addTransitionDiagramViewLeftOffset: CGFloat = 12
-            let addTransitionDiagramViewBottomOffset: CGFloat = AddTransitionDiagramView.ViewLayoutConstants.height + 12
+            let addTransitionDiagramViewBottomOffset: CGFloat = AddTransitionDiagramView.VC.height + 12
             addTransitionDiagramView.snp.updateConstraints { make -> Void in
-                make.width.equalTo(AddTransitionDiagramView.ViewLayoutConstants.width)
-                make.height.equalTo(AddTransitionDiagramView.ViewLayoutConstants.height)
+                make.width.equalTo(AddTransitionDiagramView.VC.width)
+                make.height.equalTo(AddTransitionDiagramView.VC.height)
                 make.left.equalToSuperview().offset(addTransitionDiagramViewLeftOffset)
                 make.top.equalTo(bottomViewContainer.safeAreaLayoutGuide.snp.top).offset(-addTransitionDiagramViewBottomOffset)
             }
@@ -849,7 +849,7 @@ extension GameEditorViewController {
 
                 bottomViewContainer.snp.updateConstraints { make -> Void in
                     make.width.equalToSuperview()
-                    make.height.equalTo(GameEditorDefaultBottomView.ViewLayoutConstants.contentViewHeight)
+                    make.height.equalTo(GameEditorDefaultBottomView.VC.contentViewHeight)
                     make.left.equalToSuperview()
                     make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
                 }
@@ -873,7 +873,7 @@ extension GameEditorViewController {
 
                 bottomViewContainer.snp.updateConstraints { make -> Void in
                     make.width.equalToSuperview()
-                    make.height.equalTo(GameEditorWillAddSceneBottomView.ViewLayoutConstants.contentViewHeight)
+                    make.height.equalTo(GameEditorWillAddSceneBottomView.VC.contentViewHeight)
                     make.left.equalToSuperview()
                     make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
                 }
@@ -1090,7 +1090,7 @@ extension GameEditorViewController {
         if !willAddScene {
 
             let location: CGPoint = sender.location(in: sender.view)
-            addSceneIndicatorView.center = CGPoint(x: location.x, y: location.y - AddSceneIndicatorView.ViewLayoutConstants.height / 2)
+            addSceneIndicatorView.center = CGPoint(x: location.x, y: location.y - AddSceneIndicatorView.VC.height / 2)
             addSceneIndicatorView.isHidden = false // 显示「添加场景提示器」视图
         }
     }
@@ -1170,7 +1170,7 @@ extension GameEditorViewController {
 
         // 对齐网格
 
-        let gridWidth: CGFloat = GameEditorViewController.ViewLayoutConstants.gameboardViewGridWidth
+        let gridWidth: CGFloat = GameEditorViewController.VC.gameboardViewGridWidth
         let snappedLocation = CGPoint(x: gridWidth * floor(location.x / gridWidth), y: gridWidth * floor(location.y / gridWidth))
 
         // 新建场景视图

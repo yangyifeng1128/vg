@@ -12,7 +12,7 @@ class SceneSettingTableThumbImageViewCell: UITableViewCell {
     static let reuseId: String = "SceneSettingTableThumbImageViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let titleLabelFontSize: CGFloat = 16
         static let chevronViewWidth: CGFloat = 24
         static let thumbImageViewHeight: CGFloat = 56
@@ -26,9 +26,9 @@ class SceneSettingTableThumbImageViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -36,7 +36,7 @@ class SceneSettingTableThumbImageViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -44,7 +44,7 @@ class SceneSettingTableThumbImageViewCell: UITableViewCell {
         // 添加标题标签
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.centerY.equalToSuperview()
@@ -57,7 +57,7 @@ class SceneSettingTableThumbImageViewCell: UITableViewCell {
         chevronView.tintColor = .tertiaryLabel
         contentView.addSubview(chevronView)
         chevronView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.chevronViewWidth)
+            make.width.height.equalTo(VC.chevronViewWidth)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-8)
         }
@@ -67,7 +67,7 @@ class SceneSettingTableThumbImageViewCell: UITableViewCell {
         thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
-        let thumbImageViewHeight: CGFloat = SceneSettingTableThumbImageViewCell.ViewLayoutConstants.thumbImageViewHeight
+        let thumbImageViewHeight: CGFloat = SceneSettingTableThumbImageViewCell.VC.thumbImageViewHeight
         let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         thumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)

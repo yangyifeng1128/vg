@@ -55,5 +55,5 @@ enum MetaNodeValueConstants {
 enum MetaNodeURLConstants {
 }
 
-enum MetaNodeViewLayoutConstants {
+enum MetaNodeVC {
 }

@@ -14,7 +14,7 @@ protocol AddNodeItemViewControllerDelegate: AnyObject {
 class AddNodeItemViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 132
         static let collectionViewHeight: CGFloat = 92
         static let collectionViewCellWidth: CGFloat = 96
@@ -54,9 +54,9 @@ class AddNodeItemViewController: UIViewController {
 
         overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,7 +74,7 @@ class AddNodeItemViewController: UIViewController {
     //
     //
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .bcGrey
 
@@ -96,7 +96,7 @@ class AddNodeItemViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.collectionViewHeight)
+            make.height.equalTo(VC.collectionViewHeight)
             make.left.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -138,7 +138,7 @@ extension AddNodeItemViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return CGSize(width: ViewLayoutConstants.collectionViewCellWidth, height: ViewLayoutConstants.collectionViewHeight)
+        return CGSize(width: VC.collectionViewCellWidth, height: VC.collectionViewHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

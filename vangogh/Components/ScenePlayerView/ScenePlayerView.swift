@@ -50,9 +50,9 @@ class ScenePlayerView: UIView {
         }
         renderScale = (renderSize.height / (GVC.standardDeviceSize.height * multiplier)).rounded(toPlaces: 4) // 以高度为基准，计算渲染缩放比例
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -60,7 +60,7 @@ class ScenePlayerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = isEditable ? .clear : .black
 

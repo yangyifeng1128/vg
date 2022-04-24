@@ -15,16 +15,12 @@ class TransparentCoachMarkBodyView: UIControl, CoachMarkBodyView {
         static let hintTextViewFontSize: CGFloat = 18
     }
 
-    // 视图
-
     /// 高亮箭头代理
     weak var highlightArrowDelegate: CoachMarkBodyHighlightArrowDelegate?
     /// 下一个控制器
     var nextControl: UIControl? { return self }
     /// 提示文本视图
     var hintTextView: UITextView!
-
-    // 生命周期
 
     /// 初始化
     override init (frame: CGRect) {

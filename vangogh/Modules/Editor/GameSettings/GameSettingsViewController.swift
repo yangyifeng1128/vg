@@ -12,7 +12,7 @@ import UIKit
 class GameSettingsViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -54,9 +54,9 @@ class GameSettingsViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -73,7 +73,7 @@ class GameSettingsViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -96,7 +96,7 @@ class GameSettingsViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -106,14 +106,14 @@ class GameSettingsViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("GameSettings", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -223,7 +223,7 @@ extension GameSettingsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.settingTableViewCellHeight
+        return VC.settingTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

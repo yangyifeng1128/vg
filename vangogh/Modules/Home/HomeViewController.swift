@@ -12,7 +12,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let recordCollectionViewCellSpacing: CGFloat = 8
@@ -38,9 +38,9 @@ class HomeViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +85,7 @@ class HomeViewController: UIViewController {
     //
     //
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -107,9 +107,9 @@ class HomeViewController: UIViewController {
         scanButtonContainer.isUserInteractionEnabled = true
         scanButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scanButtonDidTap)))
         view.addSubview(scanButtonContainer)
-        let scanButtonContainerLeft: CGFloat = view.bounds.width - ViewLayoutConstants.topButtonContainerWidth
+        let scanButtonContainerLeft: CGFloat = view.bounds.width - VC.topButtonContainerWidth
         scanButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview().offset(scanButtonContainerLeft)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -119,8 +119,8 @@ class HomeViewController: UIViewController {
         scanButtonContainer.addSubview(scanButton)
         scanButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.left.equalToSuperview().offset(ViewLayoutConstants.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.left.equalToSuperview().offset(VC.topButtonContainerPadding)
+            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
     }
 
@@ -211,7 +211,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             break
         }
 
-        let cellSpacing = ViewLayoutConstants.recordCollectionViewCellSpacing
+        let cellSpacing = VC.recordCollectionViewCellSpacing
 
         recordCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
         recordCollectionViewCellHeight = (recordCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
@@ -221,19 +221,19 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let inset = ViewLayoutConstants.recordCollectionViewCellSpacing
+        let inset = VC.recordCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = ViewLayoutConstants.recordCollectionViewCellSpacing
+        let lineSpacing = VC.recordCollectionViewCellSpacing
         return lineSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
-        return ViewLayoutConstants.recordCollectionViewCellSpacing
+        return VC.recordCollectionViewCellSpacing
     }
 }
 

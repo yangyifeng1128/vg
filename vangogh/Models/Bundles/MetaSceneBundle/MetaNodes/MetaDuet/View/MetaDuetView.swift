@@ -11,7 +11,7 @@ import UIKit
 class MetaDuetView: MetaNodeView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let width: CGFloat = 240
         static let marginBottom: CGFloat = 24
         static let indicatorViewWidth: CGFloat = 120
@@ -45,9 +45,9 @@ class MetaDuetView: MetaNodeView {
 
         self.duet = duet
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
 
         // 监听是否进入前台/后台运行
 
@@ -70,7 +70,7 @@ class MetaDuetView: MetaNodeView {
         startPulseAnimating()
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: duet.backgroundColorCode)
 
@@ -109,33 +109,33 @@ class MetaDuetView: MetaNodeView {
         // 更新提示器视图布局
 
         indicatorView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.indicatorViewWidth * renderScale)
+            make.width.height.equalTo(VC.indicatorViewWidth * renderScale)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.indicatorViewMarginBottom * renderScale)
+            make.bottom.equalToSuperview().offset(-VC.indicatorViewMarginBottom * renderScale)
         }
 
         // 更新提示器按钮布局
 
-        indicatorButton.layer.cornerRadius = ViewLayoutConstants.indicatorButtonWidth * renderScale / 2
+        indicatorButton.layer.cornerRadius = VC.indicatorButtonWidth * renderScale / 2
         indicatorButton.backgroundColor = .white
-        let indicatorButtonMarginBottom: CGFloat = (ViewLayoutConstants.indicatorViewWidth - ViewLayoutConstants.indicatorButtonWidth) / 2 + ViewLayoutConstants.indicatorViewMarginBottom
+        let indicatorButtonMarginBottom: CGFloat = (VC.indicatorViewWidth - VC.indicatorButtonWidth) / 2 + VC.indicatorViewMarginBottom
         indicatorButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.indicatorButtonWidth * renderScale)
+            make.width.height.equalTo(VC.indicatorButtonWidth * renderScale)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-indicatorButtonMarginBottom * renderScale)
         }
 
         animatedIconView.snp.makeConstraints { make -> Void in
-            make.edges.equalToSuperview().inset(ViewLayoutConstants.animatedIconViewEdgeInset * renderScale)
+            make.edges.equalToSuperview().inset(VC.animatedIconViewEdgeInset * renderScale)
         }
 
         // 更新提示标签布局
 
-        hintLabel.font = .systemFont(ofSize: ViewLayoutConstants.hintLabelFontSize * renderScale, weight: .regular)
+        hintLabel.font = .systemFont(ofSize: VC.hintLabelFontSize * renderScale, weight: .regular)
         hintLabel.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(indicatorView.snp.top).offset(-ViewLayoutConstants.hintLabelMarginBottom * renderScale)
+            make.bottom.equalTo(indicatorView.snp.top).offset(-VC.hintLabelMarginBottom * renderScale)
         }
 
         // 更新进度视图布局
@@ -143,9 +143,9 @@ class MetaDuetView: MetaNodeView {
         progressView.backgroundColor = .accent
         progressView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(MetaNodeView.ViewLayoutConstants.progressViewHeight * renderScale)
+            make.height.equalTo(MetaNodeView.VC.progressViewHeight * renderScale)
             make.left.equalToSuperview()
-            make.bottom.equalTo(hintLabel.snp.top).offset(-MetaNodeView.ViewLayoutConstants.progressViewMarginBottom * renderScale)
+            make.bottom.equalTo(hintLabel.snp.top).offset(-MetaNodeView.VC.progressViewMarginBottom * renderScale)
         }
 
         // 更新当前视图布局
@@ -153,10 +153,10 @@ class MetaDuetView: MetaNodeView {
         parent.addSubview(self)
 
         snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.width * renderScale)
+            make.width.equalTo(VC.width * renderScale)
             make.centerX.equalToSuperview()
             make.top.equalTo(progressView)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.marginBottom * renderScale)
+            make.bottom.equalToSuperview().offset(-VC.marginBottom * renderScale)
         }
     }
 }
@@ -178,12 +178,12 @@ extension MetaDuetView {
         guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
 
         pulseAnimationLayer = CALayer()
-        let position = CGPoint(x: ViewLayoutConstants.indicatorViewWidth * renderScale / 2, y: ViewLayoutConstants.indicatorViewWidth * renderScale / 2)
+        let position = CGPoint(x: VC.indicatorViewWidth * renderScale / 2, y: VC.indicatorViewWidth * renderScale / 2)
         pulseAnimationLayer.position = position
-        pulseAnimationLayer.bounds = CGRect(x: 0, y: 0, width: ViewLayoutConstants.indicatorViewWidth * renderScale, height: ViewLayoutConstants.indicatorViewWidth * renderScale)
+        pulseAnimationLayer.bounds = CGRect(x: 0, y: 0, width: VC.indicatorViewWidth * renderScale, height: VC.indicatorViewWidth * renderScale)
         pulseAnimationLayer.backgroundColor = UIColor.accent?.withAlphaComponent(0.4).cgColor
         pulseAnimationLayer.opacity = 0
-        pulseAnimationLayer.cornerRadius = ViewLayoutConstants.indicatorViewWidth * renderScale / 2
+        pulseAnimationLayer.cornerRadius = VC.indicatorViewWidth * renderScale / 2
 
         pulseAnimationGroup = CAAnimationGroup()
         pulseAnimationGroup.duration = pulseAnimationDuration

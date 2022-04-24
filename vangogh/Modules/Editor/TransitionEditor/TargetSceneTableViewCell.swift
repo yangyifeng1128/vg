@@ -12,7 +12,7 @@ class TargetSceneTableViewCell: UITableViewCell {
     static let reuseId: String = "TargetSceneTableViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let indexLabelFontSize: CGFloat = 20
         static let titleLabelFontSize: CGFloat = 16
         static let chevronViewWidth: CGFloat = 24
@@ -27,9 +27,9 @@ class TargetSceneTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -37,7 +37,7 @@ class TargetSceneTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -47,7 +47,7 @@ class TargetSceneTableViewCell: UITableViewCell {
         thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
-        let thumbImageViewHeight: CGFloat = TargetScenesViewController.ViewLayoutConstants.targetSceneTableViewCellHeight - 16
+        let thumbImageViewHeight: CGFloat = TargetScenesViewController.VC.targetSceneTableViewCellHeight - 16
         let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         thumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
@@ -57,7 +57,7 @@ class TargetSceneTableViewCell: UITableViewCell {
         }
 
         indexLabel = UILabel()
-        indexLabel.font = .systemFont(ofSize: ViewLayoutConstants.indexLabelFontSize, weight: .regular)
+        indexLabel.font = .systemFont(ofSize: VC.indexLabelFontSize, weight: .regular)
         indexLabel.textColor = .white
         indexLabel.textAlignment = .center
         indexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
@@ -72,7 +72,7 @@ class TargetSceneTableViewCell: UITableViewCell {
         // 添加标题标签
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.left.equalTo(thumbImageView.snp.right).offset(12)
@@ -86,7 +86,7 @@ class TargetSceneTableViewCell: UITableViewCell {
         chevronView.tintColor = .tertiaryLabel
         contentView.addSubview(chevronView)
         chevronView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.chevronViewWidth)
+            make.width.height.equalTo(VC.chevronViewWidth)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-8)
         }

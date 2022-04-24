@@ -12,7 +12,7 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
     static let reuseId: String = "MetaNodeEditorTableViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 96
         static let titleLabelHeight: CGFloat = 20
         static let titleLabelFontSize: CGFloat = 14
@@ -27,9 +27,9 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -37,7 +37,7 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -45,12 +45,12 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
         // 添加标题标签
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .secondaryLabel
         titleLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.titleLabelHeight)
+            make.height.equalTo(VC.titleLabelHeight)
             make.left.right.equalToSuperview().inset(16)
             make.top.equalToSuperview()
         }
@@ -67,7 +67,7 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
         }
 
         infoLabel = UILabel()
-        infoLabel.font = .systemFont(ofSize: ViewLayoutConstants.infoLabelFontSize, weight: .regular)
+        infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .mgLabel
         infoLabel.lineBreakMode = .byTruncatingTail
         infoView.addSubview(infoLabel)

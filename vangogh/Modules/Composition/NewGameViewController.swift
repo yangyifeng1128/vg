@@ -13,7 +13,7 @@ import UIKit
 class NewGameViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -57,9 +57,9 @@ class NewGameViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +91,7 @@ class NewGameViewController: UIViewController {
         }
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -118,7 +118,7 @@ class NewGameViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -128,14 +128,14 @@ class NewGameViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("StartComposing", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -154,7 +154,7 @@ class NewGameViewController: UIViewController {
         newBlankGameButton.contentVerticalAlignment = .center
         newBlankGameButton.setTitle(NSLocalizedString("NewBlankGame", comment: ""), for: .normal)
         newBlankGameButton.setTitleColor(.mgLabel, for: .normal)
-        newBlankGameButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.newBlankGameButtonTitleLabelFontSize, weight: .regular)
+        newBlankGameButton.titleLabel?.font = .systemFont(ofSize: VC.newBlankGameButtonTitleLabelFontSize, weight: .regular)
         newBlankGameButton.addTarget(self, action: #selector(newBlankGameButtonDidTap), for: .touchUpInside)
         view.addSubview(newBlankGameButton)
         var newBlankGameButtonHeight: CGFloat
@@ -192,7 +192,7 @@ class NewGameViewController: UIViewController {
 
         let templatesTitleLabel: UILabel = UILabel()
         templatesTitleLabel.text = NSLocalizedString("SelectTemplate", comment: "")
-        templatesTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.templatesTitleLabelFontSize, weight: .regular)
+        templatesTitleLabel.font = .systemFont(ofSize: VC.templatesTitleLabelFontSize, weight: .regular)
         templatesTitleLabel.textColor = .secondaryLabel
         templatesTitleLabel.textAlignment = .center
         templatesView.addSubview(templatesTitleLabel)
@@ -300,7 +300,7 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
             break
         }
 
-        let cellSpacing = ViewLayoutConstants.templateCollectionViewCellSpacing
+        let cellSpacing = VC.templateCollectionViewCellSpacing
 
         templateCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
         templateCollectionViewCellHeight = (templateCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
@@ -310,19 +310,19 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let inset = ViewLayoutConstants.templateCollectionViewCellSpacing
+        let inset = VC.templateCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = ViewLayoutConstants.templateCollectionViewCellSpacing
+        let lineSpacing = VC.templateCollectionViewCellSpacing
         return lineSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
-        return ViewLayoutConstants.templateCollectionViewCellSpacing
+        return VC.templateCollectionViewCellSpacing
     }
 }
 

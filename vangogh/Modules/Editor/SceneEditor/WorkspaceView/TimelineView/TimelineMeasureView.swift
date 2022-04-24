@@ -11,7 +11,7 @@ import CoreMedia
 class TimelineMeasureView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 24
         static let markWidth: CGFloat = 1
         static let majorMarkHeight: CGFloat = 8
@@ -25,9 +25,9 @@ class TimelineMeasureView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -35,7 +35,7 @@ class TimelineMeasureView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
     }
@@ -68,10 +68,10 @@ class TimelineMeasureView: UIView {
 class TimelineMeasureLayer: CALayer {
 
     private var minorMark: TimelineMeasureMark = {
-        return TimelineMeasureMark(size: CGSize(width: TimelineMeasureView.ViewLayoutConstants.markWidth, height: TimelineMeasureView.ViewLayoutConstants.minorMarkHeight), color: .darkGray)
+        return TimelineMeasureMark(size: CGSize(width: TimelineMeasureView.VC.markWidth, height: TimelineMeasureView.VC.minorMarkHeight), color: .darkGray)
     }()
     private var majorMark: TimelineMeasureMark = {
-        return TimelineMeasureMark(size: CGSize(width: TimelineMeasureView.ViewLayoutConstants.markWidth, height: TimelineMeasureView.ViewLayoutConstants.majorMarkHeight), color: .gray)
+        return TimelineMeasureMark(size: CGSize(width: TimelineMeasureView.VC.markWidth, height: TimelineMeasureView.VC.majorMarkHeight), color: .gray)
     }()
 
     override var frame: CGRect {
@@ -108,7 +108,7 @@ class TimelineMeasureLayer: CALayer {
         for i in 0...totalMarkCount {
 
             let markOffsetX: CGFloat = GVC.defaultTimelineItemWidthPerSecond * CGFloat(i) + GVC.timelineItemEarViewWidth
-            let markOrigin: CGPoint = CGPoint(x: markOffsetX - TimelineMeasureView.ViewLayoutConstants.markWidth / 2, y: 0)
+            let markOrigin: CGPoint = CGPoint(x: markOffsetX - TimelineMeasureView.VC.markWidth / 2, y: 0)
 
             let mark: TimelineMeasureMark = (i % 5 == 0) ? majorMark : minorMark
 
@@ -118,7 +118,7 @@ class TimelineMeasureLayer: CALayer {
 
             if i % 5 == 0 {
                 let timeString: String = CMTimeMakeWithSeconds(Double(i), preferredTimescale: GVC.preferredTimescale).toString()
-                let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray, .font: UIFont.systemFont(ofSize: TimelineMeasureView.ViewLayoutConstants.majorMarkTimeStringFontSize, weight: .regular)]
+                let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray, .font: UIFont.systemFont(ofSize: TimelineMeasureView.VC.majorMarkTimeStringFontSize, weight: .regular)]
                 let attributedString: NSAttributedString = NSAttributedString(string: timeString, attributes: attributes)
                 let attributedStringSize: CGSize = attributedString.size()
                 let attributedStringOrigin: CGPoint = CGPoint(x: markOffsetX - attributedStringSize.width / 2, y: rect.maxY + 2)

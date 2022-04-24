@@ -13,7 +13,7 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
     static let reuseId: String = "TargetAssetCollectionViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let videoDurationLabelFontSize: CGFloat = 13
     }
 
@@ -51,9 +51,9 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
 
         super.init(frame: frame)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -61,7 +61,7 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         contentView.backgroundColor = GVC.defaultViewBackgroundColor
 
@@ -75,7 +75,7 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
 
         videoDurationLabel = UILabel()
         videoDurationLabel.isHidden = true
-        videoDurationLabel.font = .systemFont(ofSize: ViewLayoutConstants.videoDurationLabelFontSize, weight: .regular)
+        videoDurationLabel.font = .systemFont(ofSize: VC.videoDurationLabelFontSize, weight: .regular)
         videoDurationLabel.textColor = .white
         videoDurationLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         videoDurationLabel.layer.shadowOpacity = 1

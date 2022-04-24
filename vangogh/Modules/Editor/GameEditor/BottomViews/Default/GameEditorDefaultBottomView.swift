@@ -14,7 +14,7 @@ protocol GameEditorDefaultBottomViewDelegate: AnyObject {
 class GameEditorDefaultBottomView: BorderedView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let contentViewHeight: CGFloat = 120
         static let addSceneButtonHeight: CGFloat = 56
         static let addSceneButtonTitleLabelFontSize: CGFloat = 18
@@ -32,9 +32,9 @@ class GameEditorDefaultBottomView: BorderedView {
 
         super.init(side: .top)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -42,14 +42,14 @@ class GameEditorDefaultBottomView: BorderedView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         contentView = UIView()
         contentView.backgroundColor = .systemBackground
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.contentViewHeight)
+            make.height.equalTo(VC.contentViewHeight)
             make.left.top.equalToSuperview()
         }
 
@@ -58,7 +58,7 @@ class GameEditorDefaultBottomView: BorderedView {
         addSceneButton.tintColor = .mgLabel
         addSceneButton.setTitle(NSLocalizedString("AddScene", comment: ""), for: .normal)
         addSceneButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
-        addSceneButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.addSceneButtonTitleLabelFontSize, weight: .regular)
+        addSceneButton.titleLabel?.font = .systemFont(ofSize: VC.addSceneButtonTitleLabelFontSize, weight: .regular)
         addSceneButton.setTitleColor(.mgLabel, for: .normal)
         addSceneButton.setImage(.add, for: .normal)
         addSceneButton.adjustsImageWhenHighlighted = false
@@ -67,14 +67,14 @@ class GameEditorDefaultBottomView: BorderedView {
         addSceneButton.addTarget(self, action: #selector(addSceneButtonDidTap), for: .touchUpInside)
         contentView.addSubview(addSceneButton)
         addSceneButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.addSceneButtonHeight)
+            make.height.equalTo(VC.addSceneButtonHeight)
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
         infoLabel = UILabel()
         infoLabel.attributedText = prepareInfoLabelAttributedText()
-        infoLabel.font = .systemFont(ofSize: ViewLayoutConstants.infoLabelFontSize, weight: .regular)
+        infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .secondaryLabel
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in
@@ -91,9 +91,9 @@ class GameEditorDefaultBottomView: BorderedView {
 
         let iconAttachment: NSTextAttachment = NSTextAttachment()
         iconAttachment.image = .info
-        let infoLabelFont: UIFont = UIFont.systemFont(ofSize: ViewLayoutConstants.infoLabelFontSize, weight: .regular)
-        let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - ViewLayoutConstants.infoLabelIconWidth) / 2
-        iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: ViewLayoutConstants.infoLabelIconWidth, height: ViewLayoutConstants.infoLabelIconWidth)
+        let infoLabelFont: UIFont = UIFont.systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
+        let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
+        iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
         let iconString: NSAttributedString = NSAttributedString(attachment: iconAttachment)
         completeInfoString.append(iconString)
 

@@ -10,7 +10,7 @@ import UIKit
 class MetaMultipleChoiceView: MetaNodeView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let width: CGFloat = 256
         static let marginRight: CGFloat = 24
         static let marginBottom: CGFloat = 24
@@ -38,9 +38,9 @@ class MetaMultipleChoiceView: MetaNodeView {
 
         self.multipleChoice = multipleChoice
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -48,7 +48,7 @@ class MetaMultipleChoiceView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: multipleChoice.backgroundColorCode)
 
@@ -82,26 +82,26 @@ class MetaMultipleChoiceView: MetaNodeView {
 
         guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
 
-        let optionsTableViewHeight: CGFloat = ViewLayoutConstants.optionTableViewCellHeight * CGFloat(multipleChoice.options.count)
+        let optionsTableViewHeight: CGFloat = VC.optionTableViewCellHeight * CGFloat(multipleChoice.options.count)
         optionsTableView.snp.makeConstraints { make -> Void in
-            make.width.equalToSuperview().inset(ViewLayoutConstants.optionsTableViewMargin * renderScale)
+            make.width.equalToSuperview().inset(VC.optionsTableViewMargin * renderScale)
             make.height.equalTo(optionsTableViewHeight * renderScale)
-            make.left.equalToSuperview().offset(ViewLayoutConstants.optionsTableViewMargin * renderScale)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.optionsTableViewMargin * renderScale)
+            make.left.equalToSuperview().offset(VC.optionsTableViewMargin * renderScale)
+            make.bottom.equalToSuperview().offset(-VC.optionsTableViewMargin * renderScale)
         }
 
-        questionLabel.font = .systemFont(ofSize: ViewLayoutConstants.questionLabelFontSize * renderScale, weight: .regular)
+        questionLabel.font = .systemFont(ofSize: VC.questionLabelFontSize * renderScale, weight: .regular)
         questionLabel.snp.makeConstraints { make -> Void in
-            make.width.equalToSuperview().inset(ViewLayoutConstants.paddingX * renderScale)
-            make.left.equalToSuperview().offset(ViewLayoutConstants.paddingX * renderScale)
-            make.bottom.equalTo(optionsTableView.snp.top).offset(-ViewLayoutConstants.questionLabelMarginBottom * renderScale)
+            make.width.equalToSuperview().inset(VC.paddingX * renderScale)
+            make.left.equalToSuperview().offset(VC.paddingX * renderScale)
+            make.bottom.equalTo(optionsTableView.snp.top).offset(-VC.questionLabelMarginBottom * renderScale)
         }
 
         progressView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(MetaNodeView.ViewLayoutConstants.progressViewHeight * renderScale)
+            make.height.equalTo(MetaNodeView.VC.progressViewHeight * renderScale)
             make.left.equalToSuperview()
-            make.bottom.equalTo(questionLabel.snp.top).offset(-MetaNodeView.ViewLayoutConstants.progressViewMarginBottom * renderScale)
+            make.bottom.equalTo(questionLabel.snp.top).offset(-MetaNodeView.VC.progressViewMarginBottom * renderScale)
         }
 
         // 更新当前视图布局
@@ -109,10 +109,10 @@ class MetaMultipleChoiceView: MetaNodeView {
         parent.addSubview(self)
 
         snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.width * renderScale)
-            make.right.equalToSuperview().offset(-ViewLayoutConstants.marginRight * renderScale)
+            make.width.equalTo(VC.width * renderScale)
+            make.right.equalToSuperview().offset(-VC.marginRight * renderScale)
             make.top.equalTo(progressView)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.marginBottom * renderScale)
+            make.bottom.equalToSuperview().offset(-VC.marginBottom * renderScale)
         }
     }
 }
@@ -132,7 +132,7 @@ extension MetaMultipleChoiceView: UITableViewDataSource {
 
         // 准备选项视图
 
-        cell.optionView.cornerRadius = MetaMultipleChoiceOptionTableViewCell.ViewLayoutConstants.optionViewCornerRadius * renderScale
+        cell.optionView.cornerRadius = MetaMultipleChoiceOptionTableViewCell.VC.optionViewCornerRadius * renderScale
         cell.optionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
             make.height.equalToSuperview().inset(4 * renderScale)
@@ -142,7 +142,7 @@ extension MetaMultipleChoiceView: UITableViewDataSource {
         // 准备标题标签
 
         cell.titleLabel.text = multipleChoice.options[indexPath.row]
-        cell.titleLabel.font = .systemFont(ofSize: MetaMultipleChoiceOptionTableViewCell.ViewLayoutConstants.titleLabelFontSize * renderScale, weight: .regular)
+        cell.titleLabel.font = .systemFont(ofSize: MetaMultipleChoiceOptionTableViewCell.VC.titleLabelFontSize * renderScale, weight: .regular)
         cell.titleLabel.snp.makeConstraints { make -> Void in
             make.height.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -161,7 +161,7 @@ extension MetaMultipleChoiceView: UITableViewDelegate {
             fatalError("Unexpected row height")
         }
 
-        return ViewLayoutConstants.optionTableViewCellHeight * renderScale
+        return VC.optionTableViewCellHeight * renderScale
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -177,8 +177,8 @@ extension MetaMultipleChoiceView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 
         guard let cell = tableView.cellForRow(at: indexPath) as? MetaMultipleChoiceOptionTableViewCell else { return }
-        cell.optionView.backgroundColor = MetaMultipleChoiceOptionTableViewCell.ViewLayoutConstants.optionViewBackgroundColor
-        cell.titleLabel.textColor = MetaMultipleChoiceOptionTableViewCell.ViewLayoutConstants.titleLabelTextColor
-        // cell.optionView.borderLayer.strokeColor = MetaMultipleChoiceOptionTableViewCell.ViewLayoutConstants.optionViewBorderLayerStrokeColor.cgColor
+        cell.optionView.backgroundColor = MetaMultipleChoiceOptionTableViewCell.VC.optionViewBackgroundColor
+        cell.titleLabel.textColor = MetaMultipleChoiceOptionTableViewCell.VC.titleLabelTextColor
+        // cell.optionView.borderLayer.strokeColor = MetaMultipleChoiceOptionTableViewCell.VC.optionViewBorderLayerStrokeColor.cgColor
     }
 }

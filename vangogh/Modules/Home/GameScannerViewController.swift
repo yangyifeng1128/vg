@@ -15,7 +15,7 @@ protocol GameScannerViewControllerDelegate: AnyObject {
 class GameScannerViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let torchButtonWidth: CGFloat = 64
@@ -44,9 +44,9 @@ class GameScannerViewController: UIViewController {
 
         overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +69,7 @@ class GameScannerViewController: UIViewController {
     //
     //
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .black
 
@@ -100,7 +100,7 @@ class GameScannerViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -110,16 +110,16 @@ class GameScannerViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化手电筒按钮
 
-        torchButton = GameScannerTorchButton(imageEdgeInset: ViewLayoutConstants.torchButtonImageEdgeInset)
+        torchButton = GameScannerTorchButton(imageEdgeInset: VC.torchButtonImageEdgeInset)
         torchButton.addTarget(self, action: #selector(torchButtonDidTap), for: .touchUpInside)
         view.addSubview(torchButton)
         torchButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.torchButtonWidth)
+            make.width.height.equalTo(VC.torchButtonWidth)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-8)
         }

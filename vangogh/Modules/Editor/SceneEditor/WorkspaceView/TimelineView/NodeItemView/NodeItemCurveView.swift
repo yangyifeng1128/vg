@@ -9,9 +9,9 @@ import UIKit
 class NodeItemCurveView: UIButton {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 16
-        static let lineWidth: CGFloat = TimelineMeasureView.ViewLayoutConstants.markWidth * 2
+        static let lineWidth: CGFloat = TimelineMeasureView.VC.markWidth * 2
     }
 
     private var borderLayer: CAShapeLayer!
@@ -43,7 +43,7 @@ class NodeItemCurveView: UIButton {
         }
 
         borderLayer = CAShapeLayer()
-        borderLayer.lineWidth = ViewLayoutConstants.lineWidth
+        borderLayer.lineWidth = VC.lineWidth
         borderLayer.strokeColor = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: nodeType)?.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.frame = bounds

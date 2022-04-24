@@ -15,7 +15,7 @@ protocol EditNodeItemViewControllerDelegate: AnyObject {
 class EditNodeItemViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
     }
 
     weak var delegate: EditNodeItemViewControllerDelegate?
@@ -52,9 +52,9 @@ class EditNodeItemViewController: UIViewController {
 
         overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,7 +72,7 @@ class EditNodeItemViewController: UIViewController {
     //
     //
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .bcGrey
 

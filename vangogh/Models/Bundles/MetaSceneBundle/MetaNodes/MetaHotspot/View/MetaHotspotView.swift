@@ -10,7 +10,7 @@ import UIKit
 class MetaHotspotView: MetaNodeView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
     }
 
     private(set) var hotspot: MetaHotspot!
@@ -26,9 +26,9 @@ class MetaHotspotView: MetaNodeView {
 
         self.hotspot = hotspot
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -36,7 +36,7 @@ class MetaHotspotView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: hotspot.backgroundColorCode)
     }

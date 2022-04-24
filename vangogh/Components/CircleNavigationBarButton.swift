@@ -13,8 +13,6 @@ class CircleNavigationBarButton: UIButton {
         static let width: CGFloat = 40
     }
 
-    // 视图
-
     /// 遮罩图层
     private lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
@@ -44,8 +42,6 @@ class CircleNavigationBarButton: UIButton {
 
     /// 图像边缘内边距
     private var imageEdgeInset: CGFloat!
-
-    // 生命周期
 
     /// 初始化
     init(icon: UIImage?, backgroundColor: UIColor? = /* .tertiarySystemBackground */ .clear, tintColor: UIColor? = .mgLabel, imageEdgeInset: CGFloat = 8) {

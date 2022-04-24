@@ -10,7 +10,7 @@ import UIKit
 class MetaVoiceOverView: MetaNodeView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 160
     }
 
@@ -27,9 +27,9 @@ class MetaVoiceOverView: MetaNodeView {
 
         self.voiceOver = voiceOver
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -37,7 +37,7 @@ class MetaVoiceOverView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: voiceOver.backgroundColorCode)
     }
@@ -52,7 +52,7 @@ class MetaVoiceOverView: MetaNodeView {
 
         snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.height * renderScale)
+            make.height.equalTo(VC.height * renderScale)
             make.left.bottom.equalToSuperview()
         }
     }

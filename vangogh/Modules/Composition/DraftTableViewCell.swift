@@ -12,7 +12,7 @@ class DraftTableViewCell: UITableViewCell {
     static let reuseId: String = "DraftTableViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let moreButtonWidth: CGFloat = 40
         static let mtimeLabelFontSize: CGFloat = 14
         static let titleLabelFontSize: CGFloat = 18
@@ -27,9 +27,9 @@ class DraftTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -37,7 +37,7 @@ class DraftTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -47,7 +47,7 @@ class DraftTableViewCell: UITableViewCell {
         thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         thumbImageView.backgroundColor = GVC.defaultViewBackgroundColor
         contentView.addSubview(thumbImageView)
-        let thumbImageViewHeight: CGFloat = CompositionViewController.ViewLayoutConstants.draftTableViewCellHeight - 16
+        let thumbImageViewHeight: CGFloat = CompositionViewController.VC.draftTableViewCellHeight - 16
         let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         thumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
@@ -64,7 +64,7 @@ class DraftTableViewCell: UITableViewCell {
         moreButton.imageView?.tintColor = .secondaryLabel
         contentView.addSubview(moreButton)
         moreButton.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.moreButtonWidth)
+            make.width.equalTo(VC.moreButtonWidth)
             make.height.equalToSuperview()
             make.right.equalToSuperview()
             make.top.equalToSuperview()
@@ -73,7 +73,7 @@ class DraftTableViewCell: UITableViewCell {
         // 添加「最近修改时间」标签
 
         mtimeLabel = UILabel()
-        mtimeLabel.font = .systemFont(ofSize: ViewLayoutConstants.mtimeLabelFontSize, weight: .regular)
+        mtimeLabel.font = .systemFont(ofSize: VC.mtimeLabelFontSize, weight: .regular)
         mtimeLabel.textColor = .secondaryLabel
         contentView.addSubview(mtimeLabel)
         mtimeLabel.snp.makeConstraints { make -> Void in
@@ -85,7 +85,7 @@ class DraftTableViewCell: UITableViewCell {
         // 添加标题标签
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail

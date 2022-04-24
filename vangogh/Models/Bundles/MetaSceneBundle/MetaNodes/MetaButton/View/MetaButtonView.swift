@@ -10,7 +10,7 @@ import UIKit
 class MetaButtonView: MetaNodeView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
     }
 
     private(set) var button: MetaButton!
@@ -29,9 +29,9 @@ class MetaButtonView: MetaNodeView {
 
         self.button = button
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -39,7 +39,7 @@ class MetaButtonView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundView = RoundedImageView()
         backgroundView.backgroundColor = UIColor.colorWithRGBA(rgba: button.backgroundColorCode)

@@ -9,8 +9,8 @@ import UIKit
 class SceneEmulatorProgressTagView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
-        static let width: CGFloat = SceneEmulatorProgressView.ViewLayoutConstants.height / 2
+    enum VC {
+        static let width: CGFloat = SceneEmulatorProgressView.VC.height / 2
         static let height: CGFloat = width * 5 / 4
         static let iconViewWidth: CGFloat = width / 2
     }
@@ -50,9 +50,9 @@ class SceneEmulatorProgressTagView: UIView {
 
         self.node = node
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -60,7 +60,7 @@ class SceneEmulatorProgressTagView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: node.nodeType)
         tintColor = .mgLabel
@@ -69,9 +69,9 @@ class SceneEmulatorProgressTagView: UIView {
         iconView.image = MetaNodeTypeManager.shared.getNodeTypeIcon(nodeType: node.nodeType)
         addSubview(iconView)
         iconView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.iconViewWidth)
+            make.width.height.equalTo(VC.iconViewWidth)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset((ViewLayoutConstants.iconViewWidth - ViewLayoutConstants.width) / 2)
+            make.bottom.equalToSuperview().offset((VC.iconViewWidth - VC.width) / 2)
         }
     }
 }

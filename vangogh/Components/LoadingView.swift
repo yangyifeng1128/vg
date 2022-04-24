@@ -16,14 +16,10 @@ class LoadingView: RoundedView {
         static let infoLabelFontSize: CGFloat = 13
     }
 
-    // 视图
-
     /// 指示器视图
     private var indicatorView: UIActivityIndicatorView!
     /// 信息标签
     private var infoLabel: UILabel!
-
-    // 属性
 
     /// 加载进度
     var progress: CGFloat = 0 {
@@ -32,8 +28,6 @@ class LoadingView: RoundedView {
             infoLabel.text = percentage >= 100 ? "" : "\(percentage)%"
         }
     }
-
-    // 生命周期
 
     /// 初始化
     init() {

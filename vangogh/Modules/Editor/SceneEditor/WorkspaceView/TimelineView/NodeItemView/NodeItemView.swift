@@ -44,9 +44,9 @@ class NodeItemView: UIView {
 
         self.node = node
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -54,7 +54,7 @@ class NodeItemView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         isUserInteractionEnabled = true
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(earViewDidPan)))
@@ -65,7 +65,7 @@ class NodeItemView: UIView {
         addSubview(curveView)
         curveView.snp.makeConstraints { make -> Void in
             make.width.equalTo(0) // 以备后续更新
-            make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height)
+            make.height.equalTo(NodeItemCurveView.VC.height)
             make.left.equalToSuperview().offset(GVC.timelineItemEarViewWidth)
             make.bottom.equalToSuperview()
         }
@@ -77,9 +77,9 @@ class NodeItemView: UIView {
         addSubview(barView)
         barView.snp.makeConstraints { make -> Void in
             make.width.equalTo(0) // 以备后续更新
-            make.height.equalTo(NodeItemBarView.ViewLayoutConstants.height)
+            make.height.equalTo(NodeItemBarView.VC.height)
             make.left.equalToSuperview()
-            make.bottom.equalTo(curveView.snp.top).offset(NodeItemCurveView.ViewLayoutConstants.lineWidth / 2)
+            make.bottom.equalTo(curveView.snp.top).offset(NodeItemCurveView.VC.lineWidth / 2)
         }
 
         // 初始化 connectorView
@@ -89,9 +89,9 @@ class NodeItemView: UIView {
         connectorView.backgroundColor = .mgLabel
         addSubview(connectorView)
         connectorView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(NodeItemCurveView.ViewLayoutConstants.lineWidth)
-            make.height.equalTo(NodeItemCurveView.ViewLayoutConstants.height - 6)
-            make.left.equalTo(GVC.timelineItemEarViewWidth - NodeItemCurveView.ViewLayoutConstants.lineWidth / 2)
+            make.width.equalTo(NodeItemCurveView.VC.lineWidth)
+            make.height.equalTo(NodeItemCurveView.VC.height - 6)
+            make.left.equalTo(GVC.timelineItemEarViewWidth - NodeItemCurveView.VC.lineWidth / 2)
             make.bottom.equalToSuperview().offset(-3)
         }
     }

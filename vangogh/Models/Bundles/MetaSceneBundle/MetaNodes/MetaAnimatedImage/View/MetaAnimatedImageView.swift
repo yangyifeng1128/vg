@@ -11,7 +11,7 @@ import UIKit
 class MetaAnimatedImageView: MetaNodeView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
     }
 
     private(set) var animatedImage: MetaAnimatedImage!
@@ -29,9 +29,9 @@ class MetaAnimatedImageView: MetaNodeView {
 
         self.animatedImage = animatedImage
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -39,7 +39,7 @@ class MetaAnimatedImageView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: animatedImage.backgroundColorCode)
 

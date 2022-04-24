@@ -10,7 +10,7 @@ import UIKit
 class AgreementsViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let contentViewWidth: CGFloat = 280
         static let contentViewHeight: CGFloat = 480
         static let titleLabelFontSize: CGFloat = 16
@@ -52,9 +52,9 @@ class AgreementsViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +66,7 @@ class AgreementsViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark))
         view.addSubview(blurView)
@@ -78,8 +78,8 @@ class AgreementsViewController: UIViewController {
         contentView.backgroundColor = .white
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.contentViewWidth)
-            make.height.equalTo(ViewLayoutConstants.contentViewHeight)
+            make.width.equalTo(VC.contentViewWidth)
+            make.height.equalTo(VC.contentViewHeight)
             make.center.equalToSuperview()
         }
 
@@ -87,7 +87,7 @@ class AgreementsViewController: UIViewController {
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("Agreements", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .semibold)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .semibold)
         titleLabel.textColor = .darkText
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 2
@@ -105,19 +105,19 @@ class AgreementsViewController: UIViewController {
         contentView.addSubview(bottomView)
         bottomView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.bottomViewHeight)
+            make.height.equalTo(VC.bottomViewHeight)
             make.left.bottom.equalToSuperview()
         }
 
         disagreeButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         disagreeButton.tintColor = .secondaryLabel
         disagreeButton.setTitle(NSLocalizedString("Disagree", comment: ""), for: .normal)
-        disagreeButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.disagreeButtonTitleLabelFontSize, weight: .regular)
+        disagreeButton.titleLabel?.font = .systemFont(ofSize: VC.disagreeButtonTitleLabelFontSize, weight: .regular)
         disagreeButton.setTitleColor(.secondaryLabel, for: .normal)
         disagreeButton.addTarget(self, action: #selector(disagreeButtonDidTap), for: .touchUpInside)
         bottomView.addSubview(disagreeButton)
         disagreeButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.disagreeButtonHeight)
+            make.height.equalTo(VC.disagreeButtonHeight)
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(-8)
         }
@@ -126,12 +126,12 @@ class AgreementsViewController: UIViewController {
         agreeButton.backgroundColor = .accent
         agreeButton.tintColor = .white
         agreeButton.setTitle(NSLocalizedString("Agree", comment: ""), for: .normal)
-        agreeButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.agreeButtonTitleLabelFontSize, weight: .regular)
+        agreeButton.titleLabel?.font = .systemFont(ofSize: VC.agreeButtonTitleLabelFontSize, weight: .regular)
         agreeButton.setTitleColor(.white, for: .normal)
         agreeButton.addTarget(self, action: #selector(agreeButtonDidTap), for: .touchUpInside)
         bottomView.addSubview(agreeButton)
         agreeButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.agreeButtonHeight)
+            make.height.equalTo(VC.agreeButtonHeight)
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalTo(disagreeButton.snp.top)
         }
@@ -172,7 +172,7 @@ class AgreementsViewController: UIViewController {
         // 准备签署信息
 
         let string: String = NSLocalizedString("AgreementsInfo", comment: "")
-        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: ViewLayoutConstants.bottomViewInfoLabelFontSize, weight: .regular)]
+        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: VC.bottomViewInfoLabelFontSize, weight: .regular)]
         let completeBottomViewInfoString: NSMutableAttributedString = NSMutableAttributedString(string: string, attributes: stringAttributes)
 
         // 准备段落样式
@@ -190,7 +190,7 @@ class AgreementsViewController: UIViewController {
 
         let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
         let string: String = "感谢您信任并使用「" + appName + "」的产品和服务！\n为了给您提供更好的创作与互动体验，在您使用「" + appName + "」具体功能的过程中，我们会向您收集必要的用户信息，或请求必要的设备权限。\n未经您同意，我们不会向任何第三方披露、共享您的个人信息。\n请完整地阅读《服务协议》与《隐私政策》来了解如何保护您的个人信息。\n"
-        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText, .font: UIFont.systemFont(ofSize: ViewLayoutConstants.infoTextViewFontSize, weight: .regular)]
+        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText, .font: UIFont.systemFont(ofSize: VC.infoTextViewFontSize, weight: .regular)]
         let completeInfoTextString: NSMutableAttributedString = NSMutableAttributedString(string: string, attributes: stringAttributes)
 
         // 准备链接内容

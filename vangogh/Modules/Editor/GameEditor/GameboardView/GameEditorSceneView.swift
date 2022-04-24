@@ -17,7 +17,7 @@ protocol GameEditorSceneViewDelegate: AnyObject {
 class GameEditorSceneView: RoundedView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let width: CGFloat = 48
         static let height: CGFloat = 64
         static let titleLabelSmallFontSize: CGFloat = 12
@@ -49,9 +49,9 @@ class GameEditorSceneView: RoundedView {
 
         self.scene = scene
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -71,7 +71,7 @@ class GameEditorSceneView: RoundedView {
         }
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         center = scene.center
         isUserInteractionEnabled = true
@@ -90,7 +90,7 @@ class GameEditorSceneView: RoundedView {
 
         titleLabel = AttributedLabel()
         titleLabel.insets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
-        titleLabel.backgroundColor = ViewLayoutConstants.maskBackgroundColor
+        titleLabel.backgroundColor = VC.maskBackgroundColor
         titleLabel.attributedText = prepareTitleLabelAttributedText()
         titleLabel.textColor = .lightText
         titleLabel.textAlignment = .center
@@ -122,13 +122,13 @@ class GameEditorSceneView: RoundedView {
 
         // 准备场景索引
 
-        let indexStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: ViewLayoutConstants.titleLabelLargeFontSize, weight: .regular)]
+        let indexStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: VC.titleLabelLargeFontSize, weight: .regular)]
         let indexString: NSAttributedString = NSAttributedString(string: scene.index.description, attributes: indexStringAttributes)
         completeTitleString.append(indexString)
 
         // 准备场景标题
 
-        let titleStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: ViewLayoutConstants.titleLabelSmallFontSize, weight: .regular)]
+        let titleStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: VC.titleLabelSmallFontSize, weight: .regular)]
         var titleString: NSAttributedString
         if let title = scene.title, !title.isEmpty {
             titleString = NSAttributedString(string: "\n" + title, attributes: titleStringAttributes)
@@ -147,7 +147,7 @@ class GameEditorSceneView: RoundedView {
     private func activate() {
 
         cornerRadius = 12
-        bounds = CGRect(origin: .zero, size: CGSize(width: ViewLayoutConstants.width * 1.167, height: ViewLayoutConstants.height * 1.125))
+        bounds = CGRect(origin: .zero, size: CGSize(width: VC.width * 1.167, height: VC.height * 1.125))
 
         // 添加边框
 
@@ -173,7 +173,7 @@ class GameEditorSceneView: RoundedView {
     private func deactivate() {
 
         cornerRadius = GVC.defaultViewCornerRadius
-        bounds = CGRect(origin: .zero, size: CGSize(width: ViewLayoutConstants.width, height: ViewLayoutConstants.height))
+        bounds = CGRect(origin: .zero, size: CGSize(width: VC.width, height: VC.height))
 
         // 删除边框
 
@@ -195,7 +195,7 @@ class GameEditorSceneView: RoundedView {
 
     func unhighlight() {
 
-        titleLabel.backgroundColor = ViewLayoutConstants.maskBackgroundColor
+        titleLabel.backgroundColor = VC.maskBackgroundColor
         titleLabel.textColor = .lightText
     }
 }
@@ -223,7 +223,7 @@ extension GameEditorSceneView {
             // 对齐网格
 
             let location: CGPoint = sender.location(in: superview)
-            let gridWidth: CGFloat = GameEditorViewController.ViewLayoutConstants.gameboardViewGridWidth
+            let gridWidth: CGFloat = GameEditorViewController.VC.gameboardViewGridWidth
             let snappedLocation: CGPoint = CGPoint(x: gridWidth * floor(location.x / gridWidth), y: gridWidth * floor(location.y / gridWidth))
 
             if view.center != snappedLocation {

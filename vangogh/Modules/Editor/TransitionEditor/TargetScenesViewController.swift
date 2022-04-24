@@ -10,7 +10,7 @@ import UIKit
 class TargetScenesViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -80,9 +80,9 @@ class TargetScenesViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -93,7 +93,7 @@ class TargetScenesViewController: UIViewController {
         arrowView.updateView()
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -120,7 +120,7 @@ class TargetScenesViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -130,14 +130,14 @@ class TargetScenesViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("AddTransition", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -156,7 +156,7 @@ class TargetScenesViewController: UIViewController {
         diagramView.backgroundColor = .systemGroupedBackground
         view.addSubview(diagramView)
         diagramView.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.diagramViewHeight)
+            make.height.equalTo(VC.diagramViewHeight)
             make.left.right.equalToSuperview().inset(16)
             make.top.equalTo(backButtonContainer.snp.bottom).offset(24)
         }
@@ -164,10 +164,10 @@ class TargetScenesViewController: UIViewController {
         arrowView = ArrowView()
         diagramView.addSubview(arrowView)
         arrowView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramArrowViewWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramArrowViewHeight)
+            make.width.equalTo(VC.diagramArrowViewWidth)
+            make.height.equalTo(VC.diagramArrowViewHeight)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(ViewLayoutConstants.diagramSceneViewTopOffset + ViewLayoutConstants.diagramSceneViewHeight / 2 - ViewLayoutConstants.diagramArrowViewHeight / 2)
+            make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset + VC.diagramSceneViewHeight / 2 - VC.diagramArrowViewHeight / 2)
         }
 
         let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
@@ -183,14 +183,14 @@ class TargetScenesViewController: UIViewController {
         }
         diagramView.addSubview(startSceneView)
         startSceneView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramSceneViewWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramSceneViewHeight)
+            make.width.equalTo(VC.diagramSceneViewWidth)
+            make.height.equalTo(VC.diagramSceneViewHeight)
             make.right.equalTo(arrowView.snp.left).offset(-24)
-            make.top.equalToSuperview().offset(ViewLayoutConstants.diagramSceneViewTopOffset)
+            make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset)
         }
         let startSceneIndexLabel = UILabel()
         startSceneIndexLabel.text = selectedScene.index.description
-        startSceneIndexLabel.font = .systemFont(ofSize: ViewLayoutConstants.diagramSceneIndexLabelFontSize, weight: .regular)
+        startSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
         startSceneIndexLabel.textColor = .white
         startSceneIndexLabel.textAlignment = .center
         startSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
@@ -210,15 +210,15 @@ class TargetScenesViewController: UIViewController {
             startSceneTitleString = startSceneIndexString
         }
         startSceneTitleLabel.text = startSceneTitleString
-        startSceneTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.diagramSceneTitleLabelFontSize, weight: .regular)
+        startSceneTitleLabel.font = .systemFont(ofSize: VC.diagramSceneTitleLabelFontSize, weight: .regular)
         startSceneTitleLabel.textColor = .secondaryLabel
         startSceneTitleLabel.textAlignment = .center
         startSceneTitleLabel.numberOfLines = 2
         startSceneTitleLabel.lineBreakMode = .byTruncatingTail
         diagramView.addSubview(startSceneTitleLabel)
         startSceneTitleLabel.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramSceneTitleLabelWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramSceneTitleLabelHeight)
+            make.width.equalTo(VC.diagramSceneTitleLabelWidth)
+            make.height.equalTo(VC.diagramSceneTitleLabelHeight)
             make.centerX.equalTo(startSceneView)
             make.top.equalTo(startSceneView.snp.bottom).offset(8)
         }
@@ -227,14 +227,14 @@ class TargetScenesViewController: UIViewController {
         endSceneView.backgroundColor = .systemFill
         diagramView.addSubview(endSceneView)
         endSceneView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramSceneViewWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramSceneViewHeight)
+            make.width.equalTo(VC.diagramSceneViewWidth)
+            make.height.equalTo(VC.diagramSceneViewHeight)
             make.top.equalToSuperview().offset(16)
             make.left.equalTo(arrowView.snp.right).offset(24)
         }
         let endSceneIndexLabel: UILabel = UILabel()
         endSceneIndexLabel.text = "?"
-        endSceneIndexLabel.font = .systemFont(ofSize: ViewLayoutConstants.diagramSceneIndexLabelFontSize, weight: .regular)
+        endSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
         endSceneIndexLabel.textColor = .white
         endSceneIndexLabel.textAlignment = .center
         endSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
@@ -263,7 +263,7 @@ class TargetScenesViewController: UIViewController {
 
         let targetScenesTitleLabel: UILabel = UILabel()
         targetScenesTitleLabel.text = NSLocalizedString("SelectTargetScene", comment: "")
-        targetScenesTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.targetScenesTitleLabelFontSize, weight: .regular)
+        targetScenesTitleLabel.font = .systemFont(ofSize: VC.targetScenesTitleLabelFontSize, weight: .regular)
         targetScenesTitleLabel.textColor = .secondaryLabel
         targetScenesTitleLabel.numberOfLines = 2
         targetScenesView.addSubview(targetScenesTitleLabel)
@@ -378,7 +378,7 @@ extension TargetScenesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.targetSceneTableViewCellHeight
+        return VC.targetSceneTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

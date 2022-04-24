@@ -10,7 +10,7 @@ import UIKit
 class TransitionEditorViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -80,9 +80,9 @@ class TransitionEditorViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -93,7 +93,7 @@ class TransitionEditorViewController: UIViewController {
         arrowView.updateView()
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -124,7 +124,7 @@ class TransitionEditorViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -134,14 +134,14 @@ class TransitionEditorViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("EditTransition", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -160,7 +160,7 @@ class TransitionEditorViewController: UIViewController {
         diagramView.backgroundColor = .systemGroupedBackground
         view.addSubview(diagramView)
         diagramView.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.diagramViewHeight)
+            make.height.equalTo(VC.diagramViewHeight)
             make.left.right.equalToSuperview().inset(16)
             make.top.equalTo(backButtonContainer.snp.bottom).offset(24)
         }
@@ -168,10 +168,10 @@ class TransitionEditorViewController: UIViewController {
         arrowView = ArrowView()
         diagramView.addSubview(arrowView)
         arrowView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramArrowViewWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramArrowViewHeight)
+            make.width.equalTo(VC.diagramArrowViewWidth)
+            make.height.equalTo(VC.diagramArrowViewHeight)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(ViewLayoutConstants.diagramSceneViewTopOffset + ViewLayoutConstants.diagramSceneViewHeight / 2 - ViewLayoutConstants.diagramArrowViewHeight / 2)
+            make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset + VC.diagramSceneViewHeight / 2 - VC.diagramArrowViewHeight / 2)
         }
 
         let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
@@ -187,14 +187,14 @@ class TransitionEditorViewController: UIViewController {
         }
         diagramView.addSubview(startSceneView)
         startSceneView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramSceneViewWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramSceneViewHeight)
+            make.width.equalTo(VC.diagramSceneViewWidth)
+            make.height.equalTo(VC.diagramSceneViewHeight)
             make.right.equalTo(arrowView.snp.left).offset(-24)
-            make.top.equalToSuperview().offset(ViewLayoutConstants.diagramSceneViewTopOffset)
+            make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset)
         }
         let startSceneIndexLabel = UILabel()
         startSceneIndexLabel.text = startScene.index.description
-        startSceneIndexLabel.font = .systemFont(ofSize: ViewLayoutConstants.diagramSceneIndexLabelFontSize, weight: .regular)
+        startSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
         startSceneIndexLabel.textColor = .white
         startSceneIndexLabel.textAlignment = .center
         startSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
@@ -214,15 +214,15 @@ class TransitionEditorViewController: UIViewController {
             startSceneTitleString = startSceneIndexString
         }
         startSceneTitleLabel.text = startSceneTitleString
-        startSceneTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.diagramSceneTitleLabelFontSize, weight: .regular)
+        startSceneTitleLabel.font = .systemFont(ofSize: VC.diagramSceneTitleLabelFontSize, weight: .regular)
         startSceneTitleLabel.textColor = .secondaryLabel
         startSceneTitleLabel.textAlignment = .center
         startSceneTitleLabel.numberOfLines = 2
         startSceneTitleLabel.lineBreakMode = .byTruncatingTail
         diagramView.addSubview(startSceneTitleLabel)
         startSceneTitleLabel.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramSceneTitleLabelWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramSceneTitleLabelHeight)
+            make.width.equalTo(VC.diagramSceneTitleLabelWidth)
+            make.height.equalTo(VC.diagramSceneTitleLabelHeight)
             make.centerX.equalTo(startSceneView)
             make.top.equalTo(startSceneView.snp.bottom).offset(8)
         }
@@ -240,14 +240,14 @@ class TransitionEditorViewController: UIViewController {
         }
         diagramView.addSubview(endSceneView)
         endSceneView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramSceneViewWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramSceneViewHeight)
+            make.width.equalTo(VC.diagramSceneViewWidth)
+            make.height.equalTo(VC.diagramSceneViewHeight)
             make.top.equalToSuperview().offset(16)
             make.left.equalTo(arrowView.snp.right).offset(24)
         }
         let endSceneIndexLabel = UILabel()
         endSceneIndexLabel.text = endScene.index.description
-        endSceneIndexLabel.font = .systemFont(ofSize: ViewLayoutConstants.diagramSceneIndexLabelFontSize, weight: .regular)
+        endSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
         endSceneIndexLabel.textColor = .white
         endSceneIndexLabel.textAlignment = .center
         endSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
@@ -267,15 +267,15 @@ class TransitionEditorViewController: UIViewController {
             endSceneTitleString = endSceneIndexString
         }
         endSceneTitleLabel.text = endSceneTitleString
-        endSceneTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.diagramSceneTitleLabelFontSize, weight: .regular)
+        endSceneTitleLabel.font = .systemFont(ofSize: VC.diagramSceneTitleLabelFontSize, weight: .regular)
         endSceneTitleLabel.textColor = .secondaryLabel
         endSceneTitleLabel.textAlignment = .center
         endSceneTitleLabel.numberOfLines = 2
         endSceneTitleLabel.lineBreakMode = .byTruncatingTail
         diagramView.addSubview(endSceneTitleLabel)
         endSceneTitleLabel.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.diagramSceneTitleLabelWidth)
-            make.height.equalTo(ViewLayoutConstants.diagramSceneTitleLabelHeight)
+            make.width.equalTo(VC.diagramSceneTitleLabelWidth)
+            make.height.equalTo(VC.diagramSceneTitleLabelHeight)
             make.centerX.equalTo(endSceneView)
             make.top.equalTo(endSceneView.snp.bottom).offset(8)
         }
@@ -288,7 +288,7 @@ class TransitionEditorViewController: UIViewController {
         addConditionButton.tintColor = .mgLabel
         addConditionButton.setTitle(NSLocalizedString("AddCondition", comment: ""), for: .normal)
         addConditionButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
-        addConditionButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.addConditionButtonTitleLabelFontSize, weight: .regular)
+        addConditionButton.titleLabel?.font = .systemFont(ofSize: VC.addConditionButtonTitleLabelFontSize, weight: .regular)
         addConditionButton.setTitleColor(.mgLabel, for: .normal)
         addConditionButton.setImage(.addNote, for: .normal)
         addConditionButton.adjustsImageWhenHighlighted = false
@@ -297,7 +297,7 @@ class TransitionEditorViewController: UIViewController {
         addConditionButton.addTarget(self, action: #selector(addConditionButtonDidTap), for: .touchUpInside)
         view.addSubview(addConditionButton)
         addConditionButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.addConditionButtonHeight)
+            make.height.equalTo(VC.addConditionButtonHeight)
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
@@ -319,7 +319,7 @@ class TransitionEditorViewController: UIViewController {
 
         let conditionsTitleLabel: UILabel = UILabel()
         conditionsTitleLabel.text = NSLocalizedString("ConfigureConditions", comment: "")
-        conditionsTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.conditionsTitleLabelFontSize, weight: .regular)
+        conditionsTitleLabel.font = .systemFont(ofSize: VC.conditionsTitleLabelFontSize, weight: .regular)
         conditionsTitleLabel.textColor = .secondaryLabel
         conditionsTitleLabel.numberOfLines = 2
         conditionsTitleLabel.lineBreakMode = .byTruncatingTail
@@ -399,7 +399,7 @@ extension TransitionEditorViewController: UITableViewDataSource {
 
         // 准备「点」
 
-        let dotStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: TransitionEditorConditionTableViewCell.ViewLayoutConstants.titleLabelFontSize, weight: .semibold)]
+        let dotStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: TransitionEditorConditionTableViewCell.VC.titleLabelFontSize, weight: .semibold)]
         let dotString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Dot", comment: ""), attributes: dotStringAttributes)
 
         // 准备「开始场景」
@@ -453,12 +453,12 @@ extension TransitionEditorViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.conditionTableViewCellHeight
+        return VC.conditionTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.conditionTableViewCellHeight
+        return VC.conditionTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

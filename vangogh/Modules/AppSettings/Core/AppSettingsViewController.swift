@@ -10,7 +10,7 @@ import UIKit
 class AppSettingsViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -51,9 +51,9 @@ class AppSettingsViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -61,7 +61,7 @@ class AppSettingsViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -84,7 +84,7 @@ class AppSettingsViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -94,14 +94,14 @@ class AppSettingsViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("AppSettings", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -129,13 +129,13 @@ class AppSettingsViewController: UIViewController {
         copyrightLabel = UILabel()
         let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
         copyrightLabel.text = appName + " \(NSLocalizedString("Version", comment: "")) " + GVC.appVersion
-        copyrightLabel.font = .systemFont(ofSize: ViewLayoutConstants.copyrightLabelFontSize, weight: .regular)
+        copyrightLabel.font = .systemFont(ofSize: VC.copyrightLabelFontSize, weight: .regular)
         copyrightLabel.textColor = .tertiaryLabel
         copyrightLabel.textAlignment = .center
         settingsView.addSubview(copyrightLabel)
         copyrightLabel.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.copyrightLabelHeight)
+            make.height.equalTo(VC.copyrightLabelHeight)
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
         }
@@ -196,7 +196,7 @@ extension AppSettingsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.settingTableViewCellHeight
+        return VC.settingTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

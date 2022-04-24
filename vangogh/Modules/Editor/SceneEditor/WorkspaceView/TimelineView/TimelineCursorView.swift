@@ -10,17 +10,17 @@ import UIKit
 class TimelineCursorView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
-        static let width: CGFloat = TimelineMeasureView.ViewLayoutConstants.markWidth * 2
+    enum VC {
+        static let width: CGFloat = TimelineMeasureView.VC.markWidth * 2
     }
 
     init() {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -28,7 +28,7 @@ class TimelineCursorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         isUserInteractionEnabled = false
         backgroundColor = .accent

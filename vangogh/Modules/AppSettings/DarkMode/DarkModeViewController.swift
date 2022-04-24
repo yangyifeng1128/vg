@@ -10,7 +10,7 @@ import UIKit
 class DarkModeViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -53,9 +53,9 @@ class DarkModeViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -63,7 +63,7 @@ class DarkModeViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -86,7 +86,7 @@ class DarkModeViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -96,14 +96,14 @@ class DarkModeViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("DarkMode", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -142,7 +142,7 @@ class DarkModeViewController: UIViewController {
         settingsView.addSubview(followSystemView)
         followSystemView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.followSystemViewHeight)
+            make.height.equalTo(VC.followSystemViewHeight)
             make.left.top.equalToSuperview()
         }
 
@@ -158,7 +158,7 @@ class DarkModeViewController: UIViewController {
 
         let followSystemTitleLabel: UILabel = UILabel()
         followSystemTitleLabel.text = NSLocalizedString("FollowSystem", comment: "")
-        followSystemTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.followSystemTitleLabelFontSize, weight: .regular)
+        followSystemTitleLabel.font = .systemFont(ofSize: VC.followSystemTitleLabelFontSize, weight: .regular)
         followSystemTitleLabel.textColor = .mgLabel
         followSystemView.addSubview(followSystemTitleLabel)
         followSystemTitleLabel.snp.makeConstraints { make -> Void in
@@ -169,7 +169,7 @@ class DarkModeViewController: UIViewController {
 
         let followSystemInfoLabel: UILabel = UILabel()
         followSystemInfoLabel.text = NSLocalizedString("FollowSystemInfo", comment: "")
-        followSystemInfoLabel.font = .systemFont(ofSize: ViewLayoutConstants.followSystemInfoLabelFontSize, weight: .regular)
+        followSystemInfoLabel.font = .systemFont(ofSize: VC.followSystemInfoLabelFontSize, weight: .regular)
         followSystemInfoLabel.textColor = .secondaryLabel
         followSystemInfoLabel.numberOfLines = 3
         followSystemView.addSubview(followSystemInfoLabel)
@@ -195,7 +195,7 @@ class DarkModeViewController: UIViewController {
 
         let selectModeTitleLabel: UILabel = UILabel()
         selectModeTitleLabel.text = NSLocalizedString("SelectManually", comment: "")
-        selectModeTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.selectModeTitleLabelFontSize, weight: .regular)
+        selectModeTitleLabel.font = .systemFont(ofSize: VC.selectModeTitleLabelFontSize, weight: .regular)
         selectModeTitleLabel.textColor = .secondaryLabel
         settingsTableViewContainer.addSubview(selectModeTitleLabel)
         selectModeTitleLabel.snp.makeConstraints { make -> Void in
@@ -256,7 +256,7 @@ extension DarkModeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return ViewLayoutConstants.settingTableViewCellHeight
+        return VC.settingTableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -15,7 +15,7 @@ protocol SceneEmulatorProgressViewDelegate: AnyObject {
 class SceneEmulatorProgressView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let height: CGFloat = 48
         static let barHeight: CGFloat = 32
         static let visibleBarHeight: CGFloat = 4
@@ -52,9 +52,9 @@ class SceneEmulatorProgressView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -62,7 +62,7 @@ class SceneEmulatorProgressView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         initBarView()
         initSlider()
@@ -75,7 +75,7 @@ class SceneEmulatorProgressView: UIView {
         addSubview(barView)
         barView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.barHeight)
+            make.height.equalTo(VC.barHeight)
             make.left.top.equalToSuperview()
         }
     }
@@ -88,13 +88,13 @@ class SceneEmulatorProgressView: UIView {
         slider.maximumTrackTintColor = .clear
         slider.minimumValue = Float(SceneEmulatorProgressView.minimumValue)
         slider.maximumValue = Float(SceneEmulatorProgressView.maximumValue)
-        slider.setThumbImage(UIImage.circle(diameter: ViewLayoutConstants.sliderThumbImageHeight, color: .accent!), for: .normal)
+        slider.setThumbImage(UIImage.circle(diameter: VC.sliderThumbImageHeight, color: .accent!), for: .normal)
         slider.addTarget(self, action: #selector(slide), for: .valueChanged)
         addSubview(slider)
         slider.snp.makeConstraints { make -> Void in
             make.height.equalTo(barView)
-            make.left.equalTo(barView).offset(-ViewLayoutConstants.sliderThumbImageHeight / 2 + 2)
-            make.right.equalTo(barView).offset(ViewLayoutConstants.sliderThumbImageHeight / 2 - 2)
+            make.left.equalTo(barView).offset(-VC.sliderThumbImageHeight / 2 + 2)
+            make.right.equalTo(barView).offset(VC.sliderThumbImageHeight / 2 - 2)
             make.top.equalTo(barView).offset(-1)
         }
     }
@@ -105,7 +105,7 @@ class SceneEmulatorProgressView: UIView {
         insertSubview(tagViewContainer, at: 0)
         tagViewContainer.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(SceneEmulatorProgressTagView.ViewLayoutConstants.height)
+            make.height.equalTo(SceneEmulatorProgressTagView.VC.height)
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
         }
@@ -141,9 +141,9 @@ extension SceneEmulatorProgressView {
         tagViewContainer.addSubview(tagView)
         tagViewList.append(tagView)
         tagView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(SceneEmulatorProgressTagView.ViewLayoutConstants.width)
-            make.height.equalTo(SceneEmulatorProgressTagView.ViewLayoutConstants.height)
-            make.left.equalToSuperview().offset(contentOffsetX - SceneEmulatorProgressTagView.ViewLayoutConstants.width / 2)
+            make.width.equalTo(SceneEmulatorProgressTagView.VC.width)
+            make.height.equalTo(SceneEmulatorProgressTagView.VC.height)
+            make.left.equalToSuperview().offset(contentOffsetX - SceneEmulatorProgressTagView.VC.width / 2)
             make.top.equalToSuperview()
         }
     }

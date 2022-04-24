@@ -13,16 +13,12 @@ class BorderedView: UIView {
         case left, right, top, bottom
     }
 
-    // 视图
-
     /// 边框图层
     private var borderLayer: CAShapeLayer!
     /// 侧边
     private var side: ViewSide = .bottom
     /// 厚度
     private var thickness: CGFloat = 1.0 / UIScreen.main.scale
-
-    // 生命周期
 
     /// 初始化
     init(side: ViewSide) {

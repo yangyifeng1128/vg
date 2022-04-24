@@ -14,7 +14,7 @@ protocol WorkspaceNoDataViewDelegate: AnyObject {
 class WorkspaceNoDataView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let initialFootageButtonWidth: CGFloat = 56
         static let initialFootageButtonImageEdgeInset: CGFloat = 11.2
         static let initialFootageTitleLabelFontSize: CGFloat = 16
@@ -29,9 +29,9 @@ class WorkspaceNoDataView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -39,24 +39,24 @@ class WorkspaceNoDataView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         // 初始化「添加镜头片段」按钮
 
-        initialFootageButton = AddFootageButton(imageEdgeInset: ViewLayoutConstants.initialFootageButtonImageEdgeInset)
+        initialFootageButton = AddFootageButton(imageEdgeInset: VC.initialFootageButtonImageEdgeInset)
         initialFootageButton.addTarget(self, action: #selector(initialFootageButtonDidTap), for: .touchUpInside)
         addSubview(initialFootageButton)
         initialFootageButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.initialFootageButtonWidth)
+            make.width.height.equalTo(VC.initialFootageButtonWidth)
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-ViewLayoutConstants.initialFootageButtonWidth / 2)
+            make.centerY.equalToSuperview().offset(-VC.initialFootageButtonWidth / 2)
         }
 
         // 初始化「添加镜头片段」标题标签
 
         initialFootageTitleLabel = UILabel()
         initialFootageTitleLabel.text = NSLocalizedString("AddFootage", comment: "")
-        initialFootageTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.initialFootageTitleLabelFontSize, weight: .regular)
+        initialFootageTitleLabel.font = .systemFont(ofSize: VC.initialFootageTitleLabelFontSize, weight: .regular)
         initialFootageTitleLabel.textColor = .secondaryLabel
         initialFootageTitleLabel.textAlignment = .center
         addSubview(initialFootageTitleLabel)

@@ -15,7 +15,7 @@ protocol NodeItemBottomBarViewDelegate: AnyObject {
 class NodeItemBottomBarView: BorderedView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let actionBarItemCellWidth: CGFloat = 120
         static let actionBarItemCellHeight: CGFloat = 42
         static let titleLabelFontSize: CGFloat = 12
@@ -41,9 +41,9 @@ class NodeItemBottomBarView: BorderedView {
 
         actionBarItems = NodeItemBottomBarItemManager.shared.get()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -51,7 +51,7 @@ class NodeItemBottomBarView: BorderedView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         initCollectionView()
         initTitleLabel()
@@ -71,7 +71,7 @@ class NodeItemBottomBarView: BorderedView {
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.actionBarItemCellHeight)
+            make.height.equalTo(VC.actionBarItemCellHeight)
             make.bottom.equalToSuperview()
         }
     }
@@ -81,7 +81,7 @@ class NodeItemBottomBarView: BorderedView {
         titleLabel = AttributedLabel()
         titleLabel.insets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         titleLabel.text = NSLocalizedString("Node", comment: "") // 此处设置字符串是为了保持高度占位，避免切换视图时产生异常动画效果
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .secondaryLabel
         titleLabel.textAlignment = .center
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -101,7 +101,7 @@ class NodeItemBottomBarView: BorderedView {
         goBackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goBackViewDidTap)))
         addSubview(goBackView)
         goBackView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.actionBarItemCellWidth)
+            make.width.equalTo(VC.actionBarItemCellWidth)
             make.height.equalTo(collectionView)
             make.left.equalToSuperview()
             make.bottom.equalTo(collectionView)
@@ -112,14 +112,14 @@ class NodeItemBottomBarView: BorderedView {
         goBackIconView.tintColor = .secondaryLabel
         goBackView.addSubview(goBackIconView)
         goBackIconView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.goBackIconViewWidth)
+            make.width.height.equalTo(VC.goBackIconViewWidth)
             make.left.equalToSuperview().offset(12)
             make.centerY.equalToSuperview()
         }
 
         let goBackTitleLabel: UILabel = UILabel()
         goBackTitleLabel.text = NSLocalizedString("Return", comment: "")
-        goBackTitleLabel.font = .systemFont(ofSize: NodeItemBottomBarItemCell.ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        goBackTitleLabel.font = .systemFont(ofSize: NodeItemBottomBarItemCell.VC.titleLabelFontSize, weight: .regular)
         goBackTitleLabel.textColor = .secondaryLabel
         goBackView.addSubview(goBackTitleLabel)
         goBackTitleLabel.snp.makeConstraints { make -> Void in
@@ -170,12 +170,12 @@ extension NodeItemBottomBarView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return CGSize(width: ViewLayoutConstants.actionBarItemCellWidth, height: ViewLayoutConstants.actionBarItemCellHeight)
+        return CGSize(width: VC.actionBarItemCellWidth, height: VC.actionBarItemCellHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let contentOffsetX: CGFloat = (UIScreen.main.bounds.width - ViewLayoutConstants.actionBarItemCellWidth) / 2
+        let contentOffsetX: CGFloat = (UIScreen.main.bounds.width - VC.actionBarItemCellWidth) / 2
         return UIEdgeInsets(top: 0, left: contentOffsetX, bottom: 0, right: contentOffsetX)
     }
 

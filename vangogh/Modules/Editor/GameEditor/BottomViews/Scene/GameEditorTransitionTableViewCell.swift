@@ -12,7 +12,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
     static let reuseId: String = "GameEditorTransitionTableViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let ifLabelFontSize: CGFloat = 14
         static let deleteButtonWidth: CGFloat = 44
         static let endSceneTitleLabelSmallFontSize: CGFloat = 10
@@ -33,9 +33,9 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -43,7 +43,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -52,7 +52,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
 
         ifLabel = UILabel()
         ifLabel.text = NSLocalizedString("If", comment: "")
-        ifLabel.font = .systemFont(ofSize: ViewLayoutConstants.ifLabelFontSize, weight: .regular)
+        ifLabel.font = .systemFont(ofSize: VC.ifLabelFontSize, weight: .regular)
         ifLabel.textColor = .secondaryLabel
         contentView.addSubview(ifLabel)
         ifLabel.snp.makeConstraints { make -> Void in
@@ -70,9 +70,9 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         deleteButton.imageView?.contentMode = .scaleAspectFit
         deleteButton.imageView?.tintColor = .tertiaryLabel
         contentView.addSubview(deleteButton)
-        let deleteButtonHeight: CGFloat = GameEditorSceneBottomView.ViewLayoutConstants.transitionTableViewCellHeight - 16
+        let deleteButtonHeight: CGFloat = GameEditorSceneBottomView.VC.transitionTableViewCellHeight - 16
         deleteButton.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.deleteButtonWidth)
+            make.width.equalTo(VC.deleteButtonWidth)
             make.height.equalTo(deleteButtonHeight)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview()
@@ -83,7 +83,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         endSceneThumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneThumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(endSceneThumbImageView)
-        let thumbImageViewHeight: CGFloat = GameEditorSceneBottomView.ViewLayoutConstants.transitionTableViewCellHeight - 16
+        let thumbImageViewHeight: CGFloat = GameEditorSceneBottomView.VC.transitionTableViewCellHeight - 16
         let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         endSceneThumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
@@ -112,7 +112,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         arrowView = ArrowView(direction: .right, arrowLayerColor: UIColor.accent?.cgColor)
         contentView.addSubview(arrowView)
         arrowView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.arrowViewWidth)
+            make.width.equalTo(VC.arrowViewWidth)
             make.height.equalToSuperview()
             make.right.equalTo(endSceneThumbImageView.snp.left).offset(-8)
             make.top.equalToSuperview()
@@ -123,7 +123,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         conditionsView = RoundedView()
         conditionsView.backgroundColor = .tertiarySystemBackground
         contentView.addSubview(conditionsView)
-        let conditionsViewHeight: CGFloat = GameEditorSceneBottomView.ViewLayoutConstants.transitionTableViewCellHeight - 16
+        let conditionsViewHeight: CGFloat = GameEditorSceneBottomView.VC.transitionTableViewCellHeight - 16
         conditionsView.snp.makeConstraints { make -> Void in
             make.height.equalTo(conditionsViewHeight)
             make.centerY.equalToSuperview()
@@ -133,7 +133,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
 
         conditionsTitleLabel = AttributedLabel()
         conditionsTitleLabel.insets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        conditionsTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.conditionsTitleLabelFontSize, weight: .regular)
+        conditionsTitleLabel.font = .systemFont(ofSize: VC.conditionsTitleLabelFontSize, weight: .regular)
         conditionsTitleLabel.textColor = .mgLabel
         conditionsTitleLabel.numberOfLines = 2
         conditionsTitleLabel.lineBreakMode = .byCharWrapping

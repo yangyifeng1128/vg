@@ -12,7 +12,7 @@ class TemplateCollectionViewCell: UICollectionViewCell {
     static let reuseId: String = "TemplateCollectionViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let titleLabelHeight: CGFloat = 48
         static let titleLabelFontSize: CGFloat = 13
     }
@@ -49,9 +49,9 @@ class TemplateCollectionViewCell: UICollectionViewCell {
 
         super.init(frame: frame)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -59,7 +59,7 @@ class TemplateCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         contentView.backgroundColor = GVC.defaultViewBackgroundColor
 
@@ -73,14 +73,14 @@ class TemplateCollectionViewCell: UICollectionViewCell {
         titleLabel = AttributedLabel()
         titleLabel.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 4)
         titleLabel.backgroundColor = .secondarySystemGroupedBackground
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.titleLabelHeight)
+            make.height.equalTo(VC.titleLabelHeight)
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
         }

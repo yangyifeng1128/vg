@@ -9,7 +9,7 @@ import UIKit
 class GameEditorTransitionView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let tailWidth: CGFloat = 2
         static let headWidth: CGFloat = 10
         static let headLength: CGFloat = 8
@@ -31,9 +31,9 @@ class GameEditorTransitionView: UIView {
         self.startScene = startScene
         self.endScene = endScene
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -41,7 +41,7 @@ class GameEditorTransitionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         arrowLayerColor = UIColor.tertiaryLabel.cgColor
@@ -69,7 +69,7 @@ class GameEditorTransitionView: UIView {
 
         layer.sublayers?.removeAll()
 
-        let arrow = UIBezierPath.arrow2(from: startScene.center, to: endScene.center, tailWidth: ViewLayoutConstants.tailWidth, headWidth: ViewLayoutConstants.headWidth, headLength: ViewLayoutConstants.headLength)
+        let arrow = UIBezierPath.arrow2(from: startScene.center, to: endScene.center, tailWidth: VC.tailWidth, headWidth: VC.headWidth, headLength: VC.headLength)
 
         let arrowLayer = CAShapeLayer()
         arrowLayer.fillColor = arrowLayerColor
@@ -86,9 +86,9 @@ extension GameEditorTransitionView {
         let backgroundColor: CGColor? = isSent ? UIColor.accent?.cgColor : UIColor.fcGreen?.cgColor
         pulseAnimationLayer = CALayer()
         pulseAnimationLayer.position = startScene.center
-        pulseAnimationLayer.bounds = CGRect(x: 0, y: 0, width: ViewLayoutConstants.pulseWidth, height: ViewLayoutConstants.pulseWidth)
+        pulseAnimationLayer.bounds = CGRect(x: 0, y: 0, width: VC.pulseWidth, height: VC.pulseWidth)
         pulseAnimationLayer.backgroundColor = backgroundColor
-        pulseAnimationLayer.cornerRadius = ViewLayoutConstants.pulseWidth / 2
+        pulseAnimationLayer.cornerRadius = VC.pulseWidth / 2
 
         pulseAnimationGroup = CAAnimationGroup()
         pulseAnimationGroup.duration = pulseAnimationDuration

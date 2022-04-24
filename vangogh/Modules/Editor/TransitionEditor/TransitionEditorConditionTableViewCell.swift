@@ -12,7 +12,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
     static let reuseId: String = "TransitionEditorConditionTableViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let bodyViewHeight: CGFloat = 64
         static let editButtonWidth: CGFloat = 36
         static let titleLabelFontSize: CGFloat = 16
@@ -30,9 +30,9 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -40,7 +40,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -55,8 +55,8 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         deleteButton.imageView?.tintColor = .secondaryLabel
         contentView.addSubview(deleteButton)
         deleteButton.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.deleteButtonWidth)
-            make.height.equalTo(ViewLayoutConstants.bodyViewHeight)
+            make.width.equalTo(VC.deleteButtonWidth)
+            make.height.equalTo(VC.bodyViewHeight)
             make.right.equalToSuperview()
             make.top.equalToSuperview()
         }
@@ -67,7 +67,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         bodyView.backgroundColor = .tertiarySystemGroupedBackground
         contentView.addSubview(bodyView)
         bodyView.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.bodyViewHeight)
+            make.height.equalTo(VC.bodyViewHeight)
             make.left.equalToSuperview().offset(16)
             make.right.equalTo(deleteButton.snp.left)
             make.top.equalToSuperview()
@@ -81,14 +81,14 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         editButton.imageView?.tintColor = .secondaryLabel
         bodyView.addSubview(editButton)
         editButton.snp.makeConstraints { make -> Void in
-            make.width.equalTo(ViewLayoutConstants.editButtonWidth)
+            make.width.equalTo(VC.editButtonWidth)
             make.height.equalToSuperview()
             make.left.equalToSuperview().offset(2)
             make.top.equalToSuperview()
         }
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -103,7 +103,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
 
         orLabel = UILabel()
         orLabel.text = NSLocalizedString("Or", comment: "")
-        orLabel.font = .systemFont(ofSize: ViewLayoutConstants.orLabelFontSize, weight: .regular)
+        orLabel.font = .systemFont(ofSize: VC.orLabelFontSize, weight: .regular)
         orLabel.textColor = .secondaryLabel
         orLabel.textAlignment = .center
         contentView.addSubview(orLabel)

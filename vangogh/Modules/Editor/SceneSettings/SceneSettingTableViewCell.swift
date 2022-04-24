@@ -12,7 +12,7 @@ class SceneSettingTableViewCell: UITableViewCell {
     static let reuseId: String = "SceneSettingTableViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let titleLabelFontSize: CGFloat = 16
         static let chevronViewWidth: CGFloat = 24
         static let infoLabelFontSize: CGFloat = 14
@@ -26,9 +26,9 @@ class SceneSettingTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -36,7 +36,7 @@ class SceneSettingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -44,7 +44,7 @@ class SceneSettingTableViewCell: UITableViewCell {
         // 添加标题标签
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
@@ -58,7 +58,7 @@ class SceneSettingTableViewCell: UITableViewCell {
         chevronView.tintColor = .tertiaryLabel
         contentView.addSubview(chevronView)
         chevronView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.chevronViewWidth)
+            make.width.height.equalTo(VC.chevronViewWidth)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-8)
         }
@@ -66,7 +66,7 @@ class SceneSettingTableViewCell: UITableViewCell {
         // 准备信息标签
 
         infoLabel = UILabel()
-        infoLabel.font = .systemFont(ofSize: ViewLayoutConstants.infoLabelFontSize, weight: .regular)
+        infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .secondaryLabel
         infoLabel.textAlignment = .right
         infoLabel.lineBreakMode = .byTruncatingTail

@@ -14,7 +14,7 @@ protocol TimelineToolBarViewDelegate: AnyObject {
 class TimelineToolBarView: BorderedView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let toolBarItemCellWidth: CGFloat = 64
     }
 
@@ -43,9 +43,9 @@ class TimelineToolBarView: BorderedView {
 
         toolBarItems = TimelineToolBarItemManager.shared.get()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -53,7 +53,7 @@ class TimelineToolBarView: BorderedView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         collectionViewFlowLayout.scrollDirection = .horizontal
@@ -66,7 +66,7 @@ class TimelineToolBarView: BorderedView {
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(TimelineView.ViewLayoutConstants.bottomViewContainerHeight)
+            make.height.equalTo(TimelineView.VC.bottomViewContainerHeight)
             make.left.bottom.equalToSuperview()
         }
     }
@@ -107,7 +107,7 @@ extension TimelineToolBarView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return CGSize(width: ViewLayoutConstants.toolBarItemCellWidth, height: TimelineView.ViewLayoutConstants.bottomViewContainerHeight)
+        return CGSize(width: VC.toolBarItemCellWidth, height: TimelineView.VC.bottomViewContainerHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

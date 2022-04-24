@@ -12,7 +12,7 @@ class TimelineToolBarItemCell: UICollectionViewCell {
     static let reuseId: String = "TimelineToolBarItemCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let titleLabelFontSize: CGFloat = 11
         static let iconViewWidth: CGFloat = 22
     }
@@ -24,9 +24,9 @@ class TimelineToolBarItemCell: UICollectionViewCell {
 
         super.init(frame: frame)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -34,10 +34,10 @@ class TimelineToolBarItemCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.textAlignment = .center
         contentView.addSubview(titleLabel)
@@ -50,7 +50,7 @@ class TimelineToolBarItemCell: UICollectionViewCell {
         iconView = UIImageView()
         contentView.addSubview(iconView)
         iconView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.iconViewWidth)
+            make.width.height.equalTo(VC.iconViewWidth)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(titleLabel.snp.top).offset(-8)
         }

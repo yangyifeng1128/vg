@@ -11,7 +11,7 @@ import UIKit
 class SceneEmulatorViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let playerViewPadding: CGFloat = 12
@@ -95,9 +95,9 @@ class SceneEmulatorViewController: UIViewController {
 
         overrideUserInterfaceStyle = SceneEmulatorViewController.preferredUserInterfaceStyle
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -164,7 +164,7 @@ class SceneEmulatorViewController: UIViewController {
     //
     //
 
-    private func initSubviews() {
+    private func initViews() {
 
         // 初始化场景模拟器相关的视图
 
@@ -266,7 +266,7 @@ class SceneEmulatorViewController: UIViewController {
         closeButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonDidTap)))
         view.addSubview(closeButtonContainer)
         closeButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -276,7 +276,7 @@ class SceneEmulatorViewController: UIViewController {
         closeButtonContainer.addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
     }
 
@@ -300,34 +300,34 @@ class SceneEmulatorViewController: UIViewController {
         progressView.isHidden = true
         view.addSubview(progressView)
         progressView.snp.makeConstraints { make -> Void in
-            make.height.equalTo(SceneEmulatorProgressView.ViewLayoutConstants.height)
-            make.left.equalTo(ViewLayoutConstants.playButtonWidth + ViewLayoutConstants.playerViewPadding * 2)
-            make.right.equalToSuperview().inset(ViewLayoutConstants.playerViewPadding)
+            make.height.equalTo(SceneEmulatorProgressView.VC.height)
+            make.left.equalTo(VC.playButtonWidth + VC.playerViewPadding * 2)
+            make.right.equalToSuperview().inset(VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 
     private func initPlayButton() {
 
-        playButton = SceneEmulatorPlayButton(imageEdgeInset: ViewLayoutConstants.playButtonImageEdgeInset)
+        playButton = SceneEmulatorPlayButton(imageEdgeInset: VC.playButtonImageEdgeInset)
         playButton.isHidden = true
         playButton.addTarget(self, action: #selector(playButtonDidTap), for: .touchUpInside)
         view.addSubview(playButton)
         playButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.playButtonWidth)
-            make.left.equalToSuperview().offset(ViewLayoutConstants.playerViewPadding)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-ViewLayoutConstants.playerViewPadding)
+            make.width.height.equalTo(VC.playButtonWidth)
+            make.left.equalToSuperview().offset(VC.playerViewPadding)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
     }
 
     private func initPlayIndicatorButton() {
 
-        playIndicatorButton = SceneEmulatorPlayButton(imageEdgeInset: ViewLayoutConstants.playIndicatorButtonImageEdgeInset)
+        playIndicatorButton = SceneEmulatorPlayButton(imageEdgeInset: VC.playIndicatorButtonImageEdgeInset)
         playIndicatorButton.isHidden = true
         playIndicatorButton.addTarget(self, action: #selector(playIndicatorButtonDidTap), for: .touchUpInside)
         view.addSubview(playIndicatorButton)
         playIndicatorButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.playIndicatorButtonWidth)
+            make.width.height.equalTo(VC.playIndicatorButtonWidth)
             make.center.equalToSuperview()
         }
     }

@@ -9,11 +9,11 @@ import UIKit
 class NodeItemTagView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let width: CGFloat = 40
         static let height: CGFloat = width * 5 / 4
         static let iconViewWidth: CGFloat = 20
-        static let borderLayerWidth: CGFloat = NodeItemCurveView.ViewLayoutConstants.lineWidth * 2
+        static let borderLayerWidth: CGFloat = NodeItemCurveView.VC.lineWidth * 2
     }
 
     private lazy var maskLayer: CAShapeLayer = {
@@ -62,9 +62,9 @@ class NodeItemTagView: UIView {
 
         self.node = node
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -81,7 +81,7 @@ class NodeItemTagView: UIView {
         }
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: node.nodeType)
         tintColor = .mgLabel
@@ -90,9 +90,9 @@ class NodeItemTagView: UIView {
         iconView.image = MetaNodeTypeManager.shared.getNodeTypeIcon(nodeType: node.nodeType)
         addSubview(iconView)
         iconView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.iconViewWidth)
+            make.width.height.equalTo(VC.iconViewWidth)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset((ViewLayoutConstants.iconViewWidth - ViewLayoutConstants.width) / 2)
+            make.bottom.equalToSuperview().offset((VC.iconViewWidth - VC.width) / 2)
         }
     }
 }
@@ -117,7 +117,7 @@ extension NodeItemTagView {
         }
 
         borderLayer = CAShapeLayer()
-        borderLayer.lineWidth = ViewLayoutConstants.borderLayerWidth
+        borderLayer.lineWidth = VC.borderLayerWidth
         var strokeColor: UIColor? = .mgLabel
         if SceneEditorViewController.preferredUserInterfaceStyle == .dark {
             strokeColor = .white

@@ -12,7 +12,7 @@ class AddNodeItemCollectionViewCell: UICollectionViewCell {
     static let reuseId: String = "AddNodeItemCollectionViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let titleLabelFontSize: CGFloat = 13
     }
 
@@ -23,9 +23,9 @@ class AddNodeItemCollectionViewCell: UICollectionViewCell {
 
         super.init(frame: frame)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -33,19 +33,19 @@ class AddNodeItemCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         tagView = AddNodeItemTagView()
         contentView.addSubview(tagView)
         tagView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(AddNodeItemTagView.ViewLayoutConstants.width)
-            make.height.equalTo(AddNodeItemTagView.ViewLayoutConstants.height)
+            make.width.equalTo(AddNodeItemTagView.VC.width)
+            make.height.equalTo(AddNodeItemTagView.VC.height)
             make.centerX.equalToSuperview().offset(8)
             make.top.equalToSuperview()
         }
 
         titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 2
@@ -67,7 +67,7 @@ class AddNodeItemCollectionViewCell: UICollectionViewCell {
 class AddNodeItemTagView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let width: CGFloat = 40
         static let height: CGFloat = width * 5 / 4
         static let iconViewWidth: CGFloat = 20
@@ -106,9 +106,9 @@ class AddNodeItemTagView: UIView {
 
         tintColor = .mgLabel
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -116,14 +116,14 @@ class AddNodeItemTagView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         iconView = UIImageView()
         addSubview(iconView)
         iconView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.iconViewWidth)
+            make.width.height.equalTo(VC.iconViewWidth)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset((ViewLayoutConstants.iconViewWidth - ViewLayoutConstants.width) / 2)
+            make.bottom.equalToSuperview().offset((VC.iconViewWidth - VC.width) / 2)
         }
     }
 }

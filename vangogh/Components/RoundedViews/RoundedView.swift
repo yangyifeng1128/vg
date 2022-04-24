@@ -8,8 +8,6 @@ import UIKit
 
 class RoundedView: UIView {
 
-    // 视图
-
     /// 遮罩图层
     private(set) lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
@@ -39,8 +37,6 @@ class RoundedView: UIView {
 
     /// 圆角
     var cornerRadius: CGFloat!
-
-    // 生命周期
 
     /// 初始化
     init(cornerRadius: CGFloat = GVC.defaultViewCornerRadius) {

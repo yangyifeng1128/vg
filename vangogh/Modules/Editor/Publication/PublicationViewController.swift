@@ -13,7 +13,7 @@ import UIKit
 class PublicationViewController: UIViewController {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
@@ -59,9 +59,9 @@ class PublicationViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
 
         // 从服务器同步档案
 
@@ -81,7 +81,7 @@ class PublicationViewController: UIViewController {
         loadArchives()
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
@@ -108,7 +108,7 @@ class PublicationViewController: UIViewController {
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
         view.addSubview(backButtonContainer)
         backButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -118,14 +118,14 @@ class PublicationViewController: UIViewController {
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
         // 初始化标题标签
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("Publish", comment: "")
-        titleLabel.font = .systemFont(ofSize: ViewLayoutConstants.titleLabelFontSize, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
@@ -142,9 +142,9 @@ class PublicationViewController: UIViewController {
         gameSettingsButtonContainer.isUserInteractionEnabled = true
         gameSettingsButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gameSettingsButtonDidTap)))
         view.addSubview(gameSettingsButtonContainer)
-        let gameSettingsButtonContainerLeft: CGFloat = view.bounds.width - ViewLayoutConstants.topButtonContainerWidth
+        let gameSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topButtonContainerWidth
         gameSettingsButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(ViewLayoutConstants.topButtonContainerWidth)
+            make.width.height.equalTo(VC.topButtonContainerWidth)
             make.left.equalToSuperview().offset(gameSettingsButtonContainerLeft)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
@@ -154,8 +154,8 @@ class PublicationViewController: UIViewController {
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
         gameSettingsButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.left.equalToSuperview().offset(ViewLayoutConstants.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-ViewLayoutConstants.topButtonContainerPadding)
+            make.left.equalToSuperview().offset(VC.topButtonContainerPadding)
+            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
     }
 
@@ -167,7 +167,7 @@ class PublicationViewController: UIViewController {
         publishButton.contentVerticalAlignment = .center
         publishButton.setTitle(NSLocalizedString("PublishInitialVersion", comment: ""), for: .normal)
         publishButton.setTitleColor(.mgLabel, for: .normal)
-        publishButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.publishButtonTitleLabelFontSize, weight: .regular)
+        publishButton.titleLabel?.font = .systemFont(ofSize: VC.publishButtonTitleLabelFontSize, weight: .regular)
         publishButton.addTarget(self, action: #selector(publishButtonDidTap), for: .touchUpInside)
         view.addSubview(publishButton)
         var publishButtonHeight: CGFloat
@@ -203,7 +203,7 @@ class PublicationViewController: UIViewController {
 
         let archivesTitleLabel: UILabel = UILabel()
         archivesTitleLabel.text = NSLocalizedString("ArchiveHistory", comment: "")
-        archivesTitleLabel.font = .systemFont(ofSize: ViewLayoutConstants.archivesTitleLabelFontSize, weight: .regular)
+        archivesTitleLabel.font = .systemFont(ofSize: VC.archivesTitleLabelFontSize, weight: .regular)
         archivesTitleLabel.textColor = .secondaryLabel
         archivesView.addSubview(archivesTitleLabel)
         archivesTitleLabel.snp.makeConstraints { make -> Void in
@@ -300,7 +300,7 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
             break
         }
 
-        let cellSpacing = ViewLayoutConstants.archiveCollectionViewCellSpacing
+        let cellSpacing = VC.archiveCollectionViewCellSpacing
 
         archiveCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
         archiveCollectionViewCellHeight = (archiveCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
@@ -310,19 +310,19 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let inset = ViewLayoutConstants.archiveCollectionViewCellSpacing
+        let inset = VC.archiveCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = ViewLayoutConstants.archiveCollectionViewCellSpacing
+        let lineSpacing = VC.archiveCollectionViewCellSpacing
         return lineSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
-        return ViewLayoutConstants.archiveCollectionViewCellSpacing
+        return VC.archiveCollectionViewCellSpacing
     }
 }
 

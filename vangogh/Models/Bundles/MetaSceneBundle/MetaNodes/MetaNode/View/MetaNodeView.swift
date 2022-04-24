@@ -9,7 +9,7 @@ import UIKit
 class MetaNodeView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let borderLayerWidth: CGFloat = 4
         static let progressViewHeight: CGFloat = 4
         static let progressViewMarginBottom: CGFloat = 16
@@ -59,7 +59,7 @@ class MetaNodeView: UIView {
     private func addBorderLayer() {
 
         layer.borderColor = UIColor.accent?.cgColor
-        layer.borderWidth = ViewLayoutConstants.borderLayerWidth
+        layer.borderWidth = VC.borderLayerWidth
     }
 
     private func removeBorderLayer() {

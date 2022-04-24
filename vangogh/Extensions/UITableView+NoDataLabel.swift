@@ -9,7 +9,7 @@ import UIKit
 extension UITableView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let oopsStringFontSize: CGFloat = 64
         static let noDataTitleStringFontSize: CGFloat = 16
     }
@@ -26,7 +26,7 @@ extension UITableView {
         if oops {
             let oopsStringAttributes: [NSAttributedString.Key: Any] = [
                     .foregroundColor: UIColor.tertiaryLabel,
-                    .font: UIFont.systemFont(ofSize: ViewLayoutConstants.oopsStringFontSize, weight: .regular)
+                    .font: UIFont.systemFont(ofSize: VC.oopsStringFontSize, weight: .regular)
             ]
             let oopsString: NSAttributedString = NSAttributedString(string: "(·_·)\n", attributes: oopsStringAttributes)
             completeNoDataString.append(oopsString)
@@ -36,7 +36,7 @@ extension UITableView {
 
         let noDataTitleStringAttributes: [NSAttributedString.Key: Any] = [
                 .foregroundColor: UIColor.tertiaryLabel,
-                .font: UIFont.systemFont(ofSize: ViewLayoutConstants.noDataTitleStringFontSize, weight: .regular)
+                .font: UIFont.systemFont(ofSize: VC.noDataTitleStringFontSize, weight: .regular)
         ]
         let noDataTitleString: NSAttributedString = NSAttributedString(string: title, attributes: noDataTitleStringAttributes)
         completeNoDataString.append(noDataTitleString)

@@ -14,7 +14,7 @@ protocol GameEditorWillAddSceneBottomViewDelegate: AnyObject {
 class GameEditorWillAddSceneBottomView: UIView {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let contentViewHeight: CGFloat = 144
         static let cancelAddingSceneButtonHeight: CGFloat = 64
         static let cancelAddingSceneButtonTitleLabelFontSize: CGFloat = 18
@@ -32,9 +32,9 @@ class GameEditorWillAddSceneBottomView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -42,25 +42,25 @@ class GameEditorWillAddSceneBottomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         contentView = UIView()
         contentView.backgroundColor = GVC.addSceneViewBackgroundColor
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(ViewLayoutConstants.contentViewHeight)
+            make.height.equalTo(VC.contentViewHeight)
             make.left.top.equalToSuperview()
         }
 
         cancelAddingSceneButton = UIButton()
         cancelAddingSceneButton.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
-        cancelAddingSceneButton.titleLabel?.font = .systemFont(ofSize: ViewLayoutConstants.cancelAddingSceneButtonTitleLabelFontSize, weight: .regular)
+        cancelAddingSceneButton.titleLabel?.font = .systemFont(ofSize: VC.cancelAddingSceneButtonTitleLabelFontSize, weight: .regular)
         cancelAddingSceneButton.setTitleColor(.lightText, for: .normal)
         cancelAddingSceneButton.addTarget(self, action: #selector(cancelAddingSceneButtonDidTap), for: .touchUpInside)
         contentView.addSubview(cancelAddingSceneButton)
         cancelAddingSceneButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(ViewLayoutConstants.cancelAddingSceneButtonHeight)
+            make.height.equalTo(VC.cancelAddingSceneButtonHeight)
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
@@ -69,9 +69,9 @@ class GameEditorWillAddSceneBottomView: UIView {
         let completeString: NSMutableAttributedString = NSMutableAttributedString(string: "")
         let iconAttachment = NSTextAttachment()
         iconAttachment.image = .handPointUp
-        let infoLabelFont = UIFont.systemFont(ofSize: ViewLayoutConstants.infoLabelFontSize, weight: .regular)
-        let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - ViewLayoutConstants.infoLabelIconWidth) / 2
-        iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: ViewLayoutConstants.infoLabelIconWidth, height: ViewLayoutConstants.infoLabelIconWidth)
+        let infoLabelFont = UIFont.systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
+        let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
+        iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
         let iconString = NSAttributedString(attachment: iconAttachment)
         completeString.append(iconString)
         let titleString = NSAttributedString(string: " " + NSLocalizedString("WillAddSceneInfo", comment: ""))

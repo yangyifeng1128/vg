@@ -12,7 +12,7 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
     static let reuseId: String = "MetaVoteOptionTableViewCell"
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
         static let optionViewBackgroundColor: UIColor = .white
         static let optionViewCornerRadius: CGFloat = 16
         static let optionViewBorderLayerLineWidth: CGFloat = 1
@@ -28,9 +28,9 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -38,7 +38,7 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
@@ -46,13 +46,13 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
         // 添加选项视图
 
         optionView = MetaVoteOptionView()
-        optionView.backgroundColor = ViewLayoutConstants.optionViewBackgroundColor
+        optionView.backgroundColor = VC.optionViewBackgroundColor
         contentView.addSubview(optionView)
 
         // 添加标题标签
 
         titleLabel = UILabel()
-        titleLabel.textColor = ViewLayoutConstants.titleLabelTextColor
+        titleLabel.textColor = VC.titleLabelTextColor
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
         optionView.addSubview(titleLabel)
@@ -72,9 +72,9 @@ class MetaVoteOptionView: RoundedView {
 
         super.init()
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -94,7 +94,7 @@ class MetaVoteOptionView: RoundedView {
         // addBorderLayer()
     }
 
-    private func initSubviews() {
+    private func initViews() {
     }
 
     private func addBorderLayer() {
@@ -105,8 +105,8 @@ class MetaVoteOptionView: RoundedView {
         }
 
         borderLayer = CAShapeLayer()
-        borderLayer.lineWidth = MetaVoteOptionTableViewCell.ViewLayoutConstants.optionViewBorderLayerLineWidth
-        borderLayer.strokeColor = MetaVoteOptionTableViewCell.ViewLayoutConstants.optionViewBorderLayerStrokeColor.cgColor
+        borderLayer.lineWidth = MetaVoteOptionTableViewCell.VC.optionViewBorderLayerLineWidth
+        borderLayer.strokeColor = MetaVoteOptionTableViewCell.VC.optionViewBorderLayerStrokeColor.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.frame = bounds
         borderLayer.path = maskLayer.path

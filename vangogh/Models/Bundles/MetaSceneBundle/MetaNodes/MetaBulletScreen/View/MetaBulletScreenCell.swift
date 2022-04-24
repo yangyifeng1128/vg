@@ -11,16 +11,16 @@ import UIKit
 class MetaBulletScreenCell: DanmakuCell {
 
     /// 视图布局常量枚举值
-    enum ViewLayoutConstants {
+    enum VC {
     }
 
     required init(frame: CGRect) {
 
         super.init(frame: frame)
 
-        // 初始化子视图
+        // 初始化视图
 
-        initSubviews()
+        initViews()
     }
 
     required init?(coder: NSCoder) {
@@ -28,7 +28,7 @@ class MetaBulletScreenCell: DanmakuCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initSubviews() {
+    private func initViews() {
 
         backgroundColor = .red
     }
