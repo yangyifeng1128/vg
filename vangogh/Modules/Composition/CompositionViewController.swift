@@ -462,7 +462,7 @@ extension CompositionViewController {
     }
 
     /// 打开草稿
-    func openDraft(_ draft: MetaGame, completion handler: (() -> Void)? = nil) {
+    private func openDraft(_ draft: MetaGame, completion handler: (() -> Void)? = nil) {
 
         draft.mtime = Int64(Date().timeIntervalSince1970)
         CoreDataManager.shared.saveContext()
