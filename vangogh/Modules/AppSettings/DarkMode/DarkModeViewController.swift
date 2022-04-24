@@ -243,6 +243,8 @@ extension DarkModeViewController: UITableViewDataSource {
 
         cell.titleLabel.text = NSLocalizedString(style.title, comment: "")
 
+        // 准备「勾选视图」
+
         let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
         if style.type == .darkMode {
             cell.checkmarkView.isHidden = isInLightMode
@@ -299,6 +301,8 @@ extension DarkModeViewController {
 
             selectUserInterfaceStyle(type: .darkMode)
         }
+
+        Logger.appSettings.info("followed system user interface style: \(followsSystemUserInterfaceStyle)")
     }
 
     /// 选择用户界面风格
