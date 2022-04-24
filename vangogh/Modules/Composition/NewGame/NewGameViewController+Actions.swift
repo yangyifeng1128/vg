@@ -19,8 +19,6 @@ extension NewGameViewController {
 
     @objc func newBlankGameButtonDidTap() {
 
-        // 添加作品
-
         addGame { [weak self] game in
             guard let s = self else { return }
             s.pushGameEditorVC(game: game)
@@ -46,8 +44,6 @@ extension NewGameViewController {
 
     /// 选择模板
     func selectTemplate(_ template: MetaTemplate) {
-
-        // 添加作品
 
         addGame { [weak self] game in
             guard let s = self else { return }
