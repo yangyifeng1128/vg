@@ -4,7 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import CoreData
 import Kingfisher
 import OSLog
 import SnapKit
@@ -22,18 +21,18 @@ class NewGameViewController: UIViewController {
         static let templateCollectionViewCellSpacing: CGFloat = 8
     }
 
-    private var backButtonContainer: UIView!
-    private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
+    /// 模版集合视图
+    var templatesCollectionView: UICollectionView!
 
-    private var newBlankGameButton: RoundedButton!
-    private var templatesView: UIView!
-    private var templatesCollectionView: UICollectionView!
-    private var templateCollectionViewCellWidth: CGFloat!
-    private var templateCollectionViewCellHeight: CGFloat!
+    /// 模版集合视图单元格宽度
+    var templateCollectionViewCellWidth: CGFloat!
+    /// 模版集合视图单元格高度
+    var templateCollectionViewCellHeight: CGFloat!
 
-    private var games: [MetaGame]! // 作品列表
-    private var templates: [MetaTemplate] = [MetaTemplate]() // 模版列表
+    /// 作品列表
+    var games: [MetaGame]!
+    /// 模版列表
+    var templates: [MetaTemplate] = [MetaTemplate]()
 
     /// 初始化
     init(games: [MetaGame]) {
@@ -77,7 +76,7 @@ class NewGameViewController: UIViewController {
 
         super.viewDidAppear(animated)
 
-        // 同步模版
+        // 同步模版列表
 
         syncTemplates() { [weak self] in
             guard let s = self else { return }
@@ -92,25 +91,9 @@ class NewGameViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化「导航栏」
-
-        initNavigationBar()
-
-        // 初始化「新建空白作品按钮」
-
-        initNewBlankGameButton()
-
-        // 初始化「模版视图」
-
-        initTemplatesView()
-    }
-
-    /// 初始化「导航栏」
-    private func initNavigationBar() {
-
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -123,7 +106,7 @@ class NewGameViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -133,7 +116,7 @@ class NewGameViewController: UIViewController {
 
         // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("StartComposing", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -144,12 +127,10 @@ class NewGameViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
 
-    /// 初始化「新建空白作品按钮」
-    private func initNewBlankGameButton() {
+        // 初始化「新建空白作品按钮」
 
-        newBlankGameButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let newBlankGameButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         newBlankGameButton.backgroundColor = .secondarySystemGroupedBackground
         newBlankGameButton.contentHorizontalAlignment = .center
         newBlankGameButton.contentVerticalAlignment = .center
@@ -175,14 +156,10 @@ class NewGameViewController: UIViewController {
             make.left.right.equalToSuperview().inset(16)
             make.top.equalTo(backButtonContainer.snp.bottom).offset(24)
         }
-    }
-
-    /// 初始化「模版视图」
-    private func initTemplatesView() {
 
         // 初始化「模版视图」
 
-        templatesView = UIView()
+        let templatesView: UIView = UIView()
         view.addSubview(templatesView)
         templatesView.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(8)
@@ -234,34 +211,13 @@ extension NewGameViewController: UICollectionViewDataSource {
     /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        if templates.isEmpty {
-            templatesCollectionView.showNoDataInfo(title: NSLocalizedString("NoTemplatesAvailable", comment: ""))
-        } else {
-            templatesCollectionView.hideNoDataInfo()
-        }
-
-        return templates.count
+        return prepareTemplatesCount()
     }
 
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let template: MetaTemplate = templates[indexPath.item]
-
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TemplateCollectionViewCell.reuseId, for: indexPath) as? TemplateCollectionViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = template.title
-
-        // 准备「缩略图视图」
-
-        let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(template.thumbFileName)")!
-        cell.thumbImageView.kf.setImage(with: thumbURL)
-
-        return cell
+        return prepareTemplatesCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -270,19 +226,7 @@ extension NewGameViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let template: MetaTemplate = templates[indexPath.item]
-
-        // 添加作品
-
-        addGame { [weak self] game in
-
-            guard let s = self else { return }
-
-            // 打开作品编辑器
-
-            s.openGameEditor(game: game)
-            Logger.composition.info("created a new game with template: \(template.title)")
-        }
+        selectTemplate(templates[indexPath.item])
     }
 }
 
@@ -291,25 +235,7 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
     /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        var numberOfCellsPerRow: Int
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            numberOfCellsPerRow = 3
-            break
-        case .pad, .mac, .tv, .carPlay, .unspecified:
-            numberOfCellsPerRow = 5
-            break
-        @unknown default:
-            numberOfCellsPerRow = 3
-            break
-        }
-
-        let cellSpacing = VC.templateCollectionViewCellSpacing
-
-        templateCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        templateCollectionViewCellHeight = (templateCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
-
-        return CGSize(width: templateCollectionViewCellWidth, height: templateCollectionViewCellHeight)
+        return prepareTemplatesCollectionViewCellSize(indexPath: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -332,132 +258,58 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
 
 extension NewGameViewController {
 
-    /// 点击「返回按钮」
-    @objc private func backButtonDidTap() {
+    /// 准备模版数量
+    func prepareTemplatesCount() -> Int {
 
-        navigationController?.popViewController(animated: true)
-    }
-
-    /// 点击「新建空白作品按钮」
-    @objc private func newBlankGameButtonDidTap() {
-
-        print("[NewGame] did tap newBlankGameButton")
-
-        // 添加作品
-
-        addGame { [weak self] game in
-
-            guard let s = self else { return }
-
-            // 打开作品编辑器
-
-            s.openGameEditor(game: game)
-            Logger.composition.info("created a new blank game")
-        }
-    }
-
-    /// 下拉刷新模版
-    @objc private func pullToRefreshTemplates() {
-
-        // 同步模版列表
-
-        syncTemplates() { [weak self] in
-
-            guard let s = self else { return }
-
-            // 加载模版列表
-
-            s.loadTemplates() {
-                s.templatesCollectionView.reloadData()
-                s.templatesCollectionView.refreshControl?.endRefreshing()
-            }
-        }
-    }
-
-    /// 打开作品编辑器
-    private func openGameEditor(game: MetaGame) {
-
-        guard let gameBundle = MetaGameBundleManager.shared.load(uuid: game.uuid) else { return }
-
-        let gameEditorVC: GameEditorViewController = GameEditorViewController(game: game, gameBundle: gameBundle, parentType: .new)
-        gameEditorVC.hidesBottomBarWhenPushed = true
-
-        navigationController?.pushViewController(gameEditorVC, animated: true)
-    }
-
-    //
-    //
-    // MARK: - 数据操作
-    //
-    //
-
-    private func addGame(completion handler: ((MetaGame) -> Void)? = nil) {
-
-        let game: MetaGame = MetaGame(context: CoreDataManager.shared.persistentContainer.viewContext)
-        game.uuid = UUID().uuidString.lowercased()
-        game.ctime = Int64(Date().timeIntervalSince1970)
-        game.mtime = game.ctime
-        var counter: Int = UserDefaults.standard.integer(forKey: GKC.localGamesCounter)
-        counter = counter + 1
-        UserDefaults.standard.setValue(counter, forKey: GKC.localGamesCounter)
-        game.title = NSLocalizedString("Draft", comment: "") + " " + counter.description
-        game.status = 1
-        games.append(game)
-        CoreDataManager.shared.saveContext()
-
-        MetaGameBundleManager.shared.save(MetaGameBundle(uuid: game.uuid))
-
-        if let handler = handler {
-            DispatchQueue.main.async {
-                handler(game)
-            }
-        }
-    }
-
-    /// 同步模版列表
-    private func syncTemplates(completion handler: (() -> Void)? = nil) {
-
-        let templatesURL = URL(string: "\(GUC.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
-
-        URLSession.shared.dataTask(with: templatesURL) { data, _, error in
-
-            guard let data = data else { return }
-
-            do {
-                let decoder = JSONDecoder()
-                decoder.userInfo[CodingUserInfoKey.context!] = CoreDataManager.shared.persistentContainer.viewContext
-                let templatesData = try decoder.decode([MetaTemplate].self, from: data)
-                Logger.composition.info("synchronizing \(templatesData.count) templates: ok")
-                CoreDataManager.shared.saveContext()
-                if let handler = handler {
-                    DispatchQueue.main.async {
-                        handler()
-                    }
-                }
-            } catch {
-                Logger.composition.error("synchronizing templates error: \(error.localizedDescription)")
-            }
-
-        }.resume()
-    }
-
-    private func loadTemplates(completion handler: (() -> Void)? = nil) {
-
-        let request: NSFetchRequest<MetaTemplate> = MetaTemplate.fetchRequest()
-        request.predicate = NSPredicate(format: "status == 1")
-        request.sortDescriptors = [NSSortDescriptor(key: "ctime", ascending: false)]
-
-        do {
-            templates = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
-            Logger.composition.info("loading meta templates: ok")
-        } catch {
-            Logger.composition.error("loading meta templates error: \(error.localizedDescription)")
+        if templates.isEmpty {
+            templatesCollectionView.showNoDataInfo(title: NSLocalizedString("NoTemplatesAvailable", comment: ""))
+        } else {
+            templatesCollectionView.hideNoDataInfo()
         }
 
-        if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+        return templates.count
+    }
+
+    /// 准备「模版集合视图」单元格
+    func prepareTemplatesCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
+
+        let template: MetaTemplate = templates[indexPath.item]
+
+        guard let cell = templatesCollectionView.dequeueReusableCell(withReuseIdentifier: TemplateCollectionViewCell.reuseId, for: indexPath) as? TemplateCollectionViewCell else {
+            fatalError("Unexpected cell type")
         }
+
+        // 准备「标题标签」
+
+        cell.titleLabel.text = template.title
+
+        // 准备「缩略图视图」
+
+        let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(template.thumbFileName)")!
+        cell.thumbImageView.kf.setImage(with: thumbURL)
+
+        return cell
+    }
+
+    /// 准备「模版集合视图」单元格尺寸
+    func prepareTemplatesCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
+
+        var numberOfCellsPerRow: Int
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            numberOfCellsPerRow = 3
+            break
+        case .pad, .mac, .tv, .carPlay, .unspecified:
+            numberOfCellsPerRow = 5
+            break
+        @unknown default:
+            numberOfCellsPerRow = 3
+            break
+        }
+
+        let cellWidth: CGFloat = ((templatesCollectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * VC.templateCollectionViewCellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
+        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
+
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }

@@ -252,7 +252,7 @@ extension ScenePlayerView {
 
 extension ScenePlayerView {
 
-    @objc private func nodeViewWillBeginEditing(_ sender: UITapGestureRecognizer) {
+    @objc func nodeViewWillBeginEditing(_ sender: UITapGestureRecognizer) {
 
         guard let nodeView: MetaNodeView = sender.view as? MetaNodeView else { return }
 

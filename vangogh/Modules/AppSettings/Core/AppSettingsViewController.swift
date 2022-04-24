@@ -158,8 +158,6 @@ extension AppSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        // 准备「设置表格视图」单元格
-
         return prepareSettingsTableViewCell(indexPath: indexPath)
     }
 }
@@ -174,8 +172,6 @@ extension AppSettingsViewController: UITableViewDelegate {
 
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        // 选择应用程序设置
 
         selectAppSetting(settings[indexPath.row])
     }

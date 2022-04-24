@@ -89,14 +89,8 @@ extension CompositionViewController {
     /// 选择草稿
     func selectDraft(_ draft: MetaGame) {
 
-        // 打开草稿
-
         openDraft(draft) { [weak self] in
-
             guard let s = self else { return }
-
-            // 进入「作品编辑器」
-
             s.pushGameEditorVC(game: draft)
             Logger.composition.info("loaded draft: \(draft.title)")
         }

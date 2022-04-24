@@ -150,8 +150,6 @@ extension GeneralSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        // 准备「设置表格视图」单元格
-
         return prepareSettingsTableViewCell(indexPath: indexPath)
     }
 }
@@ -166,8 +164,6 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        // 选择通用设置
 
         selectGeneralSetting(settings[indexPath.row])
     }

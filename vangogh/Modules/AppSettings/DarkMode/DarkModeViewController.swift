@@ -212,8 +212,6 @@ extension DarkModeViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        // 准备「风格表格视图」单元格
-
         return prepareStylesTableViewCell(indexPath: indexPath)
     }
 }
@@ -228,8 +226,6 @@ extension DarkModeViewController: UITableViewDelegate {
 
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        // 选择用户界面风格
 
         selectUserInterfaceStyle(type: styles[indexPath.row].type)
     }

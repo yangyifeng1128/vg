@@ -9,7 +9,6 @@ import UIKit
 
 extension GeneralSettingsViewController {
 
-    /// 点击「返回按钮」
     @objc func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)

@@ -370,13 +370,9 @@ extension PublicationViewController {
         navigationController?.pushViewController(gameSettingsVC, animated: true)
     }
 
-    //
-    //
-    // MARK: - 数据操作
-    //
-    //
 
-    private func syncArchives(completion handler: (() -> Void)? = nil) {
+    /// 同步档案列表
+    func syncArchives(completion handler: (() -> Void)? = nil) {
 
         let archivesURL = URL(string: "\(GUC.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
 
@@ -402,6 +398,7 @@ extension PublicationViewController {
         }.resume()
     }
 
+    /// 加载档案列表
     private func loadArchives(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaTemplate> = MetaTemplate.fetchRequest()

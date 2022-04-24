@@ -52,11 +52,7 @@ class CompositionViewController: UIViewController {
         // 加载草稿列表
 
         loadDrafts { [weak self] in
-
             guard let s = self else { return }
-
-            // 重新加载「草稿表格视图」
-
             s.reloadDraftsTableView()
         }
     }
@@ -192,8 +188,6 @@ extension CompositionViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        // 准备「草稿表格视图」单元格
-
         return prepareDraftsTableViewCell(indexPath: indexPath)
     }
 }
@@ -208,8 +202,6 @@ extension CompositionViewController: UITableViewDelegate {
 
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        // 选择草稿
 
         selectDraft(drafts[indexPath.row])
     }

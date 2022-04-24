@@ -10,13 +10,11 @@ import UIKit
 
 extension DarkModeViewController {
 
-    /// 点击「返回按钮」
     @objc func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)
     }
 
-    /// 切换「「跟随系统开关」
     @objc func followSystemSwitchDidChange(_ sender: UISwitch) {
 
         let followsSystemUserInterfaceStyle: Bool = sender.isOn
