@@ -260,6 +260,7 @@ class GameEditorSceneBottomView: BorderedView {
 
 extension GameEditorSceneBottomView: UITableViewDataSource {
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if transitions.isEmpty {
@@ -287,6 +288,7 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
         return transitions.count
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = transitionsTableView.dequeueReusableCell(withIdentifier: GameEditorTransitionTableViewCell.reuseId) as? GameEditorTransitionTableViewCell else {
@@ -439,11 +441,13 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
 
 extension GameEditorSceneBottomView: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return VC.transitionTableViewCellHeight
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         delegate?.transitionDidSelect(transitions[indexPath.row])

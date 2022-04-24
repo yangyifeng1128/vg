@@ -159,11 +159,13 @@ class GeneralSettingsViewController: UIViewController {
 
 extension GeneralSettingsViewController: UITableViewDataSource {
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return settings.count
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let setting: GeneralSetting = settings[indexPath.row]
@@ -190,11 +192,13 @@ extension GeneralSettingsViewController: UITableViewDataSource {
 
 extension GeneralSettingsViewController: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return VC.settingTableViewCellHeight
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let setting = settings[indexPath.row]

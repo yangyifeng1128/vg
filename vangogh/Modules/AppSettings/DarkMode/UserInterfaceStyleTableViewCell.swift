@@ -1,5 +1,5 @@
 ///
-/// DarkModeTableViewCell
+/// UserInterfaceStyleTableViewCell
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -7,9 +7,9 @@
 import SnapKit
 import UIKit
 
-class DarkModeTableViewCell: UITableViewCell {
+class UserInterfaceStyleTableViewCell: UITableViewCell {
 
-    static let reuseId: String = "DarkModeTableViewCell"
+    static let reuseId: String = "UserInterfaceStyleTableViewCell"
 
     /// 视图布局常量枚举值
     enum VC {
@@ -17,9 +17,12 @@ class DarkModeTableViewCell: UITableViewCell {
         static let checkmarkViewWidth: CGFloat = 20
     }
 
+    /// 标题标签
     var titleLabel: UILabel!
+    /// 勾选视图
     var checkmarkView: UIImageView!
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,12 +37,13 @@ class DarkModeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
@@ -50,7 +54,7 @@ class DarkModeTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(16)
         }
 
-        // 准备 checkmarkView
+        // 初始化「勾选视图」
 
         checkmarkView = UIImageView(image: .check)
         checkmarkView.isHidden = true

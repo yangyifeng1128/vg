@@ -301,6 +301,7 @@ class TargetScenesViewController: UIViewController {
 
 extension TargetScenesViewController: UITableViewDataSource {
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if targetScenes.isEmpty {
@@ -312,6 +313,7 @@ extension TargetScenesViewController: UITableViewDataSource {
         return targetScenes.count
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = targetScenesTableView.dequeueReusableCell(withIdentifier: TargetSceneTableViewCell.reuseId) as? TargetSceneTableViewCell else {
@@ -376,11 +378,13 @@ extension TargetScenesViewController: UITableViewDataSource {
 
 extension TargetScenesViewController: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return VC.targetSceneTableViewCellHeight
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         // 选择目标场景

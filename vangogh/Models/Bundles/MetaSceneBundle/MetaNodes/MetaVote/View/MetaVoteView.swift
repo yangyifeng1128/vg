@@ -121,11 +121,13 @@ class MetaVoteView: MetaNodeView {
 
 extension MetaVoteView: UITableViewDataSource {
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return vote.options.count
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = optionsTableView.dequeueReusableCell(withIdentifier: MetaVoteOptionTableViewCell.reuseId) as? MetaVoteOptionTableViewCell, let playerView = playerView, let renderScale = playerView.renderScale else {
@@ -157,6 +159,7 @@ extension MetaVoteView: UITableViewDataSource {
 
 extension MetaVoteView: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         guard let playerView = playerView, let renderScale = playerView.renderScale else {
@@ -166,6 +169,7 @@ extension MetaVoteView: UITableViewDelegate {
         return VC.optionTableViewCellHeight * renderScale
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         print("[MetaVote] did select \"\(vote.options[indexPath.row])\"")
@@ -176,6 +180,7 @@ extension MetaVoteView: UITableViewDelegate {
         // cell.optionView.borderLayer.strokeColor = UIColor.accent?.cgColor
     }
 
+    /// 取消选中单元格
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 
         guard let cell = tableView.cellForRow(at: indexPath) as? MetaVoteOptionTableViewCell else { return }

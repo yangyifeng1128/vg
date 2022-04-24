@@ -165,11 +165,13 @@ class GameSettingsViewController: UIViewController {
 
 extension GameSettingsViewController: UITableViewDataSource {
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return settings.count
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let setting: GameSetting = settings[indexPath.row]
@@ -221,11 +223,13 @@ extension GameSettingsViewController: UITableViewDataSource {
 
 extension GameSettingsViewController: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return VC.settingTableViewCellHeight
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let setting = settings[indexPath.row]
@@ -283,24 +287,24 @@ extension GameSettingsViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
 
-            guard let title = alert.textFields?.first?.text, !title.isEmpty else {
-                let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
-                toast.show()
-                return
-            }
+                guard let title = alert.textFields?.first?.text, !title.isEmpty else {
+                    let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
+                    toast.show()
+                    return
+                }
 
-            // 保存作品标题
+                // 保存作品标题
 
-            strongSelf.game.title = title
-            CoreDataManager.shared.saveContext()
-            strongSelf.settingsTableView.reloadData()
-            GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
-        })
+                strongSelf.game.title = title
+                CoreDataManager.shared.saveContext()
+                strongSelf.settingsTableView.reloadData()
+                GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
+            })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sourceView

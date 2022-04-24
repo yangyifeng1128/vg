@@ -185,11 +185,13 @@ class SceneSettingsViewController: UIViewController {
 
 extension SceneSettingsViewController: UITableViewDataSource {
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return settings.count
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let setting: SceneSetting = settings[indexPath.row]
@@ -244,11 +246,13 @@ extension SceneSettingsViewController: UITableViewDataSource {
 
 extension SceneSettingsViewController: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return VC.settingTableViewCellHeight
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let setting = settings[indexPath.row]
@@ -306,28 +310,28 @@ extension SceneSettingsViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
 
-            guard let title = alert.textFields?.first?.text, !title.isEmpty else {
-                let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
-                toast.show()
-                return
-            }
+                guard let title = alert.textFields?.first?.text, !title.isEmpty else {
+                    let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
+                    toast.show()
+                    return
+                }
 
-            // 保存「当前选中场景」的标题
+                // 保存「当前选中场景」的标题
 
-            guard let scene = strongSelf.gameBundle.selectedScene() else { return }
-            scene.title = title
-            strongSelf.gameBundle.updateScene(scene)
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-            }
-            strongSelf.settingsTableView.reloadData()
-            GameboardViewExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid) // 保存「作品板视图外部变更记录字典」
-        })
+                guard let scene = strongSelf.gameBundle.selectedScene() else { return }
+                scene.title = title
+                strongSelf.gameBundle.updateScene(scene)
+                DispatchQueue.global(qos: .background).async {
+                    MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                }
+                strongSelf.settingsTableView.reloadData()
+                GameboardViewExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid) // 保存「作品板视图外部变更记录字典」
+            })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sourceView
@@ -342,16 +346,16 @@ extension SceneSettingsViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         for aspectRatioType in MetaSceneAspectRatioType.allCases {
             alert.addAction(UIAlertAction(title: aspectRatioType.rawValue, style: .default) { [weak self] _ in
-                guard let strongSelf = self else { return }
-                strongSelf.sceneBundle.aspectRatioType = aspectRatioType
-                DispatchQueue.global(qos: .background).async {
-                    MetaSceneBundleManager.shared.save(strongSelf.sceneBundle)
-                }
-                strongSelf.settingsTableView.reloadData()
-            })
+                    guard let strongSelf = self else { return }
+                    strongSelf.sceneBundle.aspectRatioType = aspectRatioType
+                    DispatchQueue.global(qos: .background).async {
+                        MetaSceneBundleManager.shared.save(strongSelf.sceneBundle)
+                    }
+                    strongSelf.settingsTableView.reloadData()
+                })
         }
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sourceView

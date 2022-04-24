@@ -69,7 +69,7 @@
 		0F28134F254CF61E00FB569A /* GameEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F28134E254CF61E00FB569A /* GameEditorViewController.swift */; };
 		0F34D70D2742B2E800736DD5 /* EditNodeItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D70C2742B2E800736DD5 /* EditNodeItemViewController.swift */; };
 		0F34D70F274A519C00736DD5 /* DarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */; };
-		0F34D711274A524D00736DD5 /* DarkModeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D710274A524D00736DD5 /* DarkModeTableViewCell.swift */; };
+		0F34D711274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D710274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift */; };
 		0F34D715274A827600736DD5 /* UserInterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */; };
 		0F3882BB253559080069A1A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882BD253559080069A1A4 /* Localizable.strings */; };
 		0F3882C425355B6C0069A1A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882C625355B6C0069A1A4 /* InfoPlist.strings */; };
@@ -327,7 +327,7 @@
 		0F28134E254CF61E00FB569A /* GameEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorViewController.swift; sourceTree = "<group>"; };
 		0F34D70C2742B2E800736DD5 /* EditNodeItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNodeItemViewController.swift; sourceTree = "<group>"; };
 		0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeViewController.swift; sourceTree = "<group>"; };
-		0F34D710274A524D00736DD5 /* DarkModeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeTableViewCell.swift; sourceTree = "<group>"; };
+		0F34D710274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceStyleTableViewCell.swift; sourceTree = "<group>"; };
 		0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceStyle.swift; sourceTree = "<group>"; };
 		0F3882BC253559080069A1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F3882BF253559100069A1A4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -850,9 +850,9 @@
 		0F6705EC281437D700034BD6 /* DarkMode */ = {
 			isa = PBXGroup;
 			children = (
-				0F34D710274A524D00736DD5 /* DarkModeTableViewCell.swift */,
 				0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */,
 				0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */,
+				0F34D710274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift */,
 			);
 			path = DarkMode;
 			sourceTree = "<group>";
@@ -2164,7 +2164,7 @@
 				0FEC9348279D8B4D0001FD32 /* MetaVoiceOverEditorView.swift in Sources */,
 				12FC02B4269AB215004C32C0 /* RoundedButton.swift in Sources */,
 				0FB8D82926EDEDAB00D5C971 /* MetaCondition.swift in Sources */,
-				0F34D711274A524D00736DD5 /* DarkModeTableViewCell.swift in Sources */,
+				0F34D711274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift in Sources */,
 				0F95E700271C6366005EE818 /* GameSetting.swift in Sources */,
 				0FBF35F5274BEE0700DB168B /* MetaARCameraView.swift in Sources */,
 				0F8CB7132739785A00D72DC3 /* UIBezierPath+Curve.swift in Sources */,

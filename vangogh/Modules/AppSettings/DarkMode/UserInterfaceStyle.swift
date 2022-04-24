@@ -8,16 +8,18 @@ import Foundation
 
 class UserInterfaceStyle {
 
-    // 用户界面风格类型枚举值
-
+    /// 用户界面风格类型枚举值
     enum UserInterfaceStyleType: String, CaseIterable {
         case darkMode = "DarkMode"
         case lightMode = "LightMode"
     }
 
+    /// 用户界面风格类型
     private(set) var type: UserInterfaceStyleType
+    /// 标题
     private(set) var title: String
 
+    /// 初始化
     init(type: UserInterfaceStyleType, title: String) {
 
         self.type = type
@@ -27,19 +29,22 @@ class UserInterfaceStyle {
 
 class UserInterfaceStyleManager {
 
+    /// 单例
     static var shared = UserInterfaceStyleManager()
 
-    private lazy var settings: [UserInterfaceStyle] = {
+    /// 风格列表
+    private lazy var styles: [UserInterfaceStyle] = {
 
-        var settings = [UserInterfaceStyle]()
+        var styles = [UserInterfaceStyle]()
         for type in UserInterfaceStyle.UserInterfaceStyleType.allCases {
-            settings.append(UserInterfaceStyle(type: type, title: NSLocalizedString(type.rawValue, comment: "")))
+            styles.append(UserInterfaceStyle(type: type, title: NSLocalizedString(type.rawValue, comment: "")))
         }
-        return settings
+        return styles
     }()
 
+    /// 获取风格列表
     func get() -> [UserInterfaceStyle] {
 
-        return settings
+        return styles
     }
 }

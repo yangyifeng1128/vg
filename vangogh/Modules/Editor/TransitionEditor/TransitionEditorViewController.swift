@@ -360,6 +360,7 @@ class TransitionEditorViewController: UIViewController {
 
 extension TransitionEditorViewController: UITableViewDataSource {
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if conditions.isEmpty {
@@ -371,6 +372,7 @@ extension TransitionEditorViewController: UITableViewDataSource {
         return conditions.count
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = conditionsTableView.dequeueReusableCell(withIdentifier: TransitionEditorConditionTableViewCell.reuseId) as? TransitionEditorConditionTableViewCell else {
@@ -451,6 +453,7 @@ extension TransitionEditorViewController: UITableViewDataSource {
 
 extension TransitionEditorViewController: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return VC.conditionTableViewCellHeight
@@ -461,6 +464,7 @@ extension TransitionEditorViewController: UITableViewDelegate {
         return VC.conditionTableViewCellHeight
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
@@ -490,23 +494,23 @@ extension TransitionEditorViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
 
-            // 保存「删除条件」信息
+                // 保存「删除条件」信息
 
-            strongSelf.gameBundle.deleteCondition(transition: strongSelf.transition, condition: condition)
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-            }
+                strongSelf.gameBundle.deleteCondition(transition: strongSelf.transition, condition: condition)
+                DispatchQueue.global(qos: .background).async {
+                    MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                }
 
-            // 重新加载条件
+                // 重新加载条件
 
-            strongSelf.conditions = strongSelf.transition.conditions
-            strongSelf.conditionsTableView.reloadData()
-        })
+                strongSelf.conditions = strongSelf.transition.conditions
+                strongSelf.conditionsTableView.reloadData()
+            })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+            })
 
         present(alert, animated: true, completion: nil)
     }

@@ -166,6 +166,7 @@ extension MetaNodeEditorView: UITableViewDataSource {
         return 1
     }
 
+    /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return dictionary.count
@@ -183,6 +184,7 @@ extension MetaNodeEditorView: UITableViewDataSource {
         return VC.tableViewHeaderHeight
     }
 
+    /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let rowKey: MetaNodeEditorView.RowKey = dictionary[indexPath.row].key
@@ -201,11 +203,13 @@ extension MetaNodeEditorView: UITableViewDataSource {
 
 extension MetaNodeEditorView: UITableViewDelegate {
 
+    /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return MetaNodeEditorTableViewCell.VC.height
     }
 
+    /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let rowKey: MetaNodeEditorView.RowKey = dictionary[indexPath.row].key
