@@ -132,11 +132,13 @@ class TrackItemBottomBarView: BorderedView {
 
 extension TrackItemBottomBarView: UICollectionViewDataSource {
 
+    /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return actionBarItems.count
     }
 
+    /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackItemBottomBarItemCell.reuseId, for: indexPath) as? TrackItemBottomBarItemCell else {

@@ -111,6 +111,7 @@ class SceneEditorViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -124,6 +125,7 @@ class SceneEditorViewController: UIViewController {
         navigationController?.navigationBar.barStyle = (overrideUserInterfaceStyle == .dark) ? .black : .default
     }
 
+    /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -141,6 +143,7 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    /// 视图即将消失
     override func viewWillDisappear(_ animated: Bool) {
 
         super.viewWillDisappear(animated)
@@ -161,6 +164,7 @@ class SceneEditorViewController: UIViewController {
         sendSavedMessage()
     }
 
+    ///
     private func saveBundle() {
 
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -171,6 +175,7 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    ///
     private func sendSavedMessage() {
 
         var message: String
@@ -185,36 +190,31 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
-    //
-    //
-    // MARK: - 初始化子视图
-    //
-    //
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化工作区视图
+        // 初始化「工作区视图」
 
         initWorkspaceView()
 
-        // 初始化播放器视图
+        // 初始化「播放器视图」
 
         initPlayerView()
 
-        // 初始化操作栏视图
+        // 初始化「操作栏视图」
 
         initActionBarView()
     }
 
     private func initNavigationBar() {
 
-        // 初始化关闭按钮
+        // 初始化「关闭按钮容器」
 
         closeButtonContainer = UIView()
         closeButtonContainer.backgroundColor = .clear
@@ -227,6 +227,8 @@ class SceneEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「关闭按钮」
+
         closeButton = CircleNavigationBarButton(icon: .close)
         closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
         closeButtonContainer.addSubview(closeButton)
@@ -235,7 +237,7 @@ class SceneEditorViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化保存按钮
+        // 初始化「保存按钮容器」
 
         saveButtonContainer = UIView()
         saveButtonContainer.backgroundColor = .clear
@@ -250,6 +252,8 @@ class SceneEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「保存按钮」
+
         saveButton = CircleNavigationBarButton(icon: .save)
         saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         saveButtonContainer.addSubview(saveButton)
@@ -259,7 +263,7 @@ class SceneEditorViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化场景设置按钮
+        // 初始化「场景设置按钮容器」
 
         sceneSettingsButtonContainer = UIView()
         sceneSettingsButtonContainer.backgroundColor = .clear
@@ -274,6 +278,8 @@ class SceneEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「场景设置按钮」
+
         sceneSettingsButton = CircleNavigationBarButton(icon: .sceneSettings)
         sceneSettingsButton.addTarget(self, action: #selector(sceneSettingsButtonDidTap), for: .touchUpInside)
         sceneSettingsButtonContainer.addSubview(sceneSettingsButton)
@@ -283,7 +289,7 @@ class SceneEditorViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化场景标题标签
+        // 初始化「场景标题标签」
 
         let sceneTitleLabel: UILabel = UILabel()
         sceneTitleLabel.attributedText = prepareSceneTitleLabelAttributedText()
@@ -299,6 +305,7 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    /// 初始化「工作区视图」
     private func initWorkspaceView() {
 
         workspaceView = UIView()
@@ -310,15 +317,15 @@ class SceneEditorViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
-        // 初始化时间线视图
+        // 初始化「时间线视图」
 
         initTimelineView()
 
-        // 初始化「工作区无数据」视图
+        // 初始化「工作区无数据视图」
 
         initWorkspaceNoDataView()
 
-        // 初始化工作区视图内容显示状态
+        // 初始化「工作区视图」内容显示状态
 
         if isSceneBundleEmpty() {
 
@@ -332,6 +339,7 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    /// 初始化「工作区无数据视图」
     private func initWorkspaceNoDataView() {
 
         workspaceNoDataView = WorkspaceNoDataView()
@@ -342,6 +350,7 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    /// 初始化「时间线视图」
     private func initTimelineView() {
 
         let trackItemThumbImageWidth: CGFloat = MetaSceneAspectRatioTypeManager.shared.calculateWidth(height: TrackItemContentView.VC.height, aspectRatioType: sceneBundle.aspectRatioType)
@@ -359,16 +368,17 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    /// 初始化「播放器视图」
     private func initPlayerView() {
 
-        // 初始化播放器视图尺寸
+        // 初始化「播放器视图」尺寸
 
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
         let renderHeight: CGFloat = UIScreen.main.bounds.height - VC.topButtonContainerWidth - window.safeAreaInsets.top - VC.workspaceViewHeight - VC.actionBarViewHeight - window.safeAreaInsets.bottom
         let renderWidth: CGFloat = MetaSceneAspectRatioTypeManager.shared.calculateWidth(height: renderHeight, aspectRatioType: sceneBundle.aspectRatioType)
         renderSize = CGSize(width: renderWidth, height: renderHeight)
 
-        // 初始化播放器视图容器
+        // 初始化「播放器视图容器」
 
         playerViewContainer = UIView()
         playerViewContainer.backgroundColor = .systemFill
@@ -382,7 +392,7 @@ class SceneEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(VC.topButtonContainerWidth)
         }
 
-        // 初始化播放器视图
+        // 初始化「播放器视图」
 
         playerView = ScenePlayerView(renderSize: renderSize, isEditable: true)
         playerView.delegate = self
@@ -393,7 +403,7 @@ class SceneEditorViewController: UIViewController {
             make.center.equalToSuperview()
         }
 
-        // 初始化加载视图
+        // 初始化「加载视图」
 
         loadingView = LoadingView()
         playerView.addSubview(loadingView)
@@ -402,7 +412,7 @@ class SceneEditorViewController: UIViewController {
             make.center.equalToSuperview()
         }
 
-        // 初始化播放器视图内容显示状态
+        // 初始化「播放器视图」内容显示状态
 
         if isSceneBundleEmpty() {
 

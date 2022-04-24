@@ -67,7 +67,7 @@ class NewGameViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
 
-        // 从本地加载模版列表
+        // 加载模版列表
 
         loadTemplates()
     }
@@ -359,13 +359,13 @@ extension NewGameViewController {
     /// 下拉刷新模版
     @objc private func pullToRefreshTemplates() {
 
-        // 同步模版
+        // 同步模版列表
 
         syncTemplates() { [weak self] in
 
             guard let s = self else { return }
 
-            // 加载模版
+            // 加载模版列表
 
             s.loadTemplates() {
                 s.templatesCollectionView.reloadData()
@@ -414,6 +414,7 @@ extension NewGameViewController {
         }
     }
 
+    /// 同步模版列表
     private func syncTemplates(completion handler: (() -> Void)? = nil) {
 
         let templatesURL = URL(string: "\(GUC.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!

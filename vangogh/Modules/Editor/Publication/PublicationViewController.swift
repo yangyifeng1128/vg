@@ -76,31 +76,33 @@ class PublicationViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
 
-        // 从本地加载档案列表
+        // 加载档案列表
 
         loadArchives()
     }
 
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化发布按钮
+        // 初始化「发布按钮」
 
         initPublishButton()
 
-        // 初始化档案视图
+        // 初始化「档案视图」
 
         initArchivesView()
     }
 
+    /// 初始化「导航栏」
     private func initNavigationBar() {
 
-        // 初始化返回按钮
+        // 初始化「返回按钮容器」
 
         backButtonContainer = UIView()
         backButtonContainer.backgroundColor = .clear
@@ -113,6 +115,8 @@ class PublicationViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「返回按钮」
+
         backButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
@@ -121,7 +125,7 @@ class PublicationViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("Publish", comment: "")
@@ -135,7 +139,7 @@ class PublicationViewController: UIViewController {
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
 
-        // 初始化作品设置按钮
+        // 初始化「作品设置按钮容器」
 
         gameSettingsButtonContainer = UIView()
         gameSettingsButtonContainer.backgroundColor = .clear
@@ -149,6 +153,8 @@ class PublicationViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「作品设置按钮」
+
         gameSettingsButton = CircleNavigationBarButton(icon: .gameSettings)
         gameSettingsButton.addTarget(self, action: #selector(gameSettingsButtonDidTap), for: .touchUpInside)
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
@@ -159,6 +165,7 @@ class PublicationViewController: UIViewController {
         }
     }
 
+    /// 初始化「发布按钮」
     private func initPublishButton() {
 
         publishButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
@@ -189,7 +196,10 @@ class PublicationViewController: UIViewController {
         }
     }
 
+    /// 初始化「档案视图」
     private func initArchivesView() {
+
+        // 初始化「档案视图」
 
         archivesView = UIView()
         view.addSubview(archivesView)
@@ -199,7 +209,7 @@ class PublicationViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        // 初始化档案标题标签
+        // 初始化「档案标题标签」
 
         let archivesTitleLabel: UILabel = UILabel()
         archivesTitleLabel.text = NSLocalizedString("ArchiveHistory", comment: "")
@@ -211,7 +221,7 @@ class PublicationViewController: UIViewController {
             make.top.equalToSuperview()
         }
 
-        // 初始化档案集合视图
+        // 初始化「档案集合视图」
 
         archivesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         archivesCollectionView.backgroundColor = .clear
@@ -220,7 +230,7 @@ class PublicationViewController: UIViewController {
         archivesCollectionView.delegate = self
         archivesCollectionView.register(ArchiveCollectionViewCell.self, forCellWithReuseIdentifier: ArchiveCollectionViewCell.reuseId)
 
-        // 为档案集合视图添加刷新控制器
+        // 为「档案集合视图」添加「刷新控制器」
 
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pullToRefreshArchives), for: .valueChanged)
@@ -239,6 +249,7 @@ class PublicationViewController: UIViewController {
 
 extension PublicationViewController: UICollectionViewDataSource {
 
+    /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if archives.isEmpty {
@@ -250,6 +261,7 @@ extension PublicationViewController: UICollectionViewDataSource {
         return archives.count
     }
 
+    /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let archive: MetaTemplate = archives[indexPath.item]
@@ -273,6 +285,7 @@ extension PublicationViewController: UICollectionViewDataSource {
 
 extension PublicationViewController: UICollectionViewDelegate {
 
+    /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let archive: MetaTemplate = archives[indexPath.item]
@@ -283,6 +296,7 @@ extension PublicationViewController: UICollectionViewDelegate {
 
 extension PublicationViewController: UICollectionViewDelegateFlowLayout {
 
+    /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         var numberOfCellsPerRow: Int
@@ -326,12 +340,6 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
 
 
 extension PublicationViewController {
-
-    //
-    //
-    // MARK: - 界面操作
-    //
-    //
 
     /// 点击「返回按钮」
     @objc private func backButtonDidTap() {

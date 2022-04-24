@@ -18,22 +18,21 @@ class HomeViewController: UIViewController {
         static let recordCollectionViewCellSpacing: CGFloat = 8
     }
 
+    /// 扫描按钮容器
     private var scanButtonContainer: UIView!
-    private var scanButton: CircleNavigationBarButton! // 扫描按钮
+    /// 扫描按钮
+    private var scanButton: CircleNavigationBarButton!
 
-    private var recordsView: UIView! // 记录视图
+    /// 记录视图
+    private var recordsView: UIView!
     private var recordsCollectionView: UICollectionView!
     private var recordCollectionViewCellWidth: CGFloat!
     private var recordCollectionViewCellHeight: CGFloat!
 
-    private var records = [NSManagedObject]() // 记录列表
+    /// 记录列表
+    private var records: [MetaRecord] = [MetaRecord]()
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -43,6 +42,7 @@ class HomeViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -51,11 +51,12 @@ class HomeViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
 
-        // 从本地加载记录列表
+        // 加载记录列表
 
         loadRecords()
     }
 
+    /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -65,6 +66,7 @@ class HomeViewController: UIViewController {
         signAgreements()
     }
 
+    /// 签署协议
     private func signAgreements() {
 
         let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: GKC.agreementsSigned)
@@ -79,28 +81,24 @@ class HomeViewController: UIViewController {
         }
     }
 
-    //
-    //
-    // MARK: - 初始化子视图
-    //
-    //
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化记录视图
+        // 初始化「记录视图」
 
-        initMetaRecordsView()
+        initRecordsView()
     }
 
+    /// 初始化「导航栏」
     private func initNavigationBar() {
 
-        // 初始化扫描按钮
+        // 初始化「扫描按钮容器」
 
         scanButtonContainer = UIView()
         scanButtonContainer.backgroundColor = .clear
@@ -114,6 +112,8 @@ class HomeViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「扫描按钮」
+
         scanButton = CircleNavigationBarButton(icon: .scan, imageEdgeInset: 11) // 此处 .scan 图标偏大，所以单独设置了 imageEdgeInset
         scanButton.addTarget(self, action: #selector(scanButtonDidTap), for: .touchUpInside)
         scanButtonContainer.addSubview(scanButton)
@@ -124,7 +124,10 @@ class HomeViewController: UIViewController {
         }
     }
 
-    private func initMetaRecordsView() {
+    /// 初始化「记录视图」
+    private func initRecordsView() {
+
+        // 初始化「记录视图」
 
         recordsView = UIView()
         view.addSubview(recordsView)
@@ -134,7 +137,7 @@ class HomeViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        // 初始化记录集合视图
+        // 初始化「记录集合视图」
 
         recordsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         recordsCollectionView.backgroundColor = .clear
@@ -142,7 +145,6 @@ class HomeViewController: UIViewController {
         recordsCollectionView.dataSource = self
         recordsCollectionView.delegate = self
         recordsCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseId)
-
         recordsView.addSubview(recordsCollectionView)
         recordsCollectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
@@ -155,6 +157,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDataSource {
 
+    /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if records.isEmpty {
@@ -166,18 +169,18 @@ extension HomeViewController: UICollectionViewDataSource {
         return records.count
     }
 
+    /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let record: MetaRecord = records[indexPath.item]
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TemplateCollectionViewCell.reuseId, for: indexPath) as? TemplateCollectionViewCell else {
             fatalError("Unexpected cell type")
         }
 
-        if let record = records[indexPath.item] as? MetaRecord {
+        // 准备「标题标签」
 
-            // 准备标题标签
-
-            cell.titleLabel.text = record.title
-        }
+        cell.titleLabel.text = record.title
 
         return cell
     }
@@ -185,17 +188,18 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegate {
 
+    /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        if let record = records[indexPath.item] as? MetaRecord {
+        let record: MetaRecord = records[indexPath.item]
 
-            print("[Home] did select record: \(record.bundleFileName)")
-        }
+        print("[Home] did select record: \(record.bundleFileName)")
     }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
+    /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         var numberOfCellsPerRow: Int
@@ -285,13 +289,7 @@ extension HomeViewController {
         navigationController?.pushViewController(gameScannerVC, animated: true)
     }
 
-    //
-    //
-    // MARK: - 数据操作
-    //
-    //
-
-    /// 加载记录
+    /// 加载记录列表
     func loadRecords(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaRecord> = MetaRecord.fetchRequest()

@@ -901,6 +901,14 @@
 			path = CoachMarks;
 			sourceTree = "<group>";
 		};
+		0F6705F8281580E900034BD6 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0F28134E254CF61E00FB569A /* GameEditorViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		0F74CDDD2534738F0054D2CC = {
 			isa = PBXGroup;
 			children = (
@@ -1958,8 +1966,8 @@
 		12FC02B5269ACC0F004C32C0 /* GameEditor */ = {
 			isa = PBXGroup;
 			children = (
-				0F28134E254CF61E00FB569A /* GameEditorViewController.swift */,
 				0FEF1E3C26C59DFD00028A5F /* BottomViews */,
+				0F6705F8281580E900034BD6 /* Core */,
 				122E682226C81C0500385A52 /* GameboardView */,
 			);
 			path = GameEditor;

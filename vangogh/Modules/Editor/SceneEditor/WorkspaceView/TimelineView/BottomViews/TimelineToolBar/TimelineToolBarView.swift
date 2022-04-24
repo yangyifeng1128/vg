@@ -74,11 +74,13 @@ class TimelineToolBarView: BorderedView {
 
 extension TimelineToolBarView: UICollectionViewDataSource {
 
+    /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return toolBarItems.count
     }
 
+    /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimelineToolBarItemCell.reuseId, for: indexPath) as? TimelineToolBarItemCell else {

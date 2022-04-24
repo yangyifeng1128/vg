@@ -88,7 +88,7 @@ class TargetAssetsViewController: UIViewController {
 
         resetCachedAssets()
 
-        // 加载素材
+        // 加载素材列表
 
         loadAssets(menuItemIndex: menuControl.selectedSegmentIndex)
 
@@ -243,6 +243,7 @@ class TargetAssetsViewController: UIViewController {
 
 extension TargetAssetsViewController: UICollectionViewDataSource {
 
+    /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         if assets.count == 0 {
@@ -265,6 +266,7 @@ extension TargetAssetsViewController: UICollectionViewDataSource {
         return assets.count
     }
 
+    /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TargetAssetCollectionViewCell.reuseId, for: indexPath) as? TargetAssetCollectionViewCell else {
@@ -433,6 +435,7 @@ extension TargetAssetsViewController {
     //
     //
 
+    /// 加载素材列表
     private func loadAssets(menuItemIndex: Int) {
 
         var type: PHAssetMediaType = .image
@@ -482,9 +485,9 @@ extension TargetAssetsViewController {
         // Update the assets the PHCachingImageManager is caching
 
         imageManager.startCachingImages(for: addedAssets,
-            targetSize: thumbSize, contentMode: .aspectFill, options: nil)
+                                        targetSize: thumbSize, contentMode: .aspectFill, options: nil)
         imageManager.stopCachingImages(for: removedAssets,
-            targetSize: thumbSize, contentMode: .aspectFill, options: nil)
+                                       targetSize: thumbSize, contentMode: .aspectFill, options: nil)
 
         // Store the computed rectangle for future comparison
 
@@ -497,20 +500,20 @@ extension TargetAssetsViewController {
             var added = [CGRect]()
             if new.maxY > old.maxY {
                 added += [CGRect(x: new.origin.x, y: old.maxY,
-                    width: new.width, height: new.maxY - old.maxY)]
+                                 width: new.width, height: new.maxY - old.maxY)]
             }
             if old.minY > new.minY {
                 added += [CGRect(x: new.origin.x, y: new.minY,
-                    width: new.width, height: old.minY - new.minY)]
+                                 width: new.width, height: old.minY - new.minY)]
             }
             var removed = [CGRect]()
             if new.maxY < old.maxY {
                 removed += [CGRect(x: new.origin.x, y: new.maxY,
-                    width: new.width, height: old.maxY - new.maxY)]
+                                   width: new.width, height: old.maxY - new.maxY)]
             }
             if old.minY < new.minY {
                 removed += [CGRect(x: new.origin.x, y: old.minY,
-                    width: new.width, height: new.minY - old.minY)]
+                                   width: new.width, height: new.minY - old.minY)]
             }
             return (added, removed)
         } else {

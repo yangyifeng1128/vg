@@ -53,7 +53,7 @@ class CompositionViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
 
-        // 加载草稿
+        // 加载草稿列表
 
         loadDrafts { [weak self] in
 
@@ -320,7 +320,7 @@ extension CompositionViewController {
         showMoreAboutGame(sender: sender)
     }
 
-    /// 显示新用户协议
+    /// 显示协议
     private func showAgreements() {
 
         let agreementsVC: AgreementsViewController = AgreementsViewController()
@@ -374,58 +374,58 @@ extension CompositionViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
 
-                guard let strongSelf = self else { return }
+            guard let strongSelf = self else { return }
 
-                // 弹出编辑草稿标题提示框
+            // 弹出编辑草稿标题提示框
 
-                let editDraftTitleAlert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
-                editDraftTitleAlert.addTextField { textField in
-                    textField.text = draft.title
-                    textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
-                    textField.returnKeyType = .done
-                    textField.delegate = self
+            let editDraftTitleAlert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
+            editDraftTitleAlert.addTextField { textField in
+                textField.text = draft.title
+                textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
+                textField.returnKeyType = .done
+                textField.delegate = self
+            }
+
+            editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
+                guard let title = editDraftTitleAlert.textFields?.first?.text, !title.isEmpty else {
+                    let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
+                    toast.show()
+                    return
                 }
-
-                editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
-                        guard let title = editDraftTitleAlert.textFields?.first?.text, !title.isEmpty else {
-                            let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
-                            toast.show()
-                            return
-                        }
-                        draft.title = title
-                        CoreDataManager.shared.saveContext()
-                        strongSelf.draftsTableView.reloadData()
-                    })
-
-                editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-                    })
-
-                strongSelf.present(editDraftTitleAlert, animated: true, completion: nil)
+                draft.title = title
+                CoreDataManager.shared.saveContext()
+                strongSelf.draftsTableView.reloadData()
             })
+
+            editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            })
+
+            strongSelf.present(editDraftTitleAlert, animated: true, completion: nil)
+        })
 
         // 删除草稿
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
 
-                guard let strongSelf = self else { return }
+            guard let strongSelf = self else { return }
 
-                // 弹出删除草稿提示框
+            // 弹出删除草稿提示框
 
-                let deleteDraftAlert = UIAlertController(title: NSLocalizedString("DeleteGame", comment: ""), message: NSLocalizedString("DeleteGameInfo", comment: ""), preferredStyle: .alert)
+            let deleteDraftAlert = UIAlertController(title: NSLocalizedString("DeleteGame", comment: ""), message: NSLocalizedString("DeleteGameInfo", comment: ""), preferredStyle: .alert)
 
-                deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
-                        strongSelf.deleteGame(index: index)
-                        strongSelf.reloadDraftsTableView()
-                    })
-
-                deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-                    })
-
-                strongSelf.present(deleteDraftAlert, animated: true, completion: nil)
+            deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
+                strongSelf.deleteGame(index: index)
+                strongSelf.reloadDraftsTableView()
             })
+
+            deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            })
+
+            strongSelf.present(deleteDraftAlert, animated: true, completion: nil)
+        })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-            })
+        })
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sender
@@ -441,7 +441,7 @@ extension CompositionViewController {
     //
     //
 
-    /// 加载草稿
+    /// 加载草稿列表
     private func loadDrafts(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaGame> = MetaGame.fetchRequest()
@@ -449,9 +449,9 @@ extension CompositionViewController {
 
         do {
             drafts = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
-            Logger.composition.info("loading meta games: ok")
+            Logger.composition.info("loading drafts: ok")
         } catch {
-            Logger.composition.info("loading meta games error: \(error.localizedDescription)")
+            Logger.composition.info("loading drafts error: \(error.localizedDescription)")
         }
 
         if let handler = handler {

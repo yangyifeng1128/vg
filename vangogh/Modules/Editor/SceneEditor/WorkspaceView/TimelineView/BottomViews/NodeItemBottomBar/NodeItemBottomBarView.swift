@@ -132,11 +132,13 @@ class NodeItemBottomBarView: BorderedView {
 
 extension NodeItemBottomBarView: UICollectionViewDataSource {
 
+    /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return actionBarItems.count
     }
 
+    /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NodeItemBottomBarItemCell.reuseId, for: indexPath) as? NodeItemBottomBarItemCell else {
