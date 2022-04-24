@@ -42,15 +42,24 @@ extension CompositionViewController {
         }
     }
 
-    /// 删除草稿
-    func deleteDraft(index: Int, completion handler: (() -> Void)? = nil) {
+    /// 保存草稿标题
+    func saveDraftTitle(_ draft: MetaGame, newTitle: String, completion handler: (() -> Void)? = nil) {
 
-        let draft: MetaGame = drafts[index]
+        draft.title = newTitle
+        CoreDataManager.shared.saveContext()
+
+        if let handler = handler {
+            DispatchQueue.main.async {
+                handler()
+            }
+        }
+    }
+
+    /// 删除草稿
+    func deleteDraft(_ draft: MetaGame, completion handler: (() -> Void)? = nil) {
 
         MetaGameBundleManager.shared.delete(uuid: draft.uuid)
-
-        drafts.remove(at: index)
-        draftsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        drafts.removeAll(where: { $0.uuid == draft.uuid })
         CoreDataManager.shared.persistentContainer.viewContext.delete(draft)
         CoreDataManager.shared.saveContext()
 
@@ -59,7 +68,5 @@ extension CompositionViewController {
                 handler()
             }
         }
-
-        Logger.composition.info("deleted draft at index \(index): ok")
     }
 }

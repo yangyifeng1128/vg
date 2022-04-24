@@ -209,19 +209,9 @@ extension CompositionViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let draft: MetaGame = drafts[indexPath.row]
+        // 选择草稿
 
-        // 打开草稿
-
-        openDraft(draft) { [weak self] in
-
-            guard let s = self else { return }
-
-            // 进入「作品编辑器」
-
-            s.pushGameEditorVC(game: draft)
-            Logger.composition.info("loaded draft: \(draft.title)")
-        }
+        selectDraft(drafts[indexPath.row])
     }
 }
 

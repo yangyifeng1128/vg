@@ -291,9 +291,11 @@ extension SceneSettingsViewController {
 
     private func editSceneTitle(sourceView: UIView) {
 
-        // 弹出编辑场景标题提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("EditSceneTitle", comment: ""), message: nil, preferredStyle: .alert)
+
+        // 输入框
 
         alert.addTextField { [weak self] textField in
 
@@ -305,7 +307,9 @@ extension SceneSettingsViewController {
             textField.delegate = self
         }
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
 
@@ -315,8 +319,6 @@ extension SceneSettingsViewController {
                 return
             }
 
-            // 保存「当前选中场景」的标题
-
             guard let scene = s.gameBundle.selectedScene() else { return }
             scene.title = title
             s.gameBundle.updateScene(scene)
@@ -325,22 +327,34 @@ extension SceneSettingsViewController {
             }
             s.settingsTableView.reloadData()
             GameboardViewExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid) // 保存「作品板视图外部变更记录字典」
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 兼容 iPad 应用
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sourceView
             popoverController.sourceRect = sourceView.bounds
-        } // 兼容 iPad 应用
+        }
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
 
     private func editAspectRatio(sourceView: UIView) {
 
+        // 创建提示框
+
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        // 「选择尺寸比例」操作
+
         for aspectRatioType in MetaSceneAspectRatioType.allCases {
             alert.addAction(UIAlertAction(title: aspectRatioType.rawValue, style: .default) { [weak self] _ in
                 guard let s = self else { return }
@@ -351,13 +365,21 @@ extension SceneSettingsViewController {
                 s.settingsTableView.reloadData()
             })
         }
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 兼容 iPad 应用
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sourceView
             popoverController.sourceRect = sourceView.bounds
-        } // 兼容 iPad 应用
+        }
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
@@ -368,10 +390,8 @@ extension SceneSettingsViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
         guard let text = textField.text else { return true }
-
         if range.length + range.location > text.count { return false }
         let newLength = text.count + string.count - range.length
-
         return newLength <= 255
     }
 }

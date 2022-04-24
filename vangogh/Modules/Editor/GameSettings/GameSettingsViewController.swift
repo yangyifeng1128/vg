@@ -265,9 +265,11 @@ extension GameSettingsViewController {
 
     private func editGameTitle(sourceView: UIView) {
 
-        // 弹出「编辑作品标题提示框」
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
+
+        // 输入框
 
         alert.addTextField { [weak self] textField in
 
@@ -279,7 +281,9 @@ extension GameSettingsViewController {
             textField.delegate = self
         }
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
 
@@ -289,21 +293,27 @@ extension GameSettingsViewController {
                 return
             }
 
-            // 保存作品标题
-
             s.game.title = title
             CoreDataManager.shared.saveContext()
             s.settingsTableView.reloadData()
             GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 兼容 iPad 应用
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sourceView
             popoverController.sourceRect = sourceView.bounds
-        } // 兼容 iPad 应用
+        }
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }

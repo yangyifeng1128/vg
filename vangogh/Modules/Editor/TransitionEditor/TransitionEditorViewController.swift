@@ -487,11 +487,13 @@ extension TransitionEditorViewController {
         let index = sender.tag
         let condition = conditions[index]
 
-        // 弹出删除条件提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("DeleteCondition", comment: ""), message: NSLocalizedString("DeleteConditionInfo", comment: ""), preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
 
@@ -506,10 +508,16 @@ extension TransitionEditorViewController {
 
             s.conditions = s.transition.conditions
             s.conditionsTableView.reloadData()
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }

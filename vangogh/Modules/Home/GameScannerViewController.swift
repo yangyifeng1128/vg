@@ -153,37 +153,35 @@ extension GameScannerViewController: QRScannerViewDelegate {
 
     private func showScanFailureInfo() {
 
-        // 弹出扫描失败提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("NoGamesFound", comment: ""), message: NSLocalizedString("NoGamesFoundInfo", comment: ""), preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Rescan", comment: ""), style: .default) { [weak self] _ in
+        // 「重新扫描」操作
 
-            // 重新扫描
+        let rescanAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Rescan", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
             s.scannerView.rescan()
-        })
+        }
+        alert.addAction(rescanAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { [weak self] _ in
+        // 「取消」操作
 
-            // 取消
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { [weak self] _ in
 
             guard let s = self else { return }
             s.navigationController?.popViewController(animated: true)
-        })
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
 }
 
 extension GameScannerViewController {
-
-    //
-    //
-    // MARK: - 界面操作
-    //
-    //
 
     /// 点击「返回按钮」
     @objc private func backButtonDidTap() {

@@ -1262,16 +1262,16 @@ extension SceneEditorViewController {
 
     private func deleteMetaFootage(_ footage: MetaFootage) {
 
-        // 弹出删除镜头片段提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("DeleteFootage", comment: ""), message: NSLocalizedString("DeleteFootageInfo", comment: ""), preferredStyle: .alert)
         alert.overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle // 单独强制设置用户界面风格
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
-
-            // 删除镜头片段
 
             DispatchQueue.global(qos: .background).async {
                 MetaSceneBundleManager.shared.deleteMetaFootage(sceneBundle: s.sceneBundle, footage: footage)
@@ -1281,10 +1281,16 @@ extension SceneEditorViewController {
                     s.reloadPlayer()
                 }
             }
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
@@ -1305,16 +1311,16 @@ extension SceneEditorViewController {
 
     private func deleteMetaNode(_ node: MetaNode) {
 
-        // 弹出删除组件提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("DeleteNode", comment: ""), message: NSLocalizedString("DeleteNodeInfo", comment: ""), preferredStyle: .alert)
         alert.overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle // 单独强制设置用户界面风格
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
-
-            // 删除组件
 
             DispatchQueue.global(qos: .background).async {
                 MetaSceneBundleManager.shared.deleteMetaNode(sceneBundle: s.sceneBundle, node: node)
@@ -1328,10 +1334,16 @@ extension SceneEditorViewController {
                     s.timelineView.resetBottomView(bottomViewType: .timeline)
                 }
             }
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }

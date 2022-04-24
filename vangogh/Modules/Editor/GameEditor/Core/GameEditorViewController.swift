@@ -632,33 +632,40 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
 
         UIImpactFeedbackGenerator().impactOccurred()
 
-        // 弹出提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        // 编辑场景标题
+        // 「编辑场景标题」操作
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
+        let editSceneTitleAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
             guard let s = self else { return }
-            // 弹出编辑场景标题提示框
             s.editSceneTitle()
-        })
+        }
+        alert.addAction(editSceneTitleAction)
 
-        // 删除场景
+        // 「删除场景」操作
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
+        let deleteSceneAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
             guard let s = self else { return }
-            // 弹出删除场景提示框
             s.deleteScene()
-        })
+        }
+        alert.addAction(deleteSceneAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 兼容 iPad 应用
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sceneView
             popoverController.sourceRect = sceneView.bounds
-        } // 兼容 iPad 应用
+        }
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
@@ -1231,11 +1238,13 @@ extension GameEditorViewController {
 
     private func deleteScene() {
 
-        // 弹出删除场景提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("DeleteScene", comment: ""), message: NSLocalizedString("DeleteSceneInfo", comment: ""), preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
 
@@ -1296,19 +1305,27 @@ extension GameEditorViewController {
             // 重置底部视图
 
             s.resetBottomView(sceneSelected: false, animated: true)
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
 
     private func editSceneTitle() {
 
-        // 弹出编辑场景标题提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("EditSceneTitle", comment: ""), message: nil, preferredStyle: .alert)
+
+        // 输入框
 
         alert.addTextField { [weak self] textField in
 
@@ -1320,7 +1337,9 @@ extension GameEditorViewController {
             textField.delegate = self
         }
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
 
@@ -1347,10 +1366,16 @@ extension GameEditorViewController {
 
             let sceneView = s.sceneViewList.first(where: { $0.scene.index == s.gameBundle.selectedSceneIndex })
             sceneView?.updateTitleLabelAttributedText()
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
@@ -1391,11 +1416,13 @@ extension GameEditorViewController {
 
     private func deleteTransition(_ transition: MetaTransition, completion: @escaping () -> Void) {
 
-        // 弹出删除穿梭器提示框
+        // 创建提示框
 
         let alert = UIAlertController(title: NSLocalizedString("DeleteTransition", comment: ""), message: NSLocalizedString("DeleteTransitionInfo", comment: ""), preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
 
@@ -1431,10 +1458,16 @@ extension GameEditorViewController {
             // 完成之后的回调
 
             completion()
-        })
+        }
+        alert.addAction(confirmAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
 
         present(alert, animated: true, completion: nil)
     }
@@ -1445,10 +1478,8 @@ extension GameEditorViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
         guard let text = textField.text else { return true }
-
         if range.length + range.location > text.count { return false }
         let newLength = text.count + string.count - range.length
-
         return newLength <= 255
     }
 }
