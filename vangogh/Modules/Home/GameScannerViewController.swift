@@ -30,12 +30,7 @@ class GameScannerViewController: UIViewController {
     private var backButton: CircleNavigationBarButton!
     private var torchButton: GameScannerTorchButton!
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -49,6 +44,7 @@ class GameScannerViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -163,19 +159,19 @@ extension GameScannerViewController: QRScannerViewDelegate {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Rescan", comment: ""), style: .default) { [weak self] _ in
 
-                // 重新扫描
+            // 重新扫描
 
-                guard let strongSelf = self else { return }
-                strongSelf.scannerView.rescan()
-            })
+            guard let strongSelf = self else { return }
+            strongSelf.scannerView.rescan()
+        })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { [weak self] _ in
 
-                // 取消
+            // 取消
 
-                guard let strongSelf = self else { return }
-                strongSelf.navigationController?.popViewController(animated: true)
-            })
+            guard let strongSelf = self else { return }
+            strongSelf.navigationController?.popViewController(animated: true)
+        })
 
         present(alert, animated: true, completion: nil)
     }

@@ -12,6 +12,7 @@ class GameEmulatorViewController: UIViewController {
     enum VC {
     }
 
+    /// 初始化
     init() {
 
         super.init(nibName: nil, bundle: nil)
@@ -22,12 +23,7 @@ class GameEmulatorViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -37,6 +33,7 @@ class GameEmulatorViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -46,12 +43,7 @@ class GameEmulatorViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
-    //
-    //
-    // MARK: - 初始化子视图
-    //
-    //
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground

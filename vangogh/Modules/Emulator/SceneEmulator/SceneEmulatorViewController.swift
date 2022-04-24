@@ -53,12 +53,7 @@ class SceneEmulatorViewController: UIViewController {
 
     var needsReloadPlayer: Bool = true
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
 
         super.init(nibName: nil, bundle: nil)
@@ -87,6 +82,7 @@ class SceneEmulatorViewController: UIViewController {
         gameEngine = MetaGameEngine(rules: sceneBundle.rules)
     }
 
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -100,6 +96,7 @@ class SceneEmulatorViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -109,6 +106,7 @@ class SceneEmulatorViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
+    /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -126,6 +124,7 @@ class SceneEmulatorViewController: UIViewController {
         }
     }
 
+    /// 视图即将消失
     override func viewWillDisappear(_ animated: Bool) {
 
         super.viewWillDisappear(animated)

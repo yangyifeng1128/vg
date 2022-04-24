@@ -24,19 +24,20 @@ class PublicationViewController: UIViewController {
 
     private var backButtonContainer: UIView!
     private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
     private var gameSettingsButtonContainer: UIView!
     private var gameSettingsButton: CircleNavigationBarButton!
 
     private var publishButton: RoundedButton!
-    private var archivesView: UIView!
     private var archivesCollectionView: UICollectionView!
     private var archiveCollectionViewCellWidth: CGFloat!
     private var archiveCollectionViewCellHeight: CGFloat!
 
-    private var game: MetaGame! // 作品
-    private var archives: [MetaTemplate] = [MetaTemplate]() // 档案列表
+    /// 作品
+    private var game: MetaGame!
+    /// 档案列表
+    private var archives: [MetaTemplate] = [MetaTemplate]()
 
+    /// 初始化
     init(game: MetaGame) {
 
         super.init(nibName: nil, bundle: nil)
@@ -49,12 +50,7 @@ class PublicationViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -68,6 +64,7 @@ class PublicationViewController: UIViewController {
         syncArchives()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -127,7 +124,7 @@ class PublicationViewController: UIViewController {
 
         // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("Publish", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -201,7 +198,7 @@ class PublicationViewController: UIViewController {
 
         // 初始化「档案视图」
 
-        archivesView = UIView()
+        let archivesView: UIView = UIView()
         view.addSubview(archivesView)
         archivesView.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(8)

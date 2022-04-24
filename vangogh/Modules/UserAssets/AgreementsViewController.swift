@@ -32,6 +32,7 @@ class AgreementsViewController: UIViewController {
     private var bottomViewInfoLabel: UILabel!
     private var infoTextView: UITextView!
 
+    /// 初始化
     init() {
 
         super.init(nibName: nil, bundle: nil)
@@ -42,12 +43,7 @@ class AgreementsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -57,6 +53,7 @@ class AgreementsViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -66,6 +63,7 @@ class AgreementsViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
+    /// 初始化视图
     private func initViews() {
 
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark))

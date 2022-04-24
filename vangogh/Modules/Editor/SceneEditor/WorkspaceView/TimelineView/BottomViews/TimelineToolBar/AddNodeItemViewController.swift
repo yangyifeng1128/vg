@@ -27,6 +27,7 @@ class AddNodeItemViewController: UIViewController {
     private var toolBarItem: TimelineToolBarItem!
     private var toolBarSubitems: [TimelineToolBarSubitem]!
 
+    /// 初始化
     init(toolBarItem: TimelineToolBarItem) {
 
         super.init(nibName: nil, bundle: nil)
@@ -40,12 +41,7 @@ class AddNodeItemViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -59,6 +55,7 @@ class AddNodeItemViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -68,21 +65,17 @@ class AddNodeItemViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
-    //
-    //
-    // MARK: - 初始化子视图
-    //
-    //
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .bcGrey
 
-        // 初始化集合视图
+        // 初始化「集合视图」
 
         initCollectionView()
     }
 
+    /// 初始化「集合视图」
     private func initCollectionView() {
 
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -129,6 +122,7 @@ extension AddNodeItemViewController: UICollectionViewDataSource {
 
 extension AddNodeItemViewController: UICollectionViewDelegate {
 
+    /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         let toolBarSubitem = toolBarSubitems[indexPath.item]
@@ -138,6 +132,7 @@ extension AddNodeItemViewController: UICollectionViewDelegate {
 
 extension AddNodeItemViewController: UICollectionViewDelegateFlowLayout {
 
+    /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         return CGSize(width: VC.collectionViewCellWidth, height: VC.collectionViewHeight)
