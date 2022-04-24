@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
 
     private func signAgreements() {
 
-        let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: "agreementsSigned")
+        let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: GKC.agreementsSigned)
         if !agreementsSigned {
             DispatchQueue.main.asyncAfter(
                 deadline: .now(),

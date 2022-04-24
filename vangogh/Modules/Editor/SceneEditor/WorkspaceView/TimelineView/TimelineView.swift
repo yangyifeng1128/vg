@@ -693,7 +693,7 @@ extension TimelineView: NodeItemViewDelegate {
 
         // 保存
 
-        UserDefaults.standard.set(snappedTimeMillisecondsPool, forKey: "snappedTimeMillisecondsPool")
+        UserDefaults.standard.set(snappedTimeMillisecondsPool, forKey: GKC.snappedTimeMillisecondsPool)
     }
 }
 

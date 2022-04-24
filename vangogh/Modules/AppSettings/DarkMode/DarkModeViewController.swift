@@ -4,6 +4,7 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
+import OSLog
 import SnapKit
 import UIKit
 
@@ -140,7 +141,7 @@ class DarkModeViewController: UIViewController {
 
         let followSystemSwitchView: UISwitch = UISwitch()
         followSystemSwitchView.onTintColor = .accent
-        followSystemSwitchView.setOn(!UserDefaults.standard.bool(forKey: "ignoresSystemUserInterfaceStyle"), animated: true)
+        followSystemSwitchView.setOn(!UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle), animated: true)
         followSystemSwitchView.addTarget(self, action: #selector(followSystemUserInterfaceStyleSwitchViewDidChange), for: .valueChanged)
         followSystemView.addSubview(followSystemSwitchView)
         followSystemSwitchView.snp.makeConstraints { make -> Void in
@@ -178,7 +179,7 @@ class DarkModeViewController: UIViewController {
         // 初始化「风格视图」
 
         stylesView = RoundedView()
-        stylesView.isHidden = !UserDefaults.standard.bool(forKey: "ignoresSystemUserInterfaceStyle")
+        stylesView.isHidden = !UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle)
         stylesView.backgroundColor = .secondarySystemGroupedBackground
         settingsView.addSubview(stylesView)
         stylesView.snp.makeConstraints { make -> Void in
@@ -242,7 +243,7 @@ extension DarkModeViewController: UITableViewDataSource {
 
         cell.titleLabel.text = NSLocalizedString(cellMode.title, comment: "")
 
-        let isInLightMode: Bool = UserDefaults.standard.bool(forKey: "isInLightMode")
+        let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
         if cellMode.type == .darkMode {
             cell.checkmarkView.isHidden = isInLightMode
         } else if cellMode.type == .lightMode {
@@ -264,12 +265,15 @@ extension DarkModeViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectUserInterfaceStyle(type: styles[indexPath.row].type) // 手动选择模式
+        // 选择用户界面风格
+
+        selectUserInterfaceStyle(type: styles[indexPath.row].type)
     }
 }
 
 extension DarkModeViewController {
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
 
         print("[DarkMode] did tap backButton")
@@ -283,7 +287,7 @@ extension DarkModeViewController {
 
         let followsSystemUserInterfaceStyle: Bool = sender.isOn
 
-        UserDefaults.standard.setValue(!followsSystemUserInterfaceStyle, forKey: "ignoresSystemUserInterfaceStyle")
+        UserDefaults.standard.setValue(!followsSystemUserInterfaceStyle, forKey: GKC.ignoresSystemUserInterfaceStyle)
         stylesView.isHidden = followsSystemUserInterfaceStyle
 
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
@@ -294,16 +298,17 @@ extension DarkModeViewController {
         }
     }
 
+    /// 选择用户界面风格
     private func selectUserInterfaceStyle(type: UserInterfaceStyle.UserInterfaceStyleType) {
 
         print("[DarkMode] selected user interface style: \(type)")
 
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
         if type == .darkMode {
-            UserDefaults.standard.setValue(false, forKey: "isInLightMode")
+            UserDefaults.standard.setValue(false, forKey: GKC.isInLightMode)
             window.overrideUserInterfaceStyle = .dark
         } else if type == .lightMode {
-            UserDefaults.standard.setValue(true, forKey: "isInLightMode")
+            UserDefaults.standard.setValue(true, forKey: GKC.isInLightMode)
             window.overrideUserInterfaceStyle = .light
         }
 

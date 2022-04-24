@@ -179,10 +179,10 @@ extension GeneralSettingsViewController: UITableViewDataSource {
         cell.titleLabel.text = setting.title
 
         if setting.type == .darkMode {
-            if !UserDefaults.standard.bool(forKey: "ignoresSystemUserInterfaceStyle") {
+            if !UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle) {
                 cell.infoLabel.text = NSLocalizedString("FollowSystem", comment: "")
             } else {
-                cell.infoLabel.text = UserDefaults.standard.bool(forKey: "isInLightMode") ? NSLocalizedString("Disabled", comment: "") : NSLocalizedString("Enabled", comment: "")
+                cell.infoLabel.text = UserDefaults.standard.bool(forKey: GKC.isInLightMode) ? NSLocalizedString("Disabled", comment: "") : NSLocalizedString("Enabled", comment: "")
             }
         }
 

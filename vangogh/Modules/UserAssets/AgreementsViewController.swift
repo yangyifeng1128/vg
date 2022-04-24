@@ -236,7 +236,7 @@ extension AgreementsViewController {
 
         print("[Agreements] did tap agreeButton")
 
-        UserDefaults.standard.setValue(true, forKey: "agreementsSigned")
+        UserDefaults.standard.setValue(true, forKey: GKC.agreementsSigned)
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 

@@ -63,7 +63,7 @@ extension NodeItemContentView {
 
             // 对齐边缘时刻
 
-            guard let snappedTimeMillisecondsPool = UserDefaults.standard.array(forKey: "snappedTimeMillisecondsPool") as? [Int64] else { return }
+            guard let snappedTimeMillisecondsPool = UserDefaults.standard.array(forKey: GKC.snappedTimeMillisecondsPool) as? [Int64] else { return }
             for snappedTimeMilliseconds in snappedTimeMillisecondsPool {
                 if abs(startTimeMilliseconds - snappedTimeMilliseconds) <= GVC.snappedTimeMillisecondsThreshold {
                     startTimeMilliseconds = snappedTimeMilliseconds
@@ -90,7 +90,7 @@ extension NodeItemContentView {
 
             // 对齐边缘时刻
 
-            guard let snappedTimeMillisecondsPool = UserDefaults.standard.array(forKey: "snappedTimeMillisecondsPool") as? [Int64] else { return }
+            guard let snappedTimeMillisecondsPool = UserDefaults.standard.array(forKey: GKC.snappedTimeMillisecondsPool) as? [Int64] else { return }
             for snappedTimeMilliseconds in snappedTimeMillisecondsPool {
                 if abs(endTimeMilliseconds - snappedTimeMilliseconds) <= GVC.snappedTimeMillisecondsThreshold {
                     endTimeMilliseconds = snappedTimeMilliseconds

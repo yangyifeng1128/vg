@@ -87,7 +87,7 @@ class CompositionViewController: UIViewController {
 
     private func signAgreements() {
 
-        let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: "agreementsSigned")
+        let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: GKC.agreementsSigned)
         if !agreementsSigned {
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
