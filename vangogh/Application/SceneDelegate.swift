@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /// 窗体
     var window: UIWindow?
 
-    /// 即将连接应用
+    /// 即将连接应用程序
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         if let windowScene = scene as? UIWindowScene {

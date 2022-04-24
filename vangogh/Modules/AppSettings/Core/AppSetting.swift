@@ -8,7 +8,7 @@ import Foundation
 
 class AppSetting {
 
-    /// 应用设置类型枚举值
+    /// 应用程序设置类型枚举值
     enum AppSettingType: String, CaseIterable {
         case generalSettings = "GeneralSettings"
         case feedback = "Feedback"
@@ -17,9 +17,12 @@ class AppSetting {
         case about = "About"
     }
 
+    /// 应用程序设置类型
     private(set) var type: AppSettingType
+    /// 标题
     private(set) var title: String
 
+    /// 初始化
     init(type: AppSettingType, title: String) {
 
         self.type = type
@@ -29,8 +32,10 @@ class AppSetting {
 
 class AppSettingManager {
 
+    /// 单例
     static var shared = AppSettingManager()
 
+    /// 设置列表
     private lazy var settings: [AppSetting] = {
 
         var settings = [AppSetting]()
@@ -40,6 +45,7 @@ class AppSettingManager {
         return settings
     }()
 
+    /// 获取设置列表
     func get() -> [AppSetting] {
 
         return settings

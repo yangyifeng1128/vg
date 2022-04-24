@@ -78,6 +78,7 @@ class GameSettingTableViewCell: UITableViewCell {
         }
     }
 
+    /// 准备重用单元格
     override func prepareForReuse() {
 
         super.prepareForReuse()

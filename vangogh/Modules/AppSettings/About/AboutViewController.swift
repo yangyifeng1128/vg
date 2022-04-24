@@ -4,7 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import OSLog
 import SnapKit
 import UIKit
 
@@ -155,8 +154,6 @@ extension AboutViewController {
 
     /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[About] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

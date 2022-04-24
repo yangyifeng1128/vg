@@ -17,9 +17,12 @@ class AppSettingTableViewCell: UITableViewCell {
         static let chevronViewWidth: CGFloat = 24
     }
 
+    /// 标题标签
     var titleLabel: UILabel!
+    /// chevron 视图
     var chevronView: UIImageView!
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,12 +37,13 @@ class AppSettingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
@@ -50,7 +54,7 @@ class AppSettingTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(16)
         }
 
-        // 准备 chevronView
+        // 初始化「chevron 视图」
 
         chevronView = UIImageView(image: .chevronRight)
         chevronView.tintColor = .tertiaryLabel
@@ -62,6 +66,7 @@ class AppSettingTableViewCell: UITableViewCell {
         }
     }
 
+    /// 准备重用单元格
     override func prepareForReuse() {
 
         super.prepareForReuse()
