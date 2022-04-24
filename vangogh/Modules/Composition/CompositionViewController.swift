@@ -21,15 +21,18 @@ class CompositionViewController: UIViewController {
         static let draftTableViewCellHeight: CGFloat = 96
     }
 
-    private var settingsButton: CircleNavigationBarButton! // 设置按钮
-    private var composeButton: RoundedButton! // 创作按钮
-    private var draftsView: UIView! // 草稿视图
-    private var draftsTitleLabel: UILabel! // 草稿标题标签
-    private var draftsTableView: UITableView! // 草稿表格视图
+    /// 创作按钮
+    private var composeButton: RoundedButton!
 
-    private var games: [NSManagedObject] = [NSManagedObject]() // 作品列表
+    /// 草稿视图
+    private var draftsView: UIView!
+    /// 草稿表格视图
+    private var draftsTableView: UITableView!
 
-    var gameSavedMessage: String? // 「作品已保存」消息
+    /// 草稿列表
+    private var drafts: [NSManagedObject] = [NSManagedObject]()
+    /// 「草稿已保存」消息
+    var draftSavedMessage: String?
 
     /// 视图加载完成
     override func viewDidLoad() {
@@ -50,13 +53,16 @@ class CompositionViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
 
-        // 从本地加载作品列表
+        // 加载草稿
 
-        loadGames()
+        loadDrafts { [weak self] in
 
-        // 显示作品列表
+            guard let s = self else { return }
 
-        showGames()
+            // 重新加载「草稿表格视图」
+
+            s.reloadDraftsTableView()
+        }
     }
 
     /// 视图显示完成
@@ -76,10 +82,10 @@ class CompositionViewController: UIViewController {
     /// 显示消息
     private func showMessage() {
 
-        if let message = gameSavedMessage {
+        if let message = draftSavedMessage {
             let toast: Toast = Toast.default(text: message)
             toast.show()
-            gameSavedMessage = nil
+            draftSavedMessage = nil
         }
     }
 
@@ -132,7 +138,7 @@ class CompositionViewController: UIViewController {
 
         // 初始化「设置按钮」
 
-        settingsButton = CircleNavigationBarButton(icon: .settings)
+        let settingsButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .settings)
         settingsButton.addTarget(self, action: #selector(settingsButtonDidTap), for: .touchUpInside)
         settingsButtonContainer.addSubview(settingsButton)
         settingsButton.snp.makeConstraints { make -> Void in
@@ -194,7 +200,7 @@ class CompositionViewController: UIViewController {
 
         // 初始化「草稿标题标签」
 
-        draftsTitleLabel = UILabel()
+        let draftsTitleLabel: UILabel = UILabel()
         draftsTitleLabel.text = NSLocalizedString("Drafts", comment: "")
         draftsTitleLabel.font = .systemFont(ofSize: VC.draftsTitleLabelFontSize, weight: .regular)
         draftsTitleLabel.textColor = .secondaryLabel
@@ -228,13 +234,13 @@ extension CompositionViewController: UITableViewDataSource {
     /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return games.count
+        return drafts.count
     }
 
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let game = games[indexPath.row] as? MetaGame else {
+        guard let game = drafts[indexPath.row] as? MetaGame else {
             fatalError("Unexpected cell index")
         }
         guard let cell = draftsTableView.dequeueReusableCell(withIdentifier: DraftTableViewCell.reuseId) as? DraftTableViewCell else {
@@ -278,16 +284,16 @@ extension CompositionViewController: UITableViewDelegate {
 
         // 获取当前选中的作品
 
-        guard let game = games[indexPath.row] as? MetaGame else { return }
+        guard let draft = drafts[indexPath.row] as? MetaGame else { return }
 
         // 保存最近修改时间
 
-        game.mtime = Int64(Date().timeIntervalSince1970)
+        draft.mtime = Int64(Date().timeIntervalSince1970)
         CoreDataManager.shared.saveContext()
 
         // 跳转至子视图
 
-        editGame(game: game)
+        editGame(game: draft)
     }
 }
 
@@ -295,14 +301,14 @@ extension CompositionViewController {
 
     @objc private func settingsButtonDidTap() {
 
-        print("[Composition] did tap settingsButton")
+        // 显示应用程序设置
 
         showAppSettings()
     }
 
     @objc private func composeButtonDidTap() {
 
-        print("[Composition] did tap composeButton")
+        // 新建作品
 
         newGame()
     }
@@ -324,6 +330,7 @@ extension CompositionViewController {
         present(agreementsNav, animated: true, completion: nil)
     }
 
+    /// 显示应用程序设置
     private func showAppSettings() {
 
         let settingsVC: AppSettingsViewController = AppSettingsViewController()
@@ -334,7 +341,7 @@ extension CompositionViewController {
 
     private func newGame() {
 
-        let newGameVC: NewGameViewController = NewGameViewController(games: games)
+        let newGameVC: NewGameViewController = NewGameViewController(games: drafts)
         newGameVC.hidesBottomBarWhenPushed = true
 
         navigationController?.pushViewController(newGameVC, animated: true)
@@ -353,7 +360,7 @@ extension CompositionViewController {
     private func showMoreAboutGame(sender: UIButton) {
 
         let index = sender.tag
-        guard let game = games[index] as? MetaGame else { return }
+        guard let draft = drafts[index] as? MetaGame else { return }
 
         // 弹出提示框
 
@@ -369,7 +376,7 @@ extension CompositionViewController {
 
                 let editDraftTitleAlert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
                 editDraftTitleAlert.addTextField { textField in
-                    textField.text = game.title
+                    textField.text = draft.title
                     textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
                     textField.returnKeyType = .done
                     textField.delegate = self
@@ -381,7 +388,7 @@ extension CompositionViewController {
                             toast.show()
                             return
                         }
-                        game.title = title
+                        draft.title = title
                         CoreDataManager.shared.saveContext()
                         strongSelf.draftsTableView.reloadData()
                     })
@@ -404,8 +411,7 @@ extension CompositionViewController {
 
                 deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
                         strongSelf.deleteGame(index: index)
-                        strongSelf.draftsTableView.reloadData()
-                        strongSelf.showGames()
+                        strongSelf.reloadDraftsTableView()
                     })
 
                 deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
@@ -432,23 +438,31 @@ extension CompositionViewController {
     //
 
     /// 加载作品
-    private func loadGames() {
+    private func loadDrafts(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaGame> = MetaGame.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "mtime", ascending: false)]
 
         do {
-            games = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
-            draftsTableView.reloadData()
+            drafts = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
             Logger.composition.info("loading meta games: ok")
         } catch {
             Logger.composition.info("loading meta games error: \(error.localizedDescription)")
         }
+
+        if let handler = handler {
+            DispatchQueue.main.async {
+                handler()
+            }
+        }
     }
 
-    private func showGames() {
+    /// 重新加载「草稿表格视图」
+    private func reloadDraftsTableView() {
 
-        if !games.isEmpty {
+        draftsTableView.reloadData()
+
+        if !drafts.isEmpty {
 
             draftsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             draftsView.isHidden = false
@@ -461,11 +475,11 @@ extension CompositionViewController {
 
     private func deleteGame(index: Int) {
 
-        guard let game = games[index] as? MetaGame else { return }
+        guard let game = drafts[index] as? MetaGame else { return }
 
         MetaGameBundleManager.shared.delete(uuid: game.uuid)
 
-        games.remove(at: index)
+        drafts.remove(at: index)
         draftsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         CoreDataManager.shared.persistentContainer.viewContext.delete(game)
         CoreDataManager.shared.saveContext()

@@ -80,9 +80,7 @@ class NewGameViewController: UIViewController {
         // 同步模版
 
         syncTemplates() { [weak self] in
-
             guard let s = self else { return }
-
             s.loadTemplates() {
                 s.templatesCollectionView.reloadData()
             }
