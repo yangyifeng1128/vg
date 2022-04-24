@@ -202,9 +202,9 @@ extension TrackItemContentView {
         // 创建并执行一个新的图像生成器工作项
 
         let workItem = DispatchWorkItem { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
             defer { // 该工作项执行完成以后，将其移除
-                strongSelf.loadThumbImageWorkItemDict.removeValue(forKey: index)
+                s.loadThumbImageWorkItemDict.removeValue(forKey: index)
             }
             var cancel: Bool = true
             DispatchQueue.main.sync {

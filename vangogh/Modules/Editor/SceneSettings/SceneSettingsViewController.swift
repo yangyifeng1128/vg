@@ -297,17 +297,17 @@ extension SceneSettingsViewController {
 
         alert.addTextField { [weak self] textField in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
-            textField.text = strongSelf.gameBundle.selectedScene()?.title
+            textField.text = s.gameBundle.selectedScene()?.title
             textField.returnKeyType = .done
             textField.delegate = self
         }
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             guard let title = alert.textFields?.first?.text, !title.isEmpty else {
                 let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
@@ -317,13 +317,13 @@ extension SceneSettingsViewController {
 
             // 保存「当前选中场景」的标题
 
-            guard let scene = strongSelf.gameBundle.selectedScene() else { return }
+            guard let scene = s.gameBundle.selectedScene() else { return }
             scene.title = title
-            strongSelf.gameBundle.updateScene(scene)
+            s.gameBundle.updateScene(scene)
             DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                MetaGameBundleManager.shared.save(s.gameBundle)
             }
-            strongSelf.settingsTableView.reloadData()
+            s.settingsTableView.reloadData()
             GameboardViewExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid) // 保存「作品板视图外部变更记录字典」
         })
 
@@ -343,12 +343,12 @@ extension SceneSettingsViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         for aspectRatioType in MetaSceneAspectRatioType.allCases {
             alert.addAction(UIAlertAction(title: aspectRatioType.rawValue, style: .default) { [weak self] _ in
-                guard let strongSelf = self else { return }
-                strongSelf.sceneBundle.aspectRatioType = aspectRatioType
+                guard let s = self else { return }
+                s.sceneBundle.aspectRatioType = aspectRatioType
                 DispatchQueue.global(qos: .background).async {
-                    MetaSceneBundleManager.shared.save(strongSelf.sceneBundle)
+                    MetaSceneBundleManager.shared.save(s.sceneBundle)
                 }
-                strongSelf.settingsTableView.reloadData()
+                s.settingsTableView.reloadData()
             })
         }
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in

@@ -596,8 +596,8 @@ extension TimelineView {
         // 添加调整布局动画
 
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.layoutIfNeeded()
+            guard let s = self else { return }
+            s.layoutIfNeeded()
         }, completion: nil)
     }
 }
@@ -737,8 +737,8 @@ extension TimelineView: UIScrollViewDelegate {
 
         let contentOffsetX: CGFloat = calculateContentOffsetX(at: time).0
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.contentViewContainer.contentOffset = CGPoint(x: contentOffsetX, y: 0)
+            guard let s = self else { return }
+            s.contentViewContainer.contentOffset = CGPoint(x: contentOffsetX, y: 0)
         }, completion: nil)
 
         // 更新当前屏幕可视范围内的轨道项视图的缩略图视图
@@ -932,8 +932,8 @@ extension TimelineView {
             // 添加调整布局动画
 
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.layoutIfNeeded()
+                guard let s = self else { return }
+                s.layoutIfNeeded()
             }, completion: nil)
         }
     }
@@ -966,8 +966,8 @@ extension TimelineView {
             // 添加调整布局动画
 
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.layoutIfNeeded()
+                guard let s = self else { return }
+                s.layoutIfNeeded()
             }, completion: nil)
         }
     }
@@ -1016,8 +1016,8 @@ extension TimelineView {
         // 添加调整布局动画
 
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.layoutIfNeeded()
+            guard let s = self else { return }
+            s.layoutIfNeeded()
         }, completion: nil)
     }
 }

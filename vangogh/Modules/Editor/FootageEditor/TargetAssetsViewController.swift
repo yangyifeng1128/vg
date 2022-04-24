@@ -359,30 +359,30 @@ extension TargetAssetsViewController: PHPhotoLibraryChangeObserver {
 
         DispatchQueue.main.sync { [weak self] in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             // 重新获取素材
 
-            strongSelf.assets = changeDetails.fetchResultAfterChanges
+            s.assets = changeDetails.fetchResultAfterChanges
 
             if changeDetails.hasIncrementalChanges { // 如果存在增量更新
-                strongSelf.collectionView.performBatchUpdates({
+                s.collectionView.performBatchUpdates({
                     if let removed = changeDetails.removedIndexes, !removed.isEmpty {
-                        strongSelf.collectionView.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
+                        s.collectionView.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
                     }
                     if let inserted = changeDetails.insertedIndexes, !inserted.isEmpty {
-                        strongSelf.collectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
+                        s.collectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
                     }
                     changeDetails.enumerateMoves { fromIndex, toIndex in
-                        strongSelf.collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0), to: IndexPath(item: toIndex, section: 0))
+                        s.collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0), to: IndexPath(item: toIndex, section: 0))
                     }
                 })
                 // We are reloading items after the batch update since `PHFetchResultChangeDetails.changedIndexes` refers to items in the *after* state and not the *before* state as expected by `performBatchUpdates(_:completion:)`
                 if let changed = changeDetails.changedIndexes, !changed.isEmpty {
-                    strongSelf.collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
+                    s.collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
                 }
             } else {
-                strongSelf.collectionView.reloadData()
+                s.collectionView.reloadData()
             }
 
             // 重置缓存素材

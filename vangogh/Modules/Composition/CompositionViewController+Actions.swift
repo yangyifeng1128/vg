@@ -14,23 +14,23 @@ extension CompositionViewController {
 
     @objc func settingsButtonDidTap() {
 
-        // 显示应用程序设置
+        // 进入「应用程序设置」
 
-        showAppSettings()
+        pushAppSettingsVC()
     }
 
     @objc func composeButtonDidTap() {
 
-        // 开始创作
+        // 进入「新建作品视图」
 
-        compose()
+        pushNewGameVC()
     }
 
     @objc func moreButtonDidTap(sender: UIButton) {
 
-        // 显示更多关于作品
+        // 显示更多关于草稿
 
-        showMoreAboutGame(sender: sender)
+        showMoreAboutDraft(sender: sender)
     }
 }
 
@@ -52,8 +52,8 @@ extension CompositionViewController {
         let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: GKC.agreementsSigned)
         if !agreementsSigned {
             DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.showAgreements()
+                guard let s = self else { return }
+                s.showAgreements()
             }
         }
     }
@@ -69,8 +69,8 @@ extension CompositionViewController {
         present(agreementsNav, animated: true, completion: nil)
     }
 
-    /// 显示应用程序设置
-    func showAppSettings() {
+    /// 进入「应用程序设置」
+    func pushAppSettingsVC() {
 
         let settingsVC: AppSettingsViewController = AppSettingsViewController()
         settingsVC.hidesBottomBarWhenPushed = true
@@ -78,8 +78,8 @@ extension CompositionViewController {
         navigationController?.pushViewController(settingsVC, animated: true)
     }
 
-    /// 开始创作
-    func compose() {
+    /// 进入「新建作品视图」
+    func pushNewGameVC() {
 
         let newGameVC: NewGameViewController = NewGameViewController(games: drafts)
         newGameVC.hidesBottomBarWhenPushed = true
@@ -87,8 +87,8 @@ extension CompositionViewController {
         navigationController?.pushViewController(newGameVC, animated: true)
     }
 
-    /// 打开作品编辑器
-    func openGameEditor(game: MetaGame) {
+    /// 进入「作品编辑器」
+    func pushGameEditorVC(game: MetaGame) {
 
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: game.uuid) else { return }
 
@@ -98,8 +98,8 @@ extension CompositionViewController {
         navigationController?.pushViewController(gameEditorVC, animated: true)
     }
 
-    /// 显示更多关于作品
-    func showMoreAboutGame(sender: UIButton) {
+    /// 显示更多关于草稿
+    func showMoreAboutDraft(sender: UIButton) {
 
         let index: Int = sender.tag
         let draft: MetaGame = drafts[index]
@@ -110,11 +110,11 @@ extension CompositionViewController {
 
         // 编辑草稿标题
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
+        let editDraftTitleAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
-            // 弹出编辑草稿标题提示框
+            // 弹出「编辑草稿标题提示框」
 
             let editDraftTitleAlert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
             editDraftTitleAlert.addTextField { textField in
@@ -124,7 +124,7 @@ extension CompositionViewController {
                 textField.delegate = self
             }
 
-            editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
+            let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
                 guard let title = editDraftTitleAlert.textFields?.first?.text, !title.isEmpty else {
                     let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
                     toast.show()
@@ -132,38 +132,45 @@ extension CompositionViewController {
                 }
                 draft.title = title
                 CoreDataManager.shared.saveContext()
-                strongSelf.draftsTableView.reloadData()
-            })
+                s.draftsTableView.reloadData()
+            }
+            editDraftTitleAlert.addAction(confirmAction)
 
-            editDraftTitleAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-            })
+            let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            }
+            editDraftTitleAlert.addAction(cancelAction)
 
-            strongSelf.present(editDraftTitleAlert, animated: true, completion: nil)
-        })
+            s.present(editDraftTitleAlert, animated: true, completion: nil)
+        }
+        alert.addAction(editDraftTitleAction)
 
         // 删除草稿
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
+        let deleteDraftAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
-            // 弹出删除草稿提示框
+            // 弹出「删除草稿提示框」
 
             let deleteDraftAlert = UIAlertController(title: NSLocalizedString("DeleteGame", comment: ""), message: NSLocalizedString("DeleteGameInfo", comment: ""), preferredStyle: .alert)
 
-            deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
-                strongSelf.deleteDraft(index: index)
-                strongSelf.reloadDraftsTableView()
-            })
+            let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
+                s.deleteDraft(index: index)
+                s.reloadDraftsTableView()
+            }
+            deleteDraftAlert.addAction(confirmAction)
 
-            deleteDraftAlert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-            })
+            let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            }
+            deleteDraftAlert.addAction(cancelAction)
 
-            strongSelf.present(deleteDraftAlert, animated: true, completion: nil)
-        })
+            s.present(deleteDraftAlert, animated: true, completion: nil)
+        }
+        alert.addAction(deleteDraftAction)
 
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        })
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
 
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = sender
@@ -179,12 +186,9 @@ extension CompositionViewController {
         draftsTableView.reloadData()
 
         if !drafts.isEmpty {
-
             draftsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             draftsView.isHidden = false
-
         } else {
-
             draftsView.isHidden = true
         }
     }
@@ -193,6 +197,7 @@ extension CompositionViewController {
 extension CompositionViewController: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
         guard let text = textField.text else { return true }
         if range.length + range.location > text.count { return false }
         let newLength = text.count + string.count - range.length

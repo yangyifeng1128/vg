@@ -217,9 +217,9 @@ extension CompositionViewController: UITableViewDelegate {
 
             guard let s = self else { return }
 
-            // 打开作品编辑器
+            // 进入「作品编辑器」
 
-            s.openGameEditor(game: draft)
+            s.pushGameEditorVC(game: draft)
             Logger.composition.info("loaded draft: \(draft.title)")
         }
     }

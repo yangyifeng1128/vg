@@ -174,8 +174,8 @@ class TargetScenesViewController: UIViewController {
         startSceneView.contentMode = .scaleAspectFill
         startSceneView.image = .sceneBackgroundThumb
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: strongSelf.selectedScene.uuid, gameUUID: strongSelf.gameBundle.uuid) {
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: s.selectedScene.uuid, gameUUID: s.gameBundle.uuid) {
                 DispatchQueue.main.async {
                     startSceneView.image = thumbImage
                 }
@@ -325,8 +325,8 @@ extension TargetScenesViewController: UITableViewDataSource {
         // 准备缩略图视图
 
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: targetScene.uuid, gameUUID: strongSelf.gameBundle.uuid) {
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: targetScene.uuid, gameUUID: s.gameBundle.uuid) {
                 DispatchQueue.main.async {
                     cell.thumbImageView.image = thumbImage
                 }
@@ -425,8 +425,8 @@ extension TargetScenesViewController {
         if let transition = gameBundle.addTransition(from: gameBundle.selectedSceneIndex, to: targetSceneIndex, conditions: conditions) {
 
             DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let strongSelf = self else { return }
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle) // 保存新建的穿梭器
+                guard let s = self else { return }
+                MetaGameBundleManager.shared.save(s.gameBundle) // 保存新建的穿梭器
             }
 
             GameboardViewExternalChangeManager.shared.set(key: .addTransition, value: transition) // 保存「作品板视图外部变更记录字典」

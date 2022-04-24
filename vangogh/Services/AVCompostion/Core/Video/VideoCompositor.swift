@@ -18,19 +18,19 @@ open class VideoCompositor: NSObject, AVFoundation.AVVideoCompositing {
 
     public var sourcePixelBufferAttributes: [String: Any]? =
         [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
-        String(kCVPixelBufferOpenGLESCompatibilityKey): true,
-        String(kCVPixelBufferMetalCompatibilityKey): true]
+         String(kCVPixelBufferOpenGLESCompatibilityKey): true,
+         String(kCVPixelBufferMetalCompatibilityKey): true]
 
     public var requiredPixelBufferAttributesForRenderContext: [String: Any] =
         [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
-        String(kCVPixelBufferOpenGLESCompatibilityKey): true,
-        String(kCVPixelBufferMetalCompatibilityKey): true]
+         String(kCVPixelBufferOpenGLESCompatibilityKey): true,
+         String(kCVPixelBufferMetalCompatibilityKey): true]
 
     open func renderContextChanged(_ newRenderContext: AVVideoCompositionRenderContext) {
         renderContextQueue.sync(execute: { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.renderContext = newRenderContext
-            strongSelf.renderContextDidChange = true
+            guard let s = self else { return }
+            s.renderContext = newRenderContext
+            s.renderContextDidChange = true
         })
     }
 
@@ -41,12 +41,12 @@ open class VideoCompositor: NSObject, AVFoundation.AVVideoCompositing {
     open func startRequest(_ request: AVAsynchronousVideoCompositionRequest) {
 
         renderingQueue.async(execute: { [weak self] in
-            guard let strongSelf = self else { return }
-            if strongSelf.shouldCancelAllRequests {
+            guard let s = self else { return }
+            if s.shouldCancelAllRequests {
                 request.finishCancelledRequest()
             } else {
                 autoreleasepool {
-                    if let resultPixels = strongSelf.newRenderedPixelBufferForRequest(request: request) {
+                    if let resultPixels = s.newRenderedPixelBufferForRequest(request: request) {
                         request.finish(withComposedVideoFrame: resultPixels)
                     } else {
                         request.finish(with: PixelBufferRequestError.newRenderedPixelBufferForRequestFailure)
@@ -60,8 +60,8 @@ open class VideoCompositor: NSObject, AVFoundation.AVVideoCompositing {
 
         shouldCancelAllRequests = true
         renderingQueue.async(flags: .barrier) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.shouldCancelAllRequests = false
+            guard let s = self else { return }
+            s.shouldCancelAllRequests = false
         }
     }
 

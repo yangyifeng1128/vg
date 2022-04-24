@@ -54,19 +54,19 @@ public class PHAssetTrackResource: AVAssetTrackResource {
         }
 
         let requestID = PHImageManager.default().requestAVAsset(forVideo: phasset, options: options) { [weak self] asset, audioMix, info in
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
             if let asset = asset {
-                strongSelf.duration = asset.duration
-                strongSelf.asset = asset
+                s.duration = asset.duration
+                s.asset = asset
                 if let track = asset.tracks(withMediaType: .video).first {
-                    strongSelf.size = track.naturalSize.applying(track.preferredTransform)
+                    s.size = track.naturalSize.applying(track.preferredTransform)
                 }
-                strongSelf.status = .avaliable
+                s.status = .avaliable
             } else {
-                strongSelf.status = .unavaliable
+                s.status = .unavaliable
             }
             DispatchQueue.main.async {
-                completion(strongSelf.status, nil)
+                completion(s.status, nil)
             }
         }
 

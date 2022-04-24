@@ -114,9 +114,9 @@ class GameEditorViewController: UIViewController {
     private func loadSceneThumbImages() {
 
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            for sceneView in strongSelf.sceneViewList {
-                let url = MetaThumbManager.shared.getThumbImageFileURL(uuid: sceneView.scene.uuid, gameUUID: strongSelf.gameBundle.uuid)
+            guard let s = self else { return }
+            for sceneView in s.sceneViewList {
+                let url = MetaThumbManager.shared.getThumbImageFileURL(uuid: sceneView.scene.uuid, gameUUID: s.gameBundle.uuid)
                 if FileManager.default.fileExists(atPath: url.path) {
                     DispatchQueue.main.async {
                         sceneView.thumbImageView.kf.setImage(with: url)
@@ -182,8 +182,8 @@ class GameEditorViewController: UIViewController {
     private func saveGameBundle() {
 
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+            guard let s = self else { return }
+            MetaGameBundleManager.shared.save(s.gameBundle)
         }
     }
 
@@ -466,8 +466,8 @@ extension GameEditorViewController: UIScrollViewDelegate {
 
         gameBundle.contentOffset = contentOffset
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+            guard let s = self else { return }
+            MetaGameBundleManager.shared.save(s.gameBundle)
         }
     }
 
@@ -621,8 +621,8 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
 
         gameBundle.updateScene(scene)
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+            guard let s = self else { return }
+            MetaGameBundleManager.shared.save(s.gameBundle)
         }
     }
 
@@ -639,17 +639,17 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
         // 编辑场景标题
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
             // 弹出编辑场景标题提示框
-            strongSelf.editSceneTitle()
+            s.editSceneTitle()
         })
 
         // 删除场景
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
             // 弹出删除场景提示框
-            strongSelf.deleteScene()
+            s.deleteScene()
         })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
@@ -801,8 +801,8 @@ extension GameEditorViewController {
             }
             if animated {
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.view.layoutIfNeeded()
+                    guard let s = self else { return }
+                    s.view.layoutIfNeeded()
                 }, completion: nil)
             } else {
                 view.layoutIfNeeded()
@@ -836,14 +836,14 @@ extension GameEditorViewController {
             // 显示操作栏视图，包括「添加穿梭器示意图」视图
 
             DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let strongSelf = self else { return }
-                if let sceneView = sceneView, let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: strongSelf.gameBundle.uuid) {
+                guard let s = self else { return }
+                if let sceneView = sceneView, let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: s.gameBundle.uuid) {
                     DispatchQueue.main.async {
-                        strongSelf.addTransitionDiagramView.startSceneView.image = thumbImage
+                        s.addTransitionDiagramView.startSceneView.image = thumbImage
                     }
                 } else {
                     DispatchQueue.main.async {
-                        strongSelf.addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
+                        s.addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
                     }
                 }
             }
@@ -872,8 +872,8 @@ extension GameEditorViewController {
                 }
                 if animated {
                     UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-                        guard let strongSelf = self else { return }
-                        strongSelf.view.layoutIfNeeded()
+                        guard let s = self else { return }
+                        s.view.layoutIfNeeded()
                     }, completion: nil)
                 } else {
                     view.layoutIfNeeded()
@@ -896,8 +896,8 @@ extension GameEditorViewController {
                 }
                 if animated {
                     UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-                        guard let strongSelf = self else { return }
-                        strongSelf.view.layoutIfNeeded()
+                        guard let s = self else { return }
+                        s.view.layoutIfNeeded()
                     }, completion: nil)
                 } else {
                     view.layoutIfNeeded()
@@ -941,8 +941,8 @@ extension GameEditorViewController {
 
             gameBundle.selectedSceneIndex = 0
             DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let strongSelf = self else { return }
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                guard let s = self else { return }
+                MetaGameBundleManager.shared.save(s.gameBundle)
             }
         }
     }
@@ -1059,8 +1059,8 @@ extension GameEditorViewController {
 
         gameBundle.contentOffset = contentOffset
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+            guard let s = self else { return }
+            MetaGameBundleManager.shared.save(s.gameBundle)
         }
     }
 }
@@ -1139,8 +1139,8 @@ extension GameEditorViewController {
 
         let scene = gameBundle.addScene(center: center)
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+            guard let s = self else { return }
+            MetaGameBundleManager.shared.save(s.gameBundle)
         }
 
         let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
@@ -1169,8 +1169,8 @@ extension GameEditorViewController {
 
         gameBundle.selectedSceneIndex = sceneView.scene.index
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+            guard let s = self else { return }
+            MetaGameBundleManager.shared.save(s.gameBundle)
         }
 
         // 重置底部视图
@@ -1237,65 +1237,65 @@ extension GameEditorViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             // 获取「当前选中场景」的索引和 UUID
 
-            let selectedSceneIndex = strongSelf.gameBundle.selectedSceneIndex
-            guard let selectedScene = strongSelf.gameBundle.selectedScene() else { return }
+            let selectedSceneIndex = s.gameBundle.selectedSceneIndex
+            guard let selectedScene = s.gameBundle.selectedScene() else { return }
             let selectedSceneUUID = selectedScene.uuid
 
             // 删除「当前选中场景」相关的全部穿梭器视图
 
-            for (i, transitionView) in strongSelf.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+            for (i, transitionView) in s.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
 
                 if transitionView.startScene.index == selectedSceneIndex {
 
                     // 取消高亮显示「当前选中穿梭器」相关的「结束场景」视图
 
-                    let endSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
+                    let endSceneView = s.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
                     endSceneView?.unhighlight()
 
                     // 删除「当前选中穿梭器」
 
                     transitionView.removeFromSuperview()
-                    strongSelf.transitionViewList.remove(at: i)
+                    s.transitionViewList.remove(at: i)
 
                 } else if transitionView.endScene.index == selectedSceneIndex {
 
                     // 取消高亮显示「当前选中穿梭器」相关的「开始场景」视图
 
-                    let startSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.startScene.index })
+                    let startSceneView = s.sceneViewList.first(where: { $0.scene.index == transitionView.startScene.index })
                     startSceneView?.unhighlight()
 
                     // 删除「当前选中穿梭器」
 
                     transitionView.removeFromSuperview()
-                    strongSelf.transitionViewList.remove(at: i)
+                    s.transitionViewList.remove(at: i)
                 }
             }
 
             // 删除「当前选中场景」视图
 
-            for (i, sceneView) in strongSelf.sceneViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+            for (i, sceneView) in s.sceneViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
                 if sceneView.scene.index == selectedSceneIndex {
                     sceneView.removeFromSuperview()
-                    strongSelf.sceneViewList.remove(at: i)
+                    s.sceneViewList.remove(at: i)
                     break // 找到就退出
                 }
             }
 
             // 保存「删除场景」信息
 
-            strongSelf.gameBundle.deleteSelectedScene()
+            s.gameBundle.deleteSelectedScene()
             DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-                MetaSceneBundleManager.shared.delete(sceneUUID: selectedSceneUUID, gameUUID: strongSelf.gameBundle.uuid)
+                MetaGameBundleManager.shared.save(s.gameBundle)
+                MetaSceneBundleManager.shared.delete(sceneUUID: selectedSceneUUID, gameUUID: s.gameBundle.uuid)
             }
 
             // 重置底部视图
 
-            strongSelf.resetBottomView(sceneSelected: false, animated: true)
+            s.resetBottomView(sceneSelected: false, animated: true)
         })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
@@ -1312,17 +1312,17 @@ extension GameEditorViewController {
 
         alert.addTextField { [weak self] textField in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
-            textField.text = strongSelf.gameBundle.selectedScene()?.title
+            textField.text = s.gameBundle.selectedScene()?.title
             textField.returnKeyType = .done
             textField.delegate = self
         }
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             guard let title = alert.textFields?.first?.text, !title.isEmpty else {
                 let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
@@ -1332,20 +1332,20 @@ extension GameEditorViewController {
 
             // 保存「当前选中场景」的标题
 
-            guard let scene = strongSelf.gameBundle.selectedScene() else { return }
+            guard let scene = s.gameBundle.selectedScene() else { return }
             scene.title = title
-            strongSelf.gameBundle.updateScene(scene)
+            s.gameBundle.updateScene(scene)
             DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                MetaGameBundleManager.shared.save(s.gameBundle)
             }
 
             // 重置底部视图
 
-            strongSelf.resetBottomView(sceneSelected: true, animated: true)
+            s.resetBottomView(sceneSelected: true, animated: true)
 
             // 更新「当前选中场景」视图的标题标签
 
-            let sceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == strongSelf.gameBundle.selectedSceneIndex })
+            let sceneView = s.sceneViewList.first(where: { $0.scene.index == s.gameBundle.selectedSceneIndex })
             sceneView?.updateTitleLabelAttributedText()
         })
 
@@ -1397,9 +1397,9 @@ extension GameEditorViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
-            for (i, transitionView) in strongSelf.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+            for (i, transitionView) in s.transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
 
                 if transitionView.startScene.index == transition.from &&
                     transitionView.endScene.index == transition.to {
@@ -1407,15 +1407,15 @@ extension GameEditorViewController {
                     // 删除「待删除穿梭器」视图
 
                     transitionView.removeFromSuperview()
-                    strongSelf.transitionViewList.remove(at: i)
+                    s.transitionViewList.remove(at: i)
 
                     // 取消高亮显示「待删除穿梭器」相关的「结束场景」视图
 
-                    let oppositeTransitionView = strongSelf.transitionViewList.first(where: {
+                    let oppositeTransitionView = s.transitionViewList.first(where: {
                         $0.startScene.index == transition.to && $0.endScene.index == transition.from
                     }) // 如果存在反向的穿梭器，就不需要取消高亮显示「结束场景」视图了
                     if oppositeTransitionView == nil {
-                        let endSceneView = strongSelf.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
+                        let endSceneView = s.sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
                         endSceneView?.unhighlight()
                     }
                 }
@@ -1423,9 +1423,9 @@ extension GameEditorViewController {
 
             // 保存「删除穿梭器」信息
 
-            strongSelf.gameBundle.deleteTransition(transition)
+            s.gameBundle.deleteTransition(transition)
             DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(strongSelf.gameBundle)
+                MetaGameBundleManager.shared.save(s.gameBundle)
             }
 
             // 完成之后的回调

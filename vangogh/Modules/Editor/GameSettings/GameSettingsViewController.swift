@@ -265,23 +265,23 @@ extension GameSettingsViewController {
 
     private func editGameTitle(sourceView: UIView) {
 
-        // 弹出编辑作品标题提示框
+        // 弹出「编辑作品标题提示框」
 
         let alert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
 
         alert.addTextField { [weak self] textField in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
-            textField.text = strongSelf.game.title
+            textField.text = s.game.title
             textField.returnKeyType = .done
             textField.delegate = self
         }
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             guard let title = alert.textFields?.first?.text, !title.isEmpty else {
                 let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
@@ -291,9 +291,9 @@ extension GameSettingsViewController {
 
             // 保存作品标题
 
-            strongSelf.game.title = title
+            s.game.title = title
             CoreDataManager.shared.saveContext()
-            strongSelf.settingsTableView.reloadData()
+            s.settingsTableView.reloadData()
             GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
         })
 
@@ -314,10 +314,8 @@ extension GameSettingsViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
         guard let text = textField.text else { return true }
-
         if range.length + range.location > text.count { return false }
         let newLength = text.count + string.count - range.length
-
         return newLength <= 255
     }
 }

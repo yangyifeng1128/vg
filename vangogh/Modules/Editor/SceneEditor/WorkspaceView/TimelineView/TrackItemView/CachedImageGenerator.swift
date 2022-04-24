@@ -37,8 +37,8 @@ class CachedImageGenerator: AVAssetImageGenerator {
 
         cache.limitCount = 1024
         memoryWarningObserver = NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: self, queue: OperationQueue.main) { [weak self] notification in
-            guard let strongSelf = self else { return }
-            strongSelf.cache.clear()
+            guard let s = self else { return }
+            s.cache.clear()
         }
     }
 

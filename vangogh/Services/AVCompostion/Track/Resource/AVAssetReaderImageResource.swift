@@ -95,7 +95,7 @@ open class AVAssetReaderImageResource: ImageResource {
 
         let outputSettings: [String: Any] =
             [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
-            String(kCVPixelBufferOpenGLESCompatibilityKey): true]
+             String(kCVPixelBufferOpenGLESCompatibilityKey): true]
         let trackOutput: AVAssetReaderOutput = {
             if let videoComposition = self.videoComposition {
                 let tracks = asset.tracks(withMediaType: .video)
@@ -139,37 +139,37 @@ open class AVAssetReaderImageResource: ImageResource {
 
             asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"], completionHandler: { [weak self] in
 
-                    guard let strongSelf = self else { return }
+                guard let s = self else { return }
 
-                    defer {
-                        if !asset.tracks.isEmpty {
-                            if let track = asset.tracks(withMediaType: .video).first {
-                                strongSelf.size = track.naturalSize.applying(track.preferredTransform)
-                            }
-                            strongSelf.status = .avaliable
-                            strongSelf.duration = asset.duration
+                defer {
+                    if !asset.tracks.isEmpty {
+                        if let track = asset.tracks(withMediaType: .video).first {
+                            s.size = track.naturalSize.applying(track.preferredTransform)
                         }
-                        DispatchQueue.main.async {
-                            completion(strongSelf.status, strongSelf.statusError)
-                        }
+                        s.status = .avaliable
+                        s.duration = asset.duration
                     }
+                    DispatchQueue.main.async {
+                        completion(s.status, s.statusError)
+                    }
+                }
 
-                    var error: NSError?
-                    let tracksStatus = asset.statusOfValue(forKey: "tracks", error: &error)
-                    if tracksStatus != .loaded {
-                        strongSelf.statusError = error
-                        strongSelf.status = .unavaliable
-                        Log.error("Failed to load tracks, status: \(tracksStatus), error: \(String(describing: error))")
-                        return
-                    }
-                    let durationStatus = asset.statusOfValue(forKey: "duration", error: &error)
-                    if durationStatus != .loaded {
-                        strongSelf.statusError = error
-                        strongSelf.status = .unavaliable
-                        Log.error("Failed to duration tracks, status: \(tracksStatus), error: \(String(describing: error))")
-                        return
-                    }
-                })
+                var error: NSError?
+                let tracksStatus = asset.statusOfValue(forKey: "tracks", error: &error)
+                if tracksStatus != .loaded {
+                    s.statusError = error
+                    s.status = .unavaliable
+                    Log.error("Failed to load tracks, status: \(tracksStatus), error: \(String(describing: error))")
+                    return
+                }
+                let durationStatus = asset.statusOfValue(forKey: "duration", error: &error)
+                if durationStatus != .loaded {
+                    s.statusError = error
+                    s.status = .unavaliable
+                    Log.error("Failed to duration tracks, status: \(tracksStatus), error: \(String(describing: error))")
+                    return
+                }
+            })
 
             return ResourceTask.init(cancel: {
                 asset.cancelLoading()

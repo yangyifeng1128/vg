@@ -74,8 +74,8 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.asyncAfter(
                 deadline: .now(),
                 execute: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.presentAgreementsViewController()
+                    guard let s = self else { return }
+                    s.presentAgreementsViewController()
                 }
             )
         }

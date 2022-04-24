@@ -178,8 +178,8 @@ class TransitionEditorViewController: UIViewController {
         startSceneView.contentMode = .scaleAspectFill
         startSceneView.image = .sceneBackgroundThumb
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: strongSelf.startScene.uuid, gameUUID: strongSelf.gameBundle.uuid) {
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: s.startScene.uuid, gameUUID: s.gameBundle.uuid) {
                 DispatchQueue.main.async {
                     startSceneView.image = thumbImage
                 }
@@ -231,8 +231,8 @@ class TransitionEditorViewController: UIViewController {
         endSceneView.contentMode = .scaleAspectFill
         endSceneView.image = .sceneBackgroundThumb
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: strongSelf.endScene.uuid, gameUUID: strongSelf.gameBundle.uuid) {
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: s.endScene.uuid, gameUUID: s.gameBundle.uuid) {
                 DispatchQueue.main.async {
                     endSceneView.image = thumbImage
                 }
@@ -493,23 +493,23 @@ extension TransitionEditorViewController {
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
-                guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
-                // 保存「删除条件」信息
+            // 保存「删除条件」信息
 
-                strongSelf.gameBundle.deleteCondition(transition: strongSelf.transition, condition: condition)
-                DispatchQueue.global(qos: .background).async {
-                    MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-                }
+            s.gameBundle.deleteCondition(transition: s.transition, condition: condition)
+            DispatchQueue.global(qos: .background).async {
+                MetaGameBundleManager.shared.save(s.gameBundle)
+            }
 
-                // 重新加载条件
+            // 重新加载条件
 
-                strongSelf.conditions = strongSelf.transition.conditions
-                strongSelf.conditionsTableView.reloadData()
-            })
+            s.conditions = s.transition.conditions
+            s.conditionsTableView.reloadData()
+        })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-            })
+        })
 
         present(alert, animated: true, completion: nil)
     }

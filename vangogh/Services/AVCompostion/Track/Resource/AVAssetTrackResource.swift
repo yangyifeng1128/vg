@@ -39,43 +39,43 @@ public class AVAssetTrackResource: Resource {
 
             asset.loadValuesAsynchronously(forKeys: ["tracks", "duration"], completionHandler: { [weak self] in
 
-                    guard let strongSelf = self else { return }
+                guard let s = self else { return }
 
-                    func finished() {
-                        if !asset.tracks.isEmpty {
-                            if let track = asset.tracks(withMediaType: .video).first {
-                                strongSelf.size = track.naturalSize.applying(track.preferredTransform)
-                            }
-                            strongSelf.status = .avaliable
-                            strongSelf.duration = asset.duration
+                func finished() {
+                    if !asset.tracks.isEmpty {
+                        if let track = asset.tracks(withMediaType: .video).first {
+                            s.size = track.naturalSize.applying(track.preferredTransform)
                         }
-                        DispatchQueue.main.async {
-                            completion(strongSelf.status, strongSelf.statusError)
-                        }
+                        s.status = .avaliable
+                        s.duration = asset.duration
                     }
-
-                    var error: NSError?
-
-                    let tracksStatus = asset.statusOfValue(forKey: "tracks", error: &error)
-                    if tracksStatus != .loaded {
-                        strongSelf.statusError = error
-                        strongSelf.status = .unavaliable
-                        Log.error("Failed to load tracks, status: \(tracksStatus), error: \(String(describing: error))")
-                        finished()
-                        return
+                    DispatchQueue.main.async {
+                        completion(s.status, s.statusError)
                     }
+                }
 
-                    let durationStatus = asset.statusOfValue(forKey: "duration", error: &error)
-                    if durationStatus != .loaded {
-                        strongSelf.statusError = error
-                        strongSelf.status = .unavaliable
-                        Log.error("Failed to duration tracks, status: \(tracksStatus), error: \(String(describing: error))")
-                        finished()
-                        return
-                    }
+                var error: NSError?
 
+                let tracksStatus = asset.statusOfValue(forKey: "tracks", error: &error)
+                if tracksStatus != .loaded {
+                    s.statusError = error
+                    s.status = .unavaliable
+                    Log.error("Failed to load tracks, status: \(tracksStatus), error: \(String(describing: error))")
                     finished()
-                })
+                    return
+                }
+
+                let durationStatus = asset.statusOfValue(forKey: "duration", error: &error)
+                if durationStatus != .loaded {
+                    s.statusError = error
+                    s.status = .unavaliable
+                    Log.error("Failed to duration tracks, status: \(tracksStatus), error: \(String(describing: error))")
+                    finished()
+                    return
+                }
+
+                finished()
+            })
 
             return ResourceTask.init(cancel: {
                 asset.cancelLoading()
@@ -113,8 +113,8 @@ public class AVAssetTrackResource: Resource {
 
         let track = tracks(for: type)[index]
         return ResourceTrackInfo(track: track,
-            selectedTimeRange: selectedTimeRange,
-            scaleToDuration: scaledDuration)
+                                 selectedTimeRange: selectedTimeRange,
+                                 scaleToDuration: scaledDuration)
     }
 
     override public func copy(with zone: NSZone? = nil) -> Any {

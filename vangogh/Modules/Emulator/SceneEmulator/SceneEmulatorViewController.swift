@@ -143,10 +143,10 @@ class SceneEmulatorViewController: UIViewController {
     private func saveBundle() {
 
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.sceneBundle.currentTimeMilliseconds = strongSelf.currentTime.milliseconds() // 保存当前播放时刻
-            MetaGameBundleManager.shared.save(strongSelf.gameBundle)
-            MetaSceneBundleManager.shared.save(strongSelf.sceneBundle)
+            guard let s = self else { return }
+            s.sceneBundle.currentTimeMilliseconds = s.currentTime.milliseconds() // 保存当前播放时刻
+            MetaGameBundleManager.shared.save(s.gameBundle)
+            MetaSceneBundleManager.shared.save(s.sceneBundle)
         }
     }
 
@@ -394,44 +394,44 @@ extension SceneEmulatorViewController {
 
         DispatchQueue.global(qos: .background).async { [weak self] in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             // （重新）加载时间线
 
-            strongSelf.reloadTimeline()
+            s.reloadTimeline()
             DispatchQueue.main.sync {
-                strongSelf.loadingView.progress = 0.33
+                s.loadingView.progress = 0.33
             }
 
             // （重新）初始化播放器
 
-            let compositionGenerator = CompositionGenerator(timeline: strongSelf.timeline)
-            strongSelf.playerItem = compositionGenerator.buildPlayerItem()
+            let compositionGenerator = CompositionGenerator(timeline: s.timeline)
+            s.playerItem = compositionGenerator.buildPlayerItem()
 
-            if strongSelf.player == nil {
-                strongSelf.player = AVPlayer.init(playerItem: strongSelf.playerItem)
+            if s.player == nil {
+                s.player = AVPlayer.init(playerItem: s.playerItem)
                 try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // 如果手机处于静音模式，则打开音频播放
             } else {
-                strongSelf.removePeriodicTimeObserver() // 移除「周期时间」监听器
-                NotificationCenter.default.removeObserver(strongSelf) // 移除其他全部监听器
-                strongSelf.player.replaceCurrentItem(with: strongSelf.playerItem)
+                s.removePeriodicTimeObserver() // 移除「周期时间」监听器
+                NotificationCenter.default.removeObserver(s) // 移除其他全部监听器
+                s.player.replaceCurrentItem(with: s.playerItem)
             }
-            strongSelf.player.seek(to: CMTimeMake(value: strongSelf.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
-            strongSelf.addPeriodicTimeObserver() // 添加「周期时间」监听器
-            NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.playerItemDidPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: strongSelf.player.currentItem) // 添加「播放完毕」监听器
-            NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil) // 添加「进入后台」监听器
-            NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil) // 添加「进入前台」监听器
+            s.player.seek(to: CMTimeMake(value: s.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+            s.addPeriodicTimeObserver() // 添加「周期时间」监听器
+            NotificationCenter.default.addObserver(s, selector: #selector(s.playerItemDidPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: s.player.currentItem) // 添加「播放完毕」监听器
+            NotificationCenter.default.addObserver(s, selector: #selector(s.didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil) // 添加「进入后台」监听器
+            NotificationCenter.default.addObserver(s, selector: #selector(s.willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil) // 添加「进入前台」监听器
             DispatchQueue.main.sync {
-                strongSelf.loadingView.progress = 0.67
+                s.loadingView.progress = 0.67
             }
 
             // （重新）初始化界面
 
             DispatchQueue.main.async {
-                strongSelf.updatePlayerRelatedViews() // 更新播放器相关的界面
-                strongSelf.loadingView.stopAnimating() // 停止加载视图的加载动画
-                if !strongSelf.timeline.videoChannel.isEmpty {
-                    strongSelf.playOrPause() // 立即播放
+                s.updatePlayerRelatedViews() // 更新播放器相关的界面
+                s.loadingView.stopAnimating() // 停止加载视图的加载动画
+                if !s.timeline.videoChannel.isEmpty {
+                    s.playOrPause() // 立即播放
                 }
             }
         }
@@ -513,8 +513,8 @@ extension SceneEmulatorViewController {
 
         let interval: CMTime = CMTimeMake(value: 1, timescale: 100)
         periodicTimeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] currentTime in
-            guard let strongSelf = self else { return }
-            strongSelf.currentTime = currentTime
+            guard let s = self else { return }
+            s.currentTime = currentTime
         }
     }
 

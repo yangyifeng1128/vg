@@ -309,8 +309,8 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
         // 准备缩略图视图
 
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let strongSelf = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: strongSelf.gameBundle.uuid) {
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: s.gameBundle.uuid) {
                 DispatchQueue.main.async {
                     cell.endSceneThumbImageView.image = thumbImage
                 }
@@ -498,12 +498,12 @@ extension GameEditorSceneBottomView {
 
         delegate?.transitionWillDelete(transition, completion: { [weak self] in
 
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
 
             // 重新加载穿梭器
 
-            strongSelf.transitions = strongSelf.gameBundle.selectedTransitions()
-            strongSelf.transitionsTableView.reloadData()
+            s.transitions = s.gameBundle.selectedTransitions()
+            s.transitionsTableView.reloadData()
         })
     }
 }

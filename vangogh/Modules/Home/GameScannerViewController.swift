@@ -161,16 +161,16 @@ extension GameScannerViewController: QRScannerViewDelegate {
 
             // 重新扫描
 
-            guard let strongSelf = self else { return }
-            strongSelf.scannerView.rescan()
+            guard let s = self else { return }
+            s.scannerView.rescan()
         })
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { [weak self] _ in
 
             // 取消
 
-            guard let strongSelf = self else { return }
-            strongSelf.navigationController?.popViewController(animated: true)
+            guard let s = self else { return }
+            s.navigationController?.popViewController(animated: true)
         })
 
         present(alert, animated: true, completion: nil)

@@ -60,22 +60,22 @@ open class PHAssetImageResource: ImageResource {
         options.isNetworkAccessAllowed = true
         options.progressHandler = progressHandler
         let requestID = PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { [weak self] image, info in
-            guard let strongSelf = self else { return }
+            guard let s = self else { return }
             if let error = info?[PHImageErrorKey] as? NSError {
                 DispatchQueue.main.async {
-                    strongSelf.statusError = error
-                    strongSelf.status = .unavaliable
-                    completion(strongSelf.status, strongSelf.statusError)
+                    s.statusError = error
+                    s.status = .unavaliable
+                    completion(s.status, s.statusError)
                 }
                 return
             }
             DispatchQueue.main.async {
                 if let image = image {
-                    strongSelf.size = image.size
-                    strongSelf.image = CIImage(image: image)
+                    s.size = image.size
+                    s.image = CIImage(image: image)
                 }
-                strongSelf.status = .avaliable
-                completion(strongSelf.status, strongSelf.statusError)
+                s.status = .avaliable
+                completion(s.status, s.statusError)
             }
         }
 
