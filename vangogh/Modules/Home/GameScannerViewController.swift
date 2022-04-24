@@ -189,9 +189,8 @@ extension GameScannerViewController {
     //
     //
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[GameScanner] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

@@ -150,9 +150,8 @@ class PrivacyPolicyViewController: UIViewController {
 
 extension PrivacyPolicyViewController {
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[PrivacyPolicy] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

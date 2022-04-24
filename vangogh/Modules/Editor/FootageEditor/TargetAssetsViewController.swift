@@ -394,9 +394,8 @@ extension TargetAssetsViewController {
     //
     //
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[TargetAssets] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

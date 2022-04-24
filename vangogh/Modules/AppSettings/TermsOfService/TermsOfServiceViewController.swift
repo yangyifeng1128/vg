@@ -150,9 +150,8 @@ class TermsOfServiceViewController: UIViewController {
 
 extension TermsOfServiceViewController {
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[TermsOfService] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

@@ -150,9 +150,8 @@ class FeedbackViewController: UIViewController {
 
 extension FeedbackViewController {
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[Feedback] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

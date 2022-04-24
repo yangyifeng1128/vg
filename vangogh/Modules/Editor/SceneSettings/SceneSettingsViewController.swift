@@ -280,9 +280,8 @@ extension SceneSettingsViewController: UITableViewDelegate {
 
 extension SceneSettingsViewController {
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[SceneSettings] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }

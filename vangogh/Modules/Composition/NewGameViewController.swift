@@ -334,9 +334,8 @@ extension NewGameViewController {
     //
     //
 
+    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
-
-        print("[NewGame] did tap backButton")
 
         navigationController?.popViewController(animated: true)
     }
