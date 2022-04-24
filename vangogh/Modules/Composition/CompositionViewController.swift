@@ -30,7 +30,7 @@ class CompositionViewController: UIViewController {
     private var draftsTableView: UITableView!
 
     /// 草稿列表
-    private var drafts: [NSManagedObject] = [NSManagedObject]()
+    private var drafts: [MetaGame] = [MetaGame]()
     /// 「草稿已保存」消息
     var draftSavedMessage: String?
 
@@ -240,9 +240,8 @@ extension CompositionViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let game = drafts[indexPath.row] as? MetaGame else {
-            fatalError("Unexpected cell index")
-        }
+        let draft: MetaGame = drafts[indexPath.row]
+
         guard let cell = draftsTableView.dequeueReusableCell(withIdentifier: DraftTableViewCell.reuseId) as? DraftTableViewCell else {
             fatalError("Unexpected cell type")
         }
@@ -254,14 +253,14 @@ extension CompositionViewController: UITableViewDataSource {
 
         // 准备「标题标签」
 
-        cell.titleLabel.text = game.title
+        cell.titleLabel.text = draft.title
 
         // 准备「最近修改时间标签」
 
         let mtimeFormatter = DateFormatter()
         mtimeFormatter.dateStyle = .medium
         mtimeFormatter.timeStyle = .short
-        cell.mtimeLabel.text = mtimeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(game.mtime)))
+        cell.mtimeLabel.text = mtimeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(draft.mtime)))
 
         // 准备「缩略图视图」
 
@@ -284,7 +283,7 @@ extension CompositionViewController: UITableViewDelegate {
 
         // 获取当前选中的作品
 
-        guard let draft = drafts[indexPath.row] as? MetaGame else { return }
+        let draft: MetaGame = drafts[indexPath.row]
 
         // 保存最近修改时间
 
@@ -359,8 +358,8 @@ extension CompositionViewController {
 
     private func showMoreAboutGame(sender: UIButton) {
 
-        let index = sender.tag
-        guard let draft = drafts[index] as? MetaGame else { return }
+        let index: Int = sender.tag
+        let draft: MetaGame = drafts[index]
 
         // 弹出提示框
 
@@ -475,16 +474,16 @@ extension CompositionViewController {
 
     private func deleteGame(index: Int) {
 
-        guard let game = drafts[index] as? MetaGame else { return }
+        let draft: MetaGame = drafts[index]
 
-        MetaGameBundleManager.shared.delete(uuid: game.uuid)
+        MetaGameBundleManager.shared.delete(uuid: draft.uuid)
 
         drafts.remove(at: index)
         draftsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-        CoreDataManager.shared.persistentContainer.viewContext.delete(game)
+        CoreDataManager.shared.persistentContainer.viewContext.delete(draft)
         CoreDataManager.shared.saveContext()
 
-        Logger.composition.info("delete meta game at index \(index): ok")
+        Logger.composition.info("deleted meta game at index \(index): ok")
     }
 }
 

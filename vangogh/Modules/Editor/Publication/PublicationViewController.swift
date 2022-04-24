@@ -35,7 +35,7 @@ class PublicationViewController: UIViewController {
     private var archiveCollectionViewCellHeight: CGFloat!
 
     private var game: MetaGame! // 作品
-    private var archives: [NSManagedObject] = [NSManagedObject]() // 档案列表
+    private var archives: [MetaTemplate] = [MetaTemplate]() // 档案列表
 
     init(game: MetaGame) {
 
@@ -252,21 +252,20 @@ extension PublicationViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
+        let archive: MetaTemplate = archives[indexPath.item]
+
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArchiveCollectionViewCell.reuseId, for: indexPath) as? ArchiveCollectionViewCell else {
             fatalError("Unexpected cell type")
         }
 
-        if let archive = archives[indexPath.item] as? MetaTemplate {
+        // 准备「标题标签」
 
-            // 准备标题标签
+        cell.titleLabel.text = archive.title
 
-            cell.titleLabel.text = archive.title
+        // 准备「缩略图视图」
 
-            // 准备缩略图视图
-
-            let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(archive.thumbFileName)")!
-            cell.thumbImageView.kf.setImage(with: thumbURL)
-        }
+        let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(archive.thumbFileName)")!
+        cell.thumbImageView.kf.setImage(with: thumbURL)
 
         return cell
     }
@@ -276,10 +275,9 @@ extension PublicationViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        if let archive = archives[indexPath.item] as? MetaTemplate {
+        let archive: MetaTemplate = archives[indexPath.item]
 
-            print("[Publication] did use archive: \(archive.bundleFileName)")
-        }
+        print("[Publication] did use archive: \(archive.bundleFileName)")
     }
 }
 

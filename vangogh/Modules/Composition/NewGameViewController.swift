@@ -32,11 +32,11 @@ class NewGameViewController: UIViewController {
     private var templateCollectionViewCellWidth: CGFloat!
     private var templateCollectionViewCellHeight: CGFloat!
 
-    private var games: [NSManagedObject]! // 作品列表
-    private var templates: [NSManagedObject] = [NSManagedObject]() // 模版列表
+    private var games: [MetaGame]! // 作品列表
+    private var templates: [MetaTemplate] = [MetaTemplate]() // 模版列表
 
     /// 初始化
-    init(games: [NSManagedObject]) {
+    init(games: [MetaGame]) {
 
         super.init(nibName: nil, bundle: nil)
 
@@ -246,21 +246,20 @@ extension NewGameViewController: UICollectionViewDataSource {
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
+        let template: MetaTemplate = templates[indexPath.item]
+
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TemplateCollectionViewCell.reuseId, for: indexPath) as? TemplateCollectionViewCell else {
             fatalError("Unexpected cell type")
         }
 
-        if let template = templates[indexPath.item] as? MetaTemplate {
+        // 准备「标题标签」
 
-            // 准备标题标签
+        cell.titleLabel.text = template.title
 
-            cell.titleLabel.text = template.title
+        // 准备「缩略图视图」
 
-            // 准备缩略图视图
-
-            let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(template.thumbFileName)")!
-            cell.thumbImageView.kf.setImage(with: thumbURL)
-        }
+        let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(template.thumbFileName)")!
+        cell.thumbImageView.kf.setImage(with: thumbURL)
 
         return cell
     }
@@ -271,19 +270,18 @@ extension NewGameViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        if let template = templates[indexPath.item] as? MetaTemplate {
+        let template: MetaTemplate = templates[indexPath.item]
 
-            // 添加作品
+        // 添加作品
 
-            addGame { [weak self] game in
+        addGame { [weak self] game in
 
-                guard let s = self else { return }
+            guard let s = self else { return }
 
-                // 打开作品编辑器
+            // 打开作品编辑器
 
-                s.openGameEditor(game: game)
-                Logger.composition.info("created a new game with template: \(template.title)")
-            }
+            s.openGameEditor(game: game)
+            Logger.composition.info("created a new game with template: \(template.title)")
         }
     }
 }
