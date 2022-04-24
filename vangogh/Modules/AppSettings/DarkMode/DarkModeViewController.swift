@@ -312,6 +312,8 @@ extension DarkModeViewController {
             window.overrideUserInterfaceStyle = .light
         }
 
-        stylesTableView.reloadData() // 修改深色模式以后，重新加载表格视图
+        // 重新加载表格视图
+
+        stylesTableView.reloadData()
     }
 }

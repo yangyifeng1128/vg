@@ -5,7 +5,7 @@
 ///
 
 import CoreData
-import Foundation
+import OSLog
 
 @objc(MetaTemplate)
 public class MetaTemplate: NSManagedObject, Codable {
@@ -25,7 +25,9 @@ public class MetaTemplate: NSManagedObject, Codable {
         guard let contextUserInfoKey = CodingUserInfoKey.context,
             let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
             let entity = NSEntityDescription.entity(forEntityName: "MetaTemplate", in: managedObjectContext) else {
-            fatalError("Failed to initialize core data entity from decoder")
+            let errorDescription: String = "Failed to initialize core data entity from decoder"
+            Logger.coreData.critical("\(errorDescription)")
+            fatalError(errorDescription)
         }
 
         self.init(entity: entity, insertInto: managedObjectContext)
@@ -41,7 +43,7 @@ public class MetaTemplate: NSManagedObject, Codable {
             title = try values.decode(String.self, forKey: .title)
             uuid = try values.decode(String.self, forKey: .uuid)
         } catch {
-            print("Decoding error: \(error)")
+            Logger.coreData.critical("decoding error: \(error.localizedDescription)")
         }
     }
 
@@ -57,7 +59,7 @@ public class MetaTemplate: NSManagedObject, Codable {
             try container.encode(title, forKey: .title)
             try container.encode(uuid, forKey: .uuid)
         } catch {
-            print("Encoding error: \(error)")
+            Logger.coreData.critical("encoding error: \(error.localizedDescription)")
         }
     }
 }
