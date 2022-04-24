@@ -281,18 +281,19 @@ extension CompositionViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        // 获取当前选中的作品
-
         let draft: MetaGame = drafts[indexPath.row]
 
-        // 保存最近修改时间
+        // 打开草稿
 
-        draft.mtime = Int64(Date().timeIntervalSince1970)
-        CoreDataManager.shared.saveContext()
+        openDraft(draft) { [weak self] in
 
-        // 跳转至子视图
+            guard let s = self else { return }
 
-        editGame(game: draft)
+            // 打开作品编辑器
+
+            s.openGameEditor(game: draft)
+            Logger.composition.info("loaded draft: \(draft.title)")
+        }
     }
 }
 
@@ -307,18 +308,19 @@ extension CompositionViewController {
 
     @objc private func composeButtonDidTap() {
 
-        // 新建作品
+        // 开始创作
 
-        newGame()
+        compose()
     }
 
     @objc private func moreButtonDidTap(sender: UIButton) {
 
-        print("[Composition] did tap moreButton")
+        // 显示更多关于作品
 
         showMoreAboutGame(sender: sender)
     }
 
+    /// 显示新用户协议
     private func showAgreements() {
 
         let agreementsVC: AgreementsViewController = AgreementsViewController()
@@ -338,7 +340,8 @@ extension CompositionViewController {
         navigationController?.pushViewController(settingsVC, animated: true)
     }
 
-    private func newGame() {
+    /// 开始创作
+    private func compose() {
 
         let newGameVC: NewGameViewController = NewGameViewController(games: drafts)
         newGameVC.hidesBottomBarWhenPushed = true
@@ -346,7 +349,8 @@ extension CompositionViewController {
         navigationController?.pushViewController(newGameVC, animated: true)
     }
 
-    private func editGame(game: MetaGame) {
+    /// 打开作品编辑器
+    private func openGameEditor(game: MetaGame) {
 
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: game.uuid) else { return }
 
@@ -356,6 +360,7 @@ extension CompositionViewController {
         navigationController?.pushViewController(gameEditorVC, animated: true)
     }
 
+    /// 显示更多关于作品
     private func showMoreAboutGame(sender: UIButton) {
 
         let index: Int = sender.tag
@@ -436,7 +441,7 @@ extension CompositionViewController {
     //
     //
 
-    /// 加载作品
+    /// 加载草稿
     private func loadDrafts(completion handler: (() -> Void)? = nil) {
 
         let request: NSFetchRequest<MetaGame> = MetaGame.fetchRequest()
@@ -448,6 +453,19 @@ extension CompositionViewController {
         } catch {
             Logger.composition.info("loading meta games error: \(error.localizedDescription)")
         }
+
+        if let handler = handler {
+            DispatchQueue.main.async {
+                handler()
+            }
+        }
+    }
+
+    /// 打开草稿
+    func openDraft(_ draft: MetaGame, completion handler: (() -> Void)? = nil) {
+
+        draft.mtime = Int64(Date().timeIntervalSince1970)
+        CoreDataManager.shared.saveContext()
 
         if let handler = handler {
             DispatchQueue.main.async {
