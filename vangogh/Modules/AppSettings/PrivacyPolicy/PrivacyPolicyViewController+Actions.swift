@@ -4,7 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import SnapKit
 import UIKit
 
 extension PrivacyPolicyViewController {

@@ -5,7 +5,6 @@
 ///
 
 import Kingfisher
-import OSLog
 import SnapKit
 import UIKit
 

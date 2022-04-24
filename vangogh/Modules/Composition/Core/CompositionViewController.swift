@@ -5,7 +5,6 @@
 ///
 
 import CoreData
-import OSLog
 import SnapKit
 import UIKit
 

@@ -5,7 +5,6 @@
 ///
 
 import OSLog
-import SnapKit
 import UIKit
 
 extension DarkModeViewController {

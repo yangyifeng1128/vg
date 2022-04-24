@@ -4,10 +4,7 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import CoreData
-import Kingfisher
 import OSLog
-import SnapKit
 import UIKit
 
 extension NewGameViewController {

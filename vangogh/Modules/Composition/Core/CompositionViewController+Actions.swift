@@ -6,7 +6,6 @@
 
 import AwaitToast
 import OSLog
-import SnapKit
 import UIKit
 
 extension CompositionViewController {
