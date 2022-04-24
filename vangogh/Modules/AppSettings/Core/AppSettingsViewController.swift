@@ -206,9 +206,25 @@ extension AppSettingsViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let setting = settings[indexPath.row]
+        // 选择应用程序设置
+
+        selectAppSetting(settings[indexPath.row])
+    }
+}
+
+extension AppSettingsViewController {
+
+    /// 点击「返回按钮」
+    @objc private func backButtonDidTap() {
+
+        navigationController?.popViewController(animated: true)
+    }
+
+    /// 选择应用程序设置
+    func selectAppSetting(_ setting: AppSetting) {
 
         var vc: UIViewController
+
         switch setting.type {
         case .generalSettings:
             vc = GeneralSettingsViewController()
@@ -230,14 +246,5 @@ extension AppSettingsViewController: UITableViewDelegate {
         vc.hidesBottomBarWhenPushed = true
 
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension AppSettingsViewController {
-
-    /// 点击「返回按钮」
-    @objc private func backButtonDidTap() {
-
-        navigationController?.popViewController(animated: true)
     }
 }

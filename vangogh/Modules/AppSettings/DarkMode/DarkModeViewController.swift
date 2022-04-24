@@ -18,7 +18,7 @@ class DarkModeViewController: UIViewController {
         static let followSystemViewHeight: CGFloat = 112
         static let followSystemTitleLabelFontSize: CGFloat = 16
         static let followSystemInfoLabelFontSize: CGFloat = 14
-        static let selectModeTitleLabelFontSize: CGFloat = 14
+        static let selectStyleTitleLabelFontSize: CGFloat = 14
         static let settingTableViewCellHeight: CGFloat = 64
     }
 
@@ -139,12 +139,12 @@ class DarkModeViewController: UIViewController {
 
         // 初始化「跟随系统开关」
 
-        let followSystemSwitchView: UISwitch = UISwitch()
-        followSystemSwitchView.onTintColor = .accent
-        followSystemSwitchView.setOn(!UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle), animated: true)
-        followSystemSwitchView.addTarget(self, action: #selector(followSystemUserInterfaceStyleSwitchViewDidChange), for: .valueChanged)
-        followSystemView.addSubview(followSystemSwitchView)
-        followSystemSwitchView.snp.makeConstraints { make -> Void in
+        let followSystemSwitch: UISwitch = UISwitch()
+        followSystemSwitch.onTintColor = .accent
+        followSystemSwitch.setOn(!UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle), animated: true)
+        followSystemSwitch.addTarget(self, action: #selector(followSystemSwitchDidChange), for: .valueChanged)
+        followSystemView.addSubview(followSystemSwitch)
+        followSystemSwitch.snp.makeConstraints { make -> Void in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-16)
         }
@@ -159,7 +159,7 @@ class DarkModeViewController: UIViewController {
         followSystemTitleLabel.snp.makeConstraints { make -> Void in
             make.top.equalToSuperview().offset(24)
             make.left.equalToSuperview().offset(16)
-            make.right.equalTo(followSystemSwitchView.snp.left).offset(-24)
+            make.right.equalTo(followSystemSwitch.snp.left).offset(-24)
         }
 
         // 初始化「跟随系统信息标签」
@@ -191,12 +191,12 @@ class DarkModeViewController: UIViewController {
 
         // 初始化「选择风格标题标签」
 
-        let selectModeTitleLabel: UILabel = UILabel()
-        selectModeTitleLabel.text = NSLocalizedString("SelectManually", comment: "")
-        selectModeTitleLabel.font = .systemFont(ofSize: VC.selectModeTitleLabelFontSize, weight: .regular)
-        selectModeTitleLabel.textColor = .secondaryLabel
-        stylesView.addSubview(selectModeTitleLabel)
-        selectModeTitleLabel.snp.makeConstraints { make -> Void in
+        let selectStyleTitleLabel: UILabel = UILabel()
+        selectStyleTitleLabel.text = NSLocalizedString("SelectManually", comment: "")
+        selectStyleTitleLabel.font = .systemFont(ofSize: VC.selectStyleTitleLabelFontSize, weight: .regular)
+        selectStyleTitleLabel.textColor = .secondaryLabel
+        stylesView.addSubview(selectStyleTitleLabel)
+        selectStyleTitleLabel.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
             make.left.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(24)
@@ -217,7 +217,7 @@ class DarkModeViewController: UIViewController {
             make.width.equalToSuperview()
             make.height.equalToSuperview()
             make.left.equalToSuperview()
-            make.top.equalTo(selectModeTitleLabel.snp.bottom).offset(8)
+            make.top.equalTo(selectStyleTitleLabel.snp.bottom).offset(8)
         }
     }
 }
@@ -233,7 +233,7 @@ extension DarkModeViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cellMode: UserInterfaceStyle = styles[indexPath.row]
+        let style: UserInterfaceStyle = styles[indexPath.row]
 
         guard let cell = stylesTableView.dequeueReusableCell(withIdentifier: UserInterfaceStyleTableViewCell.reuseId) as? UserInterfaceStyleTableViewCell else {
             fatalError("Unexpected cell type")
@@ -241,12 +241,12 @@ extension DarkModeViewController: UITableViewDataSource {
 
         // 准备「标题标签」
 
-        cell.titleLabel.text = NSLocalizedString(cellMode.title, comment: "")
+        cell.titleLabel.text = NSLocalizedString(style.title, comment: "")
 
         let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
-        if cellMode.type == .darkMode {
+        if style.type == .darkMode {
             cell.checkmarkView.isHidden = isInLightMode
-        } else if cellMode.type == .lightMode {
+        } else if style.type == .lightMode {
             cell.checkmarkView.isHidden = !isInLightMode
         }
 
@@ -279,9 +279,8 @@ extension DarkModeViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc private func followSystemUserInterfaceStyleSwitchViewDidChange(_ sender: UISwitch) {
-
-        print("[DarkMode] followed system user interface style: \(sender.isOn)")
+    /// 切换「「跟随系统开关」
+    @objc private func followSystemSwitchDidChange(_ sender: UISwitch) {
 
         let followsSystemUserInterfaceStyle: Bool = sender.isOn
 
@@ -289,23 +288,31 @@ extension DarkModeViewController {
         stylesView.isHidden = followsSystemUserInterfaceStyle
 
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+
         if followsSystemUserInterfaceStyle { // 跟随系统
+
             window.overrideUserInterfaceStyle = .unspecified
+
         } else { // 不跟随系统
-            selectUserInterfaceStyle(type: .darkMode) // 默认选择深色模式
+
+            // 默认选择深色模式
+
+            selectUserInterfaceStyle(type: .darkMode)
         }
     }
 
     /// 选择用户界面风格
     private func selectUserInterfaceStyle(type: UserInterfaceStyle.UserInterfaceStyleType) {
 
-        print("[DarkMode] selected user interface style: \(type)")
-
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+
         if type == .darkMode {
+
             UserDefaults.standard.setValue(false, forKey: GKC.isInLightMode)
             window.overrideUserInterfaceStyle = .dark
+
         } else if type == .lightMode {
+
             UserDefaults.standard.setValue(true, forKey: GKC.isInLightMode)
             window.overrideUserInterfaceStyle = .light
         }
@@ -313,5 +320,7 @@ extension DarkModeViewController {
         // 重新加载表格视图
 
         stylesTableView.reloadData()
+
+        Logger.appSettings.info("selected user interface style: \(type.rawValue)")
     }
 }
