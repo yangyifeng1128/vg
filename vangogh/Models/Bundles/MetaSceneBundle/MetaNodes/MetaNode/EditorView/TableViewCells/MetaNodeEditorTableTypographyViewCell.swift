@@ -23,6 +23,7 @@ class MetaNodeEditorTableTypographyViewCell: UITableViewCell {
     var infoView: RoundedView!
     var infoLabel: UILabel!
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,6 +38,7 @@ class MetaNodeEditorTableTypographyViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear

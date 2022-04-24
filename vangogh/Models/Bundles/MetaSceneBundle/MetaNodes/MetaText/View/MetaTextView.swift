@@ -22,6 +22,7 @@ class MetaTextView: MetaNodeView {
 
     private var infoLabel: AttributedLabel!
 
+    /// 初始化
     init(text: MetaText) {
 
         super.init()
@@ -38,6 +39,7 @@ class MetaTextView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: text.backgroundColorCode)

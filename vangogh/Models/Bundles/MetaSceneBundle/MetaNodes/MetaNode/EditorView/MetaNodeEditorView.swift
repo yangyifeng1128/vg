@@ -45,6 +45,7 @@ class MetaNodeEditorView: UIView {
     private var sections: OrderedDictionary<SectionKey, String> = [:]
     var dictionary: OrderedDictionary<RowKey, Any> = [:]
 
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -63,6 +64,7 @@ class MetaNodeEditorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         // 初始化表格视图

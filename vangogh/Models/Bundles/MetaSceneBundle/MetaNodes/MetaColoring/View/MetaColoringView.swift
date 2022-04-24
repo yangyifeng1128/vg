@@ -21,6 +21,7 @@ class MetaColoringView: MetaNodeView {
         }
     }
 
+    // 初始化
     init(coloring: MetaColoring) {
 
         super.init()
@@ -37,6 +38,7 @@ class MetaColoringView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: coloring.backgroundColorCode)

@@ -14,6 +14,7 @@ class MetaBulletScreenCell: DanmakuCell {
     enum VC {
     }
 
+    /// 初始化
     required init(frame: CGRect) {
 
         super.init(frame: frame)
@@ -28,6 +29,7 @@ class MetaBulletScreenCell: DanmakuCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .red

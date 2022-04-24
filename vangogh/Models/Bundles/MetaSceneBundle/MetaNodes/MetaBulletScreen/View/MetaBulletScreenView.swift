@@ -23,6 +23,7 @@ class MetaBulletScreenView: MetaNodeView {
 
     private var rendererView: DanmakuView!
 
+    /// 初始化
     init(bulletScreen: MetaBulletScreen) {
 
         super.init()
@@ -39,6 +40,7 @@ class MetaBulletScreenView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: bulletScreen.backgroundColorCode)

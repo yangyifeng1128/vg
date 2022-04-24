@@ -15,8 +15,7 @@ protocol ScenePlayerViewDelegate: AnyObject {
 
 class ScenePlayerView: UIView {
 
-    // 渲染对齐方式枚举值
-
+    /// 渲染对齐方式枚举值
     enum RenderAlignment {
         case center
         case topCenter
@@ -34,6 +33,7 @@ class ScenePlayerView: UIView {
     private var nodeViewContainer: RoundedView!
     private(set) var nodeViewList: [MetaNodeView] = []
 
+    /// 初始化
     init(renderSize: CGSize, renderAlignment: RenderAlignment = .center, isEditable: Bool = false) {
 
         super.init(frame: .zero)
@@ -60,15 +60,16 @@ class ScenePlayerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = isEditable ? .clear : .black
 
-        // 初始化渲染器视图
+        // 初始化「渲染器视图」
 
         initRendererView()
 
-        // 初始化组件视图
+        // 初始化「组件视图」
 
         initNodeViews()
     }

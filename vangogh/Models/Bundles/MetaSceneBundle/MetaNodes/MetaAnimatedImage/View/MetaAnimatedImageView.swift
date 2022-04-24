@@ -23,6 +23,7 @@ class MetaAnimatedImageView: MetaNodeView {
 
     private var imageView: UIImageView!
 
+    /// 初始化
     init(animatedImage: MetaAnimatedImage) {
 
         super.init()
@@ -39,6 +40,7 @@ class MetaAnimatedImageView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: animatedImage.backgroundColorCode)

@@ -24,6 +24,7 @@ class MetaMultipleChoiceOptionTableViewCell: UITableViewCell {
     var optionView: MetaMultipleChoiceOptionView!
     var titleLabel: UILabel! // 标题标签
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,6 +39,7 @@ class MetaMultipleChoiceOptionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
@@ -69,6 +71,7 @@ class MetaMultipleChoiceOptionView: RoundedView {
 
     var borderLayer: CAShapeLayer!
 
+    /// 初始化
     init() {
 
         super.init()
@@ -95,6 +98,7 @@ class MetaMultipleChoiceOptionView: RoundedView {
         // addBorderLayer()
     }
 
+    /// 初始化视图
     private func initViews() {
     }
 

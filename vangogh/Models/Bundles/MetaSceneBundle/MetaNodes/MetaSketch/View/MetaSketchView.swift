@@ -21,6 +21,7 @@ class MetaSketchView: MetaNodeView {
         }
     }
 
+    /// 初始化
     init(sketch: MetaSketch) {
 
         super.init()
@@ -37,6 +38,7 @@ class MetaSketchView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: sketch.backgroundColorCode)

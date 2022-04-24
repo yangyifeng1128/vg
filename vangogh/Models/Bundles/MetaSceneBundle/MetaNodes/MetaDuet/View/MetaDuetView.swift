@@ -39,6 +39,7 @@ class MetaDuetView: MetaNodeView {
         }
     }
 
+    /// 初始化
     init(duet: MetaDuet) {
 
         super.init()
@@ -70,6 +71,7 @@ class MetaDuetView: MetaNodeView {
         startPulseAnimating()
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: duet.backgroundColorCode)

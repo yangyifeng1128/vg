@@ -32,6 +32,7 @@ class MetaVoteView: MetaNodeView {
         }
     }
 
+    /// 初始化
     init(vote: MetaVote) {
 
         super.init()
@@ -48,6 +49,7 @@ class MetaVoteView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: vote.backgroundColorCode)

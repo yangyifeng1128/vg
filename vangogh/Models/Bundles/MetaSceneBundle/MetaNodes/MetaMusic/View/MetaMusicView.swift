@@ -21,6 +21,7 @@ class MetaMusicView: MetaNodeView {
         }
     }
 
+    /// 初始化
     init(music: MetaMusic) {
 
         super.init()
@@ -37,6 +38,7 @@ class MetaMusicView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: music.backgroundColorCode)

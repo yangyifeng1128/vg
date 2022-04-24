@@ -20,6 +20,7 @@ class MetaHotspotView: MetaNodeView {
         }
     }
 
+    /// 初始化
     init(hotspot: MetaHotspot) {
 
         super.init()
@@ -36,6 +37,7 @@ class MetaHotspotView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: hotspot.backgroundColorCode)

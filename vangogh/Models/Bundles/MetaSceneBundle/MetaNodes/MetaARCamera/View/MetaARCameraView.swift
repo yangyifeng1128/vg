@@ -21,6 +21,7 @@ class MetaARCameraView: MetaNodeView {
         }
     }
 
+    /// 初始化
     init(arCamera: MetaARCamera) {
 
         super.init()
@@ -37,6 +38,7 @@ class MetaARCameraView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: arCamera.backgroundColorCode)

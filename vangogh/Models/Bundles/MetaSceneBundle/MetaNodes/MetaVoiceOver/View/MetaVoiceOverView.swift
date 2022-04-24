@@ -21,6 +21,7 @@ class MetaVoiceOverView: MetaNodeView {
         }
     }
 
+    /// 初始化
     init(voiceOver: MetaVoiceOver) {
 
         super.init()
@@ -37,6 +38,7 @@ class MetaVoiceOverView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: voiceOver.backgroundColorCode)

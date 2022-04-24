@@ -23,6 +23,7 @@ class MetaButtonView: MetaNodeView {
     private var backgroundView: RoundedImageView!
     private var infoLabel: AttributedLabel!
 
+    /// 初始化
     init(button: MetaButton) {
 
         super.init()
@@ -39,6 +40,7 @@ class MetaButtonView: MetaNodeView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundView = RoundedImageView()
