@@ -22,18 +22,13 @@ class DarkModeViewController: UIViewController {
         static let settingTableViewCellHeight: CGFloat = 64
     }
 
-    /// 返回按钮容器
-    private var backButtonContainer: UIView!
-    /// 返回按钮
-    private var backButton: CircleNavigationBarButton!
-
     /// 风格视图
-    private var stylesView: RoundedView!
+    var stylesView: RoundedView!
     /// 风格表格视图
-    private var stylesTableView: UITableView!
+    var stylesTableView: UITableView!
 
     /// 风格列表
-    private var styles: [UserInterfaceStyle]!
+    var styles: [UserInterfaceStyle]!
 
     /// 初始化
     init() {
@@ -63,21 +58,9 @@ class DarkModeViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化「导航栏」
-
-        initNavigationBar()
-
-        // 初始化「设置视图」
-
-        initSettingsView()
-    }
-
-    /// 初始化「导航栏」
-    private func initNavigationBar() {
-
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -90,7 +73,7 @@ class DarkModeViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -111,10 +94,6 @@ class DarkModeViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
-
-    /// 初始化「设置视图」
-    private func initSettingsView() {
 
         // 初始化「设置视图」
 
@@ -233,26 +212,9 @@ extension DarkModeViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let style: UserInterfaceStyle = styles[indexPath.row]
+        // 准备「风格表格视图」单元格
 
-        guard let cell = stylesTableView.dequeueReusableCell(withIdentifier: UserInterfaceStyleTableViewCell.reuseId) as? UserInterfaceStyleTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = NSLocalizedString(style.title, comment: "")
-
-        // 准备「勾选视图」
-
-        let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
-        if style.type == .darkMode {
-            cell.checkmarkView.isHidden = isInLightMode
-        } else if style.type == .lightMode {
-            cell.checkmarkView.isHidden = !isInLightMode
-        }
-
-        return cell
+        return prepareStylesTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -275,56 +237,28 @@ extension DarkModeViewController: UITableViewDelegate {
 
 extension DarkModeViewController {
 
-    /// 点击「返回按钮」
-    @objc private func backButtonDidTap() {
+    /// 准备「风格表格视图」单元格
+    func prepareStylesTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
-        navigationController?.popViewController(animated: true)
-    }
+        let style: UserInterfaceStyle = styles[indexPath.row]
 
-    /// 切换「「跟随系统开关」
-    @objc private func followSystemSwitchDidChange(_ sender: UISwitch) {
-
-        let followsSystemUserInterfaceStyle: Bool = sender.isOn
-
-        UserDefaults.standard.setValue(!followsSystemUserInterfaceStyle, forKey: GKC.ignoresSystemUserInterfaceStyle)
-        stylesView.isHidden = followsSystemUserInterfaceStyle
-
-        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-
-        if followsSystemUserInterfaceStyle { // 跟随系统
-
-            window.overrideUserInterfaceStyle = .unspecified
-
-        } else { // 不跟随系统
-
-            // 默认选择深色模式
-
-            selectUserInterfaceStyle(type: .darkMode)
+        guard let cell = stylesTableView.dequeueReusableCell(withIdentifier: UserInterfaceStyleTableViewCell.reuseId) as? UserInterfaceStyleTableViewCell else {
+            fatalError("Unexpected cell type")
         }
 
-        Logger.appSettings.info("followed system user interface style: \(followsSystemUserInterfaceStyle)")
-    }
+        // 准备「标题标签」
 
-    /// 选择用户界面风格
-    private func selectUserInterfaceStyle(type: UserInterfaceStyle.UserInterfaceStyleType) {
+        cell.titleLabel.text = NSLocalizedString(style.title, comment: "")
 
-        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+        // 准备「勾选视图」
 
-        if type == .darkMode {
-
-            UserDefaults.standard.setValue(false, forKey: GKC.isInLightMode)
-            window.overrideUserInterfaceStyle = .dark
-
-        } else if type == .lightMode {
-
-            UserDefaults.standard.setValue(true, forKey: GKC.isInLightMode)
-            window.overrideUserInterfaceStyle = .light
+        let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
+        if style.type == .darkMode {
+            cell.checkmarkView.isHidden = isInLightMode
+        } else if style.type == .lightMode {
+            cell.checkmarkView.isHidden = !isInLightMode
         }
 
-        // 重新加载表格视图
-
-        stylesTableView.reloadData()
-
-        Logger.appSettings.info("selected user interface style: \(type.rawValue)")
+        return cell
     }
 }

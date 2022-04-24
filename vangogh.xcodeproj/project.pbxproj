@@ -156,6 +156,15 @@
 		0FEC934A279D8B750001FD32 /* MetaVoiceOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC9349279D8B750001FD32 /* MetaVoiceOver.swift */; };
 		0FEC934C279D8B9B0001FD32 /* MetaVoiceOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC934B279D8B9B0001FD32 /* MetaVoiceOverView.swift */; };
 		0FEF1E3A26C59DEA00028A5F /* GameEditorWillAddSceneBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEF1E3926C59DEA00028A5F /* GameEditorWillAddSceneBottomView.swift */; };
+		0FFA0ECD28158A2F0008AC1C /* CompositionViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0ECC28158A2F0008AC1C /* CompositionViewController+Actions.swift */; };
+		0FFA0ECF28158BC10008AC1C /* AboutViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0ECE28158BC10008AC1C /* AboutViewController+Actions.swift */; };
+		0FFA0ED128158C360008AC1C /* AppSettingsViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0ED028158C360008AC1C /* AppSettingsViewController+Actions.swift */; };
+		0FFA0ED328158C960008AC1C /* DarkModeViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0ED228158C960008AC1C /* DarkModeViewController+Actions.swift */; };
+		0FFA0ED5281590090008AC1C /* FeedbackViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0ED4281590090008AC1C /* FeedbackViewController+Actions.swift */; };
+		0FFA0ED7281590FA0008AC1C /* GeneralSettingsViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0ED6281590FA0008AC1C /* GeneralSettingsViewController+Actions.swift */; };
+		0FFA0ED9281591DD0008AC1C /* PrivacyPolicyViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0ED8281591DD0008AC1C /* PrivacyPolicyViewController+Actions.swift */; };
+		0FFA0EDB281592370008AC1C /* TermsOfServiceViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0EDA281592370008AC1C /* TermsOfServiceViewController+Actions.swift */; };
+		0FFA0EDD28159B8E0008AC1C /* CompositionViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA0EDC28159B8E0008AC1C /* CompositionViewController+VM.swift */; };
 		120902A1273022DA0078C570 /* AddNodeItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120902A0273022DA0078C570 /* AddNodeItemCollectionViewCell.swift */; };
 		120B6FCF26C0F89200B1AE9B /* GameEditorTransitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120B6FCE26C0F89200B1AE9B /* GameEditorTransitionView.swift */; };
 		120BB43327AAC05700926BEA /* MetaBulletScreenCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120BB43227AAC05700926BEA /* MetaBulletScreenCellModel.swift */; };
@@ -418,6 +427,15 @@
 		0FEC9349279D8B750001FD32 /* MetaVoiceOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaVoiceOver.swift; sourceTree = "<group>"; };
 		0FEC934B279D8B9B0001FD32 /* MetaVoiceOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaVoiceOverView.swift; sourceTree = "<group>"; };
 		0FEF1E3926C59DEA00028A5F /* GameEditorWillAddSceneBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorWillAddSceneBottomView.swift; sourceTree = "<group>"; };
+		0FFA0ECC28158A2F0008AC1C /* CompositionViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompositionViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0ECE28158BC10008AC1C /* AboutViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AboutViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0ED028158C360008AC1C /* AppSettingsViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettingsViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0ED228158C960008AC1C /* DarkModeViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DarkModeViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0ED4281590090008AC1C /* FeedbackViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedbackViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0ED6281590FA0008AC1C /* GeneralSettingsViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneralSettingsViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0ED8281591DD0008AC1C /* PrivacyPolicyViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrivacyPolicyViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0EDA281592370008AC1C /* TermsOfServiceViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TermsOfServiceViewController+Actions.swift"; sourceTree = "<group>"; };
+		0FFA0EDC28159B8E0008AC1C /* CompositionViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompositionViewController+VM.swift"; sourceTree = "<group>"; };
 		120902A0273022DA0078C570 /* AddNodeItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNodeItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		120B6FCE26C0F89200B1AE9B /* GameEditorTransitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorTransitionView.swift; sourceTree = "<group>"; };
 		120BB43227AAC05700926BEA /* MetaBulletScreenCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaBulletScreenCellModel.swift; sourceTree = "<group>"; };
@@ -824,6 +842,7 @@
 			children = (
 				128B164827185EAF00CD917B /* AppSetting.swift */,
 				128B1644271823CE00CD917B /* AppSettingsViewController.swift */,
+				0FFA0ED028158C360008AC1C /* AppSettingsViewController+Actions.swift */,
 				128B16462718302500CD917B /* AppSettingTableViewCell.swift */,
 			);
 			path = Core;
@@ -833,6 +852,7 @@
 			isa = PBXGroup;
 			children = (
 				128B1650271865F900CD917B /* AboutViewController.swift */,
+				0FFA0ECE28158BC10008AC1C /* AboutViewController+Actions.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -842,6 +862,7 @@
 			children = (
 				12653CF6273D4803005D90A6 /* GeneralSetting.swift */,
 				12653CF4273D452B005D90A6 /* GeneralSettingsViewController.swift */,
+				0FFA0ED6281590FA0008AC1C /* GeneralSettingsViewController+Actions.swift */,
 				12653CF8273D4873005D90A6 /* GeneralSettingTableViewCell.swift */,
 			);
 			path = GeneralSettings;
@@ -851,6 +872,7 @@
 			isa = PBXGroup;
 			children = (
 				0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */,
+				0FFA0ED228158C960008AC1C /* DarkModeViewController+Actions.swift */,
 				0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */,
 				0F34D710274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift */,
 			);
@@ -861,6 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				128B164A2718654C00CD917B /* FeedbackViewController.swift */,
+				0FFA0ED4281590090008AC1C /* FeedbackViewController+Actions.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -869,6 +892,7 @@
 			isa = PBXGroup;
 			children = (
 				128B164E271865BD00CD917B /* PrivacyPolicyViewController.swift */,
+				0FFA0ED8281591DD0008AC1C /* PrivacyPolicyViewController+Actions.swift */,
 			);
 			path = PrivacyPolicy;
 			sourceTree = "<group>";
@@ -877,6 +901,7 @@
 			isa = PBXGroup;
 			children = (
 				128B164C2718659000CD917B /* TermsOfServiceViewController.swift */,
+				0FFA0EDA281592370008AC1C /* TermsOfServiceViewController+Actions.swift */,
 			);
 			path = TermsOfService;
 			sourceTree = "<group>";
@@ -1937,6 +1962,8 @@
 			isa = PBXGroup;
 			children = (
 				12E41BE1266634F20094CB44 /* CompositionViewController.swift */,
+				0FFA0ECC28158A2F0008AC1C /* CompositionViewController+Actions.swift */,
+				0FFA0EDC28159B8E0008AC1C /* CompositionViewController+VM.swift */,
 				12725F6026A3019100C8EE01 /* DraftTableViewCell.swift */,
 				0FC2A43126A87B39001363D8 /* NewGameViewController.swift */,
 				12C383BC26AFDE0E006AFA7F /* TemplateCollectionViewCell.swift */,
@@ -2116,6 +2143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FFA0ED128158C360008AC1C /* AppSettingsViewController+Actions.swift in Sources */,
 				0F3882DA2537373D0069A1A4 /* CodingUserInfoKey.swift in Sources */,
 				0F14DF3F278206C20056872B /* MetaAnimatedImageEditorView.swift in Sources */,
 				0FAAE3DB272C4D0F000A7681 /* SceneSetting.swift in Sources */,
@@ -2148,8 +2176,10 @@
 				122748A326821FD90002684F /* MetaTransition.swift in Sources */,
 				0F51FAF5273ADDDB00D90811 /* MetaBulletScreen.swift in Sources */,
 				0F76B87427B5634800C09133 /* MetaOpenGame.swift in Sources */,
+				0FFA0EDD28159B8E0008AC1C /* CompositionViewController+VM.swift in Sources */,
 				0FBF35F8274BEE5C00DB168B /* MetaDuetView.swift in Sources */,
 				0F210E7B26DAADCC002CC564 /* AudioProcessingTapHolder.swift in Sources */,
+				0FFA0ED9281591DD0008AC1C /* PrivacyPolicyViewController+Actions.swift in Sources */,
 				0F14DF35278206690056872B /* MetaCheckpointEditorView.swift in Sources */,
 				1261626126C8D117004EBF42 /* AddTransitionDiagramView.swift in Sources */,
 				0F14DF372782067E0056872B /* MetaHotspotEditorView.swift in Sources */,
@@ -2175,6 +2205,7 @@
 				0F34D711274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift in Sources */,
 				0F95E700271C6366005EE818 /* GameSetting.swift in Sources */,
 				0FBF35F5274BEE0700DB168B /* MetaARCameraView.swift in Sources */,
+				0FFA0ECD28158A2F0008AC1C /* CompositionViewController+Actions.swift in Sources */,
 				0F8CB7132739785A00D72DC3 /* UIBezierPath+Curve.swift in Sources */,
 				120BB43727AACF7200926BEA /* MetaComment.swift in Sources */,
 				0F210E8426DAADCC002CC564 /* TrackConfiguration.swift in Sources */,
@@ -2250,6 +2281,7 @@
 				0F8972D8274015B8001CD774 /* NodeItemBottomBarView.swift in Sources */,
 				0FC8316D27B42DF100698CF3 /* MetaSensorKey.swift in Sources */,
 				1251B0D72680657600813936 /* SceneEditorViewController.swift in Sources */,
+				0FFA0EDB281592370008AC1C /* TermsOfServiceViewController+Actions.swift in Sources */,
 				0F3A0C4D27B7EB240000711B /* MetaNodeEditorTableViewCell.swift in Sources */,
 				0FBF35E3274BEABF00DB168B /* MetaVoteView.swift in Sources */,
 				120BB43327AAC05700926BEA /* MetaBulletScreenCellModel.swift in Sources */,
@@ -2299,6 +2331,7 @@
 				1216849827B0FA3200D597E0 /* OrderedDictionarySlice.swift in Sources */,
 				0FB8D82626ED269C00D5C971 /* TransitionEditorViewController.swift in Sources */,
 				0F210E7D26DAADCC002CC564 /* AudioProcessingChain.swift in Sources */,
+				0FFA0ED5281590090008AC1C /* FeedbackViewController+Actions.swift in Sources */,
 				0F8972CE273EC801001CD774 /* MetaCheckpoint.swift in Sources */,
 				0F210E8726DAADCC002CC564 /* PHAssetLivePhotoResource.swift in Sources */,
 				0F14DF31278206460056872B /* MetaDuetEditorView.swift in Sources */,
@@ -2313,10 +2346,13 @@
 				12653CF9273D4873005D90A6 /* GeneralSettingTableViewCell.swift in Sources */,
 				0F51FAEB273ADD8D00D90811 /* MetaMultipleChoice.swift in Sources */,
 				1251CF2A27A4F0F500F329D5 /* GameScannerTorchButton.swift in Sources */,
+				0FFA0ED7281590FA0008AC1C /* GeneralSettingsViewController+Actions.swift in Sources */,
+				0FFA0ED328158C960008AC1C /* DarkModeViewController+Actions.swift in Sources */,
 				121D738426BF974100792DD4 /* HomeViewController.swift in Sources */,
 				0F34D70F274A519C00736DD5 /* DarkModeViewController.swift in Sources */,
 				120B6FCF26C0F89200B1AE9B /* GameEditorTransitionView.swift in Sources */,
 				0F74CDF4253473900054D2CC /* vangogh.xcdatamodeld in Sources */,
+				0FFA0ECF28158BC10008AC1C /* AboutViewController+Actions.swift in Sources */,
 				1216849627B0F9F700D597E0 /* OrderedDictionary.swift in Sources */,
 				12433A48267D9DB8001633D8 /* MetaRecord+CoreDataProperties.swift in Sources */,
 				128B1651271865F900CD917B /* AboutViewController.swift in Sources */,

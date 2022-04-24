@@ -19,18 +19,11 @@ class AppSettingsViewController: UIViewController {
         static let settingTableViewCellHeight: CGFloat = 80
     }
 
-    /// 返回按钮容器
-    private var backButtonContainer: UIView!
-    /// 返回按钮
-    private var backButton: CircleNavigationBarButton!
-
-    /// 版权标签
-    private var copyrightLabel: UILabel!
     /// 设置表格视图
-    private var settingsTableView: UITableView!
+    var settingsTableView: UITableView!
 
     /// 设置列表
-    private var settings: [AppSetting]!
+    var settings: [AppSetting]!
 
     /// 初始化
     init() {
@@ -60,21 +53,9 @@ class AppSettingsViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化「导航栏」
-
-        initNavigationBar()
-
-        // 初始化「设置视图」
-
-        initSettingsView()
-    }
-
-    /// 初始化「导航栏」
-    private func initNavigationBar() {
-
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -87,7 +68,7 @@ class AppSettingsViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -108,10 +89,6 @@ class AppSettingsViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
-
-    /// 初始化「设置视图」
-    private func initSettingsView() {
 
         // 初始化「设置视图」
 
@@ -125,7 +102,7 @@ class AppSettingsViewController: UIViewController {
 
         // 初始化「版权标签」
 
-        copyrightLabel = UILabel()
+        let copyrightLabel: UILabel = UILabel()
         let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
         copyrightLabel.text = appName + " \(NSLocalizedString("Version", comment: "")) " + GVC.appVersion
         copyrightLabel.font = .systemFont(ofSize: VC.copyrightLabelFontSize, weight: .regular)
@@ -181,17 +158,9 @@ extension AppSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let setting: AppSetting = settings[indexPath.row]
+        // 准备「设置表格视图」单元格
 
-        guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: AppSettingTableViewCell.reuseId) as? AppSettingTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备标题标签
-
-        cell.titleLabel.text = setting.title
-
-        return cell
+        return prepareSettingsTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -214,37 +183,19 @@ extension AppSettingsViewController: UITableViewDelegate {
 
 extension AppSettingsViewController {
 
-    /// 点击「返回按钮」
-    @objc private func backButtonDidTap() {
+    /// 准备「设置表格视图」单元格
+    func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
-        navigationController?.popViewController(animated: true)
-    }
+        let setting: AppSetting = settings[indexPath.row]
 
-    /// 选择应用程序设置
-    func selectAppSetting(_ setting: AppSetting) {
-
-        var vc: UIViewController
-
-        switch setting.type {
-        case .generalSettings:
-            vc = GeneralSettingsViewController()
-            break
-        case .feedback:
-            vc = FeedbackViewController()
-            break
-        case .termsOfService:
-            vc = TermsOfServiceViewController()
-            break
-        case .privacyPolicy:
-            vc = PrivacyPolicyViewController()
-            break
-        case .about:
-            vc = AboutViewController()
-            break
+        guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: AppSettingTableViewCell.reuseId) as? AppSettingTableViewCell else {
+            fatalError("Unexpected cell type")
         }
 
-        vc.hidesBottomBarWhenPushed = true
+        // 准备「标题标签」
 
-        navigationController?.pushViewController(vc, animated: true)
+        cell.titleLabel.text = setting.title
+
+        return cell
     }
 }

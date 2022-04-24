@@ -17,11 +17,6 @@ class PrivacyPolicyViewController: UIViewController {
         static let infoTextViewFontSize: CGFloat = 16
     }
 
-    /// 返回按钮容器
-    private var backButtonContainer: UIView!
-    /// 返回按钮
-    private var backButton: CircleNavigationBarButton!
-
     /// 初始化
     init() {
 
@@ -48,21 +43,9 @@ class PrivacyPolicyViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化「导航栏」
-
-        initNavigationBar()
-
-        // 初始化「信息文本视图」
-
-        initInfoTextView()
-    }
-
-    /// 初始化「导航栏」
-    private func initNavigationBar() {
-
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -75,7 +58,7 @@ class PrivacyPolicyViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -96,14 +79,10 @@ class PrivacyPolicyViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
-
-    /// 初始化「信息文本视图」
-    private func initInfoTextView() {
 
         // 初始化「信息文本视图容器」
 
-        let infoTextViewContainer = RoundedView()
+        let infoTextViewContainer: RoundedView = RoundedView()
         infoTextViewContainer.backgroundColor = .secondarySystemGroupedBackground
         view.addSubview(infoTextViewContainer)
         infoTextViewContainer.snp.makeConstraints { make -> Void in
@@ -126,6 +105,9 @@ class PrivacyPolicyViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
+}
+
+extension PrivacyPolicyViewController {
 
     /// 准备「信息文本视图」文本
     private func prepareInfoTextViewAttributedText() -> NSMutableAttributedString {
@@ -144,14 +126,5 @@ class PrivacyPolicyViewController: UIViewController {
         completeInfoTextString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeInfoTextString.length))
 
         return completeInfoTextString
-    }
-}
-
-extension PrivacyPolicyViewController {
-
-    /// 点击「返回按钮」
-    @objc private func backButtonDidTap() {
-
-        navigationController?.popViewController(animated: true)
     }
 }

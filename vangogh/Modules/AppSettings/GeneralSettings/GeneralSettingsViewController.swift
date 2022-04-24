@@ -17,16 +17,11 @@ class GeneralSettingsViewController: UIViewController {
         static let settingTableViewCellHeight: CGFloat = 80
     }
 
-    /// 返回按钮容器
-    private var backButtonContainer: UIView!
-    /// 返回按钮
-    private var backButton: CircleNavigationBarButton!
-
     /// 设置表格视图
-    private var settingsTableView: UITableView!
+    var settingsTableView: UITableView!
 
     /// 设置列表
-    private var settings: [GeneralSetting]!
+    var settings: [GeneralSetting]!
 
     /// 初始化
     init() {
@@ -66,21 +61,9 @@ class GeneralSettingsViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化「导航栏」
-
-        initNavigationBar()
-
-        // 初始化「设置视图」
-
-        initSettingsView()
-    }
-
-    /// 初始化「导航栏」
-    private func initNavigationBar() {
-
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -93,7 +76,7 @@ class GeneralSettingsViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -114,9 +97,6 @@ class GeneralSettingsViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
-
-    private func initSettingsView() {
 
         // 初始化「设置视图」
 
@@ -170,27 +150,9 @@ extension GeneralSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let setting: GeneralSetting = settings[indexPath.row]
+        // 准备「设置表格视图」单元格
 
-        guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: GeneralSettingTableViewCell.reuseId) as? GeneralSettingTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = setting.title
-
-        // 准备「信息标签」
-
-        if setting.type == .darkMode {
-            if !UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle) {
-                cell.infoLabel.text = NSLocalizedString("FollowSystem", comment: "")
-            } else {
-                cell.infoLabel.text = UserDefaults.standard.bool(forKey: GKC.isInLightMode) ? NSLocalizedString("Disabled", comment: "") : NSLocalizedString("Enabled", comment: "")
-            }
-        }
-
-        return cell
+        return prepareSettingsTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -213,25 +175,29 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 
 extension GeneralSettingsViewController {
 
-    /// 点击「返回按钮」
-    @objc private func backButtonDidTap() {
+    /// 准备「设置表格视图」单元格
+    func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
-        navigationController?.popViewController(animated: true)
-    }
+        let setting: GeneralSetting = settings[indexPath.row]
 
-    /// 选择通用设置
-    func selectGeneralSetting(_ setting: GeneralSetting) {
-
-        var vc: UIViewController
-
-        switch setting.type {
-        case .darkMode:
-            vc = DarkModeViewController()
-            break
+        guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: GeneralSettingTableViewCell.reuseId) as? GeneralSettingTableViewCell else {
+            fatalError("Unexpected cell type")
         }
 
-        vc.hidesBottomBarWhenPushed = true
+        // 准备「标题标签」
 
-        navigationController?.pushViewController(vc, animated: true)
+        cell.titleLabel.text = setting.title
+
+        // 准备「信息标签」
+
+        if setting.type == .darkMode {
+            if !UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle) {
+                cell.infoLabel.text = NSLocalizedString("FollowSystem", comment: "")
+            } else {
+                cell.infoLabel.text = UserDefaults.standard.bool(forKey: GKC.isInLightMode) ? NSLocalizedString("Disabled", comment: "") : NSLocalizedString("Enabled", comment: "")
+            }
+        }
+
+        return cell
     }
 }
