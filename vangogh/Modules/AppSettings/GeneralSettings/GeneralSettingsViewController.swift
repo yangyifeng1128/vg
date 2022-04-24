@@ -17,15 +17,18 @@ class GeneralSettingsViewController: UIViewController {
         static let settingTableViewCellHeight: CGFloat = 80
     }
 
+    /// 返回按钮容器
     private var backButtonContainer: UIView!
+    /// 返回按钮
     private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
 
-    private var settingsView: UIView!
+    /// 设置表格视图
     private var settingsTableView: UITableView!
 
+    /// 设置列表
     private var settings: [GeneralSetting]!
 
+    /// 初始化
     init() {
 
         super.init(nibName: nil, bundle: nil)
@@ -38,12 +41,7 @@ class GeneralSettingsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -53,34 +51,34 @@ class GeneralSettingsViewController: UIViewController {
         initViews()
     }
 
+    /// 视图即将显示
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
 
-        settingsTableView.reloadData() // 修改深色模式以后返回到这里，重新加载表格视图
+        // 修改深色模式以后返回到这里，重新加载表格视图
+
+        settingsTableView.reloadData()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-
-        super.traitCollectionDidChange(previousTraitCollection)
-    }
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化设置视图
+        // 初始化「设置视图」
 
         initSettingsView()
     }
 
+    /// 初始化「导航栏」
     private func initNavigationBar() {
 
-        // 初始化返回按钮
+        // 初始化「返回按钮容器」
 
         backButtonContainer = UIView()
         backButtonContainer.backgroundColor = .clear
@@ -93,6 +91,8 @@ class GeneralSettingsViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「返回按钮」
+
         backButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
@@ -101,9 +101,9 @@ class GeneralSettingsViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("GeneralSettings", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -118,9 +118,9 @@ class GeneralSettingsViewController: UIViewController {
 
     private func initSettingsView() {
 
-        // 初始化设置视图
+        // 初始化「设置视图」
 
-        settingsView = UIView()
+        let settingsView: UIView = UIView()
         view.addSubview(settingsView)
         settingsView.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(16)
@@ -128,7 +128,7 @@ class GeneralSettingsViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        // 初始化设置表格视图
+        // 初始化「设置表格视图容器」
 
         let settingsTableViewContainer: RoundedView = RoundedView()
         settingsTableViewContainer.backgroundColor = .secondarySystemGroupedBackground
@@ -139,6 +139,8 @@ class GeneralSettingsViewController: UIViewController {
             make.left.equalToSuperview()
             make.top.equalToSuperview()
         }
+
+        // 初始化「设置表格视图」
 
         settingsTableView = UITableView()
         settingsTableView.backgroundColor = .clear
@@ -174,9 +176,11 @@ extension GeneralSettingsViewController: UITableViewDataSource {
             fatalError("Unexpected cell type")
         }
 
-        // 准备标题标签
+        // 准备「标题标签」
 
         cell.titleLabel.text = setting.title
+
+        // 准备「信息标签」
 
         if setting.type == .darkMode {
             if !UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle) {
@@ -201,18 +205,9 @@ extension GeneralSettingsViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let setting = settings[indexPath.row]
+        // 选择通用设置
 
-        var vc: UIViewController
-        switch setting.type {
-        case .darkMode:
-            vc = DarkModeViewController()
-            break
-        }
-
-        vc.hidesBottomBarWhenPushed = true
-
-        navigationController?.pushViewController(vc, animated: true)
+        selectGeneralSetting(settings[indexPath.row])
     }
 }
 
@@ -222,5 +217,21 @@ extension GeneralSettingsViewController {
     @objc private func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)
+    }
+
+    /// 选择通用设置
+    func selectGeneralSetting(_ setting: GeneralSetting) {
+
+        var vc: UIViewController
+
+        switch setting.type {
+        case .darkMode:
+            vc = DarkModeViewController()
+            break
+        }
+
+        vc.hidesBottomBarWhenPushed = true
+
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

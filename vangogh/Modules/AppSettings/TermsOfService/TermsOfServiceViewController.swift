@@ -6,7 +6,6 @@
 
 import SnapKit
 import UIKit
-import WebKit
 
 class TermsOfServiceViewController: UIViewController {
 
@@ -18,12 +17,12 @@ class TermsOfServiceViewController: UIViewController {
         static let infoTextViewFontSize: CGFloat = 16
     }
 
+    /// 返回按钮容器
     private var backButtonContainer: UIView!
+    /// 返回按钮
     private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
 
-    private var infoTextView: UITextView!
-
+    /// 初始化
     init() {
 
         super.init(nibName: nil, bundle: nil)
@@ -34,12 +33,7 @@ class TermsOfServiceViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -49,27 +43,24 @@ class TermsOfServiceViewController: UIViewController {
         initViews()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-
-        super.traitCollectionDidChange(previousTraitCollection)
-    }
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「导航栏」
 
         initNavigationBar()
 
-        // 初始化信息文本视图
+        // 初始化「信息文本视图」
 
         initInfoTextView()
     }
 
+    /// 初始化「导航栏」
     private func initNavigationBar() {
 
-        // 初始化返回按钮
+        // 初始化「返回按钮容器」
 
         backButtonContainer = UIView()
         backButtonContainer.backgroundColor = .clear
@@ -82,6 +73,8 @@ class TermsOfServiceViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「返回按钮」
+
         backButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
@@ -90,9 +83,9 @@ class TermsOfServiceViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("TermsOfService", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -105,7 +98,10 @@ class TermsOfServiceViewController: UIViewController {
         }
     }
 
+    /// 初始化「信息文本视图」
     private func initInfoTextView() {
+
+        // 初始化「信息文本视图容器」
 
         let infoTextViewContainer = RoundedView()
         infoTextViewContainer.backgroundColor = .secondarySystemGroupedBackground
@@ -116,7 +112,9 @@ class TermsOfServiceViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        infoTextView = UITextView()
+        // 初始化「信息文本视图」
+
+        let infoTextView: UITextView = UITextView()
         infoTextView.attributedText = prepareInfoTextViewAttributedText()
         infoTextView.backgroundColor = .clear
         infoTextView.textContainerInset = UIEdgeInsets(top: 24, left: 8, bottom: 24, right: 8)
@@ -129,6 +127,7 @@ class TermsOfServiceViewController: UIViewController {
         }
     }
 
+    /// 准备「信息文本视图」文本
     private func prepareInfoTextViewAttributedText() -> NSMutableAttributedString {
 
         // 准备文本内容

@@ -181,11 +181,11 @@ extension AppSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+        let setting: AppSetting = settings[indexPath.row]
+
         guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: AppSettingTableViewCell.reuseId) as? AppSettingTableViewCell else {
             fatalError("Unexpected cell type")
         }
-
-        let setting: AppSetting = settings[indexPath.row]
 
         // 准备标题标签
 

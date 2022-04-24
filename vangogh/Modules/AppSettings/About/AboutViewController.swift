@@ -130,7 +130,7 @@ class AboutViewController: UIViewController {
         }
     }
 
-    /// 准备「信息文本视图」文本内容
+    /// 准备「信息文本视图」文本
     private func prepareInfoTextViewAttributedText() -> NSMutableAttributedString {
 
         // 准备文本内容

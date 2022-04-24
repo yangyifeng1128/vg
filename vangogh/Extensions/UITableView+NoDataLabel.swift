@@ -48,7 +48,7 @@ extension UITableView {
         paragraphStyle.alignment = .center
         completeNoDataString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeNoDataString.length))
 
-        // 为「无数据标签」设置文本内容
+        // 为「无数据标签」设置文本
 
         noDataLabel.attributedText = completeNoDataString
         noDataLabel.numberOfLines = 0

@@ -8,15 +8,17 @@ import Foundation
 
 class GeneralSetting {
 
-    // 通用设置类型枚举值
-
+    /// 通用设置类型枚举值
     enum GeneralSettingType: String, CaseIterable {
         case darkMode = "DarkMode"
     }
 
+    /// 通用设置类型
     private(set) var type: GeneralSettingType
+    /// 标题
     private(set) var title: String
 
+    /// 初始化
     init(type: GeneralSettingType, title: String) {
 
         self.type = type
@@ -26,8 +28,10 @@ class GeneralSetting {
 
 class GeneralSettingManager {
 
+    /// 单例
     static var shared = GeneralSettingManager()
 
+    /// 设置列表
     private lazy var settings: [GeneralSetting] = {
 
         var settings = [GeneralSetting]()
@@ -37,6 +41,7 @@ class GeneralSettingManager {
         return settings
     }()
 
+    /// 获取设置列表
     func get() -> [GeneralSetting] {
 
         return settings
