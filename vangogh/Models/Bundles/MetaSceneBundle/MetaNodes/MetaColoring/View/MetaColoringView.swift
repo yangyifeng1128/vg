@@ -28,8 +28,6 @@ class MetaColoringView: MetaNodeView {
 
         self.coloring = coloring
 
-        // 初始化视图
-
         initViews()
     }
 

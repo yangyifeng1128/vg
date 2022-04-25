@@ -30,8 +30,6 @@ class MetaButtonView: MetaNodeView {
 
         self.button = button
 
-        // 初始化视图
-
         initViews()
     }
 

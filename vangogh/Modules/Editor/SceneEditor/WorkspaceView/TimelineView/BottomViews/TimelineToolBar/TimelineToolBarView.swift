@@ -43,8 +43,6 @@ class TimelineToolBarView: BorderedView {
 
         toolBarItems = TimelineToolBarItemManager.shared.get()
 
-        // 初始化视图
-
         initViews()
     }
 

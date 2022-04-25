@@ -39,8 +39,6 @@ class MetaMultipleChoiceView: MetaNodeView {
 
         self.multipleChoice = multipleChoice
 
-        // 初始化视图
-
         initViews()
     }
 

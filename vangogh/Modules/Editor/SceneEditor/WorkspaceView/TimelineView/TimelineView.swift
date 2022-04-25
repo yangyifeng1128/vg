@@ -106,8 +106,6 @@ class TimelineView: UIView {
 
         super.init(frame: .zero)
 
-        // 初始化视图
-
         initViews()
     }
 

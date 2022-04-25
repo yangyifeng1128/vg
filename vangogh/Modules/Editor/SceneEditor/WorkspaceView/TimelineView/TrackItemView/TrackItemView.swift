@@ -53,8 +53,6 @@ class TrackItemView: UIView {
 
         self.footage = footage
 
-        // 初始化视图
-
         initViews()
     }
 

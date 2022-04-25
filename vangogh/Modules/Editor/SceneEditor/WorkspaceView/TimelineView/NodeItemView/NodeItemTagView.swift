@@ -62,8 +62,6 @@ class NodeItemTagView: UIView {
 
         self.node = node
 
-        // 初始化视图
-
         initViews()
     }
 

@@ -30,8 +30,6 @@ class MetaAnimatedImageView: MetaNodeView {
 
         self.animatedImage = animatedImage
 
-        // 初始化视图
-
         initViews()
     }
 

@@ -29,8 +29,6 @@ class MetaTextView: MetaNodeView {
 
         self.text = text
 
-        // 初始化视图
-
         initViews()
     }
 

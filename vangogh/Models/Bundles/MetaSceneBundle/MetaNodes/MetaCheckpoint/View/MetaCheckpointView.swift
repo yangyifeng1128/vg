@@ -28,8 +28,6 @@ class MetaCheckpointView: MetaNodeView {
 
         self.checkpoint = checkpoint
 
-        // 初始化视图
-
         initViews()
     }
 

@@ -28,8 +28,6 @@ class MetaCameraView: MetaNodeView {
 
         self.camera = camera
 
-        // 初始化视图
-
         initViews()
     }
 

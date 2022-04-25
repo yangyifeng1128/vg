@@ -19,8 +19,6 @@ class MetaBulletScreenCell: DanmakuCell {
 
         super.init(frame: frame)
 
-        // 初始化视图
-
         initViews()
     }
 

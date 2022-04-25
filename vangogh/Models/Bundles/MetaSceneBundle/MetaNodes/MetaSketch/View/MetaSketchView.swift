@@ -28,8 +28,6 @@ class MetaSketchView: MetaNodeView {
 
         self.sketch = sketch
 
-        // 初始化视图
-
         initViews()
     }
 

@@ -28,8 +28,6 @@ class MetaMusicView: MetaNodeView {
 
         self.music = music
 
-        // 初始化视图
-
         initViews()
     }
 

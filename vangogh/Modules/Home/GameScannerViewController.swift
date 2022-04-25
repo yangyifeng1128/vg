@@ -39,8 +39,6 @@ class GameScannerViewController: UIViewController {
 
         overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle
 
-        // 初始化视图
-
         initViews()
     }
 

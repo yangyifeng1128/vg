@@ -31,8 +31,6 @@ class GameEditorTransitionView: UIView {
         self.startScene = startScene
         self.endScene = endScene
 
-        // 初始化视图
-
         initViews()
     }
 

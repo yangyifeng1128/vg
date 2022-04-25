@@ -23,8 +23,6 @@ class AddNodeItemCollectionViewCell: UICollectionViewCell {
 
         super.init(frame: frame)
 
-        // 初始化视图
-
         initViews()
     }
 
@@ -106,8 +104,6 @@ class AddNodeItemTagView: UIView {
         super.init(frame: .zero)
 
         tintColor = .mgLabel
-
-        // 初始化视图
 
         initViews()
     }

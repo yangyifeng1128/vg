@@ -31,8 +31,6 @@ class AddTransitionDiagramView: RoundedView {
 
         super.init(cornerRadius: VC.height / 2)
 
-        // 初始化视图
-
         initViews()
     }
 

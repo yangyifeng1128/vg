@@ -54,8 +54,6 @@ class MetaNodeEditorView: UIView {
             sections[sectionKey] = NSLocalizedString(sectionKey.rawValue, comment: "")
         }
 
-        // 初始化视图
-
         initViews()
     }
 

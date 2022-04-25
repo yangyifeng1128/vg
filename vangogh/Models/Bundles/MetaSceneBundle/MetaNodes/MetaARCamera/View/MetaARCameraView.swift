@@ -28,8 +28,6 @@ class MetaARCameraView: MetaNodeView {
 
         self.arCamera = arCamera
 
-        // 初始化视图
-
         initViews()
     }
 

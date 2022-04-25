@@ -70,8 +70,6 @@ class GameEditorSceneBottomView: BorderedView {
         selectedScene = gameBundle.selectedScene()
         transitions = gameBundle.selectedTransitions()
 
-        // 初始化视图
-
         initViews()
     }
 

@@ -31,8 +31,6 @@ class NodeItemBarView: UIView {
 
         self.nodeType = nodeType
 
-        // 初始化视图
-
         initViews()
     }
 

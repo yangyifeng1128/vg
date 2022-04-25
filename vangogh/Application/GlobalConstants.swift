@@ -71,7 +71,7 @@ enum GKC {
 /// 全局值常量
 enum GVC {
 
-    // 全局值
+    // 默认值常量
 
     static let appVersion: String = "1.0.0"
     static let defaultImageTrackItemDurationMilliseconds: Int64 = 5000 /* 5s */
@@ -84,7 +84,7 @@ enum GVC {
     static let preferredTimescale: Int32 = 1000
     static let snappedTimeMillisecondsThreshold: Int64 = 300 /* 300ms */
 
-    // 全局视图布局
+    // 视图布局常量
 
     static let addSceneViewBackgroundColor: UIColor? = .accent
     static let alertTextFieldFontSize: CGFloat = 16

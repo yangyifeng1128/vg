@@ -49,8 +49,6 @@ class GameEditorSceneView: RoundedView {
 
         self.scene = scene
 
-        // 初始化视图
-
         initViews()
     }
 

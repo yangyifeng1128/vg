@@ -45,8 +45,6 @@ class TrackItemContentView: UIView {
         self.thumbImageSize = thumbImageSize
         self.maxDuration = maxDuration
 
-        // 初始化视图
-
         initViews()
     }
 

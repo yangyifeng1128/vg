@@ -24,14 +24,10 @@ class ArrowView: UIView {
     /// 箭头图层颜色
     var arrowLayerColor: CGColor? = UIColor.secondaryLabel.cgColor
 
-    // 生命周期
-
     /// 初始化
     init() {
 
         super.init(frame: .zero)
-
-        // 初始化视图
 
         initViews()
     }
@@ -43,8 +39,6 @@ class ArrowView: UIView {
 
         self.direction = direction
         self.arrowLayerColor = arrowLayerColor
-
-        // 初始化视图
 
         initViews()
     }
@@ -58,8 +52,6 @@ class ArrowView: UIView {
         self.tailWidth = tailWidth
         self.headWidth = headWidth
         self.headLength = headLength
-
-        // 初始化视图
 
         initViews()
     }

@@ -42,8 +42,6 @@ class AddFootageButton: UIButton {
 
         self.imageEdgeInset = imageEdgeInset
 
-        // 初始化视图
-
         initViews()
     }
 

@@ -88,8 +88,6 @@ class GameEditorViewController: UIViewController {
 
         resetParentViewControllers()
 
-        // 初始化视图
-
         initViews()
 
         // 初始化全部场景和穿梭器视图

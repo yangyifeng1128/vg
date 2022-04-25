@@ -39,8 +39,6 @@ class MetaVoteView: MetaNodeView {
 
         self.vote = vote
 
-        // 初始化视图
-
         initViews()
     }
 

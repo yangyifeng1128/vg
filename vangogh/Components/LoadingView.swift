@@ -34,8 +34,6 @@ class LoadingView: RoundedView {
 
         super.init(cornerRadius: GVC.defaultViewCornerRadius)
 
-        // 初始化视图
-
         initViews()
     }
 

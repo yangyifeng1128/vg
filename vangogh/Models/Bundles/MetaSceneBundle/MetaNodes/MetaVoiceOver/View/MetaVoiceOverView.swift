@@ -28,8 +28,6 @@ class MetaVoiceOverView: MetaNodeView {
 
         self.voiceOver = voiceOver
 
-        // 初始化视图
-
         initViews()
     }
 

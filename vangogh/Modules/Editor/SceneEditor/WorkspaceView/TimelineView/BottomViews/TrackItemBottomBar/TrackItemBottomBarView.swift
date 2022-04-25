@@ -41,8 +41,6 @@ class TrackItemBottomBarView: BorderedView {
 
         actionBarItems = TrackItemBottomBarItemManager.shared.get()
 
-        // 初始化视图
-
         initViews()
     }
 

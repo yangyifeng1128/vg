@@ -35,8 +35,6 @@ class NodeItemContentView: UIView {
         self.startTime = startTime
         self.endTime = endTime
 
-        // 初始化视图
-
         initViews()
     }
 

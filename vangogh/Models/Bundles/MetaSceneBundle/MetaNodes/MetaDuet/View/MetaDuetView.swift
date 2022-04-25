@@ -46,8 +46,6 @@ class MetaDuetView: MetaNodeView {
 
         self.duet = duet
 
-        // 初始化视图
-
         initViews()
 
         // 监听是否进入前台/后台运行

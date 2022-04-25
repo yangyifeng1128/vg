@@ -27,8 +27,6 @@ class TargetSceneTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化视图
-
         initViews()
     }
 

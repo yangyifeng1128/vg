@@ -32,8 +32,6 @@ class GameEditorDefaultBottomView: BorderedView {
 
         super.init(side: .top)
 
-        // 初始化视图
-
         initViews()
     }
 

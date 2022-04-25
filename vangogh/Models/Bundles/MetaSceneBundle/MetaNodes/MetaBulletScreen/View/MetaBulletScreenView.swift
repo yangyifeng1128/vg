@@ -30,8 +30,6 @@ class MetaBulletScreenView: MetaNodeView {
 
         self.bulletScreen = bulletScreen
 
-        // 初始化视图
-
         initViews()
     }
 

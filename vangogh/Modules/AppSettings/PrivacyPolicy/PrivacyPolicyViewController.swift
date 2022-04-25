@@ -33,8 +33,6 @@ class PrivacyPolicyViewController: UIViewController {
 
         super.viewDidLoad()
 
-        // 初始化视图
-
         initViews()
     }
 

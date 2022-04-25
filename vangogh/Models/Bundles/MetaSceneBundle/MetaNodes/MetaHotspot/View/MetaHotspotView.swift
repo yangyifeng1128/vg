@@ -27,8 +27,6 @@ class MetaHotspotView: MetaNodeView {
 
         self.hotspot = hotspot
 
-        // 初始化视图
-
         initViews()
     }
 

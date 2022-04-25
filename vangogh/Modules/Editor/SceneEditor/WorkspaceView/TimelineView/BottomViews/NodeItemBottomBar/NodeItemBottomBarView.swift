@@ -41,8 +41,6 @@ class NodeItemBottomBarView: BorderedView {
 
         actionBarItems = NodeItemBottomBarItemManager.shared.get()
 
-        // 初始化视图
-
         initViews()
     }
 

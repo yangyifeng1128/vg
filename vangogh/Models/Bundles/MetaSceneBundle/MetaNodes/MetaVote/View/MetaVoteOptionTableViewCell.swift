@@ -29,8 +29,6 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // 初始化视图
-
         initViews()
     }
 
@@ -75,8 +73,6 @@ class MetaVoteOptionView: RoundedView {
     init() {
 
         super.init()
-
-        // 初始化视图
 
         initViews()
     }
