@@ -1,5 +1,5 @@
 ///
-/// TrackItemBottomBarItemManager
+/// TrackItemBottomBarItem
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///

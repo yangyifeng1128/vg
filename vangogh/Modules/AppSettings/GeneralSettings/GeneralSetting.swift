@@ -1,5 +1,5 @@
 ///
-/// GeneralSettingManager
+/// GeneralSetting
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///

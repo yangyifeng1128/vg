@@ -1,5 +1,5 @@
 ///
-/// TimelineToolBarItemManager
+/// TimelineToolBarItem
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
