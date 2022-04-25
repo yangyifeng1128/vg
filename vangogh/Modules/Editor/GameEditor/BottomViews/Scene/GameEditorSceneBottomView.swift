@@ -300,11 +300,11 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
             fatalError("Unexpected end scene")
         }
 
-        // 准备条件视图
+        // 准备「条件视图」
 
         cell.conditionsTitleLabel.attributedText = prepareConditionsTitleLabelAttributedText(startScene: startScene, conditions: transitions[indexPath.row].conditions)
 
-        // 准备缩略图视图
+        // 准备「缩略图视图」
 
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let s = self else { return }
@@ -319,14 +319,14 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
             }
         }
 
-        // 准备「结束场景」标题标签
+        // 准备「结束场景标题标签」
 
         cell.endSceneTitleLabel.attributedText = prepareEndSceneTitleLabelAttributedText(endScene: endScene)
         cell.endSceneTitleLabel.textAlignment = .center
         cell.endSceneTitleLabel.numberOfLines = 3
         cell.endSceneTitleLabel.lineBreakMode = .byTruncatingTail
 
-        // 准备删除按钮
+        // 准备「删除按钮」
 
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(transitionWillDelete), for: .touchUpInside)

@@ -16,6 +16,8 @@ extension NewGameViewController {
 
     @objc func newBlankGameButtonDidTap() {
 
+        // 添加作品
+
         addGame { [weak self] game in
             guard let s = self else { return }
             s.pushGameEditorVC(game: game)

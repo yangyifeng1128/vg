@@ -56,6 +56,7 @@ class NodeItemTagView: UIView {
 
     private(set) var node: MetaNode!
 
+    /// 初始化
     init(node: MetaNode) {
 
         super.init(frame: .zero)
@@ -70,6 +71,7 @@ class NodeItemTagView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
@@ -79,6 +81,7 @@ class NodeItemTagView: UIView {
         }
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: node.nodeType)

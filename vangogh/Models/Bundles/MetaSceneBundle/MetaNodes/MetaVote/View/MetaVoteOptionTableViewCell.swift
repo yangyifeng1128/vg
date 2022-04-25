@@ -21,8 +21,10 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
         static let titleLabelTextColor: UIColor = .darkText
     }
 
+    /// 选项视图
     var optionView: MetaVoteOptionView!
-    var titleLabel: UILabel! // 标题标签
+    /// 标题标签
+    var titleLabel: UILabel!
 
     /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -43,13 +45,13 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加选项视图
+        // 添加「选项视图」
 
         optionView = MetaVoteOptionView()
         optionView.backgroundColor = VC.optionViewBackgroundColor
         contentView.addSubview(optionView)
 
-        // 添加标题标签
+        // 添加「标题标签」
 
         titleLabel = UILabel()
         titleLabel.textColor = VC.titleLabelTextColor
@@ -67,6 +69,7 @@ class MetaVoteOptionTableViewCell: UITableViewCell {
 
 class MetaVoteOptionView: RoundedView {
 
+    /// 边框图层
     var borderLayer: CAShapeLayer!
 
     /// 初始化
@@ -82,11 +85,13 @@ class MetaVoteOptionView: RoundedView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写布局子视图方法
     override func layoutSubviews() {
 
         // addBorderLayer()
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
@@ -98,6 +103,7 @@ class MetaVoteOptionView: RoundedView {
     private func initViews() {
     }
 
+    /// 添加边框图层
     private func addBorderLayer() {
 
         if borderLayer != nil {

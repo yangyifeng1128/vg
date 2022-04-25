@@ -21,14 +21,18 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         static let conditionsTitleLabelFontSize: CGFloat = 14
     }
 
-    private var ifLabel: UILabel! // IF 标签
-    var deleteButton: UIButton! // 删除按钮
-    var endSceneThumbImageView: RoundedImageView! // 缩略图视图
-    var endSceneTitleLabel: AttributedLabel! // 「结束场景」标题标签
-    private var arrowView: ArrowView! // 箭头视图
-    private var conditionsView: RoundedView! // 条件视图
-    var conditionsTitleLabel: AttributedLabel! // 条件标题标签
+    /// 删除按钮
+    var deleteButton: UIButton!
+    /// 缩略图视图
+    var endSceneThumbImageView: RoundedImageView!
+    /// 结束场景标题标签
+    var endSceneTitleLabel: AttributedLabel!
+    /// 箭头视图
+    var arrowView: ArrowView!
+    /// 条件标题标签
+    var conditionsTitleLabel: AttributedLabel!
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,14 +45,15 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加 IF 视图
+        // 初始化「if 标签」
 
-        ifLabel = UILabel()
+        let ifLabel: UILabel = UILabel()
         ifLabel.text = NSLocalizedString("If", comment: "")
         ifLabel.font = .systemFont(ofSize: VC.ifLabelFontSize, weight: .regular)
         ifLabel.textColor = .secondaryLabel
@@ -59,7 +64,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
             make.top.equalToSuperview()
         }
 
-        // 添加删除按钮
+        // 初始化「删除按钮」
 
         deleteButton = UIButton()
         deleteButton.tintColor = .tertiaryLabel
@@ -76,7 +81,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
             make.right.equalToSuperview()
         }
 
-        // 添加缩略图视图
+        // 初始化「缩略图视图」
 
         endSceneThumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneThumbImageView.contentMode = .scaleAspectFill
@@ -90,6 +95,8 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
             make.right.equalTo(deleteButton.snp.left)
         }
 
+        // 初始化「结束场景标题标签」
+        
         endSceneTitleLabel = AttributedLabel()
         endSceneTitleLabel.insets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
         endSceneTitleLabel.textColor = .white
@@ -105,7 +112,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
             make.edges.equalToSuperview()
         }
 
-        // 添加箭头视图
+        // 初始化「箭头视图」
 
         arrowView = ArrowView(direction: .right, arrowLayerColor: UIColor.accent?.cgColor)
         contentView.addSubview(arrowView)
@@ -116,9 +123,9 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
             make.top.equalToSuperview()
         }
 
-        // 添加条件视图
+        // 初始化「条件视图」
 
-        conditionsView = RoundedView()
+        let conditionsView: RoundedView = RoundedView()
         conditionsView.backgroundColor = .tertiarySystemBackground
         contentView.addSubview(conditionsView)
         let conditionsViewHeight: CGFloat = GameEditorSceneBottomView.VC.transitionTableViewCellHeight - 16
@@ -128,6 +135,8 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
             make.left.equalTo(ifLabel.snp.right).offset(4)
             make.right.equalTo(arrowView.snp.left).offset(-8)
         }
+
+        // 初始化「条件标题标签」
 
         conditionsTitleLabel = AttributedLabel()
         conditionsTitleLabel.insets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
@@ -149,6 +158,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         endSceneThumbImageView.image = nil
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)

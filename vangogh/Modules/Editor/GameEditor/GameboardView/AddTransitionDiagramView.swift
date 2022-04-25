@@ -27,6 +27,7 @@ class AddTransitionDiagramView: RoundedView {
     var endSceneView: RoundedImageView!
     var endSceneIndexLabel: UILabel!
 
+    /// 初始化
     init() {
 
         super.init(cornerRadius: VC.height / 2)
@@ -39,11 +40,13 @@ class AddTransitionDiagramView: RoundedView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写布局子视图方法
     override func layoutSubviews() {
 
         addBorderLayer()
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
@@ -54,6 +57,7 @@ class AddTransitionDiagramView: RoundedView {
         arrowView.updateView()
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .systemBackground

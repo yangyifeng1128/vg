@@ -198,11 +198,10 @@ class GameEditorViewController: UIViewController {
 
         super.viewDidDisappear(animated)
 
-        // 取消高亮显示「先前选中场景」相关的场景视图
-
         unhighlightSelectionRelatedViews()
     }
 
+    /// 取消高亮显示「先前选中场景」相关的场景视图
     private func unhighlightSelectionRelatedViews() {
 
         let previousSelectedSceneIndex = gameBundle.selectedSceneIndex
@@ -212,16 +211,15 @@ class GameEditorViewController: UIViewController {
         unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
     }
 
-    /// 外观切换完成
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
 
-        // 外观切换后更新视图
-
         updateViewsWhenTraitCollectionChanged()
     }
 
+    /// 外观切换后更新视图
     private func updateViewsWhenTraitCollectionChanged() {
 
         // 更新作品标题标签的图层阴影颜色

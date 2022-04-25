@@ -68,8 +68,6 @@ class NewGameViewController: UIViewController {
 
         super.viewDidAppear(animated)
 
-        // 同步模版列表
-
         syncTemplates() { [weak self] in
             guard let s = self else { return }
             s.loadTemplates() {

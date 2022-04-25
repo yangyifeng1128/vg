@@ -83,6 +83,7 @@ class TargetScenesViewController: UIViewController {
         initViews()
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)

@@ -33,16 +33,19 @@ class TimelineMeasureView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
     }
 
+    /// 重写布局子视图方法
     override func layoutSubviews() {
 
         addMeasureLayer()
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)

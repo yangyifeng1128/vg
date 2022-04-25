@@ -57,7 +57,7 @@ class PublicationViewController: UIViewController {
 
         initViews()
 
-        // 从服务器同步档案
+        // 同步档案列表
 
         syncArchives()
     }

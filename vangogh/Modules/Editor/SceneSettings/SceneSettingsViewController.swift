@@ -84,11 +84,13 @@ class SceneSettingsViewController: UIViewController {
         navigationController?.viewControllers[0] = newSceneEditorVC
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
     }
 
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground

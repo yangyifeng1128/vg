@@ -43,6 +43,7 @@ class GameEditorSceneView: RoundedView {
 
     var scene: MetaScene!
 
+    /// 初始化
     init(scene: MetaScene) {
 
         super.init(cornerRadius: GVC.defaultViewCornerRadius)
@@ -57,6 +58,7 @@ class GameEditorSceneView: RoundedView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
@@ -69,6 +71,7 @@ class GameEditorSceneView: RoundedView {
         }
     }
 
+    /// 初始化视图
     private func initViews() {
 
         center = scene.center
