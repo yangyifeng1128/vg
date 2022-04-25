@@ -221,18 +221,20 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: recordCollectionViewCellWidth, height: recordCollectionViewCellHeight)
     }
 
+    /// 设置内边距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         let inset = VC.recordCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
+    /// 设置最小行间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = VC.recordCollectionViewCellSpacing
-        return lineSpacing
+        return VC.recordCollectionViewCellSpacing
     }
 
+    /// 设置最小单元格间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
         return VC.recordCollectionViewCellSpacing

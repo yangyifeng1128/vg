@@ -12,23 +12,17 @@ extension CompositionViewController {
 
     @objc func settingsButtonDidTap() {
 
-        // 进入「应用程序设置」
-
         pushAppSettingsVC()
     }
 
     @objc func composeButtonDidTap() {
 
-        // 进入「新建作品视图」
-
         pushNewGameVC()
     }
 
-    @objc func moreButtonDidTap(sender: UIButton) {
+    @objc func moreButtonDidTap(button: UIButton) {
 
-        // 显示更多关于草稿
-
-        showMoreAboutDraft(sourceButton: sender)
+        showMoreAboutDraft(sourceButton: button)
     }
 }
 

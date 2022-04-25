@@ -58,7 +58,7 @@ class GameEditorViewController: UIViewController {
 
     /// 父视图控制器类型
     private var parentType: GameEditorParentViewControllerType!
-    /// 「场景已保存」消息
+    /// 场景已保存消息
     var sceneSavedMessage: String?
     /// 是否需要重新计算内容偏移量
     var needsContentOffsetUpdate: Bool = false

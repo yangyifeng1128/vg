@@ -38,9 +38,6 @@ class TransparentCoachMarkBodyView: UIControl, CoachMarkBodyView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("This class does not support NSCoding.")
     }
-}
-
-extension TransparentCoachMarkBodyView {
 
     /// 初始化视图
     private func initViews() {

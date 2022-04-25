@@ -308,6 +308,7 @@ extension TargetAssetsViewController: UICollectionViewDataSource {
 
 extension TargetAssetsViewController: UICollectionViewDelegate {
 
+    /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         guard let cell = collectionView.cellForItem(at: indexPath) as? TargetAssetCollectionViewCell else { return }
@@ -319,23 +320,26 @@ extension TargetAssetsViewController: UICollectionViewDelegate {
 
 extension TargetAssetsViewController: UICollectionViewDelegateFlowLayout {
 
+    /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         return thumbSize
     }
 
+    /// 设置内边距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         let inset = VC.collectionViewCellSpacing
         return UIEdgeInsets(top: 0, left: inset, bottom: inset, right: inset)
     }
 
+    /// 设置最小行间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = VC.collectionViewCellSpacing
-        return lineSpacing
+        return VC.collectionViewCellSpacing
     }
 
+    /// 设置最小单元格间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
         return VC.collectionViewCellSpacing

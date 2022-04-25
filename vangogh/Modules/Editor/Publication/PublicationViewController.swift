@@ -315,18 +315,20 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: archiveCollectionViewCellWidth, height: archiveCollectionViewCellHeight)
     }
 
+    /// 设置内边距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         let inset = VC.archiveCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
+    /// 设置最小行间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = VC.archiveCollectionViewCellSpacing
-        return lineSpacing
+        return VC.archiveCollectionViewCellSpacing
     }
 
+    /// 设置最小单元格间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
         return VC.archiveCollectionViewCellSpacing

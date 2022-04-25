@@ -4,7 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import CoreData
 import SnapKit
 import UIKit
 
@@ -26,7 +25,7 @@ class CompositionViewController: UIViewController {
 
     /// 草稿列表
     var drafts: [MetaGame] = [MetaGame]()
-    /// 「草稿已保存」消息
+    /// 草稿已保存消息
     var draftSavedMessage: String?
 
     /// 视图加载完成

@@ -18,11 +18,16 @@ class DraftTableViewCell: UITableViewCell {
         static let titleLabelFontSize: CGFloat = 18
     }
 
-    var thumbImageView: RoundedImageView! // 缩略图视图
-    var moreButton: UIButton! // 「更多」按钮
-    var mtimeLabel: UILabel! // 最近修改时间标签
-    var titleLabel: UILabel! // 标题标签
+    /// 缩略图视图
+    var thumbImageView: RoundedImageView!
+    /// 更多按钮
+    var moreButton: UIButton!
+    /// 最近修改时间标签
+    var mtimeLabel: UILabel!
+    /// 标题标签
+    var titleLabel: UILabel!
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,12 +40,13 @@ class DraftTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加缩略图视图
+        // 初始化「缩略图视图」
 
         thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         thumbImageView.backgroundColor = GVC.defaultViewBackgroundColor
@@ -54,7 +60,7 @@ class DraftTableViewCell: UITableViewCell {
             make.left.equalToSuperview()
         }
 
-        // 添加「更多」按钮
+        // 初始化「更多按钮」
 
         moreButton = UIButton()
         moreButton.tintColor = .secondaryLabel
@@ -68,7 +74,7 @@ class DraftTableViewCell: UITableViewCell {
             make.top.equalToSuperview()
         }
 
-        // 添加「最近修改时间」标签
+        // 添加「最近修改时间标签」
 
         mtimeLabel = UILabel()
         mtimeLabel.font = .systemFont(ofSize: VC.mtimeLabelFontSize, weight: .regular)
@@ -80,7 +86,7 @@ class DraftTableViewCell: UITableViewCell {
             make.bottom.equalTo(thumbImageView).offset(-8)
         }
 
-        // 添加标题标签
+        // 添加「标题标签」
 
         titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)

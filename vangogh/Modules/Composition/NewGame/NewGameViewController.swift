@@ -23,11 +23,6 @@ class NewGameViewController: UIViewController {
     /// 模版集合视图
     var templatesCollectionView: UICollectionView!
 
-    /// 模版集合视图单元格宽度
-    var templateCollectionViewCellWidth: CGFloat!
-    /// 模版集合视图单元格高度
-    var templateCollectionViewCellHeight: CGFloat!
-
     /// 作品列表
     var games: [MetaGame]!
     /// 模版列表
@@ -235,18 +230,20 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
         return prepareTemplatesCollectionViewCellSize(indexPath: indexPath)
     }
 
+    /// 设置内边距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         let inset = VC.templateCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
+    /// 设置最小行间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        let lineSpacing = VC.templateCollectionViewCellSpacing
-        return lineSpacing
+        return VC.templateCollectionViewCellSpacing
     }
 
+    /// 设置最小单元格间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
         return VC.templateCollectionViewCellSpacing

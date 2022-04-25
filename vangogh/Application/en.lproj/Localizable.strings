@@ -70,12 +70,13 @@
 "NewBlankGame" = "New Blank Game";
 "NoConditionsAvailable" = "No transition conditions are configured";
 "Node" = "Node";
+"NoArchivesAvailable" = "No archives available";
 "NoGamesFound" = "No Games Found";
 "NoGamesFoundInfo" = "Please make sure you scanned the correct MetaGame QRCode";
 "NoPicturesAvailable" = "No pictures available";
 "NoRecordsFound" = "No games played yet";
 "NoTargetScenesAvailable" = "No target scenes available";
-"NoTemplatesAvailable" = "Sorry, there are no templates available";
+"NoTemplatesAvailable" = "No templates available";
 "NoTransitionsAvailable" = "No transitions from this scene yet";
 "NoVideosAvailable" = "No videos available";
 "OpenSettings" = "Open Settings";
