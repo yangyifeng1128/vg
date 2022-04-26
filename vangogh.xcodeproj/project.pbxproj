@@ -264,6 +264,7 @@
 		12C985B42735160D00299AF3 /* MetaHotspotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C985B32735160D00299AF3 /* MetaHotspotView.swift */; };
 		12D413E72817B9C200E310B3 /* HomeViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */; };
 		12D413EC2817BA5400E310B3 /* HomeViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */; };
+		12D413EE2817D45D00E310B3 /* RecordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413ED2817D45D00E310B3 /* RecordCollectionViewCell.swift */; };
 		12D90A3727282F10000F3812 /* CachedImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D90A3627282F10000F3812 /* CachedImageGenerator.swift */; };
 		12DE403F2707E82000CF3145 /* SceneEmulatorNoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE403E2707E82000CF3145 /* SceneEmulatorNoDataView.swift */; };
 		12E41BE2266634F20094CB44 /* CompositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E41BE1266634F20094CB44 /* CompositionViewController.swift */; };
@@ -539,6 +540,7 @@
 		12C985B32735160D00299AF3 /* MetaHotspotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaHotspotView.swift; sourceTree = "<group>"; };
 		12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Actions.swift"; sourceTree = "<group>"; };
 		12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+VM.swift"; sourceTree = "<group>"; };
+		12D413ED2817D45D00E310B3 /* RecordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCollectionViewCell.swift; sourceTree = "<group>"; };
 		12D7108427BA3F9900025797 /* vangogh.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vangogh.entitlements; sourceTree = "<group>"; };
 		12D90A3627282F10000F3812 /* CachedImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageGenerator.swift; sourceTree = "<group>"; };
 		12DE403E2707E82000CF3145 /* SceneEmulatorNoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorNoDataView.swift; sourceTree = "<group>"; };
@@ -1993,6 +1995,7 @@
 				121D738326BF974100792DD4 /* HomeViewController.swift */,
 				12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */,
 				12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */,
+				12D413ED2817D45D00E310B3 /* RecordCollectionViewCell.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2442,6 +2445,7 @@
 				12433A4A267D9DB8001633D8 /* MetaTemplate+CoreDataProperties.swift in Sources */,
 				0F74CDEC2534738F0054D2CC /* SceneDelegate.swift in Sources */,
 				0F210E9426DAADCC002CC564 /* ImageGeneratorExtension.swift in Sources */,
+				12D413EE2817D45D00E310B3 /* RecordCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -106,7 +106,7 @@ class HomeViewController: UIViewController {
         recordsCollectionView.showsVerticalScrollIndicator = false
         recordsCollectionView.dataSource = self
         recordsCollectionView.delegate = self
-        recordsCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseId)
+        recordsCollectionView.register(RecordCollectionViewCell.self, forCellWithReuseIdentifier: RecordCollectionViewCell.reuseId)
         recordsView.addSubview(recordsCollectionView)
         recordsCollectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
@@ -188,7 +188,7 @@ extension HomeViewController {
 
         let record: MetaRecord = records[indexPath.item]
 
-        guard let cell = recordsCollectionView.dequeueReusableCell(withReuseIdentifier: TemplateCollectionViewCell.reuseId, for: indexPath) as? TemplateCollectionViewCell else {
+        guard let cell = recordsCollectionView.dequeueReusableCell(withReuseIdentifier: RecordCollectionViewCell.reuseId, for: indexPath) as? RecordCollectionViewCell else {
             fatalError("Unexpected cell type")
         }
 
