@@ -265,6 +265,7 @@
 		12D413E72817B9C200E310B3 /* HomeViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */; };
 		12D413EC2817BA5400E310B3 /* HomeViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */; };
 		12D413EE2817D45D00E310B3 /* RecordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413ED2817D45D00E310B3 /* RecordCollectionViewCell.swift */; };
+		12D413F02817D57100E310B3 /* HomeViewController+GameScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413EF2817D57100E310B3 /* HomeViewController+GameScanner.swift */; };
 		12D90A3727282F10000F3812 /* CachedImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D90A3627282F10000F3812 /* CachedImageGenerator.swift */; };
 		12DE403F2707E82000CF3145 /* SceneEmulatorNoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE403E2707E82000CF3145 /* SceneEmulatorNoDataView.swift */; };
 		12E41BE2266634F20094CB44 /* CompositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E41BE1266634F20094CB44 /* CompositionViewController.swift */; };
@@ -541,6 +542,7 @@
 		12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Actions.swift"; sourceTree = "<group>"; };
 		12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+VM.swift"; sourceTree = "<group>"; };
 		12D413ED2817D45D00E310B3 /* RecordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCollectionViewCell.swift; sourceTree = "<group>"; };
+		12D413EF2817D57100E310B3 /* HomeViewController+GameScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+GameScanner.swift"; sourceTree = "<group>"; };
 		12D7108427BA3F9900025797 /* vangogh.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vangogh.entitlements; sourceTree = "<group>"; };
 		12D90A3627282F10000F3812 /* CachedImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageGenerator.swift; sourceTree = "<group>"; };
 		12DE403E2707E82000CF3145 /* SceneEmulatorNoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorNoDataView.swift; sourceTree = "<group>"; };
@@ -1994,6 +1996,7 @@
 			children = (
 				121D738326BF974100792DD4 /* HomeViewController.swift */,
 				12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */,
+				12D413EF2817D57100E310B3 /* HomeViewController+GameScanner.swift */,
 				12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */,
 				12D413ED2817D45D00E310B3 /* RecordCollectionViewCell.swift */,
 			);
@@ -2417,6 +2420,7 @@
 				0F6705E62814313500034BD6 /* CoreDataManager.swift in Sources */,
 				12E6B1FD271982800077CCC0 /* TrackItemContentView.swift in Sources */,
 				12349D9D271D219600BC4626 /* MetaAnimatedImageView.swift in Sources */,
+				12D413F02817D57100E310B3 /* HomeViewController+GameScanner.swift in Sources */,
 				0FAAE3D9272C4C82000A7681 /* SceneSettingsViewController.swift in Sources */,
 				1269E7A9267DE12D0077D05C /* MetaGameBundle.swift in Sources */,
 				0FCA7A4D273426400051CCC1 /* NodeItemEarView.swift in Sources */,

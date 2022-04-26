@@ -4,8 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import CoreData
-import OSLog
 import SnapKit
 import UIKit
 
@@ -219,19 +217,5 @@ extension HomeViewController {
         let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
         return CGSize(width: cellWidth, height: cellHeight)
-    }
-}
-
-extension HomeViewController: GameScannerViewControllerDelegate {
-
-    func scanDidSucceed(gameUUID: String) {
-
-        guard let gameBundle = MetaGameBundleManager.shared.load(uuid: gameUUID), let selectedScene = gameBundle.selectedScene(), let selectedSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) else { return }
-
-        let sceneEmulatorVC = SceneEmulatorViewController(sceneBundle: selectedSceneBundle, gameBundle: gameBundle)
-        sceneEmulatorVC.definesPresentationContext = false
-        sceneEmulatorVC.modalPresentationStyle = .currentContext
-
-        present(sceneEmulatorVC, animated: true, completion: nil)
     }
 }
