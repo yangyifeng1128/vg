@@ -60,13 +60,18 @@ class NewGameViewController: UIViewController {
 
         // 加载模版列表
 
-        loadTemplates()
+        loadTemplates() { [weak self] in
+            guard let s = self else { return }
+            s.templatesCollectionView.reloadData()
+        }
     }
 
     /// 视图显示完成
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
+
+        // 同步模版列表
 
         syncTemplates() { [weak self] in
             guard let s = self else { return }

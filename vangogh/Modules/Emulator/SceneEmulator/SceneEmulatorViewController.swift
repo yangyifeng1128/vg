@@ -536,12 +536,6 @@ extension SceneEmulatorViewController {
 
 extension SceneEmulatorViewController {
 
-    //
-    //
-    // MARK: - 界面操作
-    //
-    //
-
     @objc private func closeButtonDidTap() {
 
         print("[SceneEmulator] did tap closeButton")

@@ -262,6 +262,8 @@
 		12C76184273A455400A91B2F /* NodeItemBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C76183273A455400A91B2F /* NodeItemBarView.swift */; };
 		12C985B127350A8200299AF3 /* MetaNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C985B027350A8200299AF3 /* MetaNodeView.swift */; };
 		12C985B42735160D00299AF3 /* MetaHotspotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C985B32735160D00299AF3 /* MetaHotspotView.swift */; };
+		12D413E72817B9C200E310B3 /* HomeViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */; };
+		12D413EC2817BA5400E310B3 /* HomeViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */; };
 		12D90A3727282F10000F3812 /* CachedImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D90A3627282F10000F3812 /* CachedImageGenerator.swift */; };
 		12DE403F2707E82000CF3145 /* SceneEmulatorNoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE403E2707E82000CF3145 /* SceneEmulatorNoDataView.swift */; };
 		12E41BE2266634F20094CB44 /* CompositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E41BE1266634F20094CB44 /* CompositionViewController.swift */; };
@@ -535,6 +537,8 @@
 		12C76183273A455400A91B2F /* NodeItemBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeItemBarView.swift; sourceTree = "<group>"; };
 		12C985B027350A8200299AF3 /* MetaNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeView.swift; sourceTree = "<group>"; };
 		12C985B32735160D00299AF3 /* MetaHotspotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaHotspotView.swift; sourceTree = "<group>"; };
+		12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Actions.swift"; sourceTree = "<group>"; };
+		12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+VM.swift"; sourceTree = "<group>"; };
 		12D7108427BA3F9900025797 /* vangogh.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = vangogh.entitlements; sourceTree = "<group>"; };
 		12D90A3627282F10000F3812 /* CachedImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageGenerator.swift; sourceTree = "<group>"; };
 		12DE403E2707E82000CF3145 /* SceneEmulatorNoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorNoDataView.swift; sourceTree = "<group>"; };
@@ -1782,9 +1786,8 @@
 		121D738226BF970C00792DD4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				121D738326BF974100792DD4 /* HomeViewController.swift */,
-				1251CF2727A3B94F00F329D5 /* GameScannerViewController.swift */,
-				1251CF2927A4F0F500F329D5 /* GameScannerTorchButton.swift */,
+				12D413E82817B9CB00E310B3 /* Core */,
+				12D413E92817B9D500E310B3 /* GameScanner */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1982,6 +1985,25 @@
 				0F991764271B3CCD0081A37F /* ArchiveCollectionViewCell.swift */,
 			);
 			path = Publication;
+			sourceTree = "<group>";
+		};
+		12D413E82817B9CB00E310B3 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				121D738326BF974100792DD4 /* HomeViewController.swift */,
+				12D413E62817B9C200E310B3 /* HomeViewController+Actions.swift */,
+				12D413EB2817BA5400E310B3 /* HomeViewController+VM.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		12D413E92817B9D500E310B3 /* GameScanner */ = {
+			isa = PBXGroup;
+			children = (
+				1251CF2927A4F0F500F329D5 /* GameScannerTorchButton.swift */,
+				1251CF2727A3B94F00F329D5 /* GameScannerViewController.swift */,
+			);
+			path = GameScanner;
 			sourceTree = "<group>";
 		};
 		12E41BE0266634B40094CB44 /* Composition */ = {
@@ -2249,6 +2271,7 @@
 				0F28134F254CF61E00FB569A /* GameEditorViewController.swift in Sources */,
 				0F210E8E26DAADCC002CC564 /* AVAssetReverseImageResource.swift in Sources */,
 				12666CE826D61D4000660A4B /* SceneEmulatorProgressView.swift in Sources */,
+				12D413E72817B9C200E310B3 /* HomeViewController+Actions.swift in Sources */,
 				123957D22756526F003FCDC4 /* MetaVoteOptionTableViewCell.swift in Sources */,
 				0F210E8D26DAADCC002CC564 /* AVAssetReaderImageResource.swift in Sources */,
 				1216849427B0F97C00D597E0 /* OrderedDictionary+Description.swift in Sources */,
@@ -2373,6 +2396,7 @@
 				0FFA0ED7281590FA0008AC1C /* GeneralSettingsViewController+Actions.swift in Sources */,
 				0FFA0ED328158C960008AC1C /* DarkModeViewController+Actions.swift in Sources */,
 				121D738426BF974100792DD4 /* HomeViewController.swift in Sources */,
+				12D413EC2817BA5400E310B3 /* HomeViewController+VM.swift in Sources */,
 				0F34D70F274A519C00736DD5 /* DarkModeViewController.swift in Sources */,
 				120B6FCF26C0F89200B1AE9B /* GameEditorTransitionView.swift in Sources */,
 				0F74CDF4253473900054D2CC /* vangogh.xcdatamodeld in Sources */,

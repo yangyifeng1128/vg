@@ -98,6 +98,7 @@ class SceneEditorViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()

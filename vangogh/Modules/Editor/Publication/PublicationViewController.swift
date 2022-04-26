@@ -408,9 +408,9 @@ extension PublicationViewController {
         do {
             archives = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
             archivesCollectionView.reloadData()
-            Logger.gameEditor.info("loading meta archives: ok")
+            Logger.gameEditor.info("loading archives: ok")
         } catch {
-            Logger.gameEditor.info("loading meta archives error: \(error.localizedDescription)")
+            Logger.gameEditor.info("loading archives error: \(error.localizedDescription)")
         }
 
         if let handler = handler {

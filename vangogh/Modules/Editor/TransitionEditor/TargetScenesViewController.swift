@@ -70,12 +70,7 @@ class TargetScenesViewController: UIViewController {
         }.reversed() // 倒序
     }
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 视图加载完成
     override func viewDidLoad() {
 
         super.viewDidLoad()

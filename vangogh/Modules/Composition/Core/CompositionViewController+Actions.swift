@@ -45,13 +45,13 @@ extension CompositionViewController {
         if !agreementsSigned {
             DispatchQueue.main.async { [weak self] in
                 guard let s = self else { return }
-                s.showAgreements()
+                s.presentAgreementsVC()
             }
         }
     }
 
     /// 显示协议
-    func showAgreements() {
+    func presentAgreementsVC() {
 
         let agreementsVC: AgreementsViewController = AgreementsViewController()
         let agreementsNav: UINavigationController = UINavigationController(rootViewController: agreementsVC)
