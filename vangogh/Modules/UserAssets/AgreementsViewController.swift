@@ -23,15 +23,6 @@ class AgreementsViewController: UIViewController {
         static let infoTextViewFontSize: CGFloat = 13
     }
 
-    private var blurView: UIVisualEffectView!
-    private var contentView: RoundedView!
-    private var titleLabel: UILabel!
-    private var bottomView: UIView!
-    private var disagreeButton: RoundedButton!
-    private var agreeButton: RoundedButton!
-    private var bottomViewInfoLabel: UILabel!
-    private var infoTextView: UITextView!
-
     /// 初始化
     init() {
 
@@ -64,13 +55,17 @@ class AgreementsViewController: UIViewController {
     /// 初始化视图
     private func initViews() {
 
-        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark))
+        // 初始化「模糊视图」
+
+        let blurView: UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         view.addSubview(blurView)
         blurView.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
 
-        contentView = RoundedView()
+        // 初始化「内容视图」
+
+        let contentView: RoundedView = RoundedView()
         contentView.backgroundColor = .white
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
@@ -79,9 +74,9 @@ class AgreementsViewController: UIViewController {
             make.center.equalToSuperview()
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("Agreements", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .semibold)
         titleLabel.textColor = .darkText
@@ -94,9 +89,9 @@ class AgreementsViewController: UIViewController {
             make.top.equalToSuperview().offset(24)
         }
 
-        // 初始化底部视图
+        // 初始化「底部视图」
 
-        bottomView = UIView()
+        let bottomView: UIView = UIView()
         bottomView.backgroundColor = .tertiarySystemBackground
         contentView.addSubview(bottomView)
         bottomView.snp.makeConstraints { make -> Void in
@@ -105,7 +100,9 @@ class AgreementsViewController: UIViewController {
             make.left.bottom.equalToSuperview()
         }
 
-        disagreeButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        // 初始化「不同意按钮」
+
+        let disagreeButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         disagreeButton.tintColor = .secondaryLabel
         disagreeButton.setTitle(NSLocalizedString("Disagree", comment: ""), for: .normal)
         disagreeButton.titleLabel?.font = .systemFont(ofSize: VC.disagreeButtonTitleLabelFontSize, weight: .regular)
@@ -118,7 +115,9 @@ class AgreementsViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-8)
         }
 
-        agreeButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        // 初始化「同意按钮」
+
+        let agreeButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         agreeButton.backgroundColor = .accent
         agreeButton.tintColor = .white
         agreeButton.setTitle(NSLocalizedString("Agree", comment: ""), for: .normal)
@@ -132,7 +131,9 @@ class AgreementsViewController: UIViewController {
             make.bottom.equalTo(disagreeButton.snp.top)
         }
 
-        bottomViewInfoLabel = UILabel()
+        // 初始化「底部视图信息标签」
+
+        let bottomViewInfoLabel: UILabel = UILabel()
         bottomViewInfoLabel.attributedText = prepareBottomViewInfoLabelAttributedText()
         bottomViewInfoLabel.numberOfLines = 2
         bottomViewInfoLabel.lineBreakMode = .byTruncatingTail
@@ -143,9 +144,9 @@ class AgreementsViewController: UIViewController {
             make.bottom.equalTo(agreeButton.snp.top).offset(-8)
         }
 
-        // 初始化信息文本视图
+        // 初始化「信息文本视图」
 
-        infoTextView = UITextView()
+        let infoTextView: UITextView = UITextView()
         infoTextView.delegate = self
         infoTextView.attributedText = prepareInfoTextViewAttributedText()
         infoTextView.backgroundColor = .white
@@ -163,6 +164,7 @@ class AgreementsViewController: UIViewController {
         }
     }
 
+    /// 准备底部视图信息标签文本
     private func prepareBottomViewInfoLabelAttributedText() -> NSMutableAttributedString {
 
         // 准备签署信息
@@ -180,6 +182,7 @@ class AgreementsViewController: UIViewController {
         return completeBottomViewInfoString
     }
 
+    /// 准备信息文本视图文本
     private func prepareInfoTextViewAttributedText() -> NSMutableAttributedString {
 
         // 准备协议内容
@@ -223,23 +226,5 @@ extension AgreementsViewController: UITextViewDelegate {
         }
 
         return true
-    }
-}
-
-extension AgreementsViewController {
-
-    @objc private func agreeButtonDidTap() {
-
-        print("[Agreements] did tap agreeButton")
-
-        UserDefaults.standard.setValue(true, forKey: GKC.agreementsSigned)
-        presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-
-    @objc private func disagreeButtonDidTap() {
-
-        print("[Agreements] did tap disagreeButton")
-
-        UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
     }
 }

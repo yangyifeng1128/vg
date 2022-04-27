@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F007F4E28194A63008B1136 /* AgreementsViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F4D28194A63008B1136 /* AgreementsViewController+Actions.swift */; };
 		0F054950275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */; };
 		0F12089527B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */; };
 		0F14DF0827761A890056872B /* TrackItemBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */; };
@@ -280,6 +281,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F007F4D28194A63008B1136 /* AgreementsViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgreementsViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMultipleChoiceOptionTableViewCell.swift; sourceTree = "<group>"; };
 		0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeEditorTableTypographyViewCell.swift; sourceTree = "<group>"; };
 		0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItemBackgroundView.swift; sourceTree = "<group>"; };
@@ -1310,6 +1312,7 @@
 			isa = PBXGroup;
 			children = (
 				120F238126FDE6C60039CEC0 /* AgreementsViewController.swift */,
+				0F007F4D28194A63008B1136 /* AgreementsViewController+Actions.swift */,
 			);
 			path = UserAssets;
 			sourceTree = "<group>";
@@ -2256,6 +2259,7 @@
 				0FB8D82926EDEDAB00D5C971 /* MetaCondition.swift in Sources */,
 				0F34D711274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift in Sources */,
 				0F95E700271C6366005EE818 /* GameSetting.swift in Sources */,
+				0F007F4E28194A63008B1136 /* AgreementsViewController+Actions.swift in Sources */,
 				0FBF35F5274BEE0700DB168B /* MetaARCameraView.swift in Sources */,
 				0FFA0ECD28158A2F0008AC1C /* CompositionViewController+Actions.swift in Sources */,
 				0F8CB7132739785A00D72DC3 /* UIBezierPath+Curve.swift in Sources */,
