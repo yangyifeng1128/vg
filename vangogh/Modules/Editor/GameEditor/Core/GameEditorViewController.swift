@@ -222,11 +222,11 @@ class GameEditorViewController: UIViewController {
     /// 外观切换后更新视图
     private func updateViewsWhenTraitCollectionChanged() {
 
-        // 更新作品标题标签的图层阴影颜色
+        // 更新「作品标题标签」的图层阴影颜色
 
         gameTitleLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
 
-        // 重置全部穿梭器视图
+        // 重置全部「穿梭器视图」
 
         for transitionView in transitionViewList {
             transitionView.unhighlight()

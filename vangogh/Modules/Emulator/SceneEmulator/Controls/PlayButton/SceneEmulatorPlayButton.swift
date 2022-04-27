@@ -80,6 +80,7 @@ class SceneEmulatorPlayButton: UIButton {
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)
     }
 
+    /// 设置切换状态
     private func setToggled() {
 
         if isPlaying {

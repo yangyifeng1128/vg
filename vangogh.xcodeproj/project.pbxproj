@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F007F4E28194A63008B1136 /* AgreementsViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F4D28194A63008B1136 /* AgreementsViewController+Actions.swift */; };
+		0F007F5028195217008B1136 /* GameScannerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F4F28195217008B1136 /* GameScannerViewControllerDelegate.swift */; };
 		0F054950275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */; };
 		0F12089527B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */; };
 		0F14DF0827761A890056872B /* TrackItemBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */; };
@@ -282,6 +283,7 @@
 
 /* Begin PBXFileReference section */
 		0F007F4D28194A63008B1136 /* AgreementsViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgreementsViewController+Actions.swift"; sourceTree = "<group>"; };
+		0F007F4F28195217008B1136 /* GameScannerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScannerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMultipleChoiceOptionTableViewCell.swift; sourceTree = "<group>"; };
 		0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeEditorTableTypographyViewCell.swift; sourceTree = "<group>"; };
 		0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItemBackgroundView.swift; sourceTree = "<group>"; };
@@ -2011,6 +2013,7 @@
 			children = (
 				1251CF2927A4F0F500F329D5 /* GameScannerTorchButton.swift */,
 				1251CF2727A3B94F00F329D5 /* GameScannerViewController.swift */,
+				0F007F4F28195217008B1136 /* GameScannerViewControllerDelegate.swift */,
 			);
 			path = GameScanner;
 			sourceTree = "<group>";
@@ -2311,6 +2314,7 @@
 				0F8CB7112739763B00D72DC3 /* NodeItemCurveView.swift in Sources */,
 				0FEC934A279D8B750001FD32 /* MetaVoiceOver.swift in Sources */,
 				0F210E7826DAADCC002CC564 /* VideoCompositionInstruction.swift in Sources */,
+				0F007F5028195217008B1136 /* GameScannerViewControllerDelegate.swift in Sources */,
 				0FAB1465254F9AE100D09168 /* CGFloat+Rounded.swift in Sources */,
 				128B16472718302500CD917B /* AppSettingTableViewCell.swift in Sources */,
 				0F210E7A26DAADCC002CC564 /* CompositionGenerator.swift in Sources */,

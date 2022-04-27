@@ -8,10 +8,6 @@ import MercariQRScanner
 import SnapKit
 import UIKit
 
-protocol GameScannerViewControllerDelegate: AnyObject {
-    func scanDidSucceed(gameUUID: String)
-}
-
 class GameScannerViewController: UIViewController {
 
     /// 视图布局常量枚举值
@@ -22,12 +18,12 @@ class GameScannerViewController: UIViewController {
         static let torchButtonImageEdgeInset: CGFloat = 18
     }
 
+    /// 代理
     weak var delegate: GameScannerViewControllerDelegate?
 
+    /// 扫描器视图
     private var scannerView: QRScannerView!
-
-    private var backButtonContainer: UIView!
-    private var backButton: CircleNavigationBarButton!
+    /// 手电筒按钮
     private var torchButton: GameScannerTorchButton!
 
     /// 视图加载完成
@@ -38,6 +34,8 @@ class GameScannerViewController: UIViewController {
         // 单独强制设置用户界面风格
 
         overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle
+
+        // 初始化视图
 
         initViews()
     }
@@ -52,43 +50,27 @@ class GameScannerViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 
+    /// 隐藏状态栏
     override var prefersStatusBarHidden: Bool {
 
         return true
     }
 
-    //
-    //
-    // MARK: - 初始化子视图
-    //
-    //
-
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .black
 
-        // 初始化扫描器视图
-
-        initScannerView()
-
-        // 初始化导航栏
-
-        initNavigationBar()
-    }
-
-    private func initScannerView() {
+        // 初始化「扫描器视图」
 
         scannerView = QRScannerView(frame: view.bounds)
         view.addSubview(scannerView)
         scannerView.configure(delegate: self, input: .init(isBlurEffectEnabled: true))
         scannerView.startRunning()
-    }
 
-    private func initNavigationBar() {
+        // 初始化「关闭按钮容器」
 
-        // 初始化关闭按钮
-
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -99,7 +81,9 @@ class GameScannerViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
+        // 初始化「关闭按钮」
+
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -107,7 +91,7 @@ class GameScannerViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化手电筒按钮
+        // 初始化「手电筒按钮」
 
         torchButton = GameScannerTorchButton(imageEdgeInset: VC.torchButtonImageEdgeInset)
         torchButton.addTarget(self, action: #selector(torchButtonDidTap), for: .touchUpInside)
@@ -188,8 +172,6 @@ extension GameScannerViewController {
     }
 
     @objc private func torchButtonDidTap(_ torchButton: GameScannerTorchButton) {
-
-        print("[GameScanner] did tap torchButton")
 
         scannerView.setTorchActive(isOn: !torchButton.isActive)
     }

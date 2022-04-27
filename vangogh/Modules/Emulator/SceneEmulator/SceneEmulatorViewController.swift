@@ -91,6 +91,8 @@ class SceneEmulatorViewController: UIViewController {
 
         overrideUserInterfaceStyle = SceneEmulatorViewController.preferredUserInterfaceStyle
 
+        // 初始化视图
+
         initViews()
     }
 
@@ -148,19 +150,13 @@ class SceneEmulatorViewController: UIViewController {
         }
     }
 
+    /// 隐藏状态栏
     override var prefersStatusBarHidden: Bool {
 
-        return true // 隐藏状态栏
-
-        // return false // 显示状态栏
+        return true
     }
 
-    //
-    //
-    // MARK: - 初始化子视图
-    //
-    //
-
+    /// 初始化视图
     private func initViews() {
 
         // 初始化场景模拟器相关的视图

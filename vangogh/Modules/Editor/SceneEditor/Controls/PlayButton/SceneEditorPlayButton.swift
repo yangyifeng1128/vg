@@ -8,6 +8,7 @@ import UIKit
 
 class SceneEditorPlayButton: UIButton {
 
+    /// 播放状态
     var isPlaying: Bool = false {
         didSet {
             setToggled()
@@ -42,6 +43,7 @@ class SceneEditorPlayButton: UIButton {
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)
     }
 
+    /// 设置切换状态
     private func setToggled() {
 
         if isPlaying {

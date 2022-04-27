@@ -17,6 +17,7 @@ extension HomeViewController {
 
 extension HomeViewController: GameScannerViewControllerDelegate {
 
+    /// 作品扫描成功
     func scanDidSucceed(gameUUID: String) {
 
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: gameUUID), let selectedScene = gameBundle.selectedScene(), let selectedSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) else { return }

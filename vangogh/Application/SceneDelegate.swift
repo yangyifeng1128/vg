@@ -5,7 +5,6 @@
 ///
 
 import AwaitToast
-import OSLog
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -99,7 +98,5 @@ extension SceneDelegate {
         } else {
             window.overrideUserInterfaceStyle = .unspecified
         }
-
-        Logger.application.info("overrided user interface style: \(window.overrideUserInterfaceStyle.rawValue)")
     }
 }
