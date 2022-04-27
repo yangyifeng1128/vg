@@ -7,10 +7,6 @@
 import SnapKit
 import UIKit
 
-protocol GameEditorDefaultBottomViewDelegate: AnyObject {
-    func addSceneButtonDidTap()
-}
-
 class GameEditorDefaultBottomView: BorderedView {
 
     /// 视图布局常量枚举值

@@ -338,7 +338,6 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
 
 extension PublicationViewController {
 
-    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)

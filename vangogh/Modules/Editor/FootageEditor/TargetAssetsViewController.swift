@@ -8,10 +8,6 @@ import Photos
 import SnapKit
 import UIKit
 
-protocol TargetAssetsViewControllerDelegate: AnyObject {
-    func assetDidPick(_ asset: PHAsset, thumbImage: UIImage?)
-}
-
 class TargetAssetsViewController: UIViewController {
 
     /// 视图布局常量枚举值
@@ -396,13 +392,6 @@ extension TargetAssetsViewController: PHPhotoLibraryChangeObserver {
 
 extension TargetAssetsViewController {
 
-    //
-    //
-    // MARK: - 界面操作
-    //
-    //
-
-    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)

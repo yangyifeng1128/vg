@@ -250,7 +250,6 @@ extension GameSettingsViewController: UITableViewDelegate {
 
 extension GameSettingsViewController {
 
-    /// 点击「返回按钮」
     @objc private func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)

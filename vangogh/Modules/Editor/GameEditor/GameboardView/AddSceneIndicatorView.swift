@@ -7,11 +7,6 @@
 import SnapKit
 import UIKit
 
-protocol AddSceneIndicatorViewDelegate: AnyObject {
-    func addSceneIndicatorViewDidTap(_ view: AddSceneIndicatorView)
-    func addSceneIndicatorViewCloseButtonDidTap()
-}
-
 class AddSceneIndicatorView: UIView {
 
     /// 视图布局常量枚举值

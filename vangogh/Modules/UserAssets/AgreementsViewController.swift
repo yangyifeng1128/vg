@@ -210,6 +210,7 @@ class AgreementsViewController: UIViewController {
 
 extension AgreementsViewController: UITextViewDelegate {
 
+    /// 为文本视图添加交互链接
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
 
         var vc: UIViewController?

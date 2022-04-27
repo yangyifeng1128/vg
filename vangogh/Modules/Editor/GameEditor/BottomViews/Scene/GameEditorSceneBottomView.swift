@@ -7,18 +7,6 @@
 import SnapKit
 import UIKit
 
-protocol GameEditorSceneBottomViewDelegate: AnyObject {
-    func closeSceneButtonDidTap()
-    func deleteSceneButtonDidTap()
-    func editSceneTitleButtonDidTap()
-    func sceneTitleLabelDidTap()
-    func manageTransitionsButtonDidTap()
-    func previewSceneButtonDidTap()
-    func editSceneButtonDidTap()
-    func transitionWillDelete(_ transition: MetaTransition, completion: @escaping () -> Void)
-    func transitionDidSelect(_ transition: MetaTransition)
-}
-
 class GameEditorSceneBottomView: BorderedView {
 
     /// 视图布局常量枚举值

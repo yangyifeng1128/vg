@@ -7,10 +7,6 @@
 import SnapKit
 import UIKit
 
-protocol GameEditorWillAddSceneBottomViewDelegate: AnyObject {
-    func cancelAddingSceneButtonDidTap()
-}
-
 class GameEditorWillAddSceneBottomView: UIView {
 
     /// 视图布局常量枚举值

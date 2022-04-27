@@ -8,11 +8,6 @@ import CoreMedia
 import SnapKit
 import UIKit
 
-protocol ScenePlayerViewDelegate: AnyObject {
-    func nodeViewWillBeginEditing(_ nodeView: MetaNodeView)
-    func saveBundleWhenNodeViewChanged(node: MetaNode)
-}
-
 class ScenePlayerView: UIView {
 
     /// 渲染对齐方式枚举值
@@ -72,9 +67,8 @@ class ScenePlayerView: UIView {
         initNodeViews()
     }
 
+    /// 初始化渲染器视图
     private func initRendererView() {
-
-        // 初始化渲染器视图
 
         rendererView = SceneRendererView(renderScale: renderScale)
         addSubview(rendererView)
@@ -90,9 +84,8 @@ class ScenePlayerView: UIView {
         }
     }
 
+    /// 初始化组件视图
     private func initNodeViews() {
-
-        // 初始化组件视图
 
         nodeViewContainer = RoundedView(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
         addSubview(nodeViewContainer)

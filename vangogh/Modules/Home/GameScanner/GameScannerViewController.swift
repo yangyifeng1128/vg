@@ -22,9 +22,9 @@ class GameScannerViewController: UIViewController {
     weak var delegate: GameScannerViewControllerDelegate?
 
     /// 扫描器视图
-    private var scannerView: QRScannerView!
+    var scannerView: QRScannerView!
     /// 手电筒按钮
-    private var torchButton: GameScannerTorchButton!
+    var torchButton: GameScannerTorchButton!
 
     /// 视图加载完成
     override func viewDidLoad() {
@@ -101,78 +101,5 @@ class GameScannerViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-8)
         }
-    }
-}
-
-extension GameScannerViewController: QRScannerViewDelegate {
-
-    func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
-
-        print("[GameScanner] failed to scan QRCode. error: \(error.localizedDescription)")
-
-        showScanFailureInfo()
-    }
-
-    func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
-
-        print("[GameScanner] did scan QRCode successfully. code: \(code)")
-
-        if let url = URL(string: code), url.scheme == GUC.metaGameURLScheme, let gameUUID = url.host {
-
-            navigationController?.popViewController(animated: true)
-            delegate?.scanDidSucceed(gameUUID: gameUUID)
-
-        } else {
-
-            showScanFailureInfo()
-        }
-    }
-
-    func qrScannerView(_ qrScannerView: QRScannerView, didChangeTorchActive isOn: Bool) {
-
-        torchButton.isActive = isOn
-    }
-
-    private func showScanFailureInfo() {
-
-        // 创建提示框
-
-        let alert = UIAlertController(title: NSLocalizedString("NoGamesFound", comment: ""), message: NSLocalizedString("NoGamesFoundInfo", comment: ""), preferredStyle: .alert)
-
-        // 「重新扫描」操作
-
-        let rescanAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Rescan", comment: ""), style: .default) { [weak self] _ in
-
-            guard let s = self else { return }
-            s.scannerView.rescan()
-        }
-        alert.addAction(rescanAction)
-
-        // 「取消」操作
-
-        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { [weak self] _ in
-
-            guard let s = self else { return }
-            s.navigationController?.popViewController(animated: true)
-        }
-        alert.addAction(cancelAction)
-
-        // 展示提示框
-
-        present(alert, animated: true, completion: nil)
-    }
-}
-
-extension GameScannerViewController {
-
-    /// 点击「返回按钮」
-    @objc private func backButtonDidTap() {
-
-        navigationController?.popViewController(animated: true)
-    }
-
-    @objc private func torchButtonDidTap(_ torchButton: GameScannerTorchButton) {
-
-        scannerView.setTorchActive(isOn: !torchButton.isActive)
     }
 }
