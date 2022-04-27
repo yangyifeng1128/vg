@@ -46,7 +46,7 @@ extension NewGameViewController {
         do {
             templates = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
             let count: Int = templates.count
-            Logger.composition.info("loading templates: ok (\(count))")
+            Logger.composition.info("loading \(count) templates: ok")
         } catch {
             Logger.composition.error("loading templates error: \(error.localizedDescription)")
         }
