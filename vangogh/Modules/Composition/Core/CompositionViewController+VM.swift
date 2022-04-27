@@ -17,7 +17,8 @@ extension CompositionViewController {
 
         do {
             drafts = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
-            Logger.composition.info("loading drafts: ok")
+            let count: Int = drafts.count
+            Logger.composition.info("loading drafts: ok (\(count))")
         } catch {
             Logger.composition.info("loading drafts error: \(error.localizedDescription)")
         }
