@@ -74,6 +74,6 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
         UserDefaults.standard.setValue(tabBarController.selectedIndex, forKey: GKC.currentMainTabBarItemIndex)
 
-        Logger.application.info("selected main tab bar item: \(title)")
+        Logger.application.info("selected main tab bar item: \"\(title)\"")
     }
 }

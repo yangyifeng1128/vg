@@ -85,7 +85,7 @@ extension CompositionViewController {
         openDraft(draft) { [weak self] in
             guard let s = self else { return }
             s.pushGameEditorVC(game: draft)
-            Logger.composition.info("loaded draft: \(draft.title)")
+            Logger.composition.info("loaded draft: \"\(draft.title)\"")
         }
     }
 
@@ -143,7 +143,7 @@ extension CompositionViewController {
 
                 s.saveDraftTitle(draft, newTitle: title) {
                     s.draftsTableView.reloadData()
-                    Logger.composition.info("saved draft title: \(title)")
+                    Logger.composition.info("saved draft title: \"\(title)\"")
                 }
             }
             editDraftTitleAlert.addAction(confirmAction)
@@ -181,7 +181,7 @@ extension CompositionViewController {
                 s.deleteDraft(draft) {
                     s.draftsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                     s.reloadDraftsTableView()
-                    Logger.composition.info("deleted draft: \(draftTitle)")
+                    Logger.composition.info("deleted draft: \"\(draftTitle)\"")
                 }
             }
             deleteDraftAlert.addAction(confirmAction)

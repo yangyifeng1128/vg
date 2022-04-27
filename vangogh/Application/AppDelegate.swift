@@ -66,6 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             backgroundCompletionHandler = completionHandler
         }
 
-        Logger.application.info("handling events for background URL session: \(identifier)")
+        Logger.application.info("handling events for background URL session: \"\(identifier)\"")
     }
 }

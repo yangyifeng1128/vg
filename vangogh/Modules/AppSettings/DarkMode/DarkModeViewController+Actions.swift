@@ -50,6 +50,6 @@ extension DarkModeViewController {
 
         stylesTableView.reloadData() // 重新加载表格视图
 
-        Logger.appSettings.info("selected user interface style: \(type.rawValue)")
+        Logger.appSettings.info("selected user interface style: \"\(type.rawValue)\"")
     }
 }
