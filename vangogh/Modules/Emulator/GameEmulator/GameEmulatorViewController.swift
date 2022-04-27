@@ -47,6 +47,3 @@ class GameEmulatorViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
     }
 }
-
-extension GameEmulatorViewController {
-}

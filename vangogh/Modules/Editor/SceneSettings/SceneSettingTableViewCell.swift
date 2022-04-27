@@ -18,10 +18,14 @@ class SceneSettingTableViewCell: UITableViewCell {
         static let infoLabelFontSize: CGFloat = 14
     }
 
+    /// 标题标签
     var titleLabel: UILabel!
+    /// chevron 视图
     var chevronView: UIImageView!
+    /// 信息标签
     var infoLabel: UILabel!
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,12 +38,13 @@ class SceneSettingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
@@ -50,7 +55,7 @@ class SceneSettingTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(16)
         }
 
-        // 准备 chevronView
+        // 初始化「chevron 视图」
 
         chevronView = UIImageView(image: .chevronRight)
         chevronView.tintColor = .tertiaryLabel
@@ -61,7 +66,7 @@ class SceneSettingTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-8)
         }
 
-        // 准备信息标签
+        // 初始化「信息标签」
 
         infoLabel = UILabel()
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)

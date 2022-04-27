@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class ArchiveCollectionViewCell: UICollectionViewCell {
+class ArchiveCollectionViewCell: RoundedCollectionViewCell {
 
     static let reuseId: String = "ArchiveCollectionViewCell"
 
@@ -17,34 +17,12 @@ class ArchiveCollectionViewCell: UICollectionViewCell {
         static let titleLabelFontSize: CGFloat = 13
     }
 
-    var thumbImageView: UIImageView! // 缩略图视图
-    var titleLabel: AttributedLabel! // 标题标签
+    /// 缩略图视图
+    var thumbImageView: UIImageView!
+    /// 标题标签
+    var titleLabel: AttributedLabel!
 
-    private lazy var maskLayer: CAShapeLayer = {
-        self.layer.mask = $0
-        return $0
-    }(CAShapeLayer())
-
-    override var bounds: CGRect {
-        set {
-            super.bounds = newValue
-            maskLayer.frame = newValue
-            let newPath: CGPath = UIBezierPath(roundedRect: newValue, cornerRadius: GVC.defaultViewCornerRadius).cgPath
-            if let animation = self.layer.animation(forKey: "bounds.size")?.copy() as? CABasicAnimation {
-                animation.keyPath = "path"
-                animation.fromValue = maskLayer.path
-                animation.toValue = newPath
-                maskLayer.path = newPath
-                maskLayer.add(animation, forKey: "path")
-            } else {
-                maskLayer.path = newPath
-            }
-        }
-        get {
-            return super.bounds
-        }
-    }
-
+    /// 初始化
     override init(frame: CGRect) {
 
         super.init(frame: frame)
@@ -57,16 +35,17 @@ class ArchiveCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         contentView.backgroundColor = GVC.defaultViewBackgroundColor
 
-        // 添加缩略图视图
+        // 初始化「缩略图视图」
 
         thumbImageView = UIImageView(frame: contentView.bounds)
         contentView.addSubview(thumbImageView)
 
-        // 添加标题标签
+        // 初始化「标题标签」
 
         titleLabel = AttributedLabel()
         titleLabel.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 4)

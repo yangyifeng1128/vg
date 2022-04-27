@@ -18,17 +18,15 @@ class SceneSettingsViewController: UIViewController {
         static let settingTableViewCellHeight: CGFloat = 80
     }
 
-    private var backButtonContainer: UIView!
-    private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
+    /// 设置表格视图
+    var settingsTableView: UITableView!
 
-    private var settingsView: UIView!
-    private var settingsTableView: UITableView!
-
-    private var sceneBundle: MetaSceneBundle!
-    private var gameBundle: MetaGameBundle!
-
-    private var settings: [SceneSetting]!
+    /// 场景资源包
+    var sceneBundle: MetaSceneBundle!
+    /// 作品资源包
+    var gameBundle: MetaGameBundle!
+    /// 设置列表
+    var settings: [SceneSetting]!
 
     /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
@@ -95,20 +93,9 @@ class SceneSettingsViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「返回按钮容器」
 
-        initNavigationBar()
-
-        // 初始化场景设置视图
-
-        initSettingsView()
-    }
-
-    private func initNavigationBar() {
-
-        // 初始化返回按钮
-
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -119,7 +106,9 @@ class SceneSettingsViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        // 初始化「返回按钮」
+
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -127,9 +116,9 @@ class SceneSettingsViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("SceneSettings", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -140,13 +129,10 @@ class SceneSettingsViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
 
-    private func initSettingsView() {
+        // 初始化「设置视图」
 
-        // 初始化场景设置视图
-
-        settingsView = UIView()
+        let settingsView: UIView = UIView()
         view.addSubview(settingsView)
         settingsView.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(16)
@@ -154,7 +140,7 @@ class SceneSettingsViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        // 初始化场景设置表格视图
+        // 初始化「设置表格视图容器」
 
         let settingsTableViewContainer: RoundedView = RoundedView()
         settingsTableViewContainer.backgroundColor = .secondarySystemGroupedBackground
@@ -162,6 +148,8 @@ class SceneSettingsViewController: UIViewController {
         settingsTableViewContainer.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
+
+        // 初始化「设置表格视图」
 
         settingsTableView = UITableView()
         settingsTableView.backgroundColor = .clear
@@ -278,17 +266,17 @@ extension SceneSettingsViewController: UITableViewDelegate {
 
 extension SceneSettingsViewController {
 
-    @objc private func backButtonDidTap() {
+    @objc func backButtonDidTap() {
 
         navigationController?.popViewController(animated: true)
     }
 
-    private func editSceneThumbImage() {
+    func editSceneThumbImage() {
 
         print("[SceneSettings] will edit scene thumb image")
     }
 
-    private func editSceneTitle(sourceView: UIView) {
+    func editSceneTitle(sourceView: UIView) {
 
         // 创建提示框
 
@@ -346,7 +334,7 @@ extension SceneSettingsViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func editAspectRatio(sourceView: UIView) {
+    func editAspectRatio(sourceView: UIView) {
 
         // 创建提示框
 

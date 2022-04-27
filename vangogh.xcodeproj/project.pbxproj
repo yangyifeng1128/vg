@@ -17,6 +17,8 @@
 		0F007F5C281995C0008B1136 /* GameEditorSceneBottomViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5B281995C0008B1136 /* GameEditorSceneBottomViewDelegate.swift */; };
 		0F007F5E2819962F008B1136 /* GameEditorWillAddSceneBottomViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5D2819962F008B1136 /* GameEditorWillAddSceneBottomViewDelegate.swift */; };
 		0F007F6028199696008B1136 /* AddSceneIndicatorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5F28199696008B1136 /* AddSceneIndicatorViewDelegate.swift */; };
+		0F007F6228199AE1008B1136 /* PublicationViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F6128199AE1008B1136 /* PublicationViewController+Actions.swift */; };
+		0F007F6428199C4E008B1136 /* PublicationViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F6328199C4E008B1136 /* PublicationViewController+VM.swift */; };
 		0F054950275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */; };
 		0F12089527B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */; };
 		0F14DF0827761A890056872B /* TrackItemBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */; };
@@ -300,6 +302,8 @@
 		0F007F5B281995C0008B1136 /* GameEditorSceneBottomViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorSceneBottomViewDelegate.swift; sourceTree = "<group>"; };
 		0F007F5D2819962F008B1136 /* GameEditorWillAddSceneBottomViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorWillAddSceneBottomViewDelegate.swift; sourceTree = "<group>"; };
 		0F007F5F28199696008B1136 /* AddSceneIndicatorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSceneIndicatorViewDelegate.swift; sourceTree = "<group>"; };
+		0F007F6128199AE1008B1136 /* PublicationViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicationViewController+Actions.swift"; sourceTree = "<group>"; };
+		0F007F6328199C4E008B1136 /* PublicationViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicationViewController+VM.swift"; sourceTree = "<group>"; };
 		0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMultipleChoiceOptionTableViewCell.swift; sourceTree = "<group>"; };
 		0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeEditorTableTypographyViewCell.swift; sourceTree = "<group>"; };
 		0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItemBackgroundView.swift; sourceTree = "<group>"; };
@@ -2012,8 +2016,10 @@
 		12C383B726AD8DDF006AFA7F /* Publication */ = {
 			isa = PBXGroup;
 			children = (
-				12C383B826AD8E60006AFA7F /* PublicationViewController.swift */,
 				0F991764271B3CCD0081A37F /* ArchiveCollectionViewCell.swift */,
+				12C383B826AD8E60006AFA7F /* PublicationViewController.swift */,
+				0F007F6128199AE1008B1136 /* PublicationViewController+Actions.swift */,
+				0F007F6328199C4E008B1136 /* PublicationViewController+VM.swift */,
 			);
 			path = Publication;
 			sourceTree = "<group>";
@@ -2338,6 +2344,7 @@
 				0FAF2FD426D7E82D0063E89E /* AppDelegate.swift in Sources */,
 				127731C526FB00A400853ABC /* TimelineMeasureView.swift in Sources */,
 				0F210E8526DAADCC002CC564 /* TrackItem.swift in Sources */,
+				0F007F6428199C4E008B1136 /* PublicationViewController+VM.swift in Sources */,
 				0F8CB7112739763B00D72DC3 /* NodeItemCurveView.swift in Sources */,
 				0FEC934A279D8B750001FD32 /* MetaVoiceOver.swift in Sources */,
 				0F210E7826DAADCC002CC564 /* VideoCompositionInstruction.swift in Sources */,
@@ -2354,6 +2361,7 @@
 				128B164D2718659000CD917B /* TermsOfServiceViewController.swift in Sources */,
 				1284C1BE26E343660055720C /* AddSceneIndicatorView.swift in Sources */,
 				126F8EBF27B3E65D0097C10D /* MetaOperator.swift in Sources */,
+				0F007F6228199AE1008B1136 /* PublicationViewController+Actions.swift in Sources */,
 				0F51FAFD273ADE1600D90811 /* MetaARCamera.swift in Sources */,
 				1290E50826AC8264006EA422 /* SceneEmulatorViewController.swift in Sources */,
 				0F14DF0C277821DA0056872B /* Double+Rounded.swift in Sources */,

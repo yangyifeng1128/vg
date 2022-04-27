@@ -4,9 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import CoreData
-import Kingfisher
-import OSLog
 import SnapKit
 import UIKit
 
@@ -22,20 +19,13 @@ class PublicationViewController: UIViewController {
         static let archiveCollectionViewCellSpacing: CGFloat = 8
     }
 
-    private var backButtonContainer: UIView!
-    private var backButton: CircleNavigationBarButton!
-    private var gameSettingsButtonContainer: UIView!
-    private var gameSettingsButton: CircleNavigationBarButton!
-
-    private var publishButton: RoundedButton!
-    private var archivesCollectionView: UICollectionView!
-    private var archiveCollectionViewCellWidth: CGFloat!
-    private var archiveCollectionViewCellHeight: CGFloat!
+    /// 档案集合视图
+    var archivesCollectionView: UICollectionView!
 
     /// 作品
-    private var game: MetaGame!
+    var game: MetaGame!
     /// 档案列表
-    private var archives: [MetaTemplate] = [MetaTemplate]()
+    var archives: [MetaTemplate] = [MetaTemplate]()
 
     /// 初始化
     init(game: MetaGame) {
@@ -55,6 +45,8 @@ class PublicationViewController: UIViewController {
 
         super.viewDidLoad()
 
+        // 初始化视图
+
         initViews()
 
         // 同步档案列表
@@ -73,7 +65,10 @@ class PublicationViewController: UIViewController {
 
         // 加载档案列表
 
-        loadArchives()
+        loadArchives() { [weak self] in
+            guard let s = self else { return }
+            s.archivesCollectionView.reloadData()
+        }
     }
 
     /// 初始化视图
@@ -81,25 +76,9 @@ class PublicationViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化「导航栏」
-
-        initNavigationBar()
-
-        // 初始化「发布按钮」
-
-        initPublishButton()
-
-        // 初始化「档案视图」
-
-        initArchivesView()
-    }
-
-    /// 初始化「导航栏」
-    private func initNavigationBar() {
-
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -112,7 +91,7 @@ class PublicationViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -136,7 +115,7 @@ class PublicationViewController: UIViewController {
 
         // 初始化「作品设置按钮容器」
 
-        gameSettingsButtonContainer = UIView()
+        let gameSettingsButtonContainer: UIView = UIView()
         gameSettingsButtonContainer.backgroundColor = .clear
         gameSettingsButtonContainer.isUserInteractionEnabled = true
         gameSettingsButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gameSettingsButtonDidTap)))
@@ -150,7 +129,7 @@ class PublicationViewController: UIViewController {
 
         // 初始化「作品设置按钮」
 
-        gameSettingsButton = CircleNavigationBarButton(icon: .gameSettings)
+        let gameSettingsButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .gameSettings)
         gameSettingsButton.addTarget(self, action: #selector(gameSettingsButtonDidTap), for: .touchUpInside)
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
         gameSettingsButton.snp.makeConstraints { make -> Void in
@@ -158,12 +137,10 @@ class PublicationViewController: UIViewController {
             make.left.equalToSuperview().offset(VC.topButtonContainerPadding)
             make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
-    }
 
-    /// 初始化「发布按钮」
-    private func initPublishButton() {
+        // 初始化「发布按钮」
 
-        publishButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let publishButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         publishButton.backgroundColor = .secondarySystemGroupedBackground
         publishButton.contentHorizontalAlignment = .center
         publishButton.contentVerticalAlignment = .center
@@ -189,10 +166,6 @@ class PublicationViewController: UIViewController {
             make.left.right.equalToSuperview().inset(16)
             make.top.equalTo(backButtonContainer.snp.bottom).offset(24)
         }
-    }
-
-    /// 初始化「档案视图」
-    private func initArchivesView() {
 
         // 初始化「档案视图」
 
@@ -247,34 +220,13 @@ extension PublicationViewController: UICollectionViewDataSource {
     /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        if archives.isEmpty {
-            archivesCollectionView.showNoDataInfo(title: NSLocalizedString("NoArchivesAvailable", comment: ""))
-        } else {
-            archivesCollectionView.hideNoDataInfo()
-        }
-
-        return archives.count
+        return prepareArchivesCount()
     }
 
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let archive: MetaTemplate = archives[indexPath.item]
-
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArchiveCollectionViewCell.reuseId, for: indexPath) as? ArchiveCollectionViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = archive.title
-
-        // 准备「缩略图视图」
-
-        let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(archive.thumbFileName)")!
-        cell.thumbImageView.kf.setImage(with: thumbURL)
-
-        return cell
+        return prepareArchivesCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -283,9 +235,7 @@ extension PublicationViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let archive: MetaTemplate = archives[indexPath.item]
-
-        print("[Publication] did use archive: \(archive.bundleFileName)")
+        selectArchive(archives[indexPath.item])
     }
 }
 
@@ -294,25 +244,7 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
     /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        var numberOfCellsPerRow: Int
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            numberOfCellsPerRow = 3
-            break
-        case .pad, .mac, .tv, .carPlay, .unspecified:
-            numberOfCellsPerRow = 5
-            break
-        @unknown default:
-            numberOfCellsPerRow = 3
-            break
-        }
-
-        let cellSpacing = VC.archiveCollectionViewCellSpacing
-
-        archiveCollectionViewCellWidth = ((collectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        archiveCollectionViewCellHeight = (archiveCollectionViewCellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
-
-        return CGSize(width: archiveCollectionViewCellWidth, height: archiveCollectionViewCellHeight)
+        return prepareArchivesCollectionViewCellSize(indexPath: indexPath)
     }
 
     /// 设置内边距
@@ -335,87 +267,60 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-
 extension PublicationViewController {
 
-    @objc private func backButtonDidTap() {
+    /// 准备档案数量
+    func prepareArchivesCount() -> Int {
 
-        navigationController?.popViewController(animated: true)
-    }
-
-    @objc private func gameSettingsButtonDidTap() {
-
-        print("[Publication] did tap gameSettingsButton")
-
-        openGameSettings()
-    }
-
-    @objc private func publishButtonDidTap() {
-
-        print("[Publication] did tap publishButton")
-    }
-
-    @objc private func pullToRefreshArchives() {
-
-        syncArchives()
-        archivesCollectionView.refreshControl?.endRefreshing()
-    }
-
-    private func openGameSettings() {
-
-        let gameSettingsVC = GameSettingsViewController(game: game)
-        gameSettingsVC.hidesBottomBarWhenPushed = true
-
-        navigationController?.pushViewController(gameSettingsVC, animated: true)
-    }
-
-
-    /// 同步档案列表
-    func syncArchives(completion handler: (() -> Void)? = nil) {
-
-        let archivesURL = URL(string: "\(GUC.templatesURLString)?page=1&sort_by=ctime&sort_order=ascending")!
-
-        URLSession.shared.dataTask(with: archivesURL) { data, _, error in
-
-            guard let data = data else { return }
-
-            do {
-                let decoder = JSONDecoder()
-                decoder.userInfo[CodingUserInfoKey.context!] = CoreDataManager.shared.persistentContainer.viewContext
-                let archivesData = try decoder.decode([MetaTemplate].self, from: data)
-                Logger.gameEditor.info("synchronizing \(archivesData.count) archives: ok")
-                CoreDataManager.shared.saveContext()
-                if let handler = handler {
-                    DispatchQueue.main.async {
-                        handler()
-                    }
-                }
-            } catch {
-                Logger.gameEditor.info("synchronizing archives error: \(error.localizedDescription)")
-            }
-
-        }.resume()
-    }
-
-    /// 加载档案列表
-    private func loadArchives(completion handler: (() -> Void)? = nil) {
-
-        let request: NSFetchRequest<MetaTemplate> = MetaTemplate.fetchRequest()
-        request.predicate = NSPredicate(format: "status == 1")
-        request.sortDescriptors = [NSSortDescriptor(key: "ctime", ascending: false)]
-
-        do {
-            archives = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
-            archivesCollectionView.reloadData()
-            Logger.gameEditor.info("loading archives: ok")
-        } catch {
-            Logger.gameEditor.info("loading archives error: \(error.localizedDescription)")
+        if archives.isEmpty {
+            archivesCollectionView.showNoDataInfo(title: NSLocalizedString("NoArchivesAvailable", comment: ""))
+        } else {
+            archivesCollectionView.hideNoDataInfo()
         }
 
-        if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+        return archives.count
+    }
+
+    /// 准备「档案集合视图」单元格
+    func prepareArchivesCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
+
+        let archive: MetaTemplate = archives[indexPath.item]
+
+        guard let cell = archivesCollectionView.dequeueReusableCell(withReuseIdentifier: ArchiveCollectionViewCell.reuseId, for: indexPath) as? ArchiveCollectionViewCell else {
+            fatalError("Unexpected cell type")
         }
+
+        // 准备「标题标签」
+
+        cell.titleLabel.text = archive.title
+
+        // 准备「缩略图视图」
+
+        let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(archive.thumbFileName)")!
+        cell.thumbImageView.kf.setImage(with: thumbURL)
+
+        return cell
+    }
+
+    /// 准备「模版集合视图」单元格尺寸
+    func prepareArchivesCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
+
+        var numberOfCellsPerRow: Int
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            numberOfCellsPerRow = 3
+            break
+        case .pad, .mac, .tv, .carPlay, .unspecified:
+            numberOfCellsPerRow = 5
+            break
+        @unknown default:
+            numberOfCellsPerRow = 3
+            break
+        }
+
+        let cellWidth: CGFloat = ((archivesCollectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * VC.archiveCollectionViewCellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
+        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
+
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }

@@ -45,6 +45,7 @@ extension GameScannerViewController: QRScannerViewDelegate {
         torchButton.isActive = isOn
     }
 
+    /// 显示扫描失败信息
     private func showScanFailureInfo() {
 
         // 创建提示框
