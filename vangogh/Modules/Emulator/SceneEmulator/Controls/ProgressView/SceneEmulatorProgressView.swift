@@ -22,6 +22,7 @@ class SceneEmulatorProgressView: UIView {
         static let sliderThumbImageHeight: CGFloat = 12
     }
 
+    /// 代理
     weak var delegate: SceneEmulatorProgressViewDelegate?
 
     private var barView: SceneEmulatorProgressBarView!
@@ -29,6 +30,7 @@ class SceneEmulatorProgressView: UIView {
     private var tagViewContainer: UIView!
     private var tagViewList: [SceneEmulatorProgressTagView] = []
 
+    /// 可用状态
     var isEnabled: Bool {
         get {
             return slider.isEnabled
@@ -48,6 +50,7 @@ class SceneEmulatorProgressView: UIView {
 
     private var playerItemDurationMilliseconds: Int64!
 
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -60,6 +63,7 @@ class SceneEmulatorProgressView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         initBarView()

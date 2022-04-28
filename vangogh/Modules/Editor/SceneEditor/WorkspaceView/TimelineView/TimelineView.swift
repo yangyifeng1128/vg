@@ -33,14 +33,14 @@ class TimelineView: UIView {
         static let nodeItemTagViewContainerBottomOffset: CGFloat = 16
     }
 
-    // 时间线底部视图类型枚举值
-
+    /// 时间线底部视图类型枚举值
     enum TimelineBottomViewType {
         case timeline
         case trackItem
         case nodeItem
     }
 
+    /// 代理
     weak var delegate: TimelineViewDelegate?
 
     private var bottomViewContainer: UIView!
@@ -61,6 +61,7 @@ class TimelineView: UIView {
     private var cursorView: TimelineCursorView!
     private var newFootageButton: AddFootageButton!
 
+    /// 内容视图宽度
     private var contentViewWidth: CGFloat = 0 {
         didSet {
             contentView.snp.updateConstraints { make -> Void in
@@ -68,14 +69,16 @@ class TimelineView: UIView {
             }
             contentViewContainer.contentSize = CGSize(width: contentViewWidth, height: .zero)
         }
-    } // 内容视图宽度
+    }
+    /// 轨道项视图容器宽度
     private var trackItemViewContainerWidth: CGFloat = 0 {
         didSet {
             trackItemViewContainer.snp.updateConstraints { make -> Void in
                 make.width.equalTo(trackItemViewContainerWidth)
             }
         }
-    } // 轨道项视图容器宽度
+    }
+    /// 组件项视图容器宽度
     private var nodeItemViewContainerWidth: CGFloat = 0 {
         didSet {
             nodeItemTagViewContainer.snp.updateConstraints { make -> Void in
@@ -85,12 +88,14 @@ class TimelineView: UIView {
                 make.width.equalTo(nodeItemViewContainerWidth)
             }
         }
-    } // 组件项视图容器宽度
-    private var trackItemThumbImageSize: CGSize! // 组件项缩略图视图尺寸
+    }
+    /// 组件项缩略图视图尺寸
+    private var trackItemThumbImageSize: CGSize!
 
     private var timeline: Timeline!
     private let loadTrackItemContentViewThumbImageQueue: DispatchQueue = DispatchQueue(label: GKC.loadTrackItemContentViewThumbImageQueueIdentifier)
 
+    /// 可用状态
     var isEnabled: Bool = true {
         willSet {
             timelineToolBarView.isUserInteractionEnabled = newValue
@@ -100,6 +105,7 @@ class TimelineView: UIView {
 
     private var currentTimeMilliseconds: Int64 = 0
 
+    /// 初始化
     init(trackItemThumbImageSize: CGSize) {
 
         self.trackItemThumbImageSize = trackItemThumbImageSize
@@ -114,6 +120,7 @@ class TimelineView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         // 初始化底部视图
@@ -129,12 +136,7 @@ class TimelineView: UIView {
         initMiscView()
     }
 
-    //
-    //
-    // MARK: - 初始化底部视图
-    //
-    //
-
+    ///
     private func initBottomView() {
 
         // 初始化底部视图容器

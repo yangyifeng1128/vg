@@ -8,6 +8,7 @@ import SnapKit
 import UIKit
 
 protocol SceneEmulatorNoDataViewDelegate: AnyObject {
+
     func editSceneImmediatelyButtonDidTap()
     func editSceneLaterButtonDidTap()
 }
@@ -32,6 +33,7 @@ class SceneEmulatorNoDataView: UIView {
     private var editSceneImmediatelyButton: RoundedButton!
     private var editSceneLaterButton: RoundedButton!
 
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -44,7 +46,10 @@ class SceneEmulatorNoDataView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
+
+        // 初始化「内容视图」
 
         contentView = UIView()
         contentView.backgroundColor = .clear
@@ -55,7 +60,7 @@ class SceneEmulatorNoDataView: UIView {
             make.center.equalToSuperview()
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("SceneEmulatorNoData", comment: "")
@@ -69,7 +74,7 @@ class SceneEmulatorNoDataView: UIView {
             make.top.equalToSuperview()
         }
 
-        // 初始化「立即编辑场景」按钮
+        // 初始化「立即编辑场景按钮」
 
         editSceneImmediatelyButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         editSceneImmediatelyButton.backgroundColor = .white
@@ -86,7 +91,7 @@ class SceneEmulatorNoDataView: UIView {
             make.top.equalTo(titleLabel.snp.bottom).offset(48)
         }
 
-        // 初始化「稍后编辑场景」按钮
+        // 初始化「稍后编辑场景按钮」
 
         editSceneLaterButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         editSceneLaterButton.backgroundColor = .clear

@@ -33,6 +33,7 @@ class SceneEmulatorPlayButton: UIButton {
         }
     }
 
+    /// 可用状态
     override var isEnabled: Bool {
         willSet {
             if newValue == false {
@@ -45,6 +46,7 @@ class SceneEmulatorPlayButton: UIButton {
         }
     }
 
+    /// 播放状态
     var isPlaying: Bool = false {
         didSet {
             setToggled()
@@ -56,6 +58,7 @@ class SceneEmulatorPlayButton: UIButton {
 
     private var imageEdgeInset: CGFloat!
 
+    /// 初始化
     init(imageEdgeInset: CGFloat) {
 
         super.init(frame: .zero)
@@ -75,6 +78,7 @@ class SceneEmulatorPlayButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写背景矩形区域
     override func backgroundRect(forBounds bounds: CGRect) -> CGRect {
 
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)

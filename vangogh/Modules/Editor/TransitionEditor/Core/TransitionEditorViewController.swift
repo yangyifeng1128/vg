@@ -31,23 +31,23 @@ class TransitionEditorViewController: UIViewController {
         static let conditionTableViewCellHeight: CGFloat = 96
     }
 
-    /// 示意图视图
-    private var diagramView: RoundedView!
     /// 箭头视图
-    private var arrowView: ArrowView!
-    /// 「添加条件」按钮
-    private var addConditionButton: RoundedButton!
-    /// 条件视图
-    var conditionsView: UIView!
+    var arrowView: ArrowView!
     /// 条件表格视图
     var conditionsTableView: UITableView!
 
+    /// 作品资源包
     var gameBundle: MetaGameBundle!
+    /// 穿梭器
     var transition: MetaTransition!
+    /// 开始场景
     var startScene: MetaScene!
+    /// 结束场景
     var endScene: MetaScene!
+    /// 条件列表
     var conditions: [MetaCondition]!
 
+    /// 初始化
     init() {
 
         super.init(nibName: nil, bundle: nil)
@@ -106,6 +106,8 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
+        // 初始化「返回按钮」
+
         let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
@@ -130,7 +132,7 @@ class TransitionEditorViewController: UIViewController {
 
         // 初始化「示意图视图」
 
-        diagramView = RoundedView()
+        let diagramView: RoundedView = RoundedView()
         diagramView.backgroundColor = .systemGroupedBackground
         view.addSubview(diagramView)
         diagramView.snp.makeConstraints { make -> Void in
@@ -170,6 +172,9 @@ class TransitionEditorViewController: UIViewController {
             make.right.equalTo(arrowView.snp.left).offset(-24)
             make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset)
         }
+
+        // 初始化「开始场景索引标签」
+
         let startSceneIndexLabel = UILabel()
         startSceneIndexLabel.text = startScene.index.description
         startSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
@@ -183,6 +188,9 @@ class TransitionEditorViewController: UIViewController {
         startSceneIndexLabel.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
+
+        // 初始化「开始场景标题标签」
+
         let startSceneTitleLabel: UILabel = UILabel()
         let startSceneIndexString: String = NSLocalizedString("Scene", comment: "") + " " + startScene.index.description
         var startSceneTitleString: String
@@ -225,6 +233,9 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalToSuperview().offset(16)
             make.left.equalTo(arrowView.snp.right).offset(24)
         }
+
+        // 初始化「结束场景索引标签」
+
         let endSceneIndexLabel = UILabel()
         endSceneIndexLabel.text = endScene.index.description
         endSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
@@ -238,6 +249,9 @@ class TransitionEditorViewController: UIViewController {
         endSceneIndexLabel.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
+
+        // 初始化「结束场景标题标签」
+
         let endSceneTitleLabel: UILabel = UILabel()
         let endSceneIndexString: String = NSLocalizedString("Scene", comment: "") + " " + endScene.index.description
         var endSceneTitleString: String
@@ -260,7 +274,9 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalTo(endSceneView.snp.bottom).offset(8)
         }
 
-        addConditionButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        // 初始化「添加条件按钮」
+
+        let addConditionButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         addConditionButton.backgroundColor = .secondarySystemGroupedBackground
         addConditionButton.tintColor = .mgLabel
         addConditionButton.setTitle(NSLocalizedString("AddCondition", comment: ""), for: .normal)
@@ -281,7 +297,7 @@ class TransitionEditorViewController: UIViewController {
 
         // 初始化「条件视图」
 
-        conditionsView = UIView()
+        let conditionsView: UIView = UIView()
         view.addSubview(conditionsView)
         conditionsView.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(16)
@@ -304,7 +320,7 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalToSuperview()
         }
 
-        // 初始化「条件表格视图」
+        // 初始化「条件表格视图容器」
 
         let conditionsTableViewContainer: RoundedView = RoundedView()
         conditionsTableViewContainer.backgroundColor = .secondarySystemGroupedBackground
@@ -315,6 +331,8 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalTo(conditionsTitleLabel.snp.bottom).offset(24)
             make.bottom.equalToSuperview()
         }
+
+        // 初始化「条件表格视图」
 
         conditionsTableView = UITableView()
         conditionsTableView.backgroundColor = .clear
@@ -337,6 +355,42 @@ extension TransitionEditorViewController: UITableViewDataSource {
     /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
+        return prepareConditionsCount()
+    }
+
+    /// 设置单元格
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        return prepareConditionsTableViewCell(indexPath: indexPath)
+    }
+}
+
+extension TransitionEditorViewController: UITableViewDelegate {
+
+    /// 设置单元格高度
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return VC.conditionTableViewCellHeight
+    }
+
+    /// 设置估算单元格高度
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return VC.conditionTableViewCellHeight
+    }
+
+    /// 选中单元格
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        selectCondition(conditions[indexPath.row])
+    }
+}
+
+extension TransitionEditorViewController {
+
+    /// 准备条件数量
+    private func prepareConditionsCount() -> Int {
+
         if conditions.isEmpty {
             conditionsTableView.showNoDataInfo(title: NSLocalizedString("NoConditionsAvailable", comment: ""))
         } else {
@@ -346,8 +400,8 @@ extension TransitionEditorViewController: UITableViewDataSource {
         return conditions.count
     }
 
-    /// 设置单元格
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /// 准备「条件表格视图」单元格
+    private func prepareConditionsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = conditionsTableView.dequeueReusableCell(withIdentifier: TransitionEditorConditionTableViewCell.reuseId) as? TransitionEditorConditionTableViewCell else {
             fatalError("Unexpected cell type")
@@ -368,28 +422,8 @@ extension TransitionEditorViewController: UITableViewDataSource {
 
         return cell
     }
-}
 
-extension TransitionEditorViewController: UITableViewDelegate {
-
-    /// 设置单元格高度
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return VC.conditionTableViewCellHeight
-    }
-
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return VC.conditionTableViewCellHeight
-    }
-
-    /// 选中单元格
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    }
-}
-
-extension TransitionEditorViewController {
-
+    /// 准备条件标题标签文本
     private func prepareConditionTitleLabelAttributedText(startScene: MetaScene, condition: MetaCondition) -> NSMutableAttributedString {
 
         let completeConditionTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")

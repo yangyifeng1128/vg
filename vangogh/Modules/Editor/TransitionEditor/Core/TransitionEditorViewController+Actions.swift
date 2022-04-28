@@ -15,7 +15,6 @@ extension TransitionEditorViewController {
 
     @objc func addConditionButtonDidTap() {
 
-        print("[TransitionEditor] did tap addConditionButton")
     }
 
     @objc func conditionWillDelete(sender: UIButton) {
@@ -56,5 +55,13 @@ extension TransitionEditorViewController {
         // 展示提示框
 
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension TransitionEditorViewController {
+
+    /// 选择条件
+    func selectCondition(_ condition: MetaCondition) {
+
     }
 }

@@ -71,12 +71,14 @@ class SceneEmulatorViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 反初始化
     deinit {
 
         removePeriodicTimeObserver()
         NotificationCenter.default.removeObserver(self)
     }
 
+    /// 初始化作品引擎
     private func initMetaGameEngine() {
 
         gameEngine = MetaGameEngine(rules: sceneBundle.rules)
@@ -140,6 +142,7 @@ class SceneEmulatorViewController: UIViewController {
         saveBundle()
     }
 
+    /// 保存资源包
     private func saveBundle() {
 
         DispatchQueue.global(qos: .background).async { [weak self] in
