@@ -31,21 +31,22 @@ class TransitionEditorViewController: UIViewController {
         static let conditionTableViewCellHeight: CGFloat = 96
     }
 
-    private var backButtonContainer: UIView!
-    private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
+    /// 示意图视图
+    private var diagramView: RoundedView!
+    /// 箭头视图
+    private var arrowView: ArrowView!
+    /// 「添加条件」按钮
+    private var addConditionButton: RoundedButton!
+    /// 条件视图
+    var conditionsView: UIView!
+    /// 条件表格视图
+    var conditionsTableView: UITableView!
 
-    private var diagramView: RoundedView! // 示意图视图
-    private var arrowView: ArrowView! // 箭头视图
-    private var addConditionButton: RoundedButton! // 「添加条件」按钮
-    private var conditionsView: UIView! // 条件视图
-    private var conditionsTableView: UITableView! // 条件表格视图
-
-    private var gameBundle: MetaGameBundle!
-    private var transition: MetaTransition!
-    private var startScene: MetaScene!
-    private var endScene: MetaScene!
-    private var conditions: [MetaCondition]!
+    var gameBundle: MetaGameBundle!
+    var transition: MetaTransition!
+    var startScene: MetaScene!
+    var endScene: MetaScene!
+    var conditions: [MetaCondition]!
 
     init() {
 
@@ -94,7 +95,7 @@ class TransitionEditorViewController: UIViewController {
 
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -105,7 +106,7 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -115,7 +116,7 @@ class TransitionEditorViewController: UIViewController {
 
         // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("EditTransition", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -138,6 +139,8 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalTo(backButtonContainer.snp.bottom).offset(24)
         }
 
+        // 初始化「箭头视图」
+
         arrowView = ArrowView()
         diagramView.addSubview(arrowView)
         arrowView.snp.makeConstraints { make -> Void in
@@ -146,6 +149,8 @@ class TransitionEditorViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset + VC.diagramSceneViewHeight / 2 - VC.diagramArrowViewHeight / 2)
         }
+
+        // 初始化「开始场景视图」
 
         let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         startSceneView.contentMode = .scaleAspectFill
@@ -199,6 +204,8 @@ class TransitionEditorViewController: UIViewController {
             make.centerX.equalTo(startSceneView)
             make.top.equalTo(startSceneView.snp.bottom).offset(8)
         }
+
+        // 初始化「结束场景视图」
 
         let endSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneView.contentMode = .scaleAspectFill
@@ -361,6 +368,27 @@ extension TransitionEditorViewController: UITableViewDataSource {
 
         return cell
     }
+}
+
+extension TransitionEditorViewController: UITableViewDelegate {
+
+    /// 设置单元格高度
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return VC.conditionTableViewCellHeight
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return VC.conditionTableViewCellHeight
+    }
+
+    /// 选中单元格
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+}
+
+extension TransitionEditorViewController {
 
     private func prepareConditionTitleLabelAttributedText(startScene: MetaScene, condition: MetaCondition) -> NSMutableAttributedString {
 
@@ -415,76 +443,5 @@ extension TransitionEditorViewController: UITableViewDataSource {
 //        }
 
         return completeConditionTitleString
-    }
-}
-
-extension TransitionEditorViewController: UITableViewDelegate {
-
-    /// 设置单元格高度
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return VC.conditionTableViewCellHeight
-    }
-
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return VC.conditionTableViewCellHeight
-    }
-
-    /// 选中单元格
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    }
-}
-
-extension TransitionEditorViewController {
-
-    @objc private func backButtonDidTap() {
-
-        navigationController?.popViewController(animated: true)
-    }
-
-    @objc private func addConditionButtonDidTap() {
-
-        print("[TransitionEditor] did tap addConditionButton")
-    }
-
-    @objc private func conditionWillDelete(sender: UIButton) {
-
-        let index = sender.tag
-        let condition = conditions[index]
-
-        // 创建提示框
-
-        let alert = UIAlertController(title: NSLocalizedString("DeleteCondition", comment: ""), message: NSLocalizedString("DeleteConditionInfo", comment: ""), preferredStyle: .alert)
-
-        // 「确认」操作
-
-        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
-
-            guard let s = self else { return }
-
-            // 保存「删除条件」信息
-
-            s.gameBundle.deleteCondition(transition: s.transition, condition: condition)
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(s.gameBundle)
-            }
-
-            // 重新加载条件
-
-            s.conditions = s.transition.conditions
-            s.conditionsTableView.reloadData()
-        }
-        alert.addAction(confirmAction)
-
-        // 「取消」操作
-
-        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        }
-        alert.addAction(cancelAction)
-
-        // 展示提示框
-
-        present(alert, animated: true, completion: nil)
     }
 }

@@ -28,6 +28,7 @@
 		0F007F79281A4E7B008B1136 /* TargetScenesViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F78281A4E7B008B1136 /* TargetScenesViewController+Actions.swift */; };
 		0F007F7B281A5684008B1136 /* GameEditorDefaultBottomView+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F7A281A5684008B1136 /* GameEditorDefaultBottomView+Actions.swift */; };
 		0F007F7D281A56BE008B1136 /* GameEditorSceneBottomView+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F7C281A56BE008B1136 /* GameEditorSceneBottomView+Actions.swift */; };
+		0F007F7F281A625D008B1136 /* TransitionEditorViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F7E281A625D008B1136 /* TransitionEditorViewController+Actions.swift */; };
 		0F054950275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */; };
 		0F12089527B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */; };
 		0F14DF0827761A890056872B /* TrackItemBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */; };
@@ -322,6 +323,7 @@
 		0F007F78281A4E7B008B1136 /* TargetScenesViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetScenesViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F007F7A281A5684008B1136 /* GameEditorDefaultBottomView+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorDefaultBottomView+Actions.swift"; sourceTree = "<group>"; };
 		0F007F7C281A56BE008B1136 /* GameEditorSceneBottomView+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorSceneBottomView+Actions.swift"; sourceTree = "<group>"; };
+		0F007F7E281A625D008B1136 /* TransitionEditorViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransitionEditorViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F05494F275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMultipleChoiceOptionTableViewCell.swift; sourceTree = "<group>"; };
 		0F12089427B94B640013C8CB /* MetaNodeEditorTableTypographyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeEditorTableTypographyViewCell.swift; sourceTree = "<group>"; };
 		0F14DF0727761A890056872B /* TrackItemBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItemBackgroundView.swift; sourceTree = "<group>"; };
@@ -665,6 +667,7 @@
 			children = (
 				0FB8D82A26EE0F5700D5C971 /* TransitionEditorConditionTableViewCell.swift */,
 				0FB8D82526ED269C00D5C971 /* TransitionEditorViewController.swift */,
+				0F007F7E281A625D008B1136 /* TransitionEditorViewController+Actions.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2552,6 +2555,7 @@
 				0F210E9126DAADCC002CC564 /* Log.swift in Sources */,
 				12E6B1F7271934BD0077CCC0 /* LocalDocumentManager.swift in Sources */,
 				1269E7A6267DE0F60077D05C /* MetaGameBundleManager.swift in Sources */,
+				0F007F7F281A625D008B1136 /* TransitionEditorViewController+Actions.swift in Sources */,
 				0F14DF41278206D10056872B /* MetaTextEditorView.swift in Sources */,
 				125B400C27A01FC3003FB6B2 /* GameSettingTableThumbImageViewCell.swift in Sources */,
 				0F1769A626FEEB7900307A48 /* TargetAssetCollectionViewCell.swift in Sources */,
