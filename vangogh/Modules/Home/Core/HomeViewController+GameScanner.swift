@@ -34,9 +34,6 @@ extension HomeViewController: GameScannerViewControllerDelegate {
 
         let status: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
         switch status {
-        case .authorized:
-            pushGameScannerVC()
-            break
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                 if granted {
@@ -46,6 +43,9 @@ extension HomeViewController: GameScannerViewControllerDelegate {
                     }
                 }
             }
+            break
+        case .authorized:
+            pushGameScannerVC()
             break
         default:
             let alert = UIAlertController(title: NSLocalizedString("CameraAuthorizationDenied", comment: ""), message: NSLocalizedString("CameraAuthorizationDeniedInfo", comment: ""), preferredStyle: .alert)

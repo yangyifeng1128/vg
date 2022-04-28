@@ -1220,37 +1220,39 @@ extension SceneEditorViewController {
         }
     }
 
+    /// 添加镜头片段
     private func addFootage() {
 
-        requestPhotoLibraryAuthorization { [weak self] status in
-
-            guard let s = self else { return }
-
-            if status == .authorized {
-                s.selectAsset()
-            } else {
-                switch status {
-                case .limited:
-                    s.selectAsset()
-                    break
-                case .restricted, .denied:
-                    fallthrough
-                default:
-                    let alert = UIAlertController(title: NSLocalizedString("PhotoLibraryAuthorizationDenied", comment: ""), message: NSLocalizedString("PhotoLibraryAuthorizationDeniedInfo", comment: ""), preferredStyle: .alert)
-                    alert.overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle // 单独强制设置用户界面风格
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OpenSettings", comment: ""), style: .default) { _ in
-                        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    })
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-                    })
-                    s.present(alert, animated: true, completion: nil)
+        let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        switch status {
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { status in
+                DispatchQueue.main.async { [weak self] in
+                    guard let s = self else { return }
+                    s.pushTargetAssetsVC()
                 }
+            })
+            break
+        case .authorized, .limited:
+            pushTargetAssetsVC()
+            break
+        default:
+            let alert = UIAlertController(title: NSLocalizedString("PhotoLibraryAuthorizationDenied", comment: ""), message: NSLocalizedString("PhotoLibraryAuthorizationDeniedInfo", comment: ""), preferredStyle: .alert)
+            alert.overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle // 单独强制设置用户界面风格
+            let openSettingsAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("OpenSettings", comment: ""), style: .default) { _ in
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
+            alert.addAction(openSettingsAction)
+            let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            }
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
         }
     }
 
-    private func selectAsset() {
+    /// 进入「目标素材」
+    private func pushTargetAssetsVC() {
 
         let targetAssetsVC = TargetAssetsViewController()
         targetAssetsVC.delegate = self
