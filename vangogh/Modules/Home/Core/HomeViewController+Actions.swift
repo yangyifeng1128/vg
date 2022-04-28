@@ -31,16 +31,6 @@ extension HomeViewController {
         present(agreementsNav, animated: true, completion: nil)
     }
 
-    /// 进入「作品扫描器」
-    func pushGameScannerVC() {
-
-        let gameScannerVC: GameScannerViewController = GameScannerViewController()
-        gameScannerVC.delegate = self
-        gameScannerVC.hidesBottomBarWhenPushed = true
-
-        navigationController?.pushViewController(gameScannerVC, animated: true)
-    }
-
     /// 选择记录
     func selectRecord(_ record: MetaRecord) {
 

@@ -1352,17 +1352,17 @@ extension SceneEditorViewController {
         return sceneBundle.footages.isEmpty && sceneBundle.nodes.isEmpty
     }
 
-    private func requestPhotoLibraryAuthorization(completion: @escaping (PHAuthorizationStatus) -> Void) {
+    private func requestPhotoLibraryAuthorization(handler: @escaping (PHAuthorizationStatus) -> Void) {
 
         let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         if status == .notDetermined {
             PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { status in
                 DispatchQueue.main.async {
-                    completion(status)
+                    handler(status)
                 }
             })
         } else {
-            completion(status)
+            handler(status)
         }
     }
 }
