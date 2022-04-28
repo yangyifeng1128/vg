@@ -18,7 +18,9 @@ extension HomeViewController {
         do {
             records = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
             let count: Int = records.count
-            Logger.home.info("loading \(count) records: ok")
+            if count > 0 {
+                Logger.home.info("loading \(count) records: ok")
+            }
         } catch {
             Logger.home.info("loading records error: \(error.localizedDescription)")
         }

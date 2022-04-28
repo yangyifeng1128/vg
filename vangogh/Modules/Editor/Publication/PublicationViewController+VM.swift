@@ -46,7 +46,9 @@ extension PublicationViewController {
         do {
             archives = try CoreDataManager.shared.persistentContainer.viewContext.fetch(request)
             let count: Int = archives.count
-            Logger.gameEditor.info("loading \(count) archives: ok")
+            if count > 0 {
+                Logger.gameEditor.info("loading \(count) archives: ok")
+            }
         } catch {
             Logger.gameEditor.info("loading archives error: \(error.localizedDescription)")
         }

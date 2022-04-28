@@ -59,3 +59,11 @@ extension GameEditorSceneBottomView {
         })
     }
 }
+
+extension GameEditorSceneBottomView {
+
+    func selectTransition(_ transition: MetaTransition) {
+
+        delegate?.transitionDidSelect(transition)
+    }
+}

@@ -24,5 +24,6 @@ class GameEditorGameboardView: UIView {
 
     /// 初始化视图
     private func initViews() {
+
     }
 }

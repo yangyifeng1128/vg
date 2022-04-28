@@ -17,7 +17,7 @@ extension TargetScenesViewController {
 
 extension TargetScenesViewController {
 
-    /// 选中目标场景
+    /// 选择目标场景
     func selectTargetScene(_ targetScene: MetaScene) {
 
         Logger.gameEditor.info("selected target scene: \(targetScene.index)")

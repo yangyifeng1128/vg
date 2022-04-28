@@ -49,28 +49,11 @@ class TargetScenesViewController: UIViewController {
 
         self.gameBundle = gameBundle
         selectedScene = gameBundle.selectedScene()
-        loadTargetScenes()
     }
 
     required init?(coder: NSCoder) {
 
         fatalError("init(coder:) has not been implemented")
-    }
-
-    /// 加载目标场景列表
-    private func loadTargetScenes() {
-
-        targetScenes = gameBundle.scenes.filter { targetScene in
-            // 过滤当前选中的场景
-            if targetScene.index == gameBundle.selectedSceneIndex {
-                return false
-            }
-            // 过滤已保存的穿梭器
-            let existedTransitions = gameBundle.selectedTransitions()
-            if let transitions = existedTransitions, let _ = transitions.first(where: { $0.to == targetScene.index }) { return false }
-            // 返回其余的场景
-            return true
-        }.reversed() // 倒序
     }
 
     /// 视图加载完成
@@ -79,6 +62,23 @@ class TargetScenesViewController: UIViewController {
         super.viewDidLoad()
 
         initViews()
+    }
+
+    /// 视图即将显示
+    override func viewWillAppear(_ animated: Bool) {
+
+        super.viewWillAppear(animated)
+
+        // 隐藏导航栏
+
+        navigationController?.navigationBar.isHidden = true
+
+        // 加载目标场景列表
+
+        loadTargetScenes() { [weak self] in
+            guard let s = self else { return }
+            s.targetScenesTableView.reloadData()
+        }
     }
 
     /// 重写用户界面风格变化处理方法
@@ -174,6 +174,9 @@ class TargetScenesViewController: UIViewController {
             make.right.equalTo(arrowView.snp.left).offset(-24)
             make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset)
         }
+
+        // 初始化「开始场景索引标签」
+
         let startSceneIndexLabel = UILabel()
         startSceneIndexLabel.text = selectedScene.index.description
         startSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
@@ -220,6 +223,9 @@ class TargetScenesViewController: UIViewController {
             make.top.equalToSuperview().offset(16)
             make.left.equalTo(arrowView.snp.right).offset(24)
         }
+
+        // 初始化「结束场景索引标签」
+
         let endSceneIndexLabel: UILabel = UILabel()
         endSceneIndexLabel.text = "?"
         endSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)

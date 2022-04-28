@@ -195,26 +195,8 @@ extension SceneSettingsViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let setting = settings[indexPath.row]
-
-        switch setting.type {
-        case .sceneThumbImage:
-
-            editSceneThumbImage()
-            break
-
-        case .sceneTitle:
-
-            guard let cell = tableView.cellForRow(at: indexPath) as? SceneSettingTableViewCell else { return }
-            editSceneTitle(sourceView: cell.infoLabel)
-            break
-
-        case .aspectRatio:
-
-            guard let cell = tableView.cellForRow(at: indexPath) as? SceneSettingTableViewCell else { return }
-            editAspectRatio(sourceView: cell.infoLabel)
-            break
-        }
+        guard let cell = tableView.cellForRow(at: indexPath) as? SceneSettingTableViewCell else { return }
+        selectSceneSetting(settings[indexPath.row], cell: cell)
     }
 }
 

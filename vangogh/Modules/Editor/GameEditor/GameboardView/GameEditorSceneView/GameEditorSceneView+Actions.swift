@@ -63,6 +63,15 @@ extension GameEditorSceneView {
 
 extension GameEditorSceneView {
 
+    /// 更新标题标签文本
+    func updateTitleLabelAttributedText() {
+
+        titleLabel.attributedText = prepareTitleLabelAttributedText()
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 3
+        titleLabel.lineBreakMode = .byTruncatingTail
+    }
+
     /// 激活
     func activate() {
 

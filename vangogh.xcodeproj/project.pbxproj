@@ -96,6 +96,7 @@
 		0F38249F281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F38249E281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift */; };
 		0F3824A1281A7FD900A5E653 /* TargetAssetsViewController+PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3824A0281A7FD800A5E653 /* TargetAssetsViewController+PhotoLibrary.swift */; };
 		0F3824A3281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3824A2281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift */; };
+		0F3824A5281A8C4700A5E653 /* TargetScenesViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3824A4281A8C4700A5E653 /* TargetScenesViewController+VM.swift */; };
 		0F3882BB253559080069A1A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882BD253559080069A1A4 /* Localizable.strings */; };
 		0F3882C425355B6C0069A1A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882C625355B6C0069A1A4 /* InfoPlist.strings */; };
 		0F3882DA2537373D0069A1A4 /* CodingUserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3882D92537373D0069A1A4 /* CodingUserInfoKey.swift */; };
@@ -394,6 +395,7 @@
 		0F38249E281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetAssetsViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F3824A0281A7FD800A5E653 /* TargetAssetsViewController+PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetAssetsViewController+PhotoLibrary.swift"; sourceTree = "<group>"; };
 		0F3824A2281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorWillAddSceneBottomView+Actions.swift"; sourceTree = "<group>"; };
+		0F3824A4281A8C4700A5E653 /* TargetScenesViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetScenesViewController+VM.swift"; sourceTree = "<group>"; };
 		0F3882BC253559080069A1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F3882BF253559100069A1A4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		0F3882C525355B6C0069A1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -682,8 +684,9 @@
 			isa = PBXGroup;
 			children = (
 				126AD0C926B92906007EBEBE /* TargetScenesViewController.swift */,
-				126AD0CB26BA7000007EBEBE /* TargetSceneTableViewCell.swift */,
 				0F007F78281A4E7B008B1136 /* TargetScenesViewController+Actions.swift */,
+				0F3824A4281A8C4700A5E653 /* TargetScenesViewController+VM.swift */,
+				126AD0CB26BA7000007EBEBE /* TargetSceneTableViewCell.swift */,
 			);
 			path = TargetScenes;
 			sourceTree = "<group>";
@@ -2565,6 +2568,7 @@
 				12961199279ED1E20091DCDC /* UIColor+RGBA.swift in Sources */,
 				0F210E9126DAADCC002CC564 /* Log.swift in Sources */,
 				12E6B1F7271934BD0077CCC0 /* LocalDocumentManager.swift in Sources */,
+				0F3824A5281A8C4700A5E653 /* TargetScenesViewController+VM.swift in Sources */,
 				1269E7A6267DE0F60077D05C /* MetaGameBundleManager.swift in Sources */,
 				0F007F7F281A625D008B1136 /* TransitionEditorViewController+Actions.swift in Sources */,
 				0F14DF41278206D10056872B /* MetaTextEditorView.swift in Sources */,

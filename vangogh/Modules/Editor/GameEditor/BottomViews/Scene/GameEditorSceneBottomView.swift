@@ -241,77 +241,13 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
     /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if transitions.isEmpty {
-
-            manageTransitionsButton.snp.updateConstraints { make -> Void in
-                make.height.equalTo(VC.manageTransitionsButtonMinHeight)
-            }
-            manageTransitionsButton.isHidden = true
-
-            transitionsTableView.showNoDataInfo(title: NSLocalizedString("NoTransitionsAvailable", comment: ""), oops: false)
-            transitionsView.isHidden = true
-
-        } else {
-
-            manageTransitionsButton.snp.updateConstraints { make -> Void in
-                make.height.equalTo(VC.manageTransitionsButtonHeight)
-            }
-            // manageTransitionsButton.isHidden = false
-            manageTransitionsButton.isHidden = true
-
-            transitionsTableView.hideNoDataInfo()
-
-        }
-
-        return transitions.count
+        return prepareTransitionsCount()
     }
 
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = transitionsTableView.dequeueReusableCell(withIdentifier: GameEditorTransitionTableViewCell.reuseId) as? GameEditorTransitionTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        guard let startScene = gameBundle.selectedScene() else {
-            fatalError("Unexpected start scene")
-        }
-        guard let endScene = gameBundle.findScene(index: transitions[indexPath.row].to) else {
-            fatalError("Unexpected end scene")
-        }
-
-        // 准备「条件视图」
-
-        cell.conditionsTitleLabel.attributedText = prepareConditionsTitleLabelAttributedText(startScene: startScene, conditions: transitions[indexPath.row].conditions)
-
-        // 准备「缩略图视图」
-
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: s.gameBundle.uuid) {
-                DispatchQueue.main.async {
-                    cell.endSceneThumbImageView.image = thumbImage
-                }
-            } else {
-                DispatchQueue.main.async {
-                    cell.endSceneThumbImageView.image = .sceneBackgroundThumb
-                }
-            }
-        }
-
-        // 准备「结束场景标题标签」
-
-        cell.endSceneTitleLabel.attributedText = prepareEndSceneTitleLabelAttributedText(endScene: endScene)
-        cell.endSceneTitleLabel.textAlignment = .center
-        cell.endSceneTitleLabel.numberOfLines = 3
-        cell.endSceneTitleLabel.lineBreakMode = .byTruncatingTail
-
-        // 准备「删除按钮」
-
-        cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(transitionWillDelete), for: .touchUpInside)
-
-        return cell
+        return prepareTransitionsTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -326,7 +262,7 @@ extension GameEditorSceneBottomView: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        delegate?.transitionDidSelect(transitions[indexPath.row])
+        selectTransition(transitions[indexPath.row])
     }
 }
 
@@ -361,6 +297,82 @@ extension GameEditorSceneBottomView {
         completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
 
         return completeTitleString
+    }
+
+    /// 准备穿梭器数量
+    private func prepareTransitionsCount() -> Int {
+
+        if transitions.isEmpty {
+
+            manageTransitionsButton.snp.updateConstraints { make -> Void in
+                make.height.equalTo(VC.manageTransitionsButtonMinHeight)
+            }
+            manageTransitionsButton.isHidden = true
+
+            transitionsTableView.showNoDataInfo(title: NSLocalizedString("NoTransitionsAvailable", comment: ""), oops: false)
+            transitionsView.isHidden = true
+
+        } else {
+
+            manageTransitionsButton.snp.updateConstraints { make -> Void in
+                make.height.equalTo(VC.manageTransitionsButtonHeight)
+            }
+            // manageTransitionsButton.isHidden = false
+            manageTransitionsButton.isHidden = true
+
+            transitionsTableView.hideNoDataInfo()
+
+        }
+
+        return transitions.count
+    }
+
+    /// 准备「穿梭器表格视图」单元格
+    private func prepareTransitionsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+
+        guard let startScene = gameBundle.selectedScene() else {
+            fatalError("Unexpected start scene")
+        }
+        guard let endScene = gameBundle.findScene(index: transitions[indexPath.row].to) else {
+            fatalError("Unexpected end scene")
+        }
+
+        guard let cell = transitionsTableView.dequeueReusableCell(withIdentifier: GameEditorTransitionTableViewCell.reuseId) as? GameEditorTransitionTableViewCell else {
+            fatalError("Unexpected cell type")
+        }
+
+        // 准备「条件视图」
+
+        cell.conditionsTitleLabel.attributedText = prepareConditionsTitleLabelAttributedText(startScene: startScene, conditions: transitions[indexPath.row].conditions)
+
+        // 准备「缩略图视图」
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    cell.endSceneThumbImageView.image = thumbImage
+                }
+            } else {
+                DispatchQueue.main.async {
+                    cell.endSceneThumbImageView.image = .sceneBackgroundThumb
+                }
+            }
+        }
+
+        // 准备「结束场景标题标签」
+
+        cell.endSceneTitleLabel.attributedText = prepareEndSceneTitleLabelAttributedText(endScene: endScene)
+        cell.endSceneTitleLabel.textAlignment = .center
+        cell.endSceneTitleLabel.numberOfLines = 3
+        cell.endSceneTitleLabel.lineBreakMode = .byTruncatingTail
+
+        // 准备「删除按钮」
+
+        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.addTarget(self, action: #selector(transitionWillDelete), for: .touchUpInside)
+
+        return cell
     }
 
     private func prepareConditionsTitleLabelAttributedText(startScene: MetaScene, conditions: [MetaCondition]) -> NSMutableAttributedString {

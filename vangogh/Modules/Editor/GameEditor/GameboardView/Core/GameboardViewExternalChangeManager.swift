@@ -20,7 +20,7 @@ class GameboardViewExternalChangeManager {
     /// 变更字典
     var changeDict: [GameboardViewExternalChangeType: Any?] = [:]
 
-    /// 设置变更
+    /// 设置变更值
     func set(key: GameboardViewExternalChangeType, value: Any?) {
 
         changeDict[key] = value

@@ -151,6 +151,9 @@ class AddTransitionDiagramView: RoundedView {
             make.edges.equalToSuperview()
         }
     }
+}
+
+extension AddTransitionDiagramView {
 
     /// 添加边框图层
     private func addBorderLayer() {

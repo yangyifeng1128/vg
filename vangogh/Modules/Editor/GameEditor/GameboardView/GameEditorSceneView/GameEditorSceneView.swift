@@ -115,17 +115,8 @@ class GameEditorSceneView: RoundedView {
 
 extension GameEditorSceneView {
 
-    /// 更新标题标签文本
-    func updateTitleLabelAttributedText() {
-
-        titleLabel.attributedText = prepareTitleLabelAttributedText()
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 3
-        titleLabel.lineBreakMode = .byTruncatingTail
-    }
-
     /// 准备标题标签文本
-    private func prepareTitleLabelAttributedText() -> NSMutableAttributedString {
+    func prepareTitleLabelAttributedText() -> NSMutableAttributedString {
 
         let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
 

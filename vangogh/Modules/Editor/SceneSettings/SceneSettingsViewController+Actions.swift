@@ -17,6 +17,27 @@ extension SceneSettingsViewController {
 
 extension SceneSettingsViewController {
 
+    /// 选择场景设置
+    func selectSceneSetting(_ setting: SceneSetting, cell: SceneSettingTableViewCell) {
+
+        switch setting.type {
+        case .sceneThumbImage:
+
+            editSceneThumbImage()
+            break
+
+        case .sceneTitle:
+
+            editSceneTitle(sourceView: cell.infoLabel)
+            break
+
+        case .aspectRatio:
+
+            editAspectRatio(sourceView: cell.infoLabel)
+            break
+        }
+    }
+
     /// 编辑场景缩略图
     func editSceneThumbImage() {
 
