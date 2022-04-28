@@ -86,6 +86,7 @@
 		0F210E9526DAADCC002CC564 /* TimeRangeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F210E7526DAADCC002CC564 /* TimeRangeExtension.swift */; };
 		0F210E9626DAADCC002CC564 /* black_empty.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0F210E7726DAADCC002CC564 /* black_empty.mp4 */; };
 		0F21F5FF27AAADC7002404A2 /* happy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0F21F5FE27AAADC7002404A2 /* happy.gif */; };
+		0F25C696281AA90300BE9F4F /* GameSettingsViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F25C695281AA90300BE9F4F /* GameSettingsViewController+VM.swift */; };
 		0F2763F027933A1800C317F3 /* BottomAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2763EF27933A1800C317F3 /* BottomAlignedLabel.swift */; };
 		0F28134A254C343200FB569A /* AttributedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F281349254C343200FB569A /* AttributedLabel.swift */; };
 		0F28134F254CF61E00FB569A /* GameEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F28134E254CF61E00FB569A /* GameEditorViewController.swift */; };
@@ -386,6 +387,7 @@
 		0F210E7526DAADCC002CC564 /* TimeRangeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeRangeExtension.swift; sourceTree = "<group>"; };
 		0F210E7726DAADCC002CC564 /* black_empty.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = black_empty.mp4; sourceTree = "<group>"; };
 		0F21F5FE27AAADC7002404A2 /* happy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = happy.gif; sourceTree = "<group>"; };
+		0F25C695281AA90300BE9F4F /* GameSettingsViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameSettingsViewController+VM.swift"; sourceTree = "<group>"; };
 		0F2763EF27933A1800C317F3 /* BottomAlignedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlignedLabel.swift; sourceTree = "<group>"; };
 		0F281349254C343200FB569A /* AttributedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedLabel.swift; sourceTree = "<group>"; };
 		0F28134E254CF61E00FB569A /* GameEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorViewController.swift; sourceTree = "<group>"; };
@@ -1205,6 +1207,7 @@
 				0F95E6FF271C6366005EE818 /* GameSetting.swift */,
 				0FCA9EA0271C620D00B8E966 /* GameSettingsViewController.swift */,
 				0F007F72281A474B008B1136 /* GameSettingsViewController+Actions.swift */,
+				0F25C695281AA90300BE9F4F /* GameSettingsViewController+VM.swift */,
 				125B400B27A01FC3003FB6B2 /* GameSettingTableThumbImageViewCell.swift */,
 				0F95E701271C6438005EE818 /* GameSettingTableViewCell.swift */,
 			);
@@ -2526,6 +2529,7 @@
 				0F14DF2B2782060E0056872B /* MetaCameraEditorView.swift in Sources */,
 				0F8972D6274015A2001CD774 /* TrackItemBottomBarView.swift in Sources */,
 				0F3D6783271358FD006496B1 /* AddFootageButton.swift in Sources */,
+				0F25C696281AA90300BE9F4F /* GameSettingsViewController+VM.swift in Sources */,
 				0F8972D0273F6979001CD774 /* SceneEmulatorProgressTagView.swift in Sources */,
 				12216E3D26DB2B9700F5E0DA /* MetaSceneBundle.swift in Sources */,
 				0FCA7A5127342B4B0051CCC1 /* MetaNode.swift in Sources */,

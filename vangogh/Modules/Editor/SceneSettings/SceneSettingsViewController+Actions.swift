@@ -75,7 +75,7 @@ extension SceneSettingsViewController {
                 return
             }
 
-            s.saveSceneTitle(gameBundle: s.gameBundle, newTitle: title) {
+            s.saveSceneTitle(s.gameBundle, newTitle: title) {
                 s.settingsTableView.reloadData()
                 Logger.composition.info("saved scene title: \"\(title)\"")
             }

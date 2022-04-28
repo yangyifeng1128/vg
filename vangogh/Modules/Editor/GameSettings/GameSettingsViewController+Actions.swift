@@ -5,6 +5,7 @@
 ///
 
 import AwaitToast
+import OSLog
 import UIKit
 
 extension GameSettingsViewController {
@@ -69,10 +70,10 @@ extension GameSettingsViewController {
                 return
             }
 
-            s.game.title = title
-            CoreDataManager.shared.saveContext()
-            s.settingsTableView.reloadData()
-            GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
+            s.saveGameTitle(s.game, newTitle: title) {
+                s.settingsTableView.reloadData()
+                Logger.composition.info("saved game title: \"\(title)\"")
+            }
         }
         alert.addAction(confirmAction)
 

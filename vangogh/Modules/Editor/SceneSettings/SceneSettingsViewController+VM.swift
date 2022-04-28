@@ -1,16 +1,15 @@
-//
-//  SceneSettingsViewController+VM.swift
-//  vangogh
-//
-//  Created by YANG YIFENG on 2022/4/28.
-//
+///
+/// SceneSettingsViewController
+///
+/// © 2022 Beijing Mengma Education Technology Co., Ltd
+///
 
-import OSLog
+import UIKit
 
 extension SceneSettingsViewController {
 
     /// 保存场景标题
-    func saveSceneTitle(gameBundle: MetaGameBundle, newTitle: String, completion handler: (() -> Void)? = nil) {
+    func saveSceneTitle(_ gameBundle: MetaGameBundle, newTitle: String, completion handler: (() -> Void)? = nil) {
 
         guard let scene = gameBundle.selectedScene() else { return }
         scene.title = newTitle
