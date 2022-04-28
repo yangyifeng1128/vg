@@ -5,6 +5,6 @@
 ///
 
 "CFBundleDisplayName" = "元互动";
-"NSCameraUsageDescription" = "请您同意元互动使用摄像头";
+"NSCameraUsageDescription" = "请您同意元互动使用相机";
 "NSMicrophoneUsageDescription" = "请您同意元互动使用麦克风";
 "NSPhotoLibraryUsageDescription" = "为了插入图片或视频素材\n请您同意元互动访问相册";

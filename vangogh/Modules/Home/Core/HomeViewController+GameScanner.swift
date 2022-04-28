@@ -48,7 +48,7 @@ extension HomeViewController: GameScannerViewControllerDelegate {
             }
             break
         default:
-            let alert = UIAlertController(title: NSLocalizedString("PhotoLibraryAuthorizationDenied", comment: ""), message: NSLocalizedString("PhotoLibraryAuthorizationDeniedInfo", comment: ""), preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("CameraAuthorizationDenied", comment: ""), message: NSLocalizedString("CameraAuthorizationDeniedInfo", comment: ""), preferredStyle: .alert)
             let openSettingsAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("OpenSettings", comment: ""), style: .default) { _ in
                 guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)

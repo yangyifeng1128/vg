@@ -21,6 +21,8 @@
 "AppSettings" = "设置";
 "ArchiveHistory" = "历史版本";
 "AspectRatio" = "尺寸比例";
+"CameraAuthorizationDenied" = "未被允许访问相机";
+"CameraAuthorizationDeniedInfo" = "请「打开设置」，然后启用「相机」";
 "Cancel" = "取消";
 "Compose" = "创作";
 "ConfigureConditions" = "当满足下面的条件时，会触发场景穿梭";
@@ -82,7 +84,7 @@
 "OpenSettings" = "打开设置";
 "Or" = "或";
 "PhotoLibraryAuthorizationDenied" = "未被允许访问相册";
-"PhotoLibraryAuthorizationDeniedInfo" = "请点击「打开设置」按钮，然后选择「照片」-「允许访问所有照片」";
+"PhotoLibraryAuthorizationDeniedInfo" = "请「打开设置」，然后选择「照片」-「允许访问所有照片」";
 "Pictures" = "图片";
 "Play" = "互动";
 "Preview" = "预览";

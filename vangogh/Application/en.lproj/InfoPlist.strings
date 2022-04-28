@@ -5,6 +5,6 @@
 ///
 
 "CFBundleDisplayName" = "MetaGame";
-"NSCameraUsageDescription" = "Please allow MetaGame to access the Camera";
-"NSMicrophoneUsageDescription" = "Please allow MetaGame to access the Microphone";
+"NSCameraUsageDescription" = "Please allow MetaGame to access Camera";
+"NSMicrophoneUsageDescription" = "Please allow MetaGame to access Microphone";
 "NSPhotoLibraryUsageDescription" = "Please allow MetaGame to access your Photos to insert picture or video assets";

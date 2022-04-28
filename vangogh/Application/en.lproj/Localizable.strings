@@ -21,6 +21,8 @@
 "AppSettings" = "Settings";
 "ArchiveHistory" = "Archive History";
 "AspectRatio" = "Aspect Ratio";
+"CameraAuthorizationDenied" = "Insufficient Permissions for Camera";
+"CameraAuthorizationDeniedInfo" = "Please \"Open Settings\" and enable \"Camera\"";
 "Cancel" = "Cancel";
 "Compose" = "Compose";
 "ConfigureConditions" = "Scene transition will be triggered if the following conditions are satisfied";
@@ -82,7 +84,7 @@
 "OpenSettings" = "Open Settings";
 "Or" = "OR";
 "PhotoLibraryAuthorizationDenied" = "Insufficient Permissions for Photo Library";
-"PhotoLibraryAuthorizationDeniedInfo" = "Please \"Open Settings\" then select \"Photos\" - \"Allow All Photos Access\"";
+"PhotoLibraryAuthorizationDeniedInfo" = "Please \"Open Settings\" and select \"Photos\" - \"Allow All Photos Access\"";
 "Pictures" = "Pictures";
 "Play" = "Play";
 "Preview" = "Preview";
