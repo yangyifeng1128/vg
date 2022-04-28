@@ -12,21 +12,15 @@ extension GameEditorViewController {
 
     @objc func backButtonDidTap() {
 
-        print("[GameEditor] did tap backButton")
-
         navigationController?.popViewController(animated: true)
     }
 
     @objc func publishButtonDidTap() {
 
-        print("[GameEditor] did tap publishButton")
-
         publish()
     }
 
     @objc func gameSettingsButtonDidTap() {
-
-        print("[GameEditor] did tap gameSettingsButton")
 
         openGameSettings()
     }
@@ -51,13 +45,11 @@ extension GameEditorViewController {
 
             let location: CGPoint = sender.location(in: sender.view)
             addSceneIndicatorView.center = CGPoint(x: location.x, y: location.y - AddSceneIndicatorView.VC.height / 2)
-            addSceneIndicatorView.isHidden = false // 显示「添加场景提示器」视图
+            addSceneIndicatorView.isHidden = false // 显示「添加场景提示器视图」
         }
     }
 
     @objc func addTransitionDiagramViewDidTap() {
-
-        print("[GameEditor] did tap addTransitionDiagramView")
 
         addTransition()
     }
@@ -157,7 +149,7 @@ extension GameEditorViewController {
             }
         }
 
-        gameboardView.bringSubviewToFront(addSceneIndicatorView) // 不管采用哪种添加场景方式，都要确保「添加场景提示器」视图置于最顶层
+        gameboardView.bringSubviewToFront(addSceneIndicatorView) // 不管采用哪种添加场景方式，都要确保「添加场景提示器视图」置于最顶层
     }
 
     func closeScene() {
