@@ -19,7 +19,7 @@ extension NewGameViewController {
         addGame { [weak self] game in
             guard let s = self else { return }
             s.pushGameEditorVC(game: game)
-            Logger.composition.info("created a new blank game")
+            Logger.composition.info("created a new blank game: \"\(game.title)\"")
         }
     }
 
@@ -43,7 +43,7 @@ extension NewGameViewController {
         addGame { [weak self] game in
             guard let s = self else { return }
             s.pushGameEditorVC(game: game)
-            Logger.composition.info("created a new game with template: \"\(template.title)\"")
+            Logger.composition.info("created a new game \"\(game.title)\" with template \"\(template.title)\"")
         }
     }
 

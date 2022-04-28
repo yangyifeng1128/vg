@@ -5,6 +5,7 @@
 ///
 
 import AwaitToast
+import OSLog
 import UIKit
 
 extension SceneSettingsViewController {
@@ -74,14 +75,10 @@ extension SceneSettingsViewController {
                 return
             }
 
-            guard let scene = s.gameBundle.selectedScene() else { return }
-            scene.title = title
-            s.gameBundle.updateScene(scene)
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(s.gameBundle)
+            s.saveSceneTitle(gameBundle: s.gameBundle, newTitle: title) {
+                s.settingsTableView.reloadData()
+                Logger.composition.info("saved scene title: \"\(title)\"")
             }
-            s.settingsTableView.reloadData()
-            GameboardViewExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid) // 保存「作品板视图外部变更记录字典」
         }
         alert.addAction(confirmAction)
 

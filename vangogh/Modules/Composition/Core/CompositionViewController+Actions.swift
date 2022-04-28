@@ -139,8 +139,6 @@ extension CompositionViewController {
                     return
                 }
 
-                // 保存草稿标题
-
                 s.saveDraftTitle(draft, newTitle: title) {
                     s.draftsTableView.reloadData()
                     Logger.composition.info("saved draft title: \"\(title)\"")
