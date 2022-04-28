@@ -134,6 +134,8 @@
 		0F76B87627B5643700C09133 /* MetaQuitGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76B87527B5643700C09133 /* MetaQuitGame.swift */; };
 		0F76B87827B5645E00C09133 /* MetaTransitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76B87727B5645E00C09133 /* MetaTransitScene.swift */; };
 		0F79565226FA1D4100963099 /* TargetAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F79565126FA1D4100963099 /* TargetAssetsViewController.swift */; };
+		0F7A9984281AAB510007FB3E /* GameEditorViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A9983281AAB510007FB3E /* GameEditorViewController+VM.swift */; };
+		0F7A9986281AAC730007FB3E /* GameEditorViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A9985281AAC730007FB3E /* GameEditorViewController+Actions.swift */; };
 		0F8972CC273D6BAD001CD774 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8972CB273D6BAD001CD774 /* LoadingView.swift */; };
 		0F8972CE273EC801001CD774 /* MetaCheckpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8972CD273EC801001CD774 /* MetaCheckpoint.swift */; };
 		0F8972D0273F6979001CD774 /* SceneEmulatorProgressTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8972CF273F6979001CD774 /* SceneEmulatorProgressTagView.swift */; };
@@ -439,6 +441,8 @@
 		0F76B87527B5643700C09133 /* MetaQuitGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaQuitGame.swift; sourceTree = "<group>"; };
 		0F76B87727B5645E00C09133 /* MetaTransitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaTransitScene.swift; sourceTree = "<group>"; };
 		0F79565126FA1D4100963099 /* TargetAssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetAssetsViewController.swift; sourceTree = "<group>"; };
+		0F7A9983281AAB510007FB3E /* GameEditorViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorViewController+VM.swift"; sourceTree = "<group>"; };
+		0F7A9985281AAC730007FB3E /* GameEditorViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F8972CB273D6BAD001CD774 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0F8972CD273EC801001CD774 /* MetaCheckpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCheckpoint.swift; sourceTree = "<group>"; };
 		0F8972CF273F6979001CD774 /* SceneEmulatorProgressTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorProgressTagView.swift; sourceTree = "<group>"; };
@@ -1065,6 +1069,8 @@
 			isa = PBXGroup;
 			children = (
 				0F28134E254CF61E00FB569A /* GameEditorViewController.swift */,
+				0F7A9983281AAB510007FB3E /* GameEditorViewController+VM.swift */,
+				0F7A9985281AAC730007FB3E /* GameEditorViewController+Actions.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2383,6 +2389,7 @@
 				0FCA9EA1271C620D00B8E966 /* GameSettingsViewController.swift in Sources */,
 				0F210E8C26DAADCC002CC564 /* Resource.swift in Sources */,
 				122833A72747DFF600DFD88E /* SceneRendererView.swift in Sources */,
+				0F7A9984281AAB510007FB3E /* GameEditorViewController+VM.swift in Sources */,
 				12349DA0271D220D00BC4626 /* MetaTextView.swift in Sources */,
 				124363C82711ADC1003FEAE3 /* TrackItemView.swift in Sources */,
 				120F23882701D1860039CEC0 /* MetaFootage.swift in Sources */,
@@ -2468,6 +2475,7 @@
 				0F007F5C281995C0008B1136 /* GameEditorSceneBottomViewDelegate.swift in Sources */,
 				128B164D2718659000CD917B /* TermsOfServiceViewController.swift in Sources */,
 				1284C1BE26E343660055720C /* AddSceneIndicatorView.swift in Sources */,
+				0F7A9986281AAC730007FB3E /* GameEditorViewController+Actions.swift in Sources */,
 				126F8EBF27B3E65D0097C10D /* MetaOperator.swift in Sources */,
 				0F007F6228199AE1008B1136 /* PublicationViewController+Actions.swift in Sources */,
 				0F51FAFD273ADE1600D90811 /* MetaARCamera.swift in Sources */,
