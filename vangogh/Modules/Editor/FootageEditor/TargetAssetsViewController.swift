@@ -16,34 +16,33 @@ class TargetAssetsViewController: UIViewController {
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 16
         static let menuControlTitleTextFontSize: CGFloat = 13
-        static let collectionViewInsetX: CGFloat = 4
-        static let collectionViewCellSpacing: CGFloat = 8
+        static let targetAssetsCollectionViewInsetX: CGFloat = 4
+        static let targetAssetsCollectionViewCellSpacing: CGFloat = 8
     }
 
+    /// 代理
     weak var delegate: TargetAssetsViewControllerDelegate?
 
-    private var backButtonContainer: UIView!
-    private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
+    /// 菜单控制器
+    var menuControl: UISegmentedControl!
+    /// 目标素材集合视图
+    var targetAssetsCollectionView: UICollectionView!
+    /// 目标素材集合视图单元格尺寸
+    var targetAssetsCollectionViewCellSize: CGSize!
 
-    private var menuControl: UISegmentedControl!
-    private var collectionView: UICollectionView!
-
-    private var menuItems: [String]!
-    private var assets: PHFetchResult<PHAsset>!
-    private var imageManager: PHCachingImageManager!
-    private var thumbSize: CGSize!
-    private var previousPreheatRect: CGRect!
+    /// 菜单项
+    var menuItems: [String] = [NSLocalizedString("Pictures", comment: ""), NSLocalizedString("Videos", comment: "")]
+    /// 素材列表
+    var assets: PHFetchResult<PHAsset> = PHFetchResult()
+    /// 图像管理器
+    var imageManager: PHCachingImageManager = PHCachingImageManager()
+    /// 先前的预加载矩形区域
+    var previousPreheatRect: CGRect = .zero
 
     /// 初始化
     init() {
 
         super.init(nibName: nil, bundle: nil)
-
-        menuItems = [NSLocalizedString("Pictures", comment: ""), NSLocalizedString("Videos", comment: "")]
-        assets = PHFetchResult()
-        imageManager = PHCachingImageManager()
-        previousPreheatRect = .zero
     }
 
     required init?(coder: NSCoder) {
@@ -51,6 +50,7 @@ class TargetAssetsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 反初始化
     deinit {
 
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
@@ -78,7 +78,7 @@ class TargetAssetsViewController: UIViewController {
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
         navigationController?.navigationBar.barStyle = (window.overrideUserInterfaceStyle == .dark) ? .black : .default
 
-        // 重置缓存素材
+        // 重置缓存素材列表
 
         resetCachedAssets()
 
@@ -96,7 +96,7 @@ class TargetAssetsViewController: UIViewController {
 
         super.viewDidAppear(animated)
 
-        // 更新缓存素材
+        // 更新缓存素材列表
 
         updateCachedAssets()
     }
@@ -119,21 +119,9 @@ class TargetAssetsViewController: UIViewController {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化「导航栏」
-
-        initNavigationBar()
-
-        // 初始化「素材视图」
-
-        initAssetsView()
-    }
-
-    /// 初始化「导航栏」
-    private func initNavigationBar() {
-
         // 初始化「返回按钮容器」
 
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -146,7 +134,7 @@ class TargetAssetsViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -156,7 +144,7 @@ class TargetAssetsViewController: UIViewController {
 
         // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("AddAsset", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -167,10 +155,6 @@ class TargetAssetsViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
-
-    /// 初始化「素材视图」
-    private func initAssetsView() {
 
         // 初始化「菜单控制器」
 
@@ -187,51 +171,28 @@ class TargetAssetsViewController: UIViewController {
 
         // 初始化「素材集合视图」
 
-        prepareAssetThumbSize()
+        prepareTargetAssetsCollectionViewCellSize()
 
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = .clear
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(TargetAssetCollectionViewCell.self, forCellWithReuseIdentifier: TargetAssetCollectionViewCell.reuseId)
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make -> Void in
-            make.left.right.equalToSuperview().inset(VC.collectionViewInsetX)
+        targetAssetsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        targetAssetsCollectionView.backgroundColor = .clear
+        targetAssetsCollectionView.showsVerticalScrollIndicator = false
+        targetAssetsCollectionView.dataSource = self
+        targetAssetsCollectionView.delegate = self
+        targetAssetsCollectionView.register(TargetAssetCollectionViewCell.self, forCellWithReuseIdentifier: TargetAssetCollectionViewCell.reuseId)
+        view.addSubview(targetAssetsCollectionView)
+        targetAssetsCollectionView.snp.makeConstraints { make -> Void in
+            make.left.right.equalToSuperview().inset(VC.targetAssetsCollectionViewInsetX)
             make.top.equalTo(menuControl.snp.bottom).offset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
         let swipeLeftGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(collectionViewDidSwipeLeft))
         swipeLeftGesture.direction = .left
-        collectionView.addGestureRecognizer(swipeLeftGesture)
+        targetAssetsCollectionView.addGestureRecognizer(swipeLeftGesture)
 
         let swipeRightGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(collectionViewDidSwipeRight))
         swipeRightGesture.direction = .right
-        collectionView.addGestureRecognizer(swipeRightGesture)
-    }
-
-    private func prepareAssetThumbSize() {
-
-        var numberOfCellsPerRow: Int
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            numberOfCellsPerRow = 3
-            break
-        case .pad, .mac, .tv, .carPlay, .unspecified:
-            numberOfCellsPerRow = 5
-            break
-        @unknown default:
-            numberOfCellsPerRow = 3
-            break
-        }
-
-        let cellSpacing = VC.collectionViewCellSpacing
-
-        let cellWidth: CGFloat = ((view.bounds.width - VC.collectionViewInsetX * 2 - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
-
-        thumbSize = CGSize(width: cellWidth, height: cellHeight)
+        targetAssetsCollectionView.addGestureRecognizer(swipeRightGesture)
     }
 }
 
@@ -239,6 +200,65 @@ extension TargetAssetsViewController: UICollectionViewDataSource {
 
     /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+        return prepareTargetAssetsCount()
+    }
+
+    /// 设置单元格
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        return prepareTargetAssetsCollectionViewCell(indexPath: indexPath)
+    }
+}
+
+extension TargetAssetsViewController: UICollectionViewDelegate {
+
+    /// 选中单元格
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TargetAssetCollectionViewCell else { return }
+        selectTargetAsset(assets[indexPath.item], cell: cell)
+    }
+}
+
+extension TargetAssetsViewController: UICollectionViewDelegateFlowLayout {
+
+    /// 设置单元格尺寸
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        return targetAssetsCollectionViewCellSize
+    }
+
+    /// 设置内边距
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        let inset = VC.targetAssetsCollectionViewCellSpacing
+        return UIEdgeInsets(top: 0, left: inset, bottom: inset, right: inset)
+    }
+
+    /// 设置最小行间距
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+
+        return VC.targetAssetsCollectionViewCellSpacing
+    }
+
+    /// 设置最小单元格间距
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+
+        return VC.targetAssetsCollectionViewCellSpacing
+    }
+
+    /// 滚动视图
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        updateCachedAssets()
+    }
+}
+
+extension TargetAssetsViewController {
+
+    /// 准备目标素材数量
+    private func prepareTargetAssetsCount() -> Int {
 
         if assets.count == 0 {
             var noDataInfoTitle: String = NSLocalizedString("NoPicturesAvailable", comment: "")
@@ -252,24 +272,24 @@ extension TargetAssetsViewController: UICollectionViewDataSource {
             default:
                 break
             }
-            collectionView.showNoDataInfo(title: noDataInfoTitle)
+            targetAssetsCollectionView.showNoDataInfo(title: noDataInfoTitle)
         } else {
-            collectionView.hideNoDataInfo()
+            targetAssetsCollectionView.hideNoDataInfo()
         }
 
         return assets.count
     }
 
-    /// 设置单元格
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    /// 准备「目标素材集合视图」单元格
+    private func prepareTargetAssetsCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
 
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TargetAssetCollectionViewCell.reuseId, for: indexPath) as? TargetAssetCollectionViewCell else {
+        guard let cell = targetAssetsCollectionView.dequeueReusableCell(withReuseIdentifier: TargetAssetCollectionViewCell.reuseId, for: indexPath) as? TargetAssetCollectionViewCell else {
             fatalError("Unexpected cell type")
         }
 
         let asset = assets.object(at: indexPath.item)
 
-        // 准备缩略图视图
+        // 准备「缩略图视图」
 
         cell.assetIdentifier = asset.localIdentifier
 
@@ -277,14 +297,14 @@ extension TargetAssetsViewController: UICollectionViewDataSource {
         options.isNetworkAccessAllowed = true
         options.isSynchronous = false
         let scale = UIScreen.main.scale
-        let targetSize: CGSize = CGSize(width: thumbSize.width * scale, height: thumbSize.height * scale)
+        let targetSize: CGSize = CGSize(width: targetAssetsCollectionViewCellSize.width * scale, height: targetAssetsCollectionViewCellSize.height * scale)
         imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { (image, info) in
             if cell.assetIdentifier == asset.localIdentifier {
                 cell.thumbImageView.image = image
             }
         }
 
-        // 准备视频时长标签
+        // 准备「视频时长标签」
 
         if asset.mediaType == .video {
             cell.videoDurationLabel.isHidden = false
@@ -300,230 +320,28 @@ extension TargetAssetsViewController: UICollectionViewDataSource {
 
         return cell
     }
-}
 
-extension TargetAssetsViewController: UICollectionViewDelegate {
+    /// 准备「目标素材集合视图」单元格尺寸
+    private func prepareTargetAssetsCollectionViewCellSize() {
 
-    /// 选中单元格
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        guard let cell = collectionView.cellForItem(at: indexPath) as? TargetAssetCollectionViewCell else { return }
-        delegate?.assetDidPick(assets[indexPath.item], thumbImage: cell.thumbImageView.image)
-
-        navigationController?.popViewController(animated: true)
-    }
-}
-
-extension TargetAssetsViewController: UICollectionViewDelegateFlowLayout {
-
-    /// 设置单元格尺寸
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        return thumbSize
-    }
-
-    /// 设置内边距
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
-        let inset = VC.collectionViewCellSpacing
-        return UIEdgeInsets(top: 0, left: inset, bottom: inset, right: inset)
-    }
-
-    /// 设置最小行间距
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-
-        return VC.collectionViewCellSpacing
-    }
-
-    /// 设置最小单元格间距
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-
-        return VC.collectionViewCellSpacing
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        // 更新缓存素材
-
-        updateCachedAssets()
-    }
-}
-
-extension TargetAssetsViewController: PHPhotoLibraryChangeObserver {
-
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-
-        guard let changeDetails = changeInstance.changeDetails(for: assets) else { return }
-
-        DispatchQueue.main.sync { [weak self] in
-
-            guard let s = self else { return }
-
-            // 重新获取素材
-
-            s.assets = changeDetails.fetchResultAfterChanges
-
-            if changeDetails.hasIncrementalChanges { // 如果存在增量更新
-                s.collectionView.performBatchUpdates({
-                    if let removed = changeDetails.removedIndexes, !removed.isEmpty {
-                        s.collectionView.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
-                    }
-                    if let inserted = changeDetails.insertedIndexes, !inserted.isEmpty {
-                        s.collectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
-                    }
-                    changeDetails.enumerateMoves { fromIndex, toIndex in
-                        s.collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0), to: IndexPath(item: toIndex, section: 0))
-                    }
-                })
-                // We are reloading items after the batch update since `PHFetchResultChangeDetails.changedIndexes` refers to items in the *after* state and not the *before* state as expected by `performBatchUpdates(_:completion:)`
-                if let changed = changeDetails.changedIndexes, !changed.isEmpty {
-                    s.collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
-                }
-            } else {
-                s.collectionView.reloadData()
-            }
-
-            // 重置缓存素材
-
-            resetCachedAssets()
-        }
-    }
-}
-
-extension TargetAssetsViewController {
-
-    @objc private func backButtonDidTap() {
-
-        navigationController?.popViewController(animated: true)
-    }
-
-    @objc private func collectionViewDidSwipeLeft() {
-
-        var index = menuControl.selectedSegmentIndex - 1
-        if index < 0 { index = menuItems.count - 1 }
-        menuControl.selectedSegmentIndex = index
-        menuControl.sendActions(for: .valueChanged)
-    }
-
-    @objc private func collectionViewDidSwipeRight() {
-
-        var index = menuControl.selectedSegmentIndex + 1
-        if index > menuItems.count - 1 { index = 0 }
-        menuControl.selectedSegmentIndex = index
-        menuControl.sendActions(for: .valueChanged)
-    }
-
-    @objc private func menuControlDidChange() {
-
-        print("[TargetAssets] selected menu control index: \(menuControl.selectedSegmentIndex)")
-
-        loadAssets(menuItemIndex: menuControl.selectedSegmentIndex)
-    }
-
-    //
-    //
-    // MARK: - 数据操作
-    //
-    //
-
-    /// 加载素材列表
-    private func loadAssets(menuItemIndex: Int) {
-
-        var type: PHAssetMediaType = .image
-        switch menuItemIndex {
-        case 0:
-            type = .image
+        var numberOfCellsPerRow: Int
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            numberOfCellsPerRow = 3
             break
-        case 1:
-            type = .video
+        case .pad, .mac, .tv, .carPlay, .unspecified:
+            numberOfCellsPerRow = 5
             break
-        default:
+        @unknown default:
+            numberOfCellsPerRow = 3
             break
         }
 
-        let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        assets = PHAsset.fetchAssets(with: type, options: options)
+        let cellSpacing = VC.targetAssetsCollectionViewCellSpacing
 
-        collectionView.reloadData()
-        if assets.count > 0 {
-            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-        }
-    }
+        let cellWidth: CGFloat = ((view.bounds.width - VC.targetAssetsCollectionViewInsetX * 2 - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
+        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
-    private func updateCachedAssets() {
-
-        // The window you prepare ahead of time is twice the height of the visible rect
-
-        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-        let preheatRect = visibleRect.insetBy(dx: 0, dy: -0.5 * visibleRect.height)
-
-        // Update only if the visible area is significantly different from the last preheated area
-
-        let delta = abs(preheatRect.midY - previousPreheatRect.midY)
-        guard delta > view.bounds.height / 3 else { return }
-
-        // Compute the assets to start and stop caching
-
-        let (addedRects, removedRects) = differencesBetweenRects(previousPreheatRect, preheatRect)
-        let addedAssets = addedRects
-            .flatMap { rect in collectionView.indexPathsForElements(in: rect) }
-            .map { indexPath in assets.object(at: indexPath.item) }
-        let removedAssets = removedRects
-            .flatMap { rect in collectionView.indexPathsForElements(in: rect) }
-            .map { indexPath in assets.object(at: indexPath.item) }
-
-        // Update the assets the PHCachingImageManager is caching
-
-        imageManager.startCachingImages(for: addedAssets,
-                                        targetSize: thumbSize, contentMode: .aspectFill, options: nil)
-        imageManager.stopCachingImages(for: removedAssets,
-                                       targetSize: thumbSize, contentMode: .aspectFill, options: nil)
-
-        // Store the computed rectangle for future comparison
-
-        previousPreheatRect = preheatRect
-    }
-
-    private func differencesBetweenRects(_ old: CGRect, _ new: CGRect) -> (added: [CGRect], removed: [CGRect]) {
-
-        if old.intersects(new) {
-            var added = [CGRect]()
-            if new.maxY > old.maxY {
-                added += [CGRect(x: new.origin.x, y: old.maxY,
-                                 width: new.width, height: new.maxY - old.maxY)]
-            }
-            if old.minY > new.minY {
-                added += [CGRect(x: new.origin.x, y: new.minY,
-                                 width: new.width, height: old.minY - new.minY)]
-            }
-            var removed = [CGRect]()
-            if new.maxY < old.maxY {
-                removed += [CGRect(x: new.origin.x, y: new.maxY,
-                                   width: new.width, height: old.maxY - new.maxY)]
-            }
-            if old.minY < new.minY {
-                removed += [CGRect(x: new.origin.x, y: old.minY,
-                                   width: new.width, height: new.minY - old.minY)]
-            }
-            return (added, removed)
-        } else {
-            return ([new], [old])
-        }
-    }
-
-    private func resetCachedAssets() {
-
-        imageManager.stopCachingImagesForAllAssets()
-        previousPreheatRect = .zero
-    }
-}
-
-private extension UICollectionView {
-
-    func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
-
-        let allLayoutAttributes = collectionViewLayout.layoutAttributesForElements(in: rect)!
-        return allLayoutAttributes.map { $0.indexPath }
+        targetAssetsCollectionViewCellSize = CGSize(width: cellWidth, height: cellHeight)
     }
 }

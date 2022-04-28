@@ -4,11 +4,10 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import Photos
 import SnapKit
 import UIKit
 
-class TargetAssetCollectionViewCell: UICollectionViewCell {
+class TargetAssetCollectionViewCell: RoundedCollectionViewCell {
 
     static let reuseId: String = "TargetAssetCollectionViewCell"
 
@@ -17,36 +16,15 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
         static let videoDurationLabelFontSize: CGFloat = 13
     }
 
-    private lazy var maskLayer: CAShapeLayer = {
-        self.layer.mask = $0
-        return $0
-    }(CAShapeLayer())
+    /// 缩略图视图
+    var thumbImageView: UIImageView!
+    /// 视频时长标签
+    var videoDurationLabel: UILabel!
 
-    override var bounds: CGRect {
-        set {
-            super.bounds = newValue
-            maskLayer.frame = newValue
-            let newPath: CGPath = UIBezierPath(roundedRect: newValue, cornerRadius: GVC.defaultViewCornerRadius).cgPath
-            if let animation = self.layer.animation(forKey: "bounds.size")?.copy() as? CABasicAnimation {
-                animation.keyPath = "path"
-                animation.fromValue = maskLayer.path
-                animation.toValue = newPath
-                maskLayer.path = newPath
-                maskLayer.add(animation, forKey: "path")
-            } else {
-                maskLayer.path = newPath
-            }
-        }
-        get {
-            return super.bounds
-        }
-    }
+    /// 素材标识符
+    var assetIdentifier: String?
 
-    var thumbImageView: UIImageView! // 缩略图视图
-    var videoDurationLabel: UILabel! // 视频时长标签
-
-    var assetIdentifier: String!
-
+    /// 初始化
     override init(frame: CGRect) {
 
         super.init(frame: frame)
@@ -59,17 +37,18 @@ class TargetAssetCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         contentView.backgroundColor = GVC.defaultViewBackgroundColor
 
-        // 添加缩略图视图
+        // 初始化「缩略图视图」
 
         thumbImageView = UIImageView(frame: contentView.bounds)
         thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
 
-        // 添加视频时长标签
+        // 初始化「视频时长标签」
 
         videoDurationLabel = UILabel()
         videoDurationLabel.isHidden = true

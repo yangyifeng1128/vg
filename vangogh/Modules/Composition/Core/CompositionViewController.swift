@@ -206,7 +206,7 @@ extension CompositionViewController: UITableViewDelegate {
 extension CompositionViewController {
 
     /// 准备「草稿表格视图」单元格
-    func prepareDraftsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+    private func prepareDraftsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
         let draft: MetaGame = drafts[indexPath.row]
 

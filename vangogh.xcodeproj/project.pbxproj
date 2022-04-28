@@ -93,6 +93,8 @@
 		0F34D70F274A519C00736DD5 /* DarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */; };
 		0F34D711274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D710274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift */; };
 		0F34D715274A827600736DD5 /* UserInterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */; };
+		0F38249F281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F38249E281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift */; };
+		0F3824A1281A7FD900A5E653 /* TargetAssetsViewController+PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3824A0281A7FD800A5E653 /* TargetAssetsViewController+PhotoLibrary.swift */; };
 		0F3882BB253559080069A1A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882BD253559080069A1A4 /* Localizable.strings */; };
 		0F3882C425355B6C0069A1A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882C625355B6C0069A1A4 /* InfoPlist.strings */; };
 		0F3882DA2537373D0069A1A4 /* CodingUserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3882D92537373D0069A1A4 /* CodingUserInfoKey.swift */; };
@@ -388,6 +390,8 @@
 		0F34D70E274A519C00736DD5 /* DarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeViewController.swift; sourceTree = "<group>"; };
 		0F34D710274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceStyleTableViewCell.swift; sourceTree = "<group>"; };
 		0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceStyle.swift; sourceTree = "<group>"; };
+		0F38249E281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetAssetsViewController+Actions.swift"; sourceTree = "<group>"; };
+		0F3824A0281A7FD800A5E653 /* TargetAssetsViewController+PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetAssetsViewController+PhotoLibrary.swift"; sourceTree = "<group>"; };
 		0F3882BC253559080069A1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F3882BF253559100069A1A4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		0F3882C525355B6C0069A1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1135,8 +1139,10 @@
 		0F79565026FA1C2F00963099 /* FootageEditor */ = {
 			isa = PBXGroup;
 			children = (
-				0F79565126FA1D4100963099 /* TargetAssetsViewController.swift */,
 				0F1769A526FEEB7900307A48 /* TargetAssetCollectionViewCell.swift */,
+				0F79565126FA1D4100963099 /* TargetAssetsViewController.swift */,
+				0F38249E281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift */,
+				0F3824A0281A7FD800A5E653 /* TargetAssetsViewController+PhotoLibrary.swift */,
 				0F007F572819952B008B1136 /* TargetAssetsViewControllerDelegate.swift */,
 			);
 			path = FootageEditor;
@@ -2523,6 +2529,7 @@
 				1216849827B0FA3200D597E0 /* OrderedDictionarySlice.swift in Sources */,
 				0FB8D82626ED269C00D5C971 /* TransitionEditorViewController.swift in Sources */,
 				0F210E7D26DAADCC002CC564 /* AudioProcessingChain.swift in Sources */,
+				0F38249F281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift in Sources */,
 				0FFA0ED5281590090008AC1C /* FeedbackViewController+Actions.swift in Sources */,
 				0F007F70281A426F008B1136 /* GameEditorTransitionView+Actions.swift in Sources */,
 				0F8972CE273EC801001CD774 /* MetaCheckpoint.swift in Sources */,
@@ -2582,6 +2589,7 @@
 				0F007F73281A474B008B1136 /* GameSettingsViewController+Actions.swift in Sources */,
 				12355E932715B9AB00BED759 /* GameboardViewExternalChangeManager.swift in Sources */,
 				0F51FB00273ADFB700D90811 /* MetaCamera.swift in Sources */,
+				0F3824A1281A7FD900A5E653 /* TargetAssetsViewController+PhotoLibrary.swift in Sources */,
 				12E41BE2266634F20094CB44 /* CompositionViewController.swift in Sources */,
 				0F210E7F26DAADCC002CC564 /* Timeline.swift in Sources */,
 				121D738126BEDB0600792DD4 /* UICollectionView+NoDataLabel.swift in Sources */,
