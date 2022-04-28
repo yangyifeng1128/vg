@@ -37,7 +37,7 @@ class TargetScenesViewController: UIViewController {
 
     /// 作品资源包
     var gameBundle: MetaGameBundle!
-    /// 选中场景
+    /// 当前选中的场景
     var selectedScene: MetaScene!
     /// 目标场景列表
     var targetScenes: [MetaScene]!

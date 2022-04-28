@@ -10,8 +10,11 @@ class MetaGameBundle: Codable {
 
     private(set) var uuid: String
 
+    /// 当前选中的场景索引
     var selectedSceneIndex: Int = 0
+    /// 最大场景索引
     var maxSceneIndex: Int = 0
+    /// 内容偏移量
     var contentOffset: CGPoint = GVC.defaultGameboardViewContentOffset {
         didSet {
             let snappedContentOffset: CGPoint = CGPoint(x: contentOffset.x.rounded(), y: contentOffset.y.rounded())
@@ -19,7 +22,9 @@ class MetaGameBundle: Codable {
         }
     }
 
+    /// 图路径
     fileprivate var paths: [SceneTransitions] = []
+    /// 场景列表
     var scenes: [MetaScene] {
         var scenes = [MetaScene]()
         for sceneTransitions in paths {
@@ -27,6 +32,7 @@ class MetaGameBundle: Codable {
         }
         return scenes
     }
+    /// 穿梭器列表
     var transitions: [MetaTransition] {
         var allTransitions = Set<MetaTransition>()
         for sceneTransitions in paths {
@@ -48,6 +54,7 @@ class MetaGameBundle: Codable {
         case contentOffset = "content_offset"
     }
 
+    /// 初始化
     init(uuid: String) {
 
         self.uuid = uuid

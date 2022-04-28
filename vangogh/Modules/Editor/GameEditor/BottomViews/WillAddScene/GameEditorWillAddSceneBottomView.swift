@@ -18,12 +18,10 @@ class GameEditorWillAddSceneBottomView: UIView {
         static let infoLabelIconWidth: CGFloat = 20
     }
 
+    /// 代理
     weak var delegate: GameEditorWillAddSceneBottomViewDelegate?
 
-    private var contentView: UIView!
-    private var cancelAddingSceneButton: UIButton!
-    private var infoLabel: UILabel!
-
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -36,9 +34,12 @@ class GameEditorWillAddSceneBottomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
-        contentView = UIView()
+        // 初始化「内容视图」
+
+        let contentView: UIView = UIView()
         contentView.backgroundColor = GVC.addSceneViewBackgroundColor
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
@@ -47,7 +48,9 @@ class GameEditorWillAddSceneBottomView: UIView {
             make.left.top.equalToSuperview()
         }
 
-        cancelAddingSceneButton = UIButton()
+        // 初始化「取消添加场景按钮」
+
+        let cancelAddingSceneButton: UIButton = UIButton()
         cancelAddingSceneButton.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
         cancelAddingSceneButton.titleLabel?.font = .systemFont(ofSize: VC.cancelAddingSceneButtonTitleLabelFontSize, weight: .regular)
         cancelAddingSceneButton.setTitleColor(.lightText, for: .normal)
@@ -59,7 +62,9 @@ class GameEditorWillAddSceneBottomView: UIView {
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        infoLabel = UILabel()
+        // 初始化「信息标签」
+
+        let infoLabel: UILabel = UILabel()
         let completeString: NSMutableAttributedString = NSMutableAttributedString(string: "")
         let iconAttachment = NSTextAttachment()
         iconAttachment.image = .handPointUp
@@ -79,13 +84,5 @@ class GameEditorWillAddSceneBottomView: UIView {
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalTo(cancelAddingSceneButton.snp.top).offset(-8)
         }
-    }
-}
-
-extension GameEditorWillAddSceneBottomView {
-
-    @objc private func cancelAddingSceneButtonDidTap() {
-
-        delegate?.cancelAddingSceneButtonDidTap()
     }
 }

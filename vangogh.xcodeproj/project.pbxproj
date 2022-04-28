@@ -95,6 +95,7 @@
 		0F34D715274A827600736DD5 /* UserInterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */; };
 		0F38249F281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F38249E281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift */; };
 		0F3824A1281A7FD900A5E653 /* TargetAssetsViewController+PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3824A0281A7FD800A5E653 /* TargetAssetsViewController+PhotoLibrary.swift */; };
+		0F3824A3281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3824A2281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift */; };
 		0F3882BB253559080069A1A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882BD253559080069A1A4 /* Localizable.strings */; };
 		0F3882C425355B6C0069A1A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F3882C625355B6C0069A1A4 /* InfoPlist.strings */; };
 		0F3882DA2537373D0069A1A4 /* CodingUserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3882D92537373D0069A1A4 /* CodingUserInfoKey.swift */; };
@@ -392,6 +393,7 @@
 		0F34D714274A827600736DD5 /* UserInterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceStyle.swift; sourceTree = "<group>"; };
 		0F38249E281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetAssetsViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F3824A0281A7FD800A5E653 /* TargetAssetsViewController+PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetAssetsViewController+PhotoLibrary.swift"; sourceTree = "<group>"; };
+		0F3824A2281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorWillAddSceneBottomView+Actions.swift"; sourceTree = "<group>"; };
 		0F3882BC253559080069A1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F3882BF253559100069A1A4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		0F3882C525355B6C0069A1A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1955,6 +1957,7 @@
 			children = (
 				0FEF1E3926C59DEA00028A5F /* GameEditorWillAddSceneBottomView.swift */,
 				0F007F5D2819962F008B1136 /* GameEditorWillAddSceneBottomViewDelegate.swift */,
+				0F3824A2281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift */,
 			);
 			path = WillAddScene;
 			sourceTree = "<group>";
@@ -2414,6 +2417,7 @@
 				123957D22756526F003FCDC4 /* MetaVoteOptionTableViewCell.swift in Sources */,
 				0F210E8D26DAADCC002CC564 /* AVAssetReaderImageResource.swift in Sources */,
 				1216849427B0F97C00D597E0 /* OrderedDictionary+Description.swift in Sources */,
+				0F3824A3281A875600A5E653 /* GameEditorWillAddSceneBottomView+Actions.swift in Sources */,
 				0FAAE3DF272C5D01000A7681 /* MetaSceneAspectRatioType.swift in Sources */,
 				1267C3C6271D1B5C008A0090 /* TimelineToolBarItem.swift in Sources */,
 				0FBF35EC274BECA900DB168B /* MetaSketchView.swift in Sources */,

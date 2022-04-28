@@ -45,7 +45,7 @@ class GameEditorSceneBottomView: BorderedView {
 
     /// 作品资源包
     var gameBundle: MetaGameBundle!
-    /// 选中场景
+    /// 当前选中的场景
     var selectedScene: MetaScene!
     /// 穿梭器列表
     var transitions: [MetaTransition]!

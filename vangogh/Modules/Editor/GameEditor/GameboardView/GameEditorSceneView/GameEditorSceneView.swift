@@ -111,6 +111,9 @@ class GameEditorSceneView: RoundedView {
 
         isActive = false
     }
+}
+
+extension GameEditorSceneView {
 
     /// 更新标题标签文本
     func updateTitleLabelAttributedText() {
