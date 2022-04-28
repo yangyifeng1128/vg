@@ -28,19 +28,21 @@ class TargetScenesViewController: UIViewController {
         static let targetSceneTableViewCellHeight: CGFloat = 80
     }
 
-    private var backButtonContainer: UIView!
-    private var backButton: CircleNavigationBarButton!
-    private var titleLabel: UILabel!
+    /// 箭头视图
+    var arrowView: ArrowView!
+    /// 目标场景视图
+    var targetScenesView: UIView!
+    /// 目标场景表格视图
+    var targetScenesTableView: UITableView!
 
-    private var diagramView: RoundedView! // 示意图视图
-    private var arrowView: ArrowView! // 箭头视图
-    private var targetScenesView: UIView! // 目标场景视图
-    private var targetScenesTableView: UITableView! // 目标场景表格视图
+    /// 作品资源包
+    var gameBundle: MetaGameBundle!
+    /// 选中场景
+    var selectedScene: MetaScene!
+    /// 目标场景列表
+    var targetScenes: [MetaScene]!
 
-    private var gameBundle: MetaGameBundle!
-    private var selectedScene: MetaScene!
-    private var targetScenes: [MetaScene]!
-
+    /// 初始化
     init(gameBundle: MetaGameBundle) {
 
         super.init(nibName: nil, bundle: nil)
@@ -55,6 +57,7 @@ class TargetScenesViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 加载目标场景列表
     private func loadTargetScenes() {
 
         targetScenes = gameBundle.scenes.filter { targetScene in
@@ -87,28 +90,14 @@ class TargetScenesViewController: UIViewController {
         arrowView.updateView()
     }
 
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
+        // 初始化「返回按钮容器」
 
-        initNavigationBar()
-
-        // 初始化示意图视图
-
-        initDiagramView()
-
-        // 初始化目标场景视图
-
-        initTargetScenesView()
-    }
-
-    private func initNavigationBar() {
-
-        // 初始化返回按钮
-
-        backButtonContainer = UIView()
+        let backButtonContainer: UIView = UIView()
         backButtonContainer.backgroundColor = .clear
         backButtonContainer.isUserInteractionEnabled = true
         backButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backButtonDidTap)))
@@ -119,7 +108,9 @@ class TargetScenesViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
 
-        backButton = CircleNavigationBarButton(icon: .arrowBack)
+        // 初始化「返回按钮」
+
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -127,9 +118,9 @@ class TargetScenesViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
-        titleLabel = UILabel()
+        let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("AddTransition", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
@@ -140,13 +131,10 @@ class TargetScenesViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
 
-    private func initDiagramView() {
+        // 初始化「示意图视图」
 
-        // 初始化示意图视图
-
-        diagramView = RoundedView()
+        let diagramView: RoundedView = RoundedView()
         diagramView.backgroundColor = .systemGroupedBackground
         view.addSubview(diagramView)
         diagramView.snp.makeConstraints { make -> Void in
@@ -154,6 +142,8 @@ class TargetScenesViewController: UIViewController {
             make.left.right.equalToSuperview().inset(16)
             make.top.equalTo(backButtonContainer.snp.bottom).offset(24)
         }
+
+        // 初始化「箭头视图」
 
         arrowView = ArrowView()
         diagramView.addSubview(arrowView)
@@ -163,6 +153,8 @@ class TargetScenesViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(VC.diagramSceneViewTopOffset + VC.diagramSceneViewHeight / 2 - VC.diagramArrowViewHeight / 2)
         }
+
+        // 初始化「开始场景视图」
 
         let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         startSceneView.contentMode = .scaleAspectFill
@@ -217,6 +209,8 @@ class TargetScenesViewController: UIViewController {
             make.top.equalTo(startSceneView.snp.bottom).offset(8)
         }
 
+        // 初始化「结束场景视图」
+
         let endSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneView.backgroundColor = .systemFill
         diagramView.addSubview(endSceneView)
@@ -239,11 +233,8 @@ class TargetScenesViewController: UIViewController {
         endSceneIndexLabel.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
-    }
 
-    private func initTargetScenesView() {
-
-        // 初始化目标场景视图
+        // 初始化「目标场景视图」
 
         targetScenesView = UIView()
         view.addSubview(targetScenesView)
@@ -253,7 +244,7 @@ class TargetScenesViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        // 初始化目标场景标题标签
+        // 初始化「目标场景标题标签」
 
         let targetScenesTitleLabel: UILabel = UILabel()
         targetScenesTitleLabel.text = NSLocalizedString("SelectTargetScene", comment: "")
@@ -265,7 +256,7 @@ class TargetScenesViewController: UIViewController {
             make.left.right.top.equalToSuperview()
         }
 
-        // 初始化目标场景表格视图
+        // 初始化「目标场景表格视图容器」
 
         let targetScenesTableViewContainer: RoundedView = RoundedView()
         targetScenesTableViewContainer.backgroundColor = .secondarySystemGroupedBackground
@@ -276,6 +267,8 @@ class TargetScenesViewController: UIViewController {
             make.top.equalTo(targetScenesTitleLabel.snp.bottom).offset(24)
             make.bottom.equalToSuperview()
         }
+
+        // 初始化「目标场景表格视图」
 
         targetScenesTableView = UITableView()
         targetScenesTableView.backgroundColor = .clear
@@ -389,44 +382,4 @@ extension TargetScenesViewController: UITableViewDelegate {
 
 extension TargetScenesViewController {
 
-    @objc private func backButtonDidTap() {
-
-        navigationController?.popViewController(animated: true)
-    }
-
-    private func selectTargetScene(targetSceneIndex: Int) {
-
-        print("[TargetScenes] did select target scene \(targetSceneIndex)")
-
-        // 新建穿梭器
-        // FIXME：重新处理「MetaTransition - MetaCondition」
-
-        var conditions = [MetaCondition]()
-        let defaultCondition = MetaCondition(sensor: MetaSensor(gameUUID: gameBundle.uuid, sceneUUID: nil, nodeUUID: nil, key: .timeControl), operatorKey: .equalTo, value: "end")
-        conditions.append(defaultCondition)
-//        let testCondition = MetaCondition(nodeIndex: 0, nodeType: 1, nodeBehaviorType: 12, parameters: "2次")
-//        conditions.append(testCondition)
-//        let test2Condition = MetaCondition(nodeIndex: 1, nodeType: 2, nodeBehaviorType: 21)
-//        conditions.append(test2Condition)
-//        let test3Condition = MetaCondition(nodeIndex: 2, nodeType: 3, nodeBehaviorType: 31, parameters: "(B)")
-//        conditions.append(test3Condition)
-//        let test4Condition = MetaCondition(nodeIndex: 3, nodeType: 4, nodeBehaviorType: 41, parameters: "3次")
-//        conditions.append(test4Condition)
-//        let test5Condition = MetaCondition(nodeIndex: 4, nodeType: 5, nodeBehaviorType: 51, parameters: "(熊猫)")
-//        conditions.append(test5Condition)
-
-        if let transition = gameBundle.addTransition(from: gameBundle.selectedSceneIndex, to: targetSceneIndex, conditions: conditions) {
-
-            DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let s = self else { return }
-                MetaGameBundleManager.shared.save(s.gameBundle) // 保存新建的穿梭器
-            }
-
-            GameboardViewExternalChangeManager.shared.set(key: .addTransition, value: transition) // 保存「作品板视图外部变更记录字典」
-        }
-
-        // 返回父视图
-
-        navigationController?.popViewController(animated: true)
-    }
 }

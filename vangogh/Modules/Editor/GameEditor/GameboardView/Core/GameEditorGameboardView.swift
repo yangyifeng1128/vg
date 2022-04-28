@@ -9,6 +9,7 @@ import UIKit
 
 class GameEditorGameboardView: UIView {
 
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -21,6 +22,7 @@ class GameEditorGameboardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
     }
 }

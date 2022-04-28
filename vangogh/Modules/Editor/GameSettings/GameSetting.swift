@@ -8,15 +8,18 @@ import Foundation
 
 class GameSetting {
 
-    /// 作品设置枚举值
+    /// 作品设置类型枚举值
     enum GameSettingType: String, CaseIterable {
         case gameThumbImage = "GameThumbImage"
         case gameTitle = "GameTitle"
     }
 
+    /// 作品设置类型
     private(set) var type: GameSettingType
+    /// 标题
     private(set) var title: String
 
+    /// 初始化
     init(type: GameSettingType, title: String) {
 
         self.type = type
@@ -26,8 +29,10 @@ class GameSetting {
 
 class GameSettingManager {
 
+    /// 单例
     static var shared = GameSettingManager()
 
+    /// 设置列表
     private lazy var settings: [GameSetting] = {
 
         var settings = [GameSetting]()
@@ -37,6 +42,7 @@ class GameSettingManager {
         return settings
     }()
 
+    /// 获取设置列表
     func get() -> [GameSetting] {
 
         return settings

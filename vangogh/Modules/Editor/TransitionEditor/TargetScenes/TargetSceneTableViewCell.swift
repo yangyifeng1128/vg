@@ -18,11 +18,16 @@ class TargetSceneTableViewCell: UITableViewCell {
         static let chevronViewWidth: CGFloat = 24
     }
 
-    var thumbImageView: RoundedImageView! // 缩略图视图
-    var indexLabel: UILabel! // 索引标签
-    var titleLabel: UILabel! // 标题标签
+    /// 缩略图视图
+    var thumbImageView: RoundedImageView!
+    /// 索引标签
+    var indexLabel: UILabel!
+    /// 标题标签
+    var titleLabel: UILabel!
+    /// chevron 视图
     var chevronView: UIImageView!
 
+    /// 初始化
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,12 +40,13 @@ class TargetSceneTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加缩略图视图
+        // 初始化「缩略图视图」
 
         thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         thumbImageView.contentMode = .scaleAspectFill
@@ -53,6 +59,8 @@ class TargetSceneTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
         }
+
+        // 初始化「索引标签」
 
         indexLabel = UILabel()
         indexLabel.font = .systemFont(ofSize: VC.indexLabelFontSize, weight: .regular)
@@ -67,7 +75,7 @@ class TargetSceneTableViewCell: UITableViewCell {
             make.edges.equalToSuperview()
         }
 
-        // 添加标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
@@ -78,7 +86,7 @@ class TargetSceneTableViewCell: UITableViewCell {
             make.top.bottom.equalTo(thumbImageView)
         }
 
-        // 准备 chevronView
+        // 初始化「chevron 视图」
 
         chevronView = UIImageView(image: .chevronRight)
         chevronView.tintColor = .tertiaryLabel

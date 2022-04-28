@@ -15,20 +15,24 @@ class MetaNodeView: UIView {
         static let progressViewMarginBottom: CGFloat = 16
     }
 
+    /// 播放器视图
     weak var playerView: ScenePlayerView?
 
+    /// 组件
     private(set) var node: MetaNode!
 
-    var isActive: Bool = false { // 激活状态
+    /// 激活状态
+    var isActive: Bool = false {
         willSet {
             if newValue {
-                activate() // 激活
+                activate()
             } else {
-                deactivate() // 取消激活
+                deactivate()
             }
         }
     }
 
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -41,27 +45,32 @@ class MetaNodeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 布局
     func layout(parent: UIView) {
 
         fatalError("Method \"layout\" must be overriden")
     }
 
+    /// 激活
     func activate() {
 
         addBorderLayer()
     }
 
+    /// 取消激活
     func deactivate() {
 
         removeBorderLayer()
     }
 
+    /// 添加边框图层
     private func addBorderLayer() {
 
         layer.borderColor = UIColor.accent?.cgColor
         layer.borderWidth = VC.borderLayerWidth
     }
 
+    /// 移除边框图层
     private func removeBorderLayer() {
 
         layer.borderColor = UIColor.clear.cgColor

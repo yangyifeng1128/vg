@@ -7,13 +7,6 @@
 import SnapKit
 import UIKit
 
-protocol GameEditorSceneViewDelegate: AnyObject {
-    func sceneViewDidTap(_ sceneView: GameEditorSceneView)
-    func sceneViewIsMoving(scene: MetaScene)
-    func sceneViewDidPan(scene: MetaScene)
-    func sceneViewDidLongPress(_ sceneView: GameEditorSceneView)
-}
-
 class GameEditorSceneView: RoundedView {
 
     /// 视图布局常量枚举值
@@ -25,22 +18,28 @@ class GameEditorSceneView: RoundedView {
         static let maskBackgroundColor: UIColor = UIColor.systemGray3.withAlphaComponent(0.8)
     }
 
+    /// 代理
     weak var delegate: GameEditorSceneViewDelegate?
 
+    /// 缩略图视图
     var thumbImageView: UIImageView!
+    /// 标题标签
     var titleLabel: AttributedLabel!
-    private var borderLayer: CAShapeLayer!
+    /// 边框图层
+    var borderLayer: CAShapeLayer!
 
-    var isActive: Bool = false { // 激活状态
+    /// 激活状态
+    var isActive: Bool = false {
         willSet {
             if newValue {
-                activate() // 激活
+                activate()
             } else {
-                deactivate() // 取消激活
+                deactivate()
             }
         }
     }
 
+    /// 场景
     var scene: MetaScene!
 
     /// 初始化
@@ -81,6 +80,8 @@ class GameEditorSceneView: RoundedView {
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPress)))
 
+        // 初始化「缩略图视图」
+
         thumbImageView = UIImageView()
         thumbImageView.contentMode = .scaleAspectFill
         thumbImageView.image = .sceneBackgroundThumb
@@ -88,6 +89,8 @@ class GameEditorSceneView: RoundedView {
         thumbImageView.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
+
+        // 初始化「标题标签」
 
         titleLabel = AttributedLabel()
         titleLabel.insets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
@@ -109,6 +112,7 @@ class GameEditorSceneView: RoundedView {
         isActive = false
     }
 
+    /// 更新标题标签文本
     func updateTitleLabelAttributedText() {
 
         titleLabel.attributedText = prepareTitleLabelAttributedText()
@@ -117,6 +121,7 @@ class GameEditorSceneView: RoundedView {
         titleLabel.lineBreakMode = .byTruncatingTail
     }
 
+    /// 准备标题标签文本
     private func prepareTitleLabelAttributedText() -> NSMutableAttributedString {
 
         let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
@@ -143,115 +148,5 @@ class GameEditorSceneView: RoundedView {
         completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
 
         return completeTitleString
-    }
-
-    private func activate() {
-
-        cornerRadius = 12
-        bounds = CGRect(origin: .zero, size: CGSize(width: VC.width * 1.167, height: VC.height * 1.125))
-
-        // 添加边框
-
-        if borderLayer != nil {
-            borderLayer.removeFromSuperlayer()
-            borderLayer = nil
-        }
-
-        borderLayer = CAShapeLayer()
-        borderLayer.lineWidth = 8
-        borderLayer.strokeColor = UIColor.accent?.cgColor
-        borderLayer.fillColor = UIColor.clear.cgColor
-        borderLayer.frame = bounds
-        borderLayer.path = maskLayer.path
-
-        layer.addSublayer(borderLayer)
-
-        // 高亮
-
-        highlight()
-    }
-
-    private func deactivate() {
-
-        cornerRadius = GVC.defaultViewCornerRadius
-        bounds = CGRect(origin: .zero, size: CGSize(width: VC.width, height: VC.height))
-
-        // 删除边框
-
-        if borderLayer != nil {
-            borderLayer.removeFromSuperlayer()
-            borderLayer = nil
-        }
-
-        // 取消高亮
-
-        unhighlight()
-    }
-
-    func highlight() {
-
-        titleLabel.backgroundColor = .clear
-        titleLabel.textColor = .white
-    }
-
-    func unhighlight() {
-
-        titleLabel.backgroundColor = VC.maskBackgroundColor
-        titleLabel.textColor = .lightText
-    }
-}
-
-extension GameEditorSceneView {
-
-    @objc private func tap() {
-
-        UISelectionFeedbackGenerator().selectionChanged() // 震动反馈
-
-        delegate?.sceneViewDidTap(self)
-    }
-
-    @objc private func pan(_ sender: UIPanGestureRecognizer) {
-
-        guard let view = sender.view else { return }
-
-        switch sender.state {
-
-        case .began:
-            break
-
-        case .changed:
-
-            // 对齐网格
-
-            let location: CGPoint = sender.location(in: superview)
-            let gridWidth: CGFloat = GameEditorViewController.VC.gameboardViewGridWidth
-            let snappedLocation: CGPoint = CGPoint(x: gridWidth * floor(location.x / gridWidth), y: gridWidth * floor(location.y / gridWidth))
-
-            if view.center != snappedLocation {
-
-                UISelectionFeedbackGenerator().selectionChanged() // 震动反馈
-
-                view.center = snappedLocation
-                scene.center = view.center
-                delegate?.sceneViewIsMoving(scene: scene) // 传递 scene 对象的引用给 delegate，然后在 delegate 中矫正 scene.center
-            }
-            break
-
-        case .ended:
-
-            view.center = scene.center // 移动结束后，scene.center 已经在 delegate 中完成了矫正，这时候就可以回写给 view.center 了
-            delegate?.sceneViewDidPan(scene: scene)
-            break
-
-        default:
-            break
-        }
-    }
-
-    @objc private func longPress(_ sender: UILongPressGestureRecognizer) {
-
-        if isActive && sender.state == .began { // 处于激活状态且长按开始时，才会触发操作
-            delegate?.sceneViewDidLongPress(self)
-        }
     }
 }

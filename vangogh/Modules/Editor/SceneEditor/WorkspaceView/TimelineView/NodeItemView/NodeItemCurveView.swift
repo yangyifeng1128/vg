@@ -14,10 +14,13 @@ class NodeItemCurveView: UIButton {
         static let lineWidth: CGFloat = TimelineMeasureView.VC.markWidth * 2
     }
 
+    /// 边框图层
     private var borderLayer: CAShapeLayer!
 
+    /// 组件类型
     private var nodeType: MetaNodeType!
 
+    /// 初始化
     init(nodeType: MetaNodeType) {
 
         super.init(frame: .zero)
@@ -30,11 +33,13 @@ class NodeItemCurveView: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写布局子视图方法
     override func layoutSubviews() {
 
         addBorderLayer()
     }
 
+    /// 添加边框图层
     private func addBorderLayer() {
 
         if borderLayer != nil {

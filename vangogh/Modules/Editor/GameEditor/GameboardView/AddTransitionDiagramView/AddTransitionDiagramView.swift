@@ -19,12 +19,18 @@ class AddTransitionDiagramView: RoundedView {
         static let arrowViewWidth: CGFloat = 16
     }
 
-    private var borderLayer: CAShapeLayer!
-    private var arrowView: ArrowView!
+    /// 边框图层
+    var borderLayer: CAShapeLayer!
+    /// 箭头视图
+    var arrowView: ArrowView!
 
+    /// 开始场景视图
     var startSceneView: RoundedImageView!
+    /// 开始场景索引标签
     var startSceneIndexLabel: UILabel!
+    /// 结束场景视图
     var endSceneView: RoundedImageView!
+    /// 结束场景索引标签
     var endSceneIndexLabel: UILabel!
 
     /// 初始化
@@ -62,6 +68,8 @@ class AddTransitionDiagramView: RoundedView {
 
         backgroundColor = .systemBackground
 
+        // 初始化「图标视图」
+
         let iconView: UIImageView = UIImageView()
         iconView.image = .addLink
         iconView.tintColor = .accent
@@ -71,6 +79,8 @@ class AddTransitionDiagramView: RoundedView {
             make.centerY.equalToSuperview()
             make.left.equalTo(12)
         }
+
+        // 初始化「开始场景视图」
 
         let sceneViewHeight: CGFloat = VC.height - 20
         let sceneViewWidth: CGFloat = sceneViewHeight * GVC.defaultSceneAspectRatio
@@ -84,6 +94,9 @@ class AddTransitionDiagramView: RoundedView {
             make.centerY.equalToSuperview()
             make.left.equalTo(iconView.snp.right).offset(8)
         }
+
+        // 初始化「开始场景索引标签」
+
         startSceneIndexLabel = UILabel()
         startSceneIndexLabel.font = .systemFont(ofSize: VC.sceneIndexLabelFontSize, weight: .regular)
         startSceneIndexLabel.textColor = .white
@@ -97,6 +110,8 @@ class AddTransitionDiagramView: RoundedView {
             make.edges.equalToSuperview()
         }
 
+        // 初始化「箭头视图」
+
         arrowView = ArrowView()
         arrowView.arrowLayerColor = UIColor.accent?.cgColor
         addSubview(arrowView)
@@ -108,6 +123,8 @@ class AddTransitionDiagramView: RoundedView {
             make.left.equalTo(startSceneView.snp.right).offset(4)
         }
 
+        // 初始化「结束场景视图」
+
         endSceneView = RoundedImageView(cornerRadius: 4)
         endSceneView.backgroundColor = .systemFill
         addSubview(endSceneView)
@@ -117,6 +134,9 @@ class AddTransitionDiagramView: RoundedView {
             make.centerY.equalToSuperview()
             make.left.equalTo(arrowView.snp.right).offset(4)
         }
+
+        // 初始化「结束场景索引标签」
+
         endSceneIndexLabel = UILabel()
         endSceneIndexLabel.text = "?"
         endSceneIndexLabel.font = .systemFont(ofSize: VC.sceneIndexLabelFontSize, weight: .regular)
@@ -132,6 +152,7 @@ class AddTransitionDiagramView: RoundedView {
         }
     }
 
+    /// 添加边框图层
     private func addBorderLayer() {
 
         if borderLayer != nil {

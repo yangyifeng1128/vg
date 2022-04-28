@@ -110,6 +110,7 @@ extension NodeItemTagView {
         removeBorderLayer()
     }
 
+    /// 添加边框图层
     private func addBorderLayer() {
 
         if borderLayer != nil {
@@ -131,6 +132,7 @@ extension NodeItemTagView {
         layer.addSublayer(borderLayer)
     }
 
+    /// 移除边框图层
     private func removeBorderLayer() {
 
         if borderLayer != nil {

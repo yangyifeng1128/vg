@@ -6,47 +6,9 @@
 
 import UIKit
 
-class GameEditorTransitionView: UIView {
+extension GameEditorTransitionView {
 
-    /// 视图布局常量枚举值
-    enum VC {
-        static let tailWidth: CGFloat = 2
-        static let headWidth: CGFloat = 10
-        static let headLength: CGFloat = 8
-        static let pulseWidth: CGFloat = 3
-    }
-
-    private var pulseAnimationLayer: CALayer!
-    private var pulseAnimationGroup: CAAnimationGroup!
-    private var pulseAnimationDuration: TimeInterval = 1.2
-
-    private var arrowLayerColor: CGColor!
-    var startScene: MetaScene!
-    var endScene: MetaScene!
-
-    init(startScene: MetaScene, endScene: MetaScene) {
-
-        super.init(frame: .zero)
-
-        self.startScene = startScene
-        self.endScene = endScene
-
-        initViews()
-    }
-
-    required init?(coder: NSCoder) {
-
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func initViews() {
-
-        backgroundColor = .clear
-        arrowLayerColor = UIColor.tertiaryLabel.cgColor
-
-        updateView()
-    }
-
+    /// 高亮
     func highlight(isSent: Bool) {
 
         arrowLayerColor = isSent ? UIColor.accent?.cgColor : UIColor.fcGreen?.cgColor
@@ -55,6 +17,7 @@ class GameEditorTransitionView: UIView {
         startPulseAnimating(isSent: isSent)
     }
 
+    /// 取消高亮
     func unhighlight() {
 
         arrowLayerColor = UIColor.tertiaryLabel.cgColor
@@ -63,6 +26,7 @@ class GameEditorTransitionView: UIView {
         stopPulseAnimating()
     }
 
+    /// 更新视图
     func updateView() {
 
         layer.sublayers?.removeAll()
@@ -75,11 +39,9 @@ class GameEditorTransitionView: UIView {
 
         layer.addSublayer(arrowLayer)
     }
-}
 
-extension GameEditorTransitionView {
-
-    private func startPulseAnimating(isSent: Bool) {
+    /// 开启脉冲动画
+    func startPulseAnimating(isSent: Bool) {
 
         let backgroundColor: CGColor? = isSent ? UIColor.accent?.cgColor : UIColor.fcGreen?.cgColor
         pulseAnimationLayer = CALayer()
@@ -92,13 +54,14 @@ extension GameEditorTransitionView {
         pulseAnimationGroup.duration = pulseAnimationDuration
         pulseAnimationGroup.repeatCount = 1
         pulseAnimationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        pulseAnimationGroup.animations = [positionAnimation(), scaleAnimation(), opacityAnimation()]
+        pulseAnimationGroup.animations = [initPositionAnimation(), initScaleAnimation(), initOpacityAnimation()]
         pulseAnimationLayer.add(pulseAnimationGroup, forKey: "pulse")
 
         layer.addSublayer(pulseAnimationLayer)
     }
 
-    private func stopPulseAnimating() {
+    /// 关闭脉冲动画
+    func stopPulseAnimating() {
 
         if pulseAnimationLayer != nil {
             pulseAnimationLayer.removeFromSuperlayer()
@@ -107,7 +70,8 @@ extension GameEditorTransitionView {
         }
     }
 
-    func positionAnimation() -> CABasicAnimation {
+    /// 初始化位移动画
+    private func initPositionAnimation() -> CABasicAnimation {
 
         let positionAnimaton: CABasicAnimation = CABasicAnimation(keyPath: "position")
         positionAnimaton.duration = pulseAnimationDuration
@@ -117,7 +81,8 @@ extension GameEditorTransitionView {
         return positionAnimaton
     }
 
-    func scaleAnimation() -> CABasicAnimation {
+    /// 初始化缩放动画
+    private func initScaleAnimation() -> CABasicAnimation {
 
         let scaleAnimaton: CABasicAnimation = CABasicAnimation(keyPath: "transform.scale.xy")
         scaleAnimaton.duration = pulseAnimationDuration / 2
@@ -128,7 +93,8 @@ extension GameEditorTransitionView {
         return scaleAnimaton
     }
 
-    func opacityAnimation() -> CAKeyframeAnimation {
+    /// 初始化透明度动画
+    private func initOpacityAnimation() -> CAKeyframeAnimation {
 
         let opacityAnimiation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "opacity")
         opacityAnimiation.duration = pulseAnimationDuration

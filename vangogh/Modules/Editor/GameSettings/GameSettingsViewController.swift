@@ -4,8 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import AwaitToast
-import CoreData
 import SnapKit
 import UIKit
 
@@ -20,12 +18,12 @@ class GameSettingsViewController: UIViewController {
     }
 
     /// 设置表格视图
-    private var settingsTableView: UITableView!
+    var settingsTableView: UITableView!
 
     /// 作品
-    private var game: MetaGame!
+    var game: MetaGame!
     /// 设置列表
-    private var settings: [GameSetting]!
+    var settings: [GameSetting]!
 
     /// 初始化
     init(game: MetaGame) {
@@ -88,7 +86,7 @@ class GameSettingsViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
         let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("GameSettings", comment: "")
@@ -152,6 +150,43 @@ extension GameSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+        return prepareSettingsTableViewCell(indexPath: indexPath)
+    }
+}
+
+extension GameSettingsViewController: UITableViewDelegate {
+
+    /// 设置单元格高度
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return VC.settingTableViewCellHeight
+    }
+
+    /// 选中单元格
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let setting = settings[indexPath.row]
+
+        switch setting.type {
+        case .gameThumbImage:
+
+            editGameThumbImage()
+            break
+
+        case .gameTitle:
+
+            guard let cell = tableView.cellForRow(at: indexPath) as? GameSettingTableViewCell else { return }
+            editGameTitle(sourceView: cell.infoLabel)
+            break
+        }
+    }
+}
+
+extension GameSettingsViewController {
+
+    /// 准备「设置表格视图」单元格
+    func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+
         let setting: GameSetting = settings[indexPath.row]
 
         if setting.type == .gameThumbImage {
@@ -196,112 +231,5 @@ extension GameSettingsViewController: UITableViewDataSource {
 
             return cell
         }
-    }
-}
-
-extension GameSettingsViewController: UITableViewDelegate {
-
-    /// 设置单元格高度
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return VC.settingTableViewCellHeight
-    }
-
-    /// 选中单元格
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let setting = settings[indexPath.row]
-
-        switch setting.type {
-        case .gameThumbImage:
-
-            editGameThumbImage()
-            break
-
-        case .gameTitle:
-
-            guard let cell = tableView.cellForRow(at: indexPath) as? GameSettingTableViewCell else { return }
-            editGameTitle(sourceView: cell.infoLabel)
-            break
-        }
-    }
-}
-
-extension GameSettingsViewController {
-
-    @objc private func backButtonDidTap() {
-
-        navigationController?.popViewController(animated: true)
-    }
-
-    private func editGameThumbImage() {
-
-        print("[GameSettings] will edit game thumb image")
-    }
-
-    private func editGameTitle(sourceView: UIView) {
-
-        // 创建提示框
-
-        let alert = UIAlertController(title: NSLocalizedString("EditGameTitle", comment: ""), message: nil, preferredStyle: .alert)
-
-        // 输入框
-
-        alert.addTextField { [weak self] textField in
-
-            guard let s = self else { return }
-
-            textField.font = .systemFont(ofSize: GVC.alertTextFieldFontSize, weight: .regular)
-            textField.text = s.game.title
-            textField.returnKeyType = .done
-            textField.delegate = self
-        }
-
-        // 「确认」操作
-
-        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
-
-            guard let s = self else { return }
-
-            guard let title = alert.textFields?.first?.text, !title.isEmpty else {
-                let toast = Toast.default(text: NSLocalizedString("EmptyTitleNotAllowed", comment: ""))
-                toast.show()
-                return
-            }
-
-            s.game.title = title
-            CoreDataManager.shared.saveContext()
-            s.settingsTableView.reloadData()
-            GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
-        }
-        alert.addAction(confirmAction)
-
-        // 「取消」操作
-
-        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        }
-        alert.addAction(cancelAction)
-
-        // 兼容 iPad 应用
-
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = sourceView
-            popoverController.sourceRect = sourceView.bounds
-        }
-
-        // 展示提示框
-
-        present(alert, animated: true, completion: nil)
-    }
-}
-
-extension GameSettingsViewController: UITextFieldDelegate {
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
-        guard let text = textField.text else { return true }
-        if range.length + range.location > text.count { return false }
-        let newLength = text.count + string.count - range.length
-        return newLength <= 255
     }
 }

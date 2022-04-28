@@ -18,12 +18,10 @@ class AddSceneIndicatorView: UIView {
         static let closeButtonImageEdgeInset: CGFloat = 4.8
     }
 
+    /// 代理
     weak var delegate: AddSceneIndicatorViewDelegate?
 
-    private var contentView: UIView!
-    private var closeButton: CloseButton!
-    private var infoLabel: UILabel!
-
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -36,6 +34,7 @@ class AddSceneIndicatorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = .clear
@@ -43,7 +42,9 @@ class AddSceneIndicatorView: UIView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
 
-        contentView = RoundedView()
+        // 初始化「内容视图」
+
+        let contentView: RoundedView = RoundedView()
         contentView.backgroundColor = GVC.addSceneViewBackgroundColor
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
@@ -52,7 +53,9 @@ class AddSceneIndicatorView: UIView {
             make.left.bottom.equalToSuperview()
         }
 
-        infoLabel = UILabel()
+        // 初始化「信息标签」
+
+        let infoLabel: UILabel = UILabel()
         infoLabel.text = NSLocalizedString("AddSceneIndicatorInfo", comment: "")
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.adjustsFontSizeToFitWidth = true
@@ -65,7 +68,9 @@ class AddSceneIndicatorView: UIView {
             make.edges.equalToSuperview().inset(8)
         }
 
-        closeButton = CloseButton()
+        // 初始化「关闭按钮」
+
+        let closeButton: AddSceneIndicatorCloseButton = AddSceneIndicatorCloseButton()
         closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
         addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in
@@ -75,45 +80,15 @@ class AddSceneIndicatorView: UIView {
     }
 }
 
-extension AddSceneIndicatorView {
+private class AddSceneIndicatorCloseButton: UIButton {
 
-    @objc private func tap(_ sender: UIPanGestureRecognizer) {
-
-        guard let view = sender.view as? AddSceneIndicatorView else { return }
-
-        delegate?.addSceneIndicatorViewDidTap(view)
-    }
-
-    @objc private func pan(_ sender: UIPanGestureRecognizer) {
-
-        guard let view = sender.view else { return }
-
-        switch sender.state {
-        case .began:
-            break
-        case .changed:
-            view.center = sender.location(in: superview)
-            break
-        case .ended:
-            break
-        default:
-            break
-        }
-    }
-
-    @objc private func closeButtonDidTap() {
-
-        delegate?.addSceneIndicatorViewCloseButtonDidTap()
-    }
-}
-
-private class CloseButton: UIButton {
-
+    /// 遮罩图层
     private lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
         return $0
     }(CAShapeLayer())
 
+    /// 重写边框大小
     override var bounds: CGRect {
         set {
             super.bounds = newValue
@@ -134,6 +109,7 @@ private class CloseButton: UIButton {
         }
     }
 
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
@@ -150,6 +126,7 @@ private class CloseButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写背景矩形区域
     override func backgroundRect(forBounds bounds: CGRect) -> CGRect {
 
         let imageEdgeInset: CGFloat = AddSceneIndicatorView.VC.closeButtonImageEdgeInset
