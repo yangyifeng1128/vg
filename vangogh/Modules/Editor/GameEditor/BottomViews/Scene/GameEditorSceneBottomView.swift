@@ -36,16 +36,12 @@ class GameEditorSceneBottomView: BorderedView {
     /// 代理
     weak var delegate: GameEditorSceneBottomViewDelegate?
 
-    private var contentView: UIView!
-    private var closeSceneButton: UIButton!
-    private var deleteSceneButton: UIButton!
-    private var editSceneTitleButton: UIButton!
-    private var sceneTitleLabel: UILabel!
-    private var previewSceneButton: RoundedButton!
-    private var editSceneButton: RoundedButton!
-    private var transitionsView: RoundedView!
-    private var manageTransitionsButton: UIButton!
-    private var transitionsTableView: UITableView!
+    /// 穿梭器视图
+    var transitionsView: RoundedView!
+    /// 管理穿梭器按钮
+    var manageTransitionsButton: UIButton!
+    /// 穿梭器表格视图
+    var transitionsTableView: UITableView!
 
     /// 作品资源包
     var gameBundle: MetaGameBundle!
@@ -76,7 +72,7 @@ class GameEditorSceneBottomView: BorderedView {
 
         // 初始化「内容视图」
 
-        contentView = UIView()
+        let contentView: UIView = UIView()
         contentView.backgroundColor = .systemBackground
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
@@ -87,7 +83,7 @@ class GameEditorSceneBottomView: BorderedView {
 
         // 初始化「关闭场景按钮」
 
-        closeSceneButton = UIButton()
+        let closeSceneButton: UIButton = UIButton()
         closeSceneButton.tintColor = .secondaryLabel
         closeSceneButton.setImage(.close, for: .normal)
         closeSceneButton.imageView?.tintColor = .secondaryLabel
@@ -101,7 +97,7 @@ class GameEditorSceneBottomView: BorderedView {
 
         // 初始化「删除场景按钮」
 
-        deleteSceneButton = UIButton()
+        let deleteSceneButton: UIButton = UIButton()
         deleteSceneButton.tintColor = .secondaryLabel
         deleteSceneButton.setImage(.delete, for: .normal)
         deleteSceneButton.imageView?.tintColor = .secondaryLabel
@@ -115,7 +111,7 @@ class GameEditorSceneBottomView: BorderedView {
 
         // 初始化「编辑场景标题按钮」
 
-        editSceneTitleButton = UIButton()
+        let editSceneTitleButton: UIButton = UIButton()
         editSceneTitleButton.isHidden = true
         editSceneTitleButton.tintColor = .secondaryLabel
         editSceneTitleButton.setImage(.editNote, for: .normal)
@@ -130,7 +126,7 @@ class GameEditorSceneBottomView: BorderedView {
 
         // 初始化「场景标题标签」
 
-        sceneTitleLabel = UILabel()
+        let sceneTitleLabel: UILabel = UILabel()
         sceneTitleLabel.attributedText = prepareSceneTitleLabelAttributedText()
         sceneTitleLabel.font = .systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)
         sceneTitleLabel.numberOfLines = 2
@@ -146,7 +142,7 @@ class GameEditorSceneBottomView: BorderedView {
 
         // 初始化「预览场景按钮」
 
-        previewSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let previewSceneButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         previewSceneButton.backgroundColor = .accent
         previewSceneButton.tintColor = .white
         previewSceneButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
@@ -168,7 +164,7 @@ class GameEditorSceneBottomView: BorderedView {
 
         // 初始化「编辑场景按钮」
 
-        editSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let editSceneButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         editSceneButton.backgroundColor = .secondarySystemBackground
         editSceneButton.tintColor = .mgLabel
         editSceneButton.setTitle(NSLocalizedString("EditScene", comment: ""), for: .normal)

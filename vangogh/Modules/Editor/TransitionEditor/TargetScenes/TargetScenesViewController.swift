@@ -312,7 +312,7 @@ extension TargetScenesViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectTargetScene(targetSceneIndex: targetScenes[indexPath.row].index)
+        selectTargetScene(targetScenes[indexPath.row])
     }
 }
 

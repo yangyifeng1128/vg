@@ -17,6 +17,22 @@ extension GameSettingsViewController {
 
 extension GameSettingsViewController {
 
+    /// 选择作品设置
+    func selectGameSetting(_ setting: GameSetting, cell: GameSettingTableViewCell) {
+
+        switch setting.type {
+        case .gameThumbImage:
+
+            editGameThumbImage()
+            break
+
+        case .gameTitle:
+
+            editGameTitle(sourceView: cell.infoLabel)
+            break
+        }
+    }
+
     /// 编辑作品缩略图
     func editGameThumbImage() {
 

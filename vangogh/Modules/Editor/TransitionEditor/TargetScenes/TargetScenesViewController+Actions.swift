@@ -17,9 +17,10 @@ extension TargetScenesViewController {
 
 extension TargetScenesViewController {
 
-    func selectTargetScene(targetSceneIndex: Int) {
+    /// 选中目标场景
+    func selectTargetScene(_ targetScene: MetaScene) {
 
-        Logger.gameEditor.info("selected target scene: \(targetSceneIndex)")
+        Logger.gameEditor.info("selected target scene: \(targetScene.index)")
 
         // 新建穿梭器
         // FIXME：重新处理「MetaTransition - MetaCondition」
@@ -38,7 +39,7 @@ extension TargetScenesViewController {
 //        let test5Condition = MetaCondition(nodeIndex: 4, nodeType: 5, nodeBehaviorType: 51, parameters: "(熊猫)")
 //        conditions.append(test5Condition)
 
-        if let transition = gameBundle.addTransition(from: gameBundle.selectedSceneIndex, to: targetSceneIndex, conditions: conditions) {
+        if let transition = gameBundle.addTransition(from: gameBundle.selectedSceneIndex, to: targetScene.index, conditions: conditions) {
 
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let s = self else { return }

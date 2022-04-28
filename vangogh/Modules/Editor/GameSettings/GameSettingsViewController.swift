@@ -165,20 +165,8 @@ extension GameSettingsViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let setting = settings[indexPath.row]
-
-        switch setting.type {
-        case .gameThumbImage:
-
-            editGameThumbImage()
-            break
-
-        case .gameTitle:
-
-            guard let cell = tableView.cellForRow(at: indexPath) as? GameSettingTableViewCell else { return }
-            editGameTitle(sourceView: cell.infoLabel)
-            break
-        }
+        guard let cell = settingsTableView.cellForRow(at: indexPath) as? GameSettingTableViewCell else { return }
+        selectGameSetting(settings[indexPath.row], cell: cell)
     }
 }
 
