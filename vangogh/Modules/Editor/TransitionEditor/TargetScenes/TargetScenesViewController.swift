@@ -291,6 +291,36 @@ extension TargetScenesViewController: UITableViewDataSource {
     /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
+        return prepareTargetScenesCount()
+    }
+
+    /// 设置单元格
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        return prepareTargetScenesTableViewCell(indexPath: indexPath)
+    }
+}
+
+extension TargetScenesViewController: UITableViewDelegate {
+
+    /// 设置单元格高度
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return VC.targetSceneTableViewCellHeight
+    }
+
+    /// 选中单元格
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        selectTargetScene(targetSceneIndex: targetScenes[indexPath.row].index)
+    }
+}
+
+extension TargetScenesViewController {
+
+    /// 准备目标场景数量
+    private func prepareTargetScenesCount() -> Int {
+
         if targetScenes.isEmpty {
             targetScenesTableView.showNoDataInfo(title: NSLocalizedString("NoTargetScenesAvailable", comment: ""))
         } else {
@@ -300,16 +330,16 @@ extension TargetScenesViewController: UITableViewDataSource {
         return targetScenes.count
     }
 
-    /// 设置单元格
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /// 准备「目标场景表格视图」单元格
+    private func prepareTargetScenesTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+
+        let targetScene: MetaScene = targetScenes[indexPath.row]
 
         guard let cell = targetScenesTableView.dequeueReusableCell(withIdentifier: TargetSceneTableViewCell.reuseId) as? TargetSceneTableViewCell else {
             fatalError("Unexpected cell type")
         }
 
-        let targetScene: MetaScene = targetScenes[indexPath.row]
-
-        // 准备缩略图视图
+        // 准备「缩略图视图」
 
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let s = self else { return }
@@ -324,11 +354,11 @@ extension TargetScenesViewController: UITableViewDataSource {
             }
         }
 
-        // 准备索引标签
+        // 准备「索引标签」
 
         cell.indexLabel.text = targetScene.index.description
 
-        // 准备标题标签
+        // 准备「标题标签」
 
         cell.titleLabel.attributedText = prepareTargetSceneTitleLabelAttributedText(scene: targetScene)
         cell.titleLabel.numberOfLines = 2
@@ -361,25 +391,4 @@ extension TargetScenesViewController: UITableViewDataSource {
 
         return completeTitleString
     }
-}
-
-extension TargetScenesViewController: UITableViewDelegate {
-
-    /// 设置单元格高度
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return VC.targetSceneTableViewCellHeight
-    }
-
-    /// 选中单元格
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        // 选择目标场景
-
-        selectTargetScene(targetSceneIndex: targetScenes[indexPath.row].index)
-    }
-}
-
-extension TargetScenesViewController {
-
 }

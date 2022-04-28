@@ -33,12 +33,6 @@ class TimelineMeasureView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// 初始化视图
-    private func initViews() {
-
-        backgroundColor = .clear
-    }
-
     /// 重写布局子视图方法
     override func layoutSubviews() {
 
@@ -51,6 +45,12 @@ class TimelineMeasureView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
 
         addMeasureLayer()
+    }
+
+    /// 初始化视图
+    private func initViews() {
+
+        backgroundColor = .clear
     }
 
     private func addMeasureLayer() {

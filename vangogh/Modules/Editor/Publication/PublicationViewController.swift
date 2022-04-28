@@ -270,7 +270,7 @@ extension PublicationViewController: UICollectionViewDelegateFlowLayout {
 extension PublicationViewController {
 
     /// 准备档案数量
-    func prepareArchivesCount() -> Int {
+    private func prepareArchivesCount() -> Int {
 
         if archives.isEmpty {
             archivesCollectionView.showNoDataInfo(title: NSLocalizedString("NoArchivesAvailable", comment: ""))
@@ -282,7 +282,7 @@ extension PublicationViewController {
     }
 
     /// 准备「档案集合视图」单元格
-    func prepareArchivesCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
+    private func prepareArchivesCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
 
         let archive: MetaTemplate = archives[indexPath.item]
 
@@ -303,7 +303,7 @@ extension PublicationViewController {
     }
 
     /// 准备「模版集合视图」单元格尺寸
-    func prepareArchivesCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
+    private func prepareArchivesCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
 
         var numberOfCellsPerRow: Int
         switch UIDevice.current.userInterfaceIdiom {

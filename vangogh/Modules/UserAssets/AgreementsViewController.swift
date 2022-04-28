@@ -163,6 +163,9 @@ class AgreementsViewController: UIViewController {
             make.bottom.equalTo(bottomView.snp.top)
         }
     }
+}
+
+extension AgreementsViewController {
 
     /// 准备底部视图信息标签文本
     private func prepareBottomViewInfoLabelAttributedText() -> NSMutableAttributedString {

@@ -87,30 +87,12 @@ class TransitionEditorViewController: UIViewController {
         arrowView.updateView()
     }
 
+    /// 初始化视图
     private func initViews() {
 
         view.backgroundColor = .systemGroupedBackground
 
-        // 初始化导航栏
-
-        initNavigationBar()
-
-        // 初始化示意图视图
-
-        initDiagramView()
-
-        // 初始化「添加条件」按钮
-
-        initAddConditionButton()
-
-        // 初始化条件视图
-
-        initConditionsView()
-    }
-
-    private func initNavigationBar() {
-
-        // 初始化返回按钮
+        // 初始化「返回按钮容器」
 
         backButtonContainer = UIView()
         backButtonContainer.backgroundColor = .clear
@@ -131,7 +113,7 @@ class TransitionEditorViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("EditTransition", comment: "")
@@ -144,11 +126,8 @@ class TransitionEditorViewController: UIViewController {
             make.centerY.equalTo(backButton)
             make.left.equalTo(backButtonContainer.snp.right).offset(8)
         }
-    }
 
-    private func initDiagramView() {
-
-        // 初始化示意图视图
+        // 初始化「示意图视图」
 
         diagramView = RoundedView()
         diagramView.backgroundColor = .systemGroupedBackground
@@ -273,9 +252,6 @@ class TransitionEditorViewController: UIViewController {
             make.centerX.equalTo(endSceneView)
             make.top.equalTo(endSceneView.snp.bottom).offset(8)
         }
-    }
-
-    private func initAddConditionButton() {
 
         addConditionButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         addConditionButton.backgroundColor = .secondarySystemGroupedBackground
@@ -295,11 +271,8 @@ class TransitionEditorViewController: UIViewController {
             make.left.right.equalToSuperview().inset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
-    }
 
-    private func initConditionsView() {
-
-        // 初始化条件视图
+        // 初始化「条件视图」
 
         conditionsView = UIView()
         view.addSubview(conditionsView)
@@ -309,7 +282,7 @@ class TransitionEditorViewController: UIViewController {
             make.bottom.equalTo(addConditionButton.snp.top).offset(-16)
         }
 
-        // 初始化条件标题标签
+        // 初始化「条件标题标签」
 
         let conditionsTitleLabel: UILabel = UILabel()
         conditionsTitleLabel.text = NSLocalizedString("ConfigureConditions", comment: "")
@@ -324,7 +297,7 @@ class TransitionEditorViewController: UIViewController {
             make.top.equalToSuperview()
         }
 
-        // 初始化条件表格视图
+        // 初始化「条件表格视图」
 
         let conditionsTableViewContainer: RoundedView = RoundedView()
         conditionsTableViewContainer.backgroundColor = .secondarySystemGroupedBackground
@@ -373,16 +346,16 @@ extension TransitionEditorViewController: UITableViewDataSource {
             fatalError("Unexpected cell type")
         }
 
-        // 准备 OR 标签
+        // 准备「or 标签」
 
         cell.orLabel.isHidden = indexPath.row == conditions.count - 1 ? true : false
 
-        // 准备删除按钮
+        // 准备「删除按钮」
 
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(conditionWillDelete), for: .touchUpInside)
 
-        // 准备标题标签
+        // 准备「标题标签」
 
         cell.titleLabel.attributedText = prepareConditionTitleLabelAttributedText(startScene: startScene, condition: conditions[indexPath.row])
 
@@ -411,7 +384,7 @@ extension TransitionEditorViewController: UITableViewDataSource {
 
 //        if let conditionDescriptor = MetaConditionDescriptorManager.shared.load(nodeType: condition.nodeType, nodeBehaviorType: condition.nodeBehaviorType) {
 
-        // 准备组件标题
+        // 准备「组件标题」
 
         let nodeTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.accent!]
         let nodeTitle: String = "node type"
@@ -424,13 +397,13 @@ extension TransitionEditorViewController: UITableViewDataSource {
         completeConditionTitleString.append(nodeTitleString)
         completeConditionTitleString.append(dotString)
 
-        // 准备组件行为标题
+        // 准备「组件行为标题」
 
         let nodeBehaviorTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
         let nodeBehaviorTitleString: NSAttributedString = NSAttributedString(string: /* conditionDescriptor.nodeBehaviorTypeAlias */ "action type", attributes: nodeBehaviorTitleStringAttributes)
         completeConditionTitleString.append(nodeBehaviorTitleString)
 
-        // 准备参数
+        // 准备「参数」
 
 //            let parametersTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
 //            var parametersTitle: String = ""

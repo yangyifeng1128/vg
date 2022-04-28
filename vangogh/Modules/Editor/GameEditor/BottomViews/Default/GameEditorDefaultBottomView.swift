@@ -18,12 +18,10 @@ class GameEditorDefaultBottomView: BorderedView {
         static let infoLabelIconWidth: CGFloat = 16
     }
 
+    /// 代理
     weak var delegate: GameEditorDefaultBottomViewDelegate?
 
-    private var contentView: UIView!
-    private var addSceneButton: RoundedButton!
-    private var infoLabel: UILabel!
-
+    /// 初始化
     init() {
 
         super.init(side: .top)
@@ -36,9 +34,12 @@ class GameEditorDefaultBottomView: BorderedView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
-        contentView = UIView()
+        // 初始化「内容视图」
+
+        let contentView: UIView = UIView()
         contentView.backgroundColor = .systemBackground
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
@@ -47,7 +48,9 @@ class GameEditorDefaultBottomView: BorderedView {
             make.left.top.equalToSuperview()
         }
 
-        addSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        // 初始化「添加场景按钮」
+
+        let addSceneButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         addSceneButton.backgroundColor = .secondarySystemBackground
         addSceneButton.tintColor = .mgLabel
         addSceneButton.setTitle(NSLocalizedString("AddScene", comment: ""), for: .normal)
@@ -66,7 +69,9 @@ class GameEditorDefaultBottomView: BorderedView {
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
-        infoLabel = UILabel()
+        // 初始化「信息标签」
+
+        let infoLabel: UILabel = UILabel()
         infoLabel.attributedText = prepareInfoLabelAttributedText()
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .secondaryLabel
@@ -76,7 +81,11 @@ class GameEditorDefaultBottomView: BorderedView {
             make.bottom.equalTo(addSceneButton.snp.top).offset(-12)
         }
     }
+}
 
+extension GameEditorDefaultBottomView {
+
+    /// 准备信息标签文本
     private func prepareInfoLabelAttributedText() -> NSMutableAttributedString {
 
         let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")
@@ -97,13 +106,5 @@ class GameEditorDefaultBottomView: BorderedView {
         completeInfoString.append(titleString)
 
         return completeInfoString
-    }
-}
-
-extension GameEditorDefaultBottomView {
-
-    @objc private func addSceneButtonDidTap() {
-
-        delegate?.addSceneButtonDidTap()
     }
 }

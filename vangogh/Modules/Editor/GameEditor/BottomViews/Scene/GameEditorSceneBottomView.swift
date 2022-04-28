@@ -33,6 +33,7 @@ class GameEditorSceneBottomView: BorderedView {
         static let transitionTableViewCellHeight: CGFloat = 72
     }
 
+    /// 代理
     weak var delegate: GameEditorSceneBottomViewDelegate?
 
     private var contentView: UIView!
@@ -46,10 +47,14 @@ class GameEditorSceneBottomView: BorderedView {
     private var manageTransitionsButton: UIButton!
     private var transitionsTableView: UITableView!
 
-    private var gameBundle: MetaGameBundle!
-    private var selectedScene: MetaScene!
-    private var transitions: [MetaTransition]!
+    /// 作品资源包
+    var gameBundle: MetaGameBundle!
+    /// 选中场景
+    var selectedScene: MetaScene!
+    /// 穿梭器列表
+    var transitions: [MetaTransition]!
 
+    /// 初始化
     init(gameBundle: MetaGameBundle) {
 
         super.init(side: .top)
@@ -66,7 +71,10 @@ class GameEditorSceneBottomView: BorderedView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
+
+        // 初始化「内容视图」
 
         contentView = UIView()
         contentView.backgroundColor = .systemBackground
@@ -76,6 +84,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.height.equalTo(GameEditorSceneBottomView.VC.contentViewHeight)
             make.left.top.equalToSuperview()
         }
+
+        // 初始化「关闭场景按钮」
 
         closeSceneButton = UIButton()
         closeSceneButton.tintColor = .secondaryLabel
@@ -89,6 +99,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.top.equalToSuperview().offset(8)
         }
 
+        // 初始化「删除场景按钮」
+
         deleteSceneButton = UIButton()
         deleteSceneButton.tintColor = .secondaryLabel
         deleteSceneButton.setImage(.delete, for: .normal)
@@ -100,6 +112,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.right.equalTo(closeSceneButton.snp.left)
             make.top.equalTo(closeSceneButton)
         }
+
+        // 初始化「编辑场景标题按钮」
 
         editSceneTitleButton = UIButton()
         editSceneTitleButton.isHidden = true
@@ -114,6 +128,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.top.equalTo(deleteSceneButton)
         }
 
+        // 初始化「场景标题标签」
+
         sceneTitleLabel = UILabel()
         sceneTitleLabel.attributedText = prepareSceneTitleLabelAttributedText()
         sceneTitleLabel.font = .systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)
@@ -127,6 +143,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.right.equalTo(editSceneTitleButton.snp.left).offset(-8)
             make.top.equalTo(closeSceneButton).offset(14)
         }
+
+        // 初始化「预览场景按钮」
 
         previewSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         previewSceneButton.backgroundColor = .accent
@@ -148,6 +166,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
 
+        // 初始化「编辑场景按钮」
+
         editSceneButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         editSceneButton.backgroundColor = .secondarySystemBackground
         editSceneButton.tintColor = .mgLabel
@@ -168,6 +188,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.bottom.equalTo(previewSceneButton)
         }
 
+        // 初始化「穿梭器视图」
+
         transitionsView = RoundedView()
         transitionsView.backgroundColor = .secondarySystemBackground
         contentView.addSubview(transitionsView)
@@ -176,6 +198,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.top.equalTo(sceneTitleLabel.snp.bottom).offset(16)
             make.bottom.equalTo(previewSceneButton.snp.top).offset(-16)
         }
+
+        // 初始化「管理穿梭器按钮」
 
         manageTransitionsButton = UIButton()
         manageTransitionsButton.tintColor = .secondaryLabel
@@ -196,6 +220,8 @@ class GameEditorSceneBottomView: BorderedView {
             make.bottom.equalToSuperview()
         }
 
+        // 初始化「穿梭器表格视图」
+
         transitionsTableView = UITableView()
         transitionsTableView.backgroundColor = .clear
         transitionsTableView.separatorStyle = .none
@@ -211,36 +237,6 @@ class GameEditorSceneBottomView: BorderedView {
             make.top.equalTo(VC.manageTransitionsButtonMinHeight)
             make.bottom.equalTo(manageTransitionsButton.snp.top)
         }
-    }
-
-    private func prepareSceneTitleLabelAttributedText() -> NSMutableAttributedString {
-
-        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        // 准备场景索引
-
-        let indexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
-        let indexString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Scene", comment: "") + " " + selectedScene.index.description + "  ", attributes: indexStringAttributes)
-        completeTitleString.append(indexString)
-
-        // 准备场景标题
-
-        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        var titleString: NSAttributedString
-        if let title = selectedScene.title, !title.isEmpty {
-            titleString = NSAttributedString(string: title, attributes: titleStringAttributes)
-        } else {
-            titleString = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""), attributes: titleStringAttributes)
-        }
-        completeTitleString.append(titleString)
-
-        // 准备段落样式
-
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
-
-        return completeTitleString
     }
 }
 
@@ -320,6 +316,55 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
         cell.deleteButton.addTarget(self, action: #selector(transitionWillDelete), for: .touchUpInside)
 
         return cell
+    }
+}
+
+extension GameEditorSceneBottomView: UITableViewDelegate {
+
+    /// 设置单元格高度
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return VC.transitionTableViewCellHeight
+    }
+
+    /// 选中单元格
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        delegate?.transitionDidSelect(transitions[indexPath.row])
+    }
+}
+
+extension GameEditorSceneBottomView {
+
+    /// 准备场景标题标签文本
+    private func prepareSceneTitleLabelAttributedText() -> NSMutableAttributedString {
+
+        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+
+        // 准备场景索引
+
+        let indexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
+        let indexString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Scene", comment: "") + " " + selectedScene.index.description + "  ", attributes: indexStringAttributes)
+        completeTitleString.append(indexString)
+
+        // 准备场景标题
+
+        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
+        var titleString: NSAttributedString
+        if let title = selectedScene.title, !title.isEmpty {
+            titleString = NSAttributedString(string: title, attributes: titleStringAttributes)
+        } else {
+            titleString = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""), attributes: titleStringAttributes)
+        }
+        completeTitleString.append(titleString)
+
+        // 准备段落样式
+
+        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
+
+        return completeTitleString
     }
 
     private func prepareConditionsTitleLabelAttributedText(startScene: MetaScene, conditions: [MetaCondition]) -> NSMutableAttributedString {
@@ -422,74 +467,5 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
         completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
 
         return completeTitleString
-    }
-}
-
-extension GameEditorSceneBottomView: UITableViewDelegate {
-
-    /// 设置单元格高度
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return VC.transitionTableViewCellHeight
-    }
-
-    /// 选中单元格
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        delegate?.transitionDidSelect(transitions[indexPath.row])
-    }
-}
-
-extension GameEditorSceneBottomView {
-
-    @objc private func closeSceneButtonDidTap() {
-
-        delegate?.closeSceneButtonDidTap()
-    }
-
-    @objc private func deleteSceneButtonDidTap() {
-
-        delegate?.deleteSceneButtonDidTap()
-    }
-
-    @objc private func editSceneTitleButtonDidTap() {
-
-        delegate?.editSceneTitleButtonDidTap()
-    }
-
-    @objc private func sceneTitleLabelDidTap() {
-
-        delegate?.sceneTitleLabelDidTap()
-    }
-
-    @objc private func manageTransitionsButtonDidTap() {
-
-        delegate?.manageTransitionsButtonDidTap()
-    }
-
-    @objc private func previewSceneButtonDidTap() {
-
-        delegate?.previewSceneButtonDidTap()
-    }
-
-    @objc private func editSceneButtonDidTap() {
-
-        delegate?.editSceneButtonDidTap()
-    }
-
-    @objc private func transitionWillDelete(sender: UIButton) {
-
-        let index = sender.tag
-        let transition = transitions[index]
-
-        delegate?.transitionWillDelete(transition, completion: { [weak self] in
-
-            guard let s = self else { return }
-
-            // 重新加载穿梭器
-
-            s.transitions = s.gameBundle.selectedTransitions()
-            s.transitionsTableView.reloadData()
-        })
     }
 }

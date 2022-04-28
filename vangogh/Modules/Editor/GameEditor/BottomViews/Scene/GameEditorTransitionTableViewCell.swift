@@ -45,6 +45,15 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写用户界面风格变化处理方法
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        arrowView.arrowLayerColor = UIColor.accent?.cgColor
+        arrowView.updateView()
+    }
+
     /// 初始化视图
     private func initViews() {
 
@@ -96,7 +105,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         }
 
         // 初始化「结束场景标题标签」
-        
+
         endSceneTitleLabel = AttributedLabel()
         endSceneTitleLabel.insets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
         endSceneTitleLabel.textColor = .white
@@ -156,14 +165,5 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         super.prepareForReuse()
 
         endSceneThumbImageView.image = nil
-    }
-
-    /// 重写用户界面风格变化处理方法
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        arrowView.arrowLayerColor = UIColor.accent?.cgColor
-        arrowView.updateView()
     }
 }

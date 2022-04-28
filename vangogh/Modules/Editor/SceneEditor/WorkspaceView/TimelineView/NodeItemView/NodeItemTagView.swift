@@ -16,6 +16,7 @@ class NodeItemTagView: UIView {
         static let borderLayerWidth: CGFloat = NodeItemCurveView.VC.lineWidth * 2
     }
 
+    /// 遮罩图层
     private lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
         return $0
@@ -41,19 +42,23 @@ class NodeItemTagView: UIView {
         }
     }
 
+    /// 边框图层
     private var borderLayer: CAShapeLayer!
+    /// 图标视图
     private var iconView: UIImageView!
 
-    var isActive: Bool = false { // 激活状态
+    /// 激活状态
+    var isActive: Bool = false {
         willSet {
             if newValue {
-                activate() // 激活
+                activate()
             } else {
-                deactivate() // 取消激活
+                deactivate()
             }
         }
     }
 
+    /// 组件
     private(set) var node: MetaNode!
 
     /// 初始化
@@ -100,11 +105,13 @@ class NodeItemTagView: UIView {
 
 extension NodeItemTagView {
 
+    /// 激活
     private func activate() {
 
         addBorderLayer()
     }
 
+    /// 取消激活
     private func deactivate() {
 
         removeBorderLayer()

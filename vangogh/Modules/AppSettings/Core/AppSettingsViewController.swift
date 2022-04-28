@@ -178,7 +178,7 @@ extension AppSettingsViewController: UITableViewDelegate {
 extension AppSettingsViewController {
 
     /// 准备「设置表格视图」单元格
-    func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+    private func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
         let setting: AppSetting = settings[indexPath.row]
 

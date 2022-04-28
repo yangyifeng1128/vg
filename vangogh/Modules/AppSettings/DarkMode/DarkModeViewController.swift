@@ -231,7 +231,7 @@ extension DarkModeViewController: UITableViewDelegate {
 extension DarkModeViewController {
 
     /// 准备「风格表格视图」单元格
-    func prepareStylesTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+    private func prepareStylesTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
         let style: UserInterfaceStyle = styles[indexPath.row]
 

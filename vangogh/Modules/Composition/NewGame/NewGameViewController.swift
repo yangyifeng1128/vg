@@ -256,7 +256,7 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
 extension NewGameViewController {
 
     /// 准备模版数量
-    func prepareTemplatesCount() -> Int {
+    private func prepareTemplatesCount() -> Int {
 
         if templates.isEmpty {
             templatesCollectionView.showNoDataInfo(title: NSLocalizedString("NoTemplatesAvailable", comment: ""))
@@ -268,7 +268,7 @@ extension NewGameViewController {
     }
 
     /// 准备「模版集合视图」单元格
-    func prepareTemplatesCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
+    private func prepareTemplatesCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
 
         let template: MetaTemplate = templates[indexPath.item]
 
@@ -289,7 +289,7 @@ extension NewGameViewController {
     }
 
     /// 准备「模版集合视图」单元格尺寸
-    func prepareTemplatesCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
+    private func prepareTemplatesCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
 
         var numberOfCellsPerRow: Int
         switch UIDevice.current.userInterfaceIdiom {

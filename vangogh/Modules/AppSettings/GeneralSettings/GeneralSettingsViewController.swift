@@ -170,7 +170,7 @@ extension GeneralSettingsViewController: UITableViewDelegate {
 extension GeneralSettingsViewController {
 
     /// 准备「设置表格视图」单元格
-    func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+    private func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
 
         let setting: GeneralSetting = settings[indexPath.row]
 

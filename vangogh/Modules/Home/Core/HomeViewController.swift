@@ -170,7 +170,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 extension HomeViewController {
 
     /// 准备记录数量
-    func prepareRecordsCount() -> Int {
+    private func prepareRecordsCount() -> Int {
 
         if records.isEmpty {
             recordsCollectionView.showNoDataInfo(title: NSLocalizedString("NoRecordsFound", comment: ""))
@@ -182,7 +182,7 @@ extension HomeViewController {
     }
 
     /// 准备「记录集合视图」单元格
-    func prepareRecordsCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
+    private func prepareRecordsCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
 
         let record: MetaRecord = records[indexPath.item]
 
@@ -198,7 +198,7 @@ extension HomeViewController {
     }
 
     /// 准备「记录集合视图」单元格尺寸
-    func prepareRecordsCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
+    private func prepareRecordsCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
 
         var numberOfCellsPerRow: Int
         switch UIDevice.current.userInterfaceIdiom {
