@@ -43,6 +43,7 @@ class TemplateCollectionViewCell: RoundedCollectionViewCell {
         // 初始化「缩略图视图」
 
         thumbImageView = UIImageView(frame: contentView.bounds)
+        thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
 
         // 初始化「标题标签」
