@@ -50,7 +50,7 @@ class TemplateCollectionViewCell: RoundedCollectionViewCell {
 
         titleLabel = AttributedLabel()
         titleLabel.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 4)
-        titleLabel.backgroundColor = .secondarySystemGroupedBackground
+        titleLabel.backgroundColor = UIColor.secondarySystemGroupedBackground.withAlphaComponent(0.6)
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
