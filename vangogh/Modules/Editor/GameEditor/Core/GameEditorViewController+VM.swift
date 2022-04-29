@@ -8,6 +8,15 @@ import UIKit
 
 extension GameEditorViewController {
 
+    /// 保存作品资源包
+    func saveGameBundle() {
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let s = self else { return }
+            MetaGameBundleManager.shared.save(s.gameBundle)
+        }
+    }
+
     /// 保存场景标题
     func saveSceneTitle(_ gameBundle: MetaGameBundle, newTitle: String, completion handler: (() -> Void)? = nil) {
 

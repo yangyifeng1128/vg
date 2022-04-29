@@ -55,6 +55,64 @@ extension GameEditorViewController {
 
 extension GameEditorViewController {
 
+    /// 显示消息
+    func showMessage() {
+
+        if let sceneSavedMessage = sceneSavedMessage {
+            let toast = Toast.default(text: sceneSavedMessage)
+            toast.show()
+            self.sceneSavedMessage = nil
+        }
+    }
+
+    /// 提示草稿已保存
+    func sendDraftSavedMessage() {
+
+        let title: String = (game.title.count > 8) ? game.title.prefix(8) + "..." : game.title
+        if let parent = navigationController?.viewControllers[0] as? CompositionViewController {
+            parent.draftSavedMessage = title + " " + NSLocalizedString("SavedToDrafts", comment: "")
+        }
+    }
+
+    /// 取消高亮显示「先前选中场景」相关的场景视图
+    func unhighlightSelectionRelatedViews() {
+
+        let previousSelectedSceneIndex = gameBundle.selectedSceneIndex
+        let previousSelectedSceneView = sceneViewList.first(where: { $0.scene.index == previousSelectedSceneIndex })
+        previousSelectedSceneView?.isActive = false
+        unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
+        unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
+    }
+
+    /// 外观切换后更新视图
+    func updateViewsWhenTraitCollectionChanged() {
+
+        // 更新「作品标题标签」的图层阴影颜色
+
+        gameTitleLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
+
+        // 重置全部「穿梭器视图」
+
+        for transitionView in transitionViewList {
+            transitionView.unhighlight()
+        }
+
+        // 更新「当前选中场景」相关的穿梭器视图、场景视图
+
+        if gameBundle.selectedSceneIndex != 0 {
+            let sceneView = sceneViewList.first(where: { $0.scene.index == gameBundle.selectedSceneIndex })
+            highlightRelatedTransitionViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的穿梭器视图
+            highlightRelatedSceneViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的场景视图
+        }
+
+        // 隐藏「添加场景提示器视图」
+
+        addSceneIndicatorView.isHidden = true
+    }
+}
+
+extension GameEditorViewController {
+
     /// 跳转至「发布作品控制器」
     func pushPublicationVC() {
 

@@ -180,50 +180,22 @@ class GameEditorViewController: UIViewController {
         showCoachMarks()
     }
 
-    /// 显示消息
-    private func showMessage() {
-
-        if let sceneSavedMessage = sceneSavedMessage {
-            let toast = Toast.default(text: sceneSavedMessage)
-            toast.show()
-            self.sceneSavedMessage = nil
-        }
-    }
-
     /// 视图即将消失
     override func viewWillDisappear(_ animated: Bool) {
 
         super.viewWillDisappear(animated)
 
+        // 隐藏引导标记
+
+        hideCoachMarks()
+
         // 保存作品资源包
 
         saveGameBundle()
 
-        // 提示已保存
+        // 提示草稿已保存
 
-        sendSavedMessage()
-
-        //隐藏引导标记
-
-        hideCoachMarks()
-    }
-
-    /// 保存作品资源包
-    private func saveGameBundle() {
-
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            MetaGameBundleManager.shared.save(s.gameBundle)
-        }
-    }
-
-    /// 提示已保存
-    private func sendSavedMessage() {
-
-        let title: String = (game.title.count > 8) ? game.title.prefix(8) + "..." : game.title
-        if let parent = navigationController?.viewControllers[0] as? CompositionViewController {
-            parent.draftSavedMessage = title + " " + NSLocalizedString("SavedToDrafts", comment: "")
-        }
+        sendDraftSavedMessage()
     }
 
     /// 视图已经消失
@@ -234,48 +206,12 @@ class GameEditorViewController: UIViewController {
         unhighlightSelectionRelatedViews()
     }
 
-    /// 取消高亮显示「先前选中场景」相关的场景视图
-    private func unhighlightSelectionRelatedViews() {
-
-        let previousSelectedSceneIndex = gameBundle.selectedSceneIndex
-        let previousSelectedSceneView = sceneViewList.first(where: { $0.scene.index == previousSelectedSceneIndex })
-        previousSelectedSceneView?.isActive = false
-        unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
-        unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
-    }
-
     /// 重写用户界面风格变化处理方法
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 
         super.traitCollectionDidChange(previousTraitCollection)
 
         updateViewsWhenTraitCollectionChanged()
-    }
-
-    /// 外观切换后更新视图
-    private func updateViewsWhenTraitCollectionChanged() {
-
-        // 更新「作品标题标签」的图层阴影颜色
-
-        gameTitleLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
-
-        // 重置全部「穿梭器视图」
-
-        for transitionView in transitionViewList {
-            transitionView.unhighlight()
-        }
-
-        // 更新「当前选中场景」相关的穿梭器视图、场景视图
-
-        if gameBundle.selectedSceneIndex != 0 {
-            let sceneView = sceneViewList.first(where: { $0.scene.index == gameBundle.selectedSceneIndex })
-            highlightRelatedTransitionViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的穿梭器视图
-            highlightRelatedSceneViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的场景视图
-        }
-
-        // 隐藏「添加场景提示器视图」
-
-        addSceneIndicatorView.isHidden = true
     }
 
     /// 初始化视图
@@ -317,7 +253,7 @@ class GameEditorViewController: UIViewController {
 
         addSceneIndicatorView = AddSceneIndicatorView()
         addSceneIndicatorView.delegate = self
-        addSceneIndicatorView.isHidden = true // 隐藏「添加场景提示器视图」
+        addSceneIndicatorView.isHidden = true // 默认隐藏
         gameboardView.addSubview(addSceneIndicatorView)
         addSceneIndicatorView.snp.makeConstraints { make -> Void in
             make.width.equalTo(AddSceneIndicatorView.VC.width)
