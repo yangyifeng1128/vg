@@ -358,7 +358,6 @@ class GameEditorViewController: UIViewController {
         // 初始化「添加穿梭器示意图视图」
 
         addTransitionDiagramView = AddTransitionDiagramView()
-        addTransitionDiagramView.isHidden = true
         addTransitionDiagramView.isUserInteractionEnabled = true
         addTransitionDiagramView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addTransitionDiagramViewDidTap)))
         view.addSubview(addTransitionDiagramView)

@@ -78,7 +78,7 @@
 "NoPicturesAvailable" = "No pictures available";
 "NoRecordsFound" = "No games played yet";
 "NoTargetScenesAvailable" = "No target scenes available";
-"NoTemplatesAvailable" = "No templates available";
+"NoTemplatesAvailable" = "Loading templates...";
 "NoTransitionsAvailable" = "No transitions from this scene yet";
 "NoVideosAvailable" = "No videos available";
 "OpenSettings" = "Open Settings";

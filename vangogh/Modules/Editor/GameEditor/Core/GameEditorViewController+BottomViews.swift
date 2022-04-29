@@ -167,7 +167,7 @@ extension GameEditorViewController {
                 }
             }
             addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
-            addTransitionDiagramView.isHidden = sceneViewList.count > 1 ? false : true
+            addTransitionDiagramView.isHidden = false
             let addTransitionDiagramViewLeftOffset: CGFloat = 12
             let addTransitionDiagramViewBottomOffset: CGFloat = AddTransitionDiagramView.VC.height + 12
             addTransitionDiagramView.snp.updateConstraints { make -> Void in
