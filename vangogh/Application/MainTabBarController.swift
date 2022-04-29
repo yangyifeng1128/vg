@@ -53,8 +53,7 @@ class MainTabBarController: UITabBarController {
     /// 探测首次访问用户意图
     private func detectFirstTimeUserIntent() {
 
-        let isOldFriend: Bool = UserDefaults.standard.bool(forKey: GKC.isOldFriend)
-        if !isOldFriend {
+        if !UserDefaults.standard.bool(forKey: GKC.isOldFriend) {
             let wantsCompose: Bool = true
             selectedIndex = wantsCompose ? 1 : 0
             UserDefaults.standard.setValue(selectedIndex, forKey: GKC.currentMainTabBarItemIndex)

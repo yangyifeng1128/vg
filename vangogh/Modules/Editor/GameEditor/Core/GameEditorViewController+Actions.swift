@@ -17,17 +17,15 @@ extension GameEditorViewController {
 
     @objc func publishButtonDidTap() {
 
-        publish()
+        pushPublicationVC()
     }
 
     @objc func gameSettingsButtonDidTap() {
 
-        openGameSettings()
+        pushGameSettingsVC()
     }
 
     @objc func gameboardViewDidTap(_ sender: UITapGestureRecognizer) {
-
-        print("[GameEditor] did tap gameboardView")
 
         // 添加场景方式一
 
@@ -57,7 +55,8 @@ extension GameEditorViewController {
 
 extension GameEditorViewController {
 
-    func publish() {
+    /// 跳转至「发布作品控制器」
+    func pushPublicationVC() {
 
         let publicationVC = PublicationViewController(game: game)
         publicationVC.hidesBottomBarWhenPushed = true
@@ -65,7 +64,8 @@ extension GameEditorViewController {
         navigationController?.pushViewController(publicationVC, animated: true)
     }
 
-    func openGameSettings() {
+    /// 跳转至「作品设置控制器」
+    func pushGameSettingsVC() {
 
         let gameSettingsVC = GameSettingsViewController(game: game)
         gameSettingsVC.hidesBottomBarWhenPushed = true
@@ -73,6 +73,7 @@ extension GameEditorViewController {
         navigationController?.pushViewController(gameSettingsVC, animated: true)
     }
 
+    /// 添加场景
     func addScene(center: CGPoint) -> GameEditorSceneView? {
 
         let scene = gameBundle.addScene(center: center)

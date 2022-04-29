@@ -47,7 +47,7 @@ extension NewGameViewController {
         }
     }
 
-    /// 进入「作品编辑器」
+    /// 跳转至「作品编辑器控制器」
     func pushGameEditorVC(game: MetaGame) {
 
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: game.uuid) else { return }

@@ -20,7 +20,7 @@ extension HomeViewController {
         }
     }
 
-    /// 显示协议
+    /// 展示协议
     func presentAgreementsVC() {
 
         let agreementsVC: AgreementsViewController = AgreementsViewController()

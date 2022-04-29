@@ -106,7 +106,7 @@ class TargetAssetsViewController: UIViewController {
 
         super.viewWillDisappear(animated)
 
-        // 禁止「场景编辑器」视图控制器在 viewDidAppear 中重新加载播放器
+        // 禁止「场景编辑器视图控制器」在 viewDidAppear 中重新加载播放器
         // 我们会在 TargetAssetsViewControllerDelegate.assetDidPick 中重新加载播放器
 
         if let parent = navigationController?.viewControllers[0] as? SceneEditorViewController {

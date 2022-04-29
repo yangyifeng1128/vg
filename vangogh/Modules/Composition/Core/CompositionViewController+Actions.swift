@@ -50,7 +50,7 @@ extension CompositionViewController {
         }
     }
 
-    /// 显示协议
+    /// 展示协议
     func presentAgreementsVC() {
 
         let agreementsVC: AgreementsViewController = AgreementsViewController()
@@ -61,7 +61,7 @@ extension CompositionViewController {
         present(agreementsNav, animated: true, completion: nil)
     }
 
-    /// 进入「应用程序设置」
+    /// 跳转至「应用程序设置控制器」
     func pushAppSettingsVC() {
 
         let settingsVC: AppSettingsViewController = AppSettingsViewController()
@@ -70,7 +70,7 @@ extension CompositionViewController {
         navigationController?.pushViewController(settingsVC, animated: true)
     }
 
-    /// 进入「新建作品视图」
+    /// 跳转至「新建作品视图控制器」
     func pushNewGameVC() {
 
         let newGameVC: NewGameViewController = NewGameViewController(games: drafts)
@@ -89,7 +89,7 @@ extension CompositionViewController {
         }
     }
 
-    /// 进入「作品编辑器」
+    /// 跳转至「作品编辑器控制器」
     func pushGameEditorVC(game: MetaGame) {
 
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: game.uuid) else { return }

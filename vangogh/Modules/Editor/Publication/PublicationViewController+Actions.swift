@@ -36,7 +36,7 @@ extension PublicationViewController {
 
 extension PublicationViewController {
 
-    /// 进入「作品设置」
+    /// 跳转至「作品设置控制器」
     func pushGameSettingsVC() {
 
         let gameSettingsVC = GameSettingsViewController(game: game)

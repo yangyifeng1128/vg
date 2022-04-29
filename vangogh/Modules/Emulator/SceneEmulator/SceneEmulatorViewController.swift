@@ -335,11 +335,11 @@ extension SceneEmulatorViewController: SceneEmulatorNoDataViewDelegate {
 
         print("[SceneEmulator] did tap editSceneImmediatelyButton")
 
-        // 关闭「场景模拟器」视图控制器
+        // 关闭「场景模拟器视图控制器」
 
         presentingViewController?.dismiss(animated: true, completion: nil)
 
-        // 跳转至「场景编辑器」视图控制器
+        // 展示「场景编辑器视图控制器」
 
         guard let selectedScene = gameBundle.selectedScene(), let sceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) else { return }
         let sceneEditorVC = SceneEditorViewController(sceneBundle: sceneBundle, gameBundle: gameBundle)

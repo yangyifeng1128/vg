@@ -138,6 +138,7 @@
 		0F7A9986281AAC730007FB3E /* GameEditorViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A9985281AAC730007FB3E /* GameEditorViewController+Actions.swift */; };
 		0F7A9988281AB08B0007FB3E /* GameEditorViewController+GameboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A9987281AB08B0007FB3E /* GameEditorViewController+GameboardView.swift */; };
 		0F7A998A281AB0CB0007FB3E /* GameEditorViewController+BottomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A9989281AB0CB0007FB3E /* GameEditorViewController+BottomViews.swift */; };
+		0F7A998C281AB2F50007FB3E /* GameEditorViewController+CoachMarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A998B281AB2F50007FB3E /* GameEditorViewController+CoachMarks.swift */; };
 		0F8972CC273D6BAD001CD774 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8972CB273D6BAD001CD774 /* LoadingView.swift */; };
 		0F8972CE273EC801001CD774 /* MetaCheckpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8972CD273EC801001CD774 /* MetaCheckpoint.swift */; };
 		0F8972D0273F6979001CD774 /* SceneEmulatorProgressTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8972CF273F6979001CD774 /* SceneEmulatorProgressTagView.swift */; };
@@ -447,6 +448,7 @@
 		0F7A9985281AAC730007FB3E /* GameEditorViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F7A9987281AB08B0007FB3E /* GameEditorViewController+GameboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorViewController+GameboardView.swift"; sourceTree = "<group>"; };
 		0F7A9989281AB0CB0007FB3E /* GameEditorViewController+BottomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorViewController+BottomViews.swift"; sourceTree = "<group>"; };
+		0F7A998B281AB2F50007FB3E /* GameEditorViewController+CoachMarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorViewController+CoachMarks.swift"; sourceTree = "<group>"; };
 		0F8972CB273D6BAD001CD774 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0F8972CD273EC801001CD774 /* MetaCheckpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCheckpoint.swift; sourceTree = "<group>"; };
 		0F8972CF273F6979001CD774 /* SceneEmulatorProgressTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorProgressTagView.swift; sourceTree = "<group>"; };
@@ -1075,6 +1077,7 @@
 				0F28134E254CF61E00FB569A /* GameEditorViewController.swift */,
 				0F7A9985281AAC730007FB3E /* GameEditorViewController+Actions.swift */,
 				0F7A9989281AB0CB0007FB3E /* GameEditorViewController+BottomViews.swift */,
+				0F7A998B281AB2F50007FB3E /* GameEditorViewController+CoachMarks.swift */,
 				0F7A9987281AB08B0007FB3E /* GameEditorViewController+GameboardView.swift */,
 				0F7A9983281AAB510007FB3E /* GameEditorViewController+VM.swift */,
 			);
@@ -2388,6 +2391,7 @@
 				0FFA0ED9281591DD0008AC1C /* PrivacyPolicyViewController+Actions.swift in Sources */,
 				0F14DF35278206690056872B /* MetaCheckpointEditorView.swift in Sources */,
 				1261626126C8D117004EBF42 /* AddTransitionDiagramView.swift in Sources */,
+				0F7A998C281AB2F50007FB3E /* GameEditorViewController+CoachMarks.swift in Sources */,
 				0F14DF372782067E0056872B /* MetaHotspotEditorView.swift in Sources */,
 				12C761822739180F00A91B2F /* UIBezierPath+Waterdrop.swift in Sources */,
 				120F238427018D340039CEC0 /* GameEditorGameboardView.swift in Sources */,

@@ -147,7 +147,7 @@ class SceneEditorViewController: UIViewController {
 
         super.viewWillDisappear(animated)
 
-        // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
         dismissPreviousBottomSheetViewController()
 
@@ -560,7 +560,7 @@ extension SceneEditorViewController: TimelineViewDelegate {
 
         print("[SceneEditor] timelineView did tap")
 
-        // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
         dismissPreviousBottomSheetViewController()
     }
@@ -604,7 +604,7 @@ extension SceneEditorViewController: TimelineViewDelegate {
 
         print("[SceneEditor] trackItemView \(footage.index) did become active")
 
-        // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
         dismissPreviousBottomSheetViewController()
     }
@@ -669,7 +669,7 @@ extension SceneEditorViewController: TimelineViewDelegate {
         guard let nodeTypeTitle = MetaNodeTypeManager.shared.getNodeTypeLocalizedTitle(nodeType: node.nodeType) else { return }
         print("[SceneEditor] \"\(nodeTypeTitle) \(node.index)\" will begin editing")
 
-        // 展示「编辑组件项」 Sheet 视图控制器
+        // 展示「编辑组件项 Sheet 视图控制器」
 
         presentEditNodeItemSheetViewController(node: node)
     }
@@ -697,7 +697,7 @@ extension SceneEditorViewController: TimelineToolBarViewDelegate, AddNodeItemVie
         }
         saveBundle()
 
-        // 展示「添加组件项」 Sheet 视图控制器
+        // 展示「添加组件项 Sheet 视图控制器」
 
         presentAddNodeItemSheetViewController(toolBarItem: toolBarItem)
     }
@@ -711,7 +711,7 @@ extension SceneEditorViewController: TimelineToolBarViewDelegate, AddNodeItemVie
 
         addMetaNode(nodeType: nodeType)
 
-        // 关闭先前展示的「添加组件项」 Sheet 视图控制器
+        // 关闭先前展示的「添加组件项 Sheet 视图控制器」
 
         dismissPreviousBottomSheetViewController()
     }
@@ -764,7 +764,7 @@ extension SceneEditorViewController: TimelineToolBarViewDelegate, AddNodeItemVie
 
             player.seek(to: CMTimeMake(value: node.startTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
 
-            // 展示「编辑组件项」 Sheet 视图控制器
+            // 展示「编辑组件项 Sheet 视图控制器」
 
             presentEditNodeItemSheetViewController(node: node)
             break
@@ -901,7 +901,7 @@ extension SceneEditorViewController: ScenePlayerViewDelegate {
 
         timelineView.activateNodeItemView(node: nodeView.node)
 
-        // 展示「编辑组件项」 Sheet 视图控制器
+        // 展示「编辑组件项 Sheet 视图控制器」
 
         presentEditNodeItemSheetViewController(node: nodeView.node)
     }
@@ -1097,7 +1097,7 @@ extension SceneEditorViewController {
 
         print("[SceneEditor] did tap playerViewContainer")
 
-        // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
         dismissPreviousBottomSheetViewController()
     }
@@ -1127,7 +1127,7 @@ extension SceneEditorViewController {
 
         print("[SceneEditor] did enter background")
 
-        // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
         dismissPreviousBottomSheetViewController()
 
@@ -1251,7 +1251,7 @@ extension SceneEditorViewController {
         }
     }
 
-    /// 进入「目标素材」
+    /// 跳转至「目标素材控制器」
     private func pushTargetAssetsVC() {
 
         let targetAssetsVC = TargetAssetsViewController()
@@ -1327,7 +1327,7 @@ extension SceneEditorViewController {
                 MetaSceneBundleManager.shared.deleteMetaNode(sceneBundle: s.sceneBundle, node: node)
                 DispatchQueue.main.sync {
 
-                    s.dismissPreviousBottomSheetViewController() // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+                    s.dismissPreviousBottomSheetViewController() // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
                     s.playerView.removeNodeView(node: node)
                     s.timelineView.removeNodeItemView(node: node)
@@ -1373,11 +1373,11 @@ extension SceneEditorViewController {
 
     private func presentAddNodeItemSheetViewController(toolBarItem: TimelineToolBarItem) {
 
-        // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
         dismissPreviousBottomSheetViewController()
 
-        // 展示「添加组件项」 Sheet 视图控制器
+        // 展示「添加组件项 Sheet 视图控制器」
 
         let addNodeItemVC: AddNodeItemViewController = AddNodeItemViewController(toolBarItem: toolBarItem)
         addNodeItemVC.delegate = self
@@ -1389,7 +1389,7 @@ extension SceneEditorViewController {
 
     private func presentEditNodeItemSheetViewController(node: MetaNode) {
 
-        // 关闭先前展示的 Sheet 视图控制器（如果有的话）
+        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
 
         dismissPreviousBottomSheetViewController()
 
@@ -1399,7 +1399,7 @@ extension SceneEditorViewController {
             nodeView.isActive = true
         }
 
-        // 展示「编辑组件项」 Sheet 视图控制器
+        // 展示「编辑组件项 Sheet 视图控制器」
 
         let editNodeItemVC = EditNodeItemViewController(node: node, rules: sceneBundle.findNodeRules(index: node.index))
         editNodeItemVC.delegate = self
@@ -1412,7 +1412,7 @@ extension SceneEditorViewController {
 
     private func presentSheetViewController(controller: UIViewController, sizes: [SheetSize], cornerRadius: CGFloat) {
 
-        // 展示 Sheet 视图控制器
+        // 展示「Sheet 视图控制器」
 
         let options: SheetOptions = SheetOptions(
             pullBarHeight: GVC.bottomSheetViewPullBarHeight,
@@ -1436,13 +1436,13 @@ extension SceneEditorViewController {
 
     private func dismissPreviousBottomSheetViewController() {
 
-        // 取消激活全部已激活的「播放器-组件」视图
+        // 取消激活全部已激活的「播放器-组件视图」
 
         playerView.nodeViewList.filter({ $0.isActive }).forEach {
             $0.isActive = false
         }
 
-        // 关闭先前展示的 Sheet 视图控制器
+        // 关闭先前展示的「Sheet 视图控制器」
 
         if let vc = bottomSheetViewController {
             vc.animateOut()

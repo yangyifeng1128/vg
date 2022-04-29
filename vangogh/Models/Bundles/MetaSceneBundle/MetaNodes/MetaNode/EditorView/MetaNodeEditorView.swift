@@ -65,7 +65,7 @@ class MetaNodeEditorView: UIView {
     /// 初始化视图
     private func initViews() {
 
-        // 初始化表格视图
+        // 初始化「表格视图」
 
         tableView = UITableView()
         if #available(iOS 15.0, *) {
@@ -92,7 +92,7 @@ class MetaNodeEditorView: UIView {
         swipeRightGesture.direction = .right
         tableView.addGestureRecognizer(swipeRightGesture)
 
-        // 初始化菜单控制器
+        // 初始化「菜单控制器」
 
         sectionControl = UISegmentedControl(items: sections.map { $0.value })
         sectionControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: VC.sectionControlTitleTextFontSize, weight: .regular)], for: .normal)
@@ -105,7 +105,7 @@ class MetaNodeEditorView: UIView {
             make.top.equalToSuperview().offset(GVC.bottomSheetViewPullBarHeight + 8)
         }
 
-        // 初始化删除按钮
+        // 初始化「删除按钮」
 
         deleteButton = UIButton()
         deleteButton.backgroundColor = .clear

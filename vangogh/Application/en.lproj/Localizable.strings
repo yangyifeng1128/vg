@@ -112,6 +112,13 @@
 "Videos" = "Videos";
 "WillAddSceneInfo" = "Tap the blank area above to complete";
 
+// ----- CoachMarks  -----
+
+"Hint_GameEditor_Back" = "Return";
+"Hint_GameEditor_GameSettings" = "Game Settings";
+"Hint_GameEditor_Publish" = "Publish Game";
+"Hint_GameEditor_AddScene" = "Insert a New Scene";
+
 // ----- ToolBarItems  -----
 
 "Audio" = "Audio";

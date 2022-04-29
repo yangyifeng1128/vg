@@ -112,6 +112,13 @@
 "Videos" = "视频";
 "WillAddSceneInfo" = "点击上面的空白区域，完成插入场景操作";
 
+// ----- CoachMarks  -----
+
+"Hint_GameEditor_Back" = "返回";
+"Hint_GameEditor_GameSettings" = "作品设置";
+"Hint_GameEditor_Publish" = "发布作品";
+"Hint_GameEditor_AddScene" = "插入一个新场景";
+
 // ----- ToolBarItems  -----
 
 "Audio" = "声音";

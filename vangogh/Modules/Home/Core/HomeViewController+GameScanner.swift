@@ -61,7 +61,7 @@ extension HomeViewController: GameScannerViewControllerDelegate {
         }
     }
 
-    /// 进入「作品扫描器」
+    /// 跳转至「作品扫描器控制器」
     func pushGameScannerVC() {
 
         let gameScannerVC: GameScannerViewController = GameScannerViewController()

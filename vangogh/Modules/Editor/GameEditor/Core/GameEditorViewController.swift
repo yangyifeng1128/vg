@@ -6,6 +6,7 @@
 
 import AwaitToast
 import CoreData
+import Instructions
 import Kingfisher
 import SnapKit
 import UIKit
@@ -30,6 +31,15 @@ class GameEditorViewController: UIViewController {
         case draft = 3
     }
 
+    /// 引导标记控制器
+    var coachMarksController: CoachMarksController!
+
+    /// 返回按钮
+    var backButton: CircleNavigationBarButton!
+    /// 发布按钮
+    var publishButton: CircleNavigationBarButton!
+    /// 作品设置按钮
+    var gameSettingsButton: CircleNavigationBarButton!
     /// 作品标题标签
     var gameTitleLabel: UILabel!
     /// 作品板视图容器
@@ -53,8 +63,6 @@ class GameEditorViewController: UIViewController {
     var willAddSceneBottomView: GameEditorWillAddSceneBottomView!
     /// 场景底部视图
     var sceneBottomView: GameEditorSceneBottomView!
-    /// 即将添加场景
-    var willAddScene: Bool = false
 
     /// 作品
     var game: MetaGame!
@@ -67,6 +75,8 @@ class GameEditorViewController: UIViewController {
     var sceneSavedMessage: String?
     /// 是否需要重新计算内容偏移量
     var needsContentOffsetUpdate: Bool = false
+    /// 即将添加场景
+    var willAddScene: Bool = false
 
     /// 初始化
     init(game: MetaGame, gameBundle: MetaGameBundle, parentType: GameEditorParentViewControllerType = .unspecified) {
@@ -104,6 +114,10 @@ class GameEditorViewController: UIViewController {
         // 加载场景缩略图
 
         loadSceneThumbImages()
+
+        // 初始化「引导标记控制器」
+
+        initCoachMarksController()
     }
 
     /// 重置父视图控制器
@@ -160,6 +174,10 @@ class GameEditorViewController: UIViewController {
         // 显示消息
 
         showMessage()
+
+        // 显示引导标记
+
+        showCoachMarks()
     }
 
     /// 显示消息
@@ -184,6 +202,10 @@ class GameEditorViewController: UIViewController {
         // 提示已保存
 
         sendSavedMessage()
+
+        //隐藏引导标记
+
+        hideCoachMarks()
     }
 
     /// 保存作品资源包
@@ -318,7 +340,7 @@ class GameEditorViewController: UIViewController {
 
         // 初始化「返回按钮」
 
-        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack)
+        backButton = CircleNavigationBarButton(icon: .arrowBack)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in
@@ -343,7 +365,7 @@ class GameEditorViewController: UIViewController {
 
         // 初始化「发布按钮」
 
-        let publishButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .publish, backgroundColor: .accent, tintColor: .white, imageEdgeInset: 10) // 此处 .publish 图标稍大，所以单独设置了 imageEdgeInset
+        publishButton = CircleNavigationBarButton(icon: .publish, backgroundColor: .accent, tintColor: .white, imageEdgeInset: 10) // 此处 .publish 图标稍大，所以单独设置了 imageEdgeInset
         publishButton.addTarget(self, action: #selector(publishButtonDidTap), for: .touchUpInside)
         publishButtonContainer.addSubview(publishButton)
         publishButton.snp.makeConstraints { make -> Void in
@@ -369,7 +391,7 @@ class GameEditorViewController: UIViewController {
 
         // 初始化「作品设置按钮」
 
-        let gameSettingsButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .gameSettings)
+        gameSettingsButton = CircleNavigationBarButton(icon: .gameSettings)
         gameSettingsButton.addTarget(self, action: #selector(gameSettingsButtonDidTap), for: .touchUpInside)
         gameSettingsButtonContainer.addSubview(gameSettingsButton)
         gameSettingsButton.snp.makeConstraints { make -> Void in
