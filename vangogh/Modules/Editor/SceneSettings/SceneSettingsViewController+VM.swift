@@ -18,12 +18,10 @@ extension SceneSettingsViewController {
             MetaGameBundleManager.shared.save(gameBundle)
         }
 
-        GameboardViewExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid) // 保存「作品板视图外部变更记录字典」
+        GameEditorExternalChangeManager.shared.set(key: .updateSceneViewTitle, value: scene.uuid) // 保存作品编辑器外部变更字典
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 }

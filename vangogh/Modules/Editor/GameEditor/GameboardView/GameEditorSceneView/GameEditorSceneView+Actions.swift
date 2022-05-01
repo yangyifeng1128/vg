@@ -29,7 +29,7 @@ extension GameEditorSceneView {
             // 对齐网格
 
             let location: CGPoint = sender.location(in: superview)
-            let gridWidth: CGFloat = GameEditorViewController.VC.gameboardViewGridWidth
+            let gridWidth: CGFloat = GameEditorGameboardView.VC.gridWidth
             let snappedLocation: CGPoint = CGPoint(x: gridWidth * floor(location.x / gridWidth), y: gridWidth * floor(location.y / gridWidth))
 
             if view.center != snappedLocation {

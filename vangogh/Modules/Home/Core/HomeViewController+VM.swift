@@ -26,9 +26,7 @@ extension HomeViewController {
         }
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 }

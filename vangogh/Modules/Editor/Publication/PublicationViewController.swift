@@ -194,9 +194,9 @@ class PublicationViewController: UIViewController {
         archivesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         archivesCollectionView.backgroundColor = .clear
         archivesCollectionView.showsVerticalScrollIndicator = false
+        archivesCollectionView.register(ArchiveCollectionViewCell.self, forCellWithReuseIdentifier: ArchiveCollectionViewCell.reuseId)
         archivesCollectionView.dataSource = self
         archivesCollectionView.delegate = self
-        archivesCollectionView.register(ArchiveCollectionViewCell.self, forCellWithReuseIdentifier: ArchiveCollectionViewCell.reuseId)
 
         // 为「档案集合视图」添加「刷新控制器」
 

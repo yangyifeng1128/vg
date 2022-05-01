@@ -18,15 +18,13 @@ extension TargetScenesViewController {
             }
             // 过滤已保存的穿梭器
             let existedTransitions = gameBundle.selectedTransitions()
-            if let transitions = existedTransitions, let _ = transitions.first(where: { $0.to == targetScene.index }) { return false }
+            if let _ = existedTransitions.first(where: { $0.to == targetScene.index }) { return false }
             // 返回其余的场景
             return true
         }.reversed() // 倒序
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 }

@@ -125,26 +125,25 @@ class MetaGameBundle: Codable {
         return findScene(index: selectedSceneIndex)
     }
 
-    func findTransitions(from: Int) -> [MetaTransition]? {
+    func findTransitions(from: Int) -> [MetaTransition] {
 
         for sceneTransitions in paths {
             if sceneTransitions.scene.index == from {
                 return sceneTransitions.transitions ?? []
             }
         }
-        return nil
+        return []
     }
 
-    func selectedTransitions() -> [MetaTransition]? {
+    func selectedTransitions() -> [MetaTransition] {
 
         return findTransitions(from: selectedSceneIndex)
     }
 
     func findConditions(from: Int, to: Int) -> [MetaCondition] {
 
-        guard let transitions = findTransitions(from: from) else {
-            return []
-        }
+        let transitions = findTransitions(from: from)
+
         for transition in transitions {
             if transition.to == to {
                 return transition.conditions

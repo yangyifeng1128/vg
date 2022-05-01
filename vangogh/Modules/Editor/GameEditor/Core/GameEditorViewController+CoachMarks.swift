@@ -53,7 +53,7 @@ extension GameEditorViewController: CoachMarksControllerDataSource {
         return 4
     }
 
-    /// 设置引导标
+    /// 设置引导标记
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
 
         // 贴合视图边框大小的剪影路径制作器

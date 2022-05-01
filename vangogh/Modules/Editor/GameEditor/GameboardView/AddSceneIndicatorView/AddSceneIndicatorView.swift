@@ -18,8 +18,8 @@ class AddSceneIndicatorView: UIView {
         static let closeButtonImageEdgeInset: CGFloat = 4.8
     }
 
-    /// 代理
-    weak var delegate: AddSceneIndicatorViewDelegate?
+    /// 关闭按钮
+    var closeButton: AddSceneIndicatorCloseButton!
 
     /// 初始化
     init() {
@@ -38,9 +38,6 @@ class AddSceneIndicatorView: UIView {
     private func initViews() {
 
         backgroundColor = .clear
-        isUserInteractionEnabled = true
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
-        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
 
         // 初始化「内容视图」
 
@@ -70,8 +67,7 @@ class AddSceneIndicatorView: UIView {
 
         // 初始化「关闭按钮」
 
-        let closeButton: AddSceneIndicatorCloseButton = AddSceneIndicatorCloseButton()
-        closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
+        closeButton = AddSceneIndicatorCloseButton()
         addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.closeButtonWidth)
@@ -80,7 +76,7 @@ class AddSceneIndicatorView: UIView {
     }
 }
 
-private class AddSceneIndicatorCloseButton: UIButton {
+class AddSceneIndicatorCloseButton: UIButton {
 
     /// 遮罩图层
     private lazy var maskLayer: CAShapeLayer = {

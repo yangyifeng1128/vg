@@ -102,9 +102,9 @@ class HomeViewController: UIViewController {
         recordsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         recordsCollectionView.backgroundColor = .clear
         recordsCollectionView.showsVerticalScrollIndicator = false
+        recordsCollectionView.register(RecordCollectionViewCell.self, forCellWithReuseIdentifier: RecordCollectionViewCell.reuseId)
         recordsCollectionView.dataSource = self
         recordsCollectionView.delegate = self
-        recordsCollectionView.register(RecordCollectionViewCell.self, forCellWithReuseIdentifier: RecordCollectionViewCell.reuseId)
         recordsView.addSubview(recordsCollectionView)
         recordsCollectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()

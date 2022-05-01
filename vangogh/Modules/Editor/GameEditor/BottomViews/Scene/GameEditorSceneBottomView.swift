@@ -45,8 +45,6 @@ class GameEditorSceneBottomView: BorderedView {
 
     /// 作品资源包
     var gameBundle: MetaGameBundle!
-    /// 当前选中的场景
-    var selectedScene: MetaScene!
     /// 穿梭器列表
     var transitions: [MetaTransition]!
 
@@ -56,7 +54,6 @@ class GameEditorSceneBottomView: BorderedView {
         super.init(side: .top)
 
         self.gameBundle = gameBundle
-        selectedScene = gameBundle.selectedScene()
         transitions = gameBundle.selectedTransitions()
 
         initViews()
@@ -272,6 +269,8 @@ extension GameEditorSceneBottomView {
     private func prepareSceneTitleLabelAttributedText() -> NSMutableAttributedString {
 
         let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+
+        guard let selectedScene = gameBundle.selectedScene() else { return completeTitleString }
 
         // 准备场景索引
 

@@ -180,9 +180,9 @@ class NewGameViewController: UIViewController {
         templatesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         templatesCollectionView.backgroundColor = .clear
         templatesCollectionView.showsVerticalScrollIndicator = false
+        templatesCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseId)
         templatesCollectionView.dataSource = self
         templatesCollectionView.delegate = self
-        templatesCollectionView.register(TemplateCollectionViewCell.self, forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseId)
 
         // 为「模版集合视图」添加「刷新控制器」
 

@@ -22,7 +22,6 @@ extension TargetScenesViewController {
 
         Logger.gameEditor.info("selected target scene: \(targetScene.index)")
 
-        // 新建穿梭器
         // FIXME：重新处理「MetaTransition - MetaCondition」
 
         var conditions = [MetaCondition]()
@@ -43,10 +42,10 @@ extension TargetScenesViewController {
 
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let s = self else { return }
-                MetaGameBundleManager.shared.save(s.gameBundle) // 保存新建的穿梭器
+                MetaGameBundleManager.shared.save(s.gameBundle)
             }
 
-            GameboardViewExternalChangeManager.shared.set(key: .addTransition, value: transition) // 保存「作品板视图外部变更记录字典」
+            GameEditorExternalChangeManager.shared.set(key: .addTransitionView, value: transition) // 保存作品编辑器外部变更字典
         }
 
         // 返回父视图

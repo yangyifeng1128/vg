@@ -216,9 +216,7 @@ extension SceneSettingsViewController {
             cell.titleLabel.text = setting.title
 
             if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneBundle.sceneUUID, gameUUID: sceneBundle.gameUUID) {
-                DispatchQueue.main.async {
-                    cell.thumbImageView.image = thumbImage
-                }
+                cell.thumbImageView.image = thumbImage
             } else {
                 cell.thumbImageView.image = .sceneBackgroundThumb
             }

@@ -122,9 +122,7 @@ extension SceneEmulatorProgressView {
 
         // 移除先前的全部组件项标签视图
 
-        for tagView in tagViewList {
-            tagView.removeFromSuperview()
-        }
+        tagViewList.forEach { $0.removeFromSuperview() }
         tagViewList.removeAll()
 
         // 添加新的标签视图

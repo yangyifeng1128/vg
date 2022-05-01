@@ -821,7 +821,7 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
                 MetaThumbManager.shared.saveSceneThumbImage(sceneUUID: s.sceneBundle.sceneUUID, gameUUID: s.sceneBundle.gameUUID, image: thumbImage) // 保存缩略图
             }
 
-            GameboardViewExternalChangeManager.shared.set(key: .updateSceneThumbImage, value: sceneBundle.sceneUUID) // 保存「作品板视图外部变更记录字典」
+            GameEditorExternalChangeManager.shared.set(key: .updateSceneViewThumbImage, value: sceneBundle.sceneUUID) // 保存作品编辑器外部变更字典
         }
     }
 
@@ -1226,11 +1226,9 @@ extension SceneEditorViewController {
         let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         switch status {
         case .notDetermined:
-            PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { status in
-                DispatchQueue.main.async { [weak self] in
-                    guard let s = self else { return }
-                    s.pushTargetAssetsVC()
-                }
+            PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { [weak self] status in
+                guard let s = self else { return }
+                s.pushTargetAssetsVC()
             })
             break
         case .authorized, .limited:
@@ -1359,9 +1357,7 @@ extension SceneEditorViewController {
         let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         if status == .notDetermined {
             PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { status in
-                DispatchQueue.main.async {
-                    handler(status)
-                }
+                handler(status)
             })
         } else {
             handler(status)

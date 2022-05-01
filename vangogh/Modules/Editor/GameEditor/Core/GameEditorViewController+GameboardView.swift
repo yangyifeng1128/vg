@@ -6,7 +6,33 @@
 
 import UIKit
 
-extension GameEditorViewController: UIScrollViewDelegate {
+extension GameEditorViewController: GameEditorGameboardViewDelegate {
+
+    func gameboardViewDidTap(location: CGPoint) {
+
+        if willAddScene {
+            addSceneView(center: location, forceSelection: false)
+        } else {
+            closeSceneView()
+        }
+    }
+
+    func gameboardViewDidLongPress(location: CGPoint) {
+
+        if !willAddScene {
+            gameboardView.showAddSceneIndicatorView(location: location)
+        }
+    }
+
+    func addSceneIndicatorViewDidTap(location: CGPoint) {
+
+        addSceneView(center: location, forceSelection: true)
+    }
+
+    func addSceneIndicatorCloseButtonDidTap() {
+
+        gameboardView.hideAddSceneIndicatorView()
+    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
@@ -15,7 +41,7 @@ extension GameEditorViewController: UIScrollViewDelegate {
         var contentOffset = scrollView.contentOffset
 
         let minX: CGFloat = 0
-        let maxX: CGFloat = VC.gameboardViewWidth - scrollView.bounds.width
+        let maxX: CGFloat = GameEditorGameboardView.VC.contentViewWidth - scrollView.bounds.width
         if contentOffset.x < minX {
             contentOffset.x = minX
         } else if contentOffset.x > maxX {
@@ -23,7 +49,7 @@ extension GameEditorViewController: UIScrollViewDelegate {
         }
 
         let minY: CGFloat = 0
-        let maxY: CGFloat = VC.gameboardViewHeight - scrollView.bounds.height
+        let maxY: CGFloat = GameEditorGameboardView.VC.contentViewHeight - scrollView.bounds.height
         if contentOffset.y < minY {
             contentOffset.y = minY
         } else if contentOffset.y > maxY {
@@ -34,7 +60,7 @@ extension GameEditorViewController: UIScrollViewDelegate {
 
         scrollView.contentOffset = contentOffset
 
-        // 异步保存内容偏移量
+        // 保存内容偏移量
 
         gameBundle.contentOffset = contentOffset
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -42,15 +68,63 @@ extension GameEditorViewController: UIScrollViewDelegate {
             MetaGameBundleManager.shared.save(s.gameBundle)
         }
     }
+}
 
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+extension GameEditorViewController: GameEditorGameboardViewDataSource {
 
-        return gameboardView
+    /// 设置「场景视图」数量
+    func numberOfSceneViews() -> Int {
+
+        return gameBundle.scenes.count
     }
 
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+    /// 设置「场景视图」
+    func sceneViewAt(_ index: Int) -> GameEditorSceneView {
 
-        scrollView.setZoomScale(1, animated: true)
+        let scene: MetaScene = gameBundle.scenes[index]
+        let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
+        sceneView.delegate = self
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let s = self else { return }
+            let url = MetaThumbManager.shared.getThumbImageFileURL(uuid: sceneView.scene.uuid, gameUUID: s.gameBundle.uuid)
+            if FileManager.default.fileExists(atPath: url.path) {
+                DispatchQueue.main.async {
+                    sceneView.thumbImageView.kf.setImage(with: url)
+                }
+            }
+        }
+
+        return sceneView
+    }
+
+    /// 设置「穿梭器视图」数量
+    func numberOfTransitionViews() -> Int {
+
+        return gameBundle.transitions.count
+    }
+
+    /// 设置「穿梭器视图」
+    func transitionViewAt(_ index: Int) -> GameEditorTransitionView {
+
+        let transition: MetaTransition = gameBundle.transitions[index]
+
+        guard let startScene = gameBundle.findScene(index: transition.from) else {
+            fatalError("Unexpected start scene")
+        }
+        guard let endScene = gameBundle.findScene(index: transition.to) else {
+            fatalError("Unexpected end scene")
+        }
+
+        let transitionView: GameEditorTransitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
+
+        return transitionView
+    }
+
+    /// 设置当前选中的场景索引
+    func selectedSceneIndex() -> Int {
+
+        return gameBundle.selectedSceneIndex
     }
 }
 
@@ -58,9 +132,7 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
 
     func sceneViewDidTap(_ sceneView: GameEditorSceneView) {
 
-        print("[GameEditor] did tap gameEditorSceneView")
-
-        selectScene(sceneView, animated: true)
+        selectSceneView(sceneView, animated: true)
     }
 
     func sceneViewIsMoving(scene: MetaScene) {
@@ -70,7 +142,7 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
         var location: CGPoint = scene.center
 
         let minX: CGFloat = GameEditorSceneView.VC.width
-        let maxX: CGFloat = VC.gameboardViewWidth - GameEditorSceneView.VC.width
+        let maxX: CGFloat = GameEditorGameboardView.VC.contentViewWidth - GameEditorSceneView.VC.width
         if location.x < minX {
             location.x = minX
         } else if location.x > maxX {
@@ -78,7 +150,7 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
         }
 
         let minY: CGFloat = GameEditorSceneView.VC.height
-        let maxY: CGFloat = VC.gameboardViewHeight - GameEditorSceneView.VC.height
+        let maxY: CGFloat = GameEditorGameboardView.VC.contentViewHeight - GameEditorSceneView.VC.height
         if location.y < minY {
             location.y = minY
         } else if location.y > maxY {
@@ -88,23 +160,23 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
         scene.center = location
 
         // 更新「当前被移动场景」相关的穿梭器视图的位置
-
-        for transitionView in transitionViewList {
-            if transitionView.startScene.index == scene.index {
-                transitionView.startScene = scene
-                transitionView.updateView()
-            } else if transitionView.endScene.index == scene.index {
-                transitionView.endScene = scene
-                transitionView.updateView()
-            }
-        }
+// FIXME
+//        for transitionView in transitionViewList {
+//            if transitionView.startScene.index == scene.index {
+//                transitionView.startScene = scene
+//                transitionView.updateView()
+//            } else if transitionView.endScene.index == scene.index {
+//                transitionView.endScene = scene
+//                transitionView.updateView()
+//            }
+//        }
     }
 
     func sceneViewDidPan(scene: MetaScene) {
 
         print("[GameEditor] did pan gameEditorSceneView")
 
-        // 异步保存「当前被移动场景」的位置
+        // 保存「当前被移动场景」的位置
 
         gameBundle.updateScene(scene)
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -155,27 +227,5 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
         // 展示提示框
 
         present(alert, animated: true, completion: nil)
-    }
-}
-
-extension GameEditorViewController: AddSceneIndicatorViewDelegate {
-
-    func addSceneIndicatorViewDidTap(_ view: AddSceneIndicatorView) {
-
-        print("[GameEditor] did tap AddSceneIndicatorView")
-
-        // 添加场景方式二
-
-        let location = CGPoint(x: view.center.x, y: view.center.y + AddSceneIndicatorView.VC.closeButtonWidth / 4)
-        doAddScene(center: location, forceSelection: true)
-    }
-
-    func addSceneIndicatorViewCloseButtonDidTap() {
-
-        print("[GameEditor] did tap AddSceneIndicatorView's closeButton")
-
-        // 隐藏「添加场景提示器视图」
-
-        addSceneIndicatorView.isHidden = true
     }
 }

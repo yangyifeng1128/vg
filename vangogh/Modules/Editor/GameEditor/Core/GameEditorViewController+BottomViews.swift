@@ -26,9 +26,7 @@ extension GameEditorViewController: GameEditorDefaultBottomViewDelegate, GameEdi
 
     func closeSceneButtonDidTap() {
 
-        print("[GameEditor] did tap closeSceneButton")
-
-        closeScene()
+        closeSceneView()
     }
 
     func deleteSceneButtonDidTap() {
@@ -61,33 +59,24 @@ extension GameEditorViewController: GameEditorDefaultBottomViewDelegate, GameEdi
 
     func previewSceneButtonDidTap() {
 
-        print("[GameEditor] did tap previewSceneButton")
-
-        previewScene()
+        pushSceneEmulatorVC()
     }
 
     func editSceneButtonDidTap() {
 
-        print("[GameEditor] did tap editSceneButton")
-
-        editScene()
+        pushSceneEditorVC()
     }
 
     func transitionWillDelete(_ transition: MetaTransition, completion: @escaping () -> Void) {
 
         print("[GameEditor] will delete transition: \(transition)")
 
-        deleteTransition(transition, completion: completion)
+        deleteTransitionView(transition, completion: completion)
     }
 
     func transitionDidSelect(_ transition: MetaTransition) {
 
-        print("[GameEditor] did select transition: \(transition)")
-
-        let transitionEditorVC = TransitionEditorViewController(gameBundle: gameBundle, transition: transition)
-        transitionEditorVC.hidesBottomBarWhenPushed = true
-
-        navigationController?.pushViewController(transitionEditorVC, animated: true)
+        pushTransitionEditorVC(transition: transition)
     }
 }
 
@@ -134,48 +123,48 @@ extension GameEditorViewController {
                 make.edges.equalToSuperview()
             }
 
-            // 更新作品板视图容器
+            // 更新「作品板视图」
 
-            gameboardViewContainer.snp.remakeConstraints { make -> Void in
+            gameboardView.snp.remakeConstraints { make -> Void in
                 make.left.right.top.equalToSuperview()
                 make.bottom.equalTo(bottomViewContainer.snp.top)
             }
 
-            // 更新「当前选中场景」及其相关的穿梭器视图、场景视图
-
-            let sceneView = sceneViewList.first(where: { $0.scene.index == gameBundle.selectedSceneIndex })
-            sceneView?.isActive = true
-            highlightRelatedTransitionViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的穿梭器视图
-            highlightRelatedSceneViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的场景视图
-
-            // 隐藏「添加场景提示器视图」
-
-            addSceneIndicatorView.isHidden = true
+            // 更新「当前选中的场景视图」及其相关的穿梭器视图、场景视图
+// FIXME
+//            let sceneView = sceneViewList.first(where: { $0.scene.index == gameBundle.selectedSceneIndex })
+//            sceneView?.isActive = true
+//            highlightRelatedTransitionViews(sceneView: sceneView) // 高亮显示「当前选中的场景视图」相关的穿梭器视图
+//            highlightRelatedSceneViews(sceneView: sceneView) // 高亮显示「当前选中的场景视图」相关的场景视图
+//
+//            // 隐藏「添加场景提示器视图」
+//
+//            addSceneIndicatorView.isHidden = true
 
             // 显示操作栏视图，包括「添加穿梭器示意图视图」
 
-            DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let s = self else { return }
-                if let sceneView = sceneView, let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: s.gameBundle.uuid) {
-                    DispatchQueue.main.async {
-                        s.addTransitionDiagramView.startSceneView.image = thumbImage
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        s.addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
-                    }
-                }
-            }
-            addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
-            addTransitionDiagramView.isHidden = false
-            let addTransitionDiagramViewLeftOffset: CGFloat = 12
-            let addTransitionDiagramViewBottomOffset: CGFloat = AddTransitionDiagramView.VC.height + 12
-            addTransitionDiagramView.snp.updateConstraints { make -> Void in
-                make.width.equalTo(AddTransitionDiagramView.VC.width)
-                make.height.equalTo(AddTransitionDiagramView.VC.height)
-                make.left.equalToSuperview().offset(addTransitionDiagramViewLeftOffset)
-                make.top.equalTo(bottomViewContainer.safeAreaLayoutGuide.snp.top).offset(-addTransitionDiagramViewBottomOffset)
-            }
+//            DispatchQueue.global(qos: .background).async { [weak self] in
+//                guard let s = self else { return }
+//                if let sceneView = sceneView, let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: s.gameBundle.uuid) {
+//                    DispatchQueue.main.async {
+//                        s.addTransitionDiagramView.startSceneView.image = thumbImage
+//                    }
+//                } else {
+//                    DispatchQueue.main.async {
+//                        s.addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
+//                    }
+//                }
+//            }
+//            addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
+//            addTransitionDiagramView.isHidden = false
+//            let addTransitionDiagramViewLeftOffset: CGFloat = 12
+//            let addTransitionDiagramViewBottomOffset: CGFloat = AddTransitionDiagramView.VC.height + 12
+//            addTransitionDiagramView.snp.updateConstraints { make -> Void in
+//                make.width.equalTo(AddTransitionDiagramView.VC.width)
+//                make.height.equalTo(AddTransitionDiagramView.VC.height)
+//                make.left.equalToSuperview().offset(addTransitionDiagramViewLeftOffset)
+//                make.top.equalTo(bottomViewContainer.safeAreaLayoutGuide.snp.top).offset(-addTransitionDiagramViewBottomOffset)
+//            }
 
         } else {
 
@@ -230,33 +219,33 @@ extension GameEditorViewController {
                 }
             }
 
-            // 更新作品板视图容器
+            // 更新「作品板视图」
 
-            gameboardViewContainer.snp.remakeConstraints { make -> Void in
+            gameboardView.snp.remakeConstraints { make -> Void in
                 make.left.right.top.equalToSuperview()
                 make.bottom.equalTo(bottomViewContainer.snp.top)
             }
 
             // 重置「先前选中场景」及其相关的穿梭器视图
-
-            if let previousSelectedSceneView = sceneViewList.first(where: { $0.scene.index == gameBundle.selectedSceneIndex }) {
-                previousSelectedSceneView.isActive = false
-                // 取消高亮显示「先前选中场景」相关的穿梭器视图
-                unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
-                // 取消高亮显示「先前选中场景」相关的场景视图
-                unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
-            }
-
-            // 隐藏「添加场景提示器视图」
-
-            addSceneIndicatorView.isHidden = true
+// FIXME
+//            if let previousSelectedSceneView = sceneViewList.first(where: { $0.scene.index == gameBundle.selectedSceneIndex }) {
+//                previousSelectedSceneView.isActive = false
+//                // 取消高亮显示「先前选中场景」相关的穿梭器视图
+//                unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
+//                // 取消高亮显示「先前选中场景」相关的场景视图
+//                unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
+//            }
+//
+//            // 隐藏「添加场景提示器视图」
+//
+//            addSceneIndicatorView.isHidden = true
 
             // 隐藏操作栏视图，包括「添加穿梭器示意图视图」
 
-            addTransitionDiagramView.startSceneIndexLabel.text = ""
-            addTransitionDiagramView.isHidden = true
+//            addTransitionDiagramView.startSceneIndexLabel.text = ""
+//            addTransitionDiagramView.isHidden = true
 
-            // 异步保存「当前选中场景」的索引为 0
+            // 保存当前选中的场景索引为 0
 
             gameBundle.selectedSceneIndex = 0
             DispatchQueue.global(qos: .background).async { [weak self] in

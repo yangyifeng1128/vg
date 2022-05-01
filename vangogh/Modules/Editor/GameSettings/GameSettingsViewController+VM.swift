@@ -14,12 +14,10 @@ extension GameSettingsViewController {
         game.title = newTitle
         CoreDataManager.shared.saveContext()
 
-        GameboardViewExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存「作品板视图外部变更记录字典」
+        GameEditorExternalChangeManager.shared.set(key: .updateGameTitle, value: nil) // 保存作品编辑器外部变更字典
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 }

@@ -25,9 +25,7 @@ extension PublicationViewController {
                 Logger.gameEditor.info("synchronizing \(archivesData.count) archives: ok")
                 CoreDataManager.shared.saveContext()
                 if let handler = handler {
-                    DispatchQueue.main.async {
-                        handler()
-                    }
+                    handler()
                 }
             } catch {
                 Logger.gameEditor.info("synchronizing archives error: \(error.localizedDescription)")
@@ -54,9 +52,7 @@ extension PublicationViewController {
         }
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 }

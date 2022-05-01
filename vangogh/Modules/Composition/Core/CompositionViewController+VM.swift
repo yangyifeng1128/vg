@@ -26,9 +26,7 @@ extension CompositionViewController {
         }
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 
@@ -39,9 +37,7 @@ extension CompositionViewController {
         CoreDataManager.shared.saveContext()
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 
@@ -52,9 +48,7 @@ extension CompositionViewController {
         CoreDataManager.shared.saveContext()
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 
@@ -67,9 +61,7 @@ extension CompositionViewController {
         CoreDataManager.shared.saveContext()
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 }

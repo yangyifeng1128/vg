@@ -25,9 +25,7 @@ extension NewGameViewController {
                 Logger.composition.info("synchronizing \(templatesData.count) templates: ok")
                 CoreDataManager.shared.saveContext()
                 if let handler = handler {
-                    DispatchQueue.main.async {
-                        handler()
-                    }
+                    handler()
                 }
             } catch {
                 Logger.composition.error("synchronizing templates error: \(error.localizedDescription)")
@@ -54,9 +52,7 @@ extension NewGameViewController {
         }
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler()
-            }
+            handler()
         }
     }
 
@@ -78,9 +74,7 @@ extension NewGameViewController {
         MetaGameBundleManager.shared.save(MetaGameBundle(uuid: game.uuid))
 
         if let handler = handler {
-            DispatchQueue.main.async {
-                handler(game)
-            }
+            handler(game)
         }
     }
 }

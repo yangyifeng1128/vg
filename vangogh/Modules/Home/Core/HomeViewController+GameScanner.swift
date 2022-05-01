@@ -36,11 +36,9 @@ extension HomeViewController: GameScannerViewControllerDelegate {
         switch status {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                guard let s = self else { return }
                 if granted {
-                    DispatchQueue.main.async { [weak self] in
-                        guard let s = self else { return }
-                        s.pushGameScannerVC()
-                    }
+                    s.pushGameScannerVC()
                 }
             }
             break

@@ -176,9 +176,9 @@ class TargetAssetsViewController: UIViewController {
         targetAssetsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         targetAssetsCollectionView.backgroundColor = .clear
         targetAssetsCollectionView.showsVerticalScrollIndicator = false
+        targetAssetsCollectionView.register(TargetAssetCollectionViewCell.self, forCellWithReuseIdentifier: TargetAssetCollectionViewCell.reuseId)
         targetAssetsCollectionView.dataSource = self
         targetAssetsCollectionView.delegate = self
-        targetAssetsCollectionView.register(TargetAssetCollectionViewCell.self, forCellWithReuseIdentifier: TargetAssetCollectionViewCell.reuseId)
         view.addSubview(targetAssetsCollectionView)
         targetAssetsCollectionView.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(VC.targetAssetsCollectionViewInsetX)

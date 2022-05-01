@@ -13,10 +13,7 @@ extension HomeViewController {
 
         let agreementsSigned: Bool = UserDefaults.standard.bool(forKey: GKC.agreementsSigned)
         if !agreementsSigned {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.presentAgreementsVC()
-            }
+            presentAgreementsVC()
         }
     }
 

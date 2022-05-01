@@ -354,9 +354,7 @@ extension TimelineView {
 
         // 移除先前的全部轨道项视图
 
-        for trackItemView in trackItemViewList {
-            trackItemView.removeFromSuperview()
-        }
+        trackItemViewList.forEach { $0.removeFromSuperview() }
         trackItemViewList.removeAll()
 
         // 添加新的轨道项视图
@@ -494,14 +492,10 @@ extension TimelineView {
 
         // 移除先前的全部组件项视图
 
-        for nodeItemTagView in nodeItemTagViewList {
-            nodeItemTagView.removeFromSuperview()
-        }
+        nodeItemTagViewList.forEach { $0.removeFromSuperview() }
         nodeItemTagViewList.removeAll()
 
-        for nodeItemView in nodeItemViewList {
-            nodeItemView.removeFromSuperview()
-        }
+        nodeItemViewList.forEach { $0.removeFromSuperview() }
         nodeItemViewList.removeAll()
 
         // 添加新的组件项视图

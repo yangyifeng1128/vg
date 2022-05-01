@@ -101,9 +101,7 @@ extension ScenePlayerView {
 
         // 移除先前的全部组件视图
 
-        for nodeView in nodeViewList {
-            nodeView.removeFromSuperview()
-        }
+        nodeViewList.forEach { $0.removeFromSuperview() }
         nodeViewList.removeAll()
 
         // 添加新的组件视图
