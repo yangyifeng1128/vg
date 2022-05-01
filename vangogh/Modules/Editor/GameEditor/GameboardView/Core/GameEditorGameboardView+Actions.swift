@@ -24,6 +24,7 @@ extension GameEditorGameboardView {
 
         guard let view = sender.view as? AddSceneIndicatorView else { return }
         let location: CGPoint = CGPoint(x: view.center.x, y: view.center.y + AddSceneIndicatorView.VC.closeButtonWidth / 4)
+
         gameDelegate?.addSceneIndicatorViewDidTap(location: location)
     }
 
@@ -180,16 +181,14 @@ extension GameEditorGameboardView {
     /// 居中显示「场景视图」
     func centerSceneView(scene: MetaScene, animated: Bool, completion handler: ((CGPoint) -> Void)? = nil) {
 
-        let visibleAreaCenter: CGPoint = CGPoint(x: contentOffset.x + bounds.width / 2, y: contentOffset.y + bounds.height / 2)
+        var offset: CGPoint = contentOffset
+        let visibleAreaCenter: CGPoint = CGPoint(x: offset.x + bounds.width / 2, y: offset.y + bounds.height / 2)
         let xOffset: CGFloat = visibleAreaCenter.x - scene.center.x
-        contentOffset.x = contentOffset.x - xOffset
+        offset.x = offset.x - xOffset
         let yOffset: CGFloat = visibleAreaCenter.y - scene.center.y
-        contentOffset.y = contentOffset.y - yOffset
+        offset.y = offset.y - yOffset
 
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-            guard let s = self else { return }
-            s.setContentOffset(s.contentOffset, animated: animated)
-        }, completion: nil)
+        setContentOffset(offset, animated: animated)
 
         if let handler = handler {
             handler(contentOffset)
@@ -241,15 +240,13 @@ extension GameEditorGameboardView {
     /// 隐藏「添加场景提示器视图」
     func showAddSceneIndicatorView(location: CGPoint) {
 
-        guard let view = addSceneIndicatorView else { return }
-        view.center = CGPoint(x: location.x, y: location.y - AddSceneIndicatorView.VC.height / 2)
-        view.isHidden = false
+        addSceneIndicatorView.center = CGPoint(x: location.x, y: location.y - AddSceneIndicatorView.VC.height / 2)
+        addSceneIndicatorView.isHidden = false
     }
 
     /// 隐藏「添加场景提示器视图」
     func hideAddSceneIndicatorView() {
 
-        guard let view = addSceneIndicatorView else { return }
-        view.isHidden = true
+        addSceneIndicatorView.isHidden = true
     }
 }

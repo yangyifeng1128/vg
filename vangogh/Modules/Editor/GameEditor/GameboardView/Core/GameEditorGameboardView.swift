@@ -29,7 +29,7 @@ class GameEditorGameboardView: UIScrollView {
     /// 内容视图
     var contentView: UIView!
     /// 添加场景提示器视图
-    var addSceneIndicatorView: AddSceneIndicatorView?
+    var addSceneIndicatorView: AddSceneIndicatorView!
 
     /// 场景视图列表
     var sceneViewList: [GameEditorSceneView] = [GameEditorSceneView]()
@@ -90,7 +90,7 @@ extension GameEditorGameboardView {
 
         // 初始化「添加场景提示器视图」
 
-        let addSceneIndicatorView: AddSceneIndicatorView = AddSceneIndicatorView()
+        addSceneIndicatorView = AddSceneIndicatorView()
         addSceneIndicatorView.isHidden = true
         addSceneIndicatorView.isUserInteractionEnabled = true
         addSceneIndicatorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addSceneIndicatorViewDidTap)))
