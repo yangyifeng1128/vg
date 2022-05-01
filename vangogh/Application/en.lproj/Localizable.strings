@@ -15,7 +15,7 @@
 "AddFootage" = "Add Footage";
 "AddNodeInfo" = "Tap the button below to insert a new node";
 "AddScene" = "Add Scene";
-"AddSceneIndicatorInfo" = "Tap here to \ninsert a new scene";
+"AddSceneIndicatorInfo" = "Tap to insert\na new scene";
 "AddSceneInfo" = "Tap the button below to insert a new scene";
 "AddTransition" = "Add Scene Transition";
 "AppSettings" = "Settings";

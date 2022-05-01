@@ -11,7 +11,7 @@ class AddSceneIndicatorView: UIView {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let width: CGFloat = 160
+        static let width: CGFloat = 128
         static let height: CGFloat = 76
         static let infoLabelFontSize: CGFloat = 14
         static let closeButtonWidth: CGFloat = 24

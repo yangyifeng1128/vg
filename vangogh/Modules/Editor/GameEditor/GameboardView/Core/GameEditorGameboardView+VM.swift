@@ -17,9 +17,7 @@ extension GameEditorGameboardView {
         contentView.addSubview(sceneView)
         sceneViewList.append(sceneView)
 
-        if let addSceneIndicatorView = addSceneIndicatorView {
-            contentView.bringSubviewToFront(addSceneIndicatorView)
-        }
+        contentView.bringSubviewToFront(addSceneIndicatorView)
 
         if let handler = handler {
             handler(sceneView)
