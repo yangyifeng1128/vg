@@ -186,7 +186,10 @@ extension GameEditorGameboardView {
         let yOffset: CGFloat = visibleAreaCenter.y - scene.center.y
         contentOffset.y = contentOffset.y - yOffset
 
-        setContentOffset(contentOffset, animated: animated)
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            guard let s = self else { return }
+            s.setContentOffset(s.contentOffset, animated: animated)
+        }, completion: nil)
 
         if let handler = handler {
             handler(contentOffset)

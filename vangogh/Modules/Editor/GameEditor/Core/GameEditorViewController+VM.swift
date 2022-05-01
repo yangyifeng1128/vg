@@ -32,11 +32,21 @@ extension GameEditorViewController {
         }
     }
 
+    func saveSelectedSceneIndex(_ index: Int, completion handler: (() -> Void)? = nil) {
+
+        gameBundle.selectedSceneIndex = index
+        MetaGameBundleManager.shared.save(gameBundle)
+
+        if let handler = handler {
+            handler()
+        }
+    }
+
     /// 保存场景标题
-    func saveSceneTitle(_ gameBundle: MetaGameBundle, newTitle: String, completion handler: (() -> Void)? = nil) {
+    func saveSceneTitle(_ title: String, completion handler: (() -> Void)? = nil) {
 
         guard let scene = gameBundle.selectedScene() else { return }
-        scene.title = newTitle
+        scene.title = title
         gameBundle.updateScene(scene)
         MetaGameBundleManager.shared.save(gameBundle)
 

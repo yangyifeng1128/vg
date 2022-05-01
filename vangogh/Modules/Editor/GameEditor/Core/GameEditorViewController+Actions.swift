@@ -217,10 +217,12 @@ extension GameEditorViewController {
 
         gameboardView.selectSceneView(sceneView, animated: animated) { [weak self] sceneView in
             guard let s = self else { return }
-            s.willAddScene = false
-            s.resetBottomView(sceneSelected: true, animated: false)
-            s.gameboardView.centerSceneView(scene: sceneView.scene, animated: animated) { contentOffset in
-                s.saveContentOffset(contentOffset)
+            s.saveSelectedSceneIndex(sceneView.scene.index) {
+                s.willAddScene = false
+                s.resetBottomView(sceneSelected: true, animated: false)
+                s.gameboardView.centerSceneView(scene: sceneView.scene, animated: animated) { contentOffset in
+                    s.saveContentOffset(contentOffset)
+                }
             }
         }
     }
@@ -240,6 +242,7 @@ extension GameEditorViewController {
             gameboardView.centerSceneView(scene: scene, animated: true) { [weak self] contentOffset in
                 guard let s = self else { return }
                 s.saveContentOffset(contentOffset)
+                print(contentOffset)
             }
         }
     }
@@ -306,7 +309,7 @@ extension GameEditorViewController {
                 return
             }
 
-            s.saveSceneTitle(s.gameBundle, newTitle: title) {
+            s.saveSceneTitle(title) {
                 s.resetBottomView(sceneSelected: true, animated: true)
                 s.gameboardView.updateSceneViewTitle(sceneIndex: s.gameBundle.selectedSceneIndex)
                 Logger.composition.info("saved scene title: \"\(title)\"")

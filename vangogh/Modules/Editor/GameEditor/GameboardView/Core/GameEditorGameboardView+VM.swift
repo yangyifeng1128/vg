@@ -41,12 +41,6 @@ extension GameEditorGameboardView {
         unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
         unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
 
-//        gameBundle.selectedSceneIndex = sceneView.scene.index
-//        DispatchQueue.global(qos: .background).async { [weak self] in
-//            guard let s = self else { return }
-//            MetaGameBundleManager.shared.save(s.gameBundle)
-//        }
-
         if let handler = handler {
             handler(sceneView)
         }
