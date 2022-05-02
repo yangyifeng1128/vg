@@ -82,7 +82,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         deleteButton.imageView?.contentMode = .scaleAspectFit
         deleteButton.imageView?.tintColor = .tertiaryLabel
         contentView.addSubview(deleteButton)
-        let deleteButtonHeight: CGFloat = GameEditorSceneBottomView.VC.transitionTableViewCellHeight - 16
+        let deleteButtonHeight: CGFloat = GameEditorSceneExplorerView.VC.transitionTableViewCellHeight - 16
         deleteButton.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.deleteButtonWidth)
             make.height.equalTo(deleteButtonHeight)
@@ -95,7 +95,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         endSceneThumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneThumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(endSceneThumbImageView)
-        let thumbImageViewHeight: CGFloat = GameEditorSceneBottomView.VC.transitionTableViewCellHeight - 16
+        let thumbImageViewHeight: CGFloat = GameEditorSceneExplorerView.VC.transitionTableViewCellHeight - 16
         let thumbImageViewWidth: CGFloat = thumbImageViewHeight * GVC.defaultSceneAspectRatio
         endSceneThumbImageView.snp.makeConstraints { make -> Void in
             make.width.equalTo(thumbImageViewWidth)
@@ -137,7 +137,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
         let conditionsView: RoundedView = RoundedView()
         conditionsView.backgroundColor = .tertiarySystemBackground
         contentView.addSubview(conditionsView)
-        let conditionsViewHeight: CGFloat = GameEditorSceneBottomView.VC.transitionTableViewCellHeight - 16
+        let conditionsViewHeight: CGFloat = GameEditorSceneExplorerView.VC.transitionTableViewCellHeight - 16
         conditionsView.snp.makeConstraints { make -> Void in
             make.height.equalTo(conditionsViewHeight)
             make.centerY.equalToSuperview()

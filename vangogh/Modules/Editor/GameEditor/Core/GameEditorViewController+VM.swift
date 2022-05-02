@@ -32,6 +32,7 @@ extension GameEditorViewController {
         }
     }
 
+    /// 保存当前选中的场景索引
     func saveSelectedSceneIndex(_ index: Int, completion handler: (() -> Void)? = nil) {
 
         gameBundle.selectedSceneIndex = index

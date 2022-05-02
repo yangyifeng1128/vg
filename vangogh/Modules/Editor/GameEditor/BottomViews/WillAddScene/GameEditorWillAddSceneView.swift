@@ -1,5 +1,5 @@
 ///
-/// GameEditorWillAddSceneBottomView
+/// GameEditorWillAddSceneView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class GameEditorWillAddSceneBottomView: UIView {
+class GameEditorWillAddSceneView: UIView {
 
     /// 视图布局常量枚举值
     enum VC {
@@ -19,7 +19,7 @@ class GameEditorWillAddSceneBottomView: UIView {
     }
 
     /// 代理
-    weak var delegate: GameEditorWillAddSceneBottomViewDelegate?
+    weak var delegate: GameEditorWillAddSceneViewDelegate?
 
     /// 初始化
     init() {

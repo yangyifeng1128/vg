@@ -19,19 +19,6 @@ extension GameEditorViewController: GameEditorGameboardViewDelegate {
 
     func gameboardViewDidLongPress(location: CGPoint) {
 
-        if !willAddScene {
-            gameboardView.showAddSceneIndicatorView(location: location)
-        }
-    }
-
-    func addSceneIndicatorViewDidTap(location: CGPoint) {
-
-        addSceneView(center: location, forceSelection: true)
-    }
-
-    func addSceneIndicatorCloseButtonDidTap() {
-
-        gameboardView.hideAddSceneIndicatorView()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -62,15 +49,27 @@ extension GameEditorViewController: GameEditorGameboardViewDelegate {
 
         // 保存内容偏移量
 
-        gameBundle.contentOffset = contentOffset
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            MetaGameBundleManager.shared.save(s.gameBundle)
-        }
+        saveContentOffset(contentOffset)
+    }
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+
+        return gameboardView.contentView
+    }
+
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+
+        scrollView.setZoomScale(1, animated: true)
     }
 }
 
 extension GameEditorViewController: GameEditorGameboardViewDataSource {
+
+    /// 设置当前选中的场景索引
+    func selectedSceneIndex() -> Int {
+
+        return gameBundle.selectedSceneIndex
+    }
 
     /// 设置「场景视图」数量
     func numberOfSceneViews() -> Int {
@@ -119,12 +118,6 @@ extension GameEditorViewController: GameEditorGameboardViewDataSource {
         let transitionView: GameEditorTransitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
 
         return transitionView
-    }
-
-    /// 设置当前选中的场景索引
-    func selectedSceneIndex() -> Int {
-
-        return gameBundle.selectedSceneIndex
     }
 }
 
@@ -186,8 +179,6 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
     }
 
     func sceneViewDidLongPress(_ sceneView: GameEditorSceneView) {
-
-        print("[GameEditor] did long press gameEditorSceneView")
 
         UIImpactFeedbackGenerator().impactOccurred()
 

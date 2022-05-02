@@ -1,10 +1,10 @@
 ///
-/// GameEditorWillAddSceneBottomViewDelegate
+/// GameEditorWillAddSceneViewDelegate
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-protocol GameEditorWillAddSceneBottomViewDelegate: AnyObject {
+protocol GameEditorWillAddSceneViewDelegate: AnyObject {
 
     func cancelAddingSceneButtonDidTap()
 }

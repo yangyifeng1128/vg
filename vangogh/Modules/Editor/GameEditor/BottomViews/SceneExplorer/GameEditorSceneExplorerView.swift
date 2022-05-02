@@ -1,5 +1,5 @@
 ///
-/// GameEditorSceneBottomView
+/// GameEditorSceneExplorerView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class GameEditorSceneBottomView: BorderedView {
+class GameEditorSceneExplorerView: BorderedView {
 
     /// 视图布局常量枚举值
     enum VC {
@@ -33,8 +33,12 @@ class GameEditorSceneBottomView: BorderedView {
         static let transitionTableViewCellHeight: CGFloat = 72
     }
 
+    /// 数据源
+    weak var dataSource: GameEditorSceneExplorerViewDataSource? {
+        didSet { reloadData() }
+    }
     /// 代理
-    weak var delegate: GameEditorSceneBottomViewDelegate?
+    weak var delegate: GameEditorSceneExplorerViewDelegate?
 
     /// 穿梭器视图
     var transitionsView: RoundedView!
@@ -49,11 +53,12 @@ class GameEditorSceneBottomView: BorderedView {
     var transitions: [MetaTransition]!
 
     /// 初始化
-    init(gameBundle: MetaGameBundle) {
+    init() {
 
         super.init(side: .top)
 
-        self.gameBundle = gameBundle
+        /// FIXME
+        self.gameBundle = MetaGameBundleManager.shared.load(uuid: "0")
         transitions = gameBundle.selectedTransitions()
 
         initViews()
@@ -74,7 +79,7 @@ class GameEditorSceneBottomView: BorderedView {
         addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(GameEditorSceneBottomView.VC.contentViewHeight)
+            make.height.equalTo(GameEditorSceneExplorerView.VC.contentViewHeight)
             make.left.top.equalToSuperview()
         }
 
@@ -233,7 +238,7 @@ class GameEditorSceneBottomView: BorderedView {
     }
 }
 
-extension GameEditorSceneBottomView: UITableViewDataSource {
+extension GameEditorSceneExplorerView: UITableViewDataSource {
 
     /// 设置单元格数量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -248,7 +253,7 @@ extension GameEditorSceneBottomView: UITableViewDataSource {
     }
 }
 
-extension GameEditorSceneBottomView: UITableViewDelegate {
+extension GameEditorSceneExplorerView: UITableViewDelegate {
 
     /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -263,9 +268,9 @@ extension GameEditorSceneBottomView: UITableViewDelegate {
     }
 }
 
-extension GameEditorSceneBottomView {
+extension GameEditorSceneExplorerView {
 
-    /// 准备场景标题标签文本
+    /// 准备「场景标题标签」文本
     private func prepareSceneTitleLabelAttributedText() -> NSMutableAttributedString {
 
         let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
@@ -474,5 +479,14 @@ extension GameEditorSceneBottomView {
         completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
 
         return completeTitleString
+    }
+}
+
+extension GameEditorSceneExplorerView {
+
+    /// 重新加载数据
+    func reloadData() {
+
+        print("reloading game editor scene explorer view......................")
     }
 }

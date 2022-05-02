@@ -10,7 +10,4 @@ protocol GameEditorGameboardViewDelegate: UIScrollViewDelegate {
 
     func gameboardViewDidTap(location: CGPoint)
     func gameboardViewDidLongPress(location: CGPoint)
-
-    func addSceneIndicatorViewDidTap(location: CGPoint)
-    func addSceneIndicatorCloseButtonDidTap()
 }

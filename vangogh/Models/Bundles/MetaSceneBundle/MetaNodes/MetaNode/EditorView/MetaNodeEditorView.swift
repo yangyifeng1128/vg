@@ -15,14 +15,14 @@ class MetaNodeEditorView: UIView {
         static let deleteButtonTitleLabelFontSize: CGFloat = 14
     }
 
-    // 段键枚举值
+    /// 段键枚举值
 
     enum SectionKey: String, CaseIterable {
         case style = "SectionKey_Style"
         case interaction = "SectionKey_Interaction"
     }
 
-    // 行键枚举值
+    /// 行键枚举值
 
     enum RowKey: String, CaseIterable {
         case background = "RowKey_Background"

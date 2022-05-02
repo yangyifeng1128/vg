@@ -19,36 +19,6 @@ extension GameEditorGameboardView {
         let location: CGPoint = sender.location(in: sender.view)
         gameDelegate?.gameboardViewDidLongPress(location: location)
     }
-
-    @objc func addSceneIndicatorViewDidTap(_ sender: UITapGestureRecognizer) {
-
-        guard let view = sender.view as? AddSceneIndicatorView else { return }
-        let location: CGPoint = CGPoint(x: view.center.x, y: view.center.y + AddSceneIndicatorView.VC.closeButtonWidth / 4)
-
-        gameDelegate?.addSceneIndicatorViewDidTap(location: location)
-    }
-
-    @objc func addSceneIndicatorViewDidPan(_ sender: UIPanGestureRecognizer) {
-
-        guard let view = sender.view else { return }
-
-        switch sender.state {
-        case .began:
-            break
-        case .changed:
-            view.center = sender.location(in: superview)
-            break
-        case .ended:
-            break
-        default:
-            break
-        }
-    }
-
-    @objc func addSceneIndicatorCloseButtonDidTap() {
-
-        gameDelegate?.addSceneIndicatorCloseButtonDidTap()
-    }
 }
 
 extension GameEditorGameboardView {
@@ -70,12 +40,6 @@ extension GameEditorGameboardView {
             let sceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.index == selectedSceneIndex })
             highlightRelatedTransitionViews(sceneView: sceneView)
             highlightRelatedSceneViews(sceneView: sceneView)
-        }
-
-        // 隐藏「添加场景提示器视图」
-
-        if let addSceneIndicatorView = addSceneIndicatorView {
-            addSceneIndicatorView.isHidden = true
         }
     }
 
@@ -141,12 +105,6 @@ extension GameEditorGameboardView {
 
         for transitionView in changed {
             bringRelatedSceneViewsToFront(transitionView: transitionView)
-        }
-
-        // 确保「添加场景提示器视图」置于最顶层
-
-        if let addSceneIndicatorView = addSceneIndicatorView {
-            contentView.bringSubviewToFront(addSceneIndicatorView)
         }
     }
 
@@ -232,21 +190,5 @@ extension GameEditorGameboardView {
         let transitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
         contentView.addSubview(transitionView)
         transitionViewList.append(transitionView)
-    }
-}
-
-extension GameEditorGameboardView {
-
-    /// 隐藏「添加场景提示器视图」
-    func showAddSceneIndicatorView(location: CGPoint) {
-
-        addSceneIndicatorView.center = CGPoint(x: location.x, y: location.y - AddSceneIndicatorView.VC.height / 2)
-        addSceneIndicatorView.isHidden = false
-    }
-
-    /// 隐藏「添加场景提示器视图」
-    func hideAddSceneIndicatorView() {
-
-        addSceneIndicatorView.isHidden = true
     }
 }

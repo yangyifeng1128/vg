@@ -167,7 +167,7 @@ class AgreementsViewController: UIViewController {
 
 extension AgreementsViewController {
 
-    /// 准备底部视图信息标签文本
+    /// 准备「底部视图信息标签」文本
     private func prepareBottomViewInfoLabelAttributedText() -> NSMutableAttributedString {
 
         // 准备签署信息
@@ -185,7 +185,7 @@ extension AgreementsViewController {
         return completeBottomViewInfoString
     }
 
-    /// 准备信息文本视图文本
+    /// 准备「信息文本视图」文本
     private func prepareInfoTextViewAttributedText() -> NSMutableAttributedString {
 
         // 准备协议内容

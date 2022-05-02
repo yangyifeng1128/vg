@@ -1,10 +1,10 @@
 ///
-/// GameEditorGameboardViewDataSource
+/// GameEditorSceneExplorerViewDataSource
 ///
 /// © 2022 Beijing Mengma Education Technology Co., L
 //
 
-protocol GameEditorGameboardViewDataSource: AnyObject {
+protocol GameEditorSceneExplorerViewDataSource: AnyObject {
 
     func selectedSceneIndex() -> Int
 

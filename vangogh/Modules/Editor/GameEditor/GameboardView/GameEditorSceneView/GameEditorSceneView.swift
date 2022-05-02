@@ -115,7 +115,7 @@ class GameEditorSceneView: RoundedView {
 
 extension GameEditorSceneView {
 
-    /// 准备标题标签文本
+    /// 准备「标题标签」文本
     func prepareTitleLabelAttributedText() -> NSMutableAttributedString {
 
         let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")

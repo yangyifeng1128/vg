@@ -4,20 +4,14 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import UIKit
-
 extension GameEditorGameboardView {
 
     /// 添加「场景视图」
     func addSceneView(scene: MetaScene, completion handler: ((GameEditorSceneView) -> Void)? = nil) {
 
         let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
-        // FIXME
-        // sceneView.delegate = self
         contentView.addSubview(sceneView)
         sceneViewList.append(sceneView)
-
-        contentView.bringSubviewToFront(addSceneIndicatorView)
 
         if let handler = handler {
             handler(sceneView)

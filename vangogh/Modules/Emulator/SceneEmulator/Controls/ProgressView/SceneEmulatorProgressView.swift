@@ -7,11 +7,6 @@
 import AVFoundation
 import UIKit
 
-protocol SceneEmulatorProgressViewDelegate: AnyObject {
-    func progressViewDidBeginSliding()
-    func progressViewDidEndSliding(to value: Double)
-}
-
 class SceneEmulatorProgressView: UIView {
 
     /// 视图布局常量枚举值

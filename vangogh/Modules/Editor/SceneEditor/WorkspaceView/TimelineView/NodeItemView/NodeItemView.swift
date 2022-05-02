@@ -8,12 +8,6 @@ import CoreMedia
 import SnapKit
 import UIKit
 
-protocol NodeItemViewDelegate: AnyObject {
-    func nodeItemViewWillBeginExpanding(node: MetaNode)
-    func nodeItemViewDidExpand(node: MetaNode, expandedWidth: CGFloat, edgeX: CGFloat, withLeftEar: Bool)
-    func nodeItemViewDidEndExpanding(node: MetaNode)
-}
-
 class NodeItemView: UIView {
 
     weak var delegate: NodeItemViewDelegate?

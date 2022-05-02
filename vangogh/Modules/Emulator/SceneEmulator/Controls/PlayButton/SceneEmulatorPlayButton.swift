@@ -48,7 +48,7 @@ class SceneEmulatorPlayButton: UIButton {
 
     /// 播放状态
     var isPlaying: Bool = false {
-        didSet {
+        willSet {
             setToggled()
         }
     }

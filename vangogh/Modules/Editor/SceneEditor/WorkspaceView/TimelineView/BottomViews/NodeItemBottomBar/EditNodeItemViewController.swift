@@ -7,11 +7,6 @@
 import SnapKit
 import UIKit
 
-protocol EditNodeItemViewControllerDelegate: AnyObject {
-    func saveBundleWhenNodeItemViewChanged(node: MetaNode, rules: [MetaRule])
-    func deleteMetaNodeFromEditNodeItemViewController(node: MetaNode)
-}
-
 class EditNodeItemViewController: UIViewController {
 
     /// 视图布局常量枚举值

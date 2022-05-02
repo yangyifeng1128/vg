@@ -1,12 +1,12 @@
 ///
-/// GameEditorSceneBottomView
+/// GameEditorSceneExplorerView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
 import UIKit
 
-extension GameEditorSceneBottomView {
+extension GameEditorSceneExplorerView {
 
     @objc func closeSceneButtonDidTap() {
 
@@ -60,7 +60,7 @@ extension GameEditorSceneBottomView {
     }
 }
 
-extension GameEditorSceneBottomView {
+extension GameEditorSceneExplorerView {
 
     func selectTransition(_ transition: MetaTransition) {
 

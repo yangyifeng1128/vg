@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class GameEditorDefaultBottomView: BorderedView {
+class GameEditorToolBarView: BorderedView {
 
     /// 视图布局常量枚举值
     enum VC {
@@ -19,7 +19,7 @@ class GameEditorDefaultBottomView: BorderedView {
     }
 
     /// 代理
-    weak var delegate: GameEditorDefaultBottomViewDelegate?
+    weak var delegate: GameEditorToolBarViewDelegate?
 
     /// 初始化
     init() {
@@ -83,9 +83,9 @@ class GameEditorDefaultBottomView: BorderedView {
     }
 }
 
-extension GameEditorDefaultBottomView {
+extension GameEditorToolBarView {
 
-    /// 准备信息标签文本
+    /// 准备「信息标签」文本
     private func prepareInfoLabelAttributedText() -> NSMutableAttributedString {
 
         let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")

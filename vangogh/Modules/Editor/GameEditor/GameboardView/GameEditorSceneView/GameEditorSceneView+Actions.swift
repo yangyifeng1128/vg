@@ -63,7 +63,7 @@ extension GameEditorSceneView {
 
 extension GameEditorSceneView {
 
-    /// 更新标题标签文本
+    /// 更新「标题标签」文本
     func updateTitleLabelAttributedText() {
 
         titleLabel.attributedText = prepareTitleLabelAttributedText()

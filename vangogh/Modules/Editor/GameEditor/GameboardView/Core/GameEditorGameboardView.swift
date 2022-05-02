@@ -28,8 +28,6 @@ class GameEditorGameboardView: UIScrollView {
 
     /// 内容视图
     var contentView: UIView!
-    /// 添加场景提示器视图
-    var addSceneIndicatorView: AddSceneIndicatorView!
 
     /// 场景视图列表
     var sceneViewList: [GameEditorSceneView] = [GameEditorSceneView]()
@@ -76,6 +74,8 @@ extension GameEditorGameboardView {
         showsVerticalScrollIndicator = true
         showsHorizontalScrollIndicator = true
         contentSize = CGSize(width: VC.contentViewWidth, height: VC.contentViewHeight)
+        maximumZoomScale = 1
+        minimumZoomScale = 0.98
 
         contentView = UIView()
         contentView.isUserInteractionEnabled = true
@@ -87,22 +87,6 @@ extension GameEditorGameboardView {
             make.height.equalTo(VC.contentViewHeight)
             make.left.top.equalToSuperview()
         }
-
-        // 初始化「添加场景提示器视图」
-
-        addSceneIndicatorView = AddSceneIndicatorView()
-        addSceneIndicatorView.isHidden = true
-        addSceneIndicatorView.isUserInteractionEnabled = true
-        addSceneIndicatorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addSceneIndicatorViewDidTap)))
-        addSceneIndicatorView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(addSceneIndicatorViewDidPan)))
-        addSceneIndicatorView.closeButton.addTarget(self, action: #selector(addSceneIndicatorCloseButtonDidTap), for: .touchUpInside)
-        contentView.addSubview(addSceneIndicatorView)
-        addSceneIndicatorView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(AddSceneIndicatorView.VC.width)
-            make.height.equalTo(AddSceneIndicatorView.VC.height)
-            make.center.equalToSuperview()
-        }
-
     }
 
     /// 初始化全部「场景视图」与「穿梭器视图」

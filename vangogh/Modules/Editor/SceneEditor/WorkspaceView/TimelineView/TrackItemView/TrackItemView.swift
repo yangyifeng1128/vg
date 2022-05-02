@@ -8,12 +8,6 @@ import CoreMedia
 import SnapKit
 import UIKit
 
-protocol TrackItemViewDelegate: AnyObject {
-    func trackItemViewWillBeginExpanding(footage: MetaFootage)
-    func trackItemViewDidExpand(expandedWidth: CGFloat, edgeX: CGFloat, withLeftEar: Bool)
-    func trackItemViewDidEndExpanding(footage: MetaFootage, cursorTimeOffsetMilliseconds: Int64)
-}
-
 class TrackItemView: UIView {
 
     /// 视图布局常量枚举值

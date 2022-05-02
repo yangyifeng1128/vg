@@ -423,7 +423,7 @@ extension TransitionEditorViewController {
         return cell
     }
 
-    /// 准备条件标题标签文本
+    /// 准备「条件标题标签」文本
     private func prepareConditionTitleLabelAttributedText(startScene: MetaScene, condition: MetaCondition) -> NSMutableAttributedString {
 
         let completeConditionTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")

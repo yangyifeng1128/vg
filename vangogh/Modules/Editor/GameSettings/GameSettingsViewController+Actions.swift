@@ -70,7 +70,7 @@ extension GameSettingsViewController {
                 return
             }
 
-            s.saveGameTitle(s.game, newTitle: title) {
+            s.saveGameTitle(title) {
                 s.settingsTableView.reloadData()
                 Logger.composition.info("saved game title: \"\(title)\"")
             }

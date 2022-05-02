@@ -4,8 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import UIKit
-
 extension TargetScenesViewController {
 
     /// 加载目标场景列表

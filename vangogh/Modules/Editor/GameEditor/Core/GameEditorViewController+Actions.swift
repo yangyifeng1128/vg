@@ -46,8 +46,8 @@ extension GameEditorViewController {
         }
     }
 
-    /// 检查外部变更记录
-    func checkExternalChanges() {
+    /// 重新加载外部变更记录
+    func reloadExternalChanges() {
 
         let changes = GameEditorExternalChangeManager.shared.get()
         for (key, value) in changes {
@@ -75,31 +75,24 @@ extension GameEditorViewController {
         GameEditorExternalChangeManager.shared.removeAll()
     }
 
-    /// 检查保存的会话状态
-    func checkSavedSession() {
+    /// 重新加载作品资源包会话状态
+    func reloadGameBundleSession() {
 
-        // 重置底部视图
+        // 重新加载「底部视图」
 
-        let sceneSelected: Bool = gameBundle.selectedSceneIndex == 0 ? false : true
-        resetBottomView(sceneSelected: sceneSelected, animated: false)
-
-        // 重置内容偏移量
-
-        if needsContentOffsetUpdate, let scene = gameBundle.selectedScene() {
-
-            gameboardView.centerSceneView(scene: scene, animated: false) { [weak self] contentOffset in
-                guard let s = self else { return }
-                s.saveContentOffset(contentOffset)
-            }
-
+        if gameBundle.selectedSceneIndex == 0 {
+            reloadToolBarView(animated: false)
         } else {
-
-            var contentOffset: CGPoint = gameBundle.contentOffset
-            if contentOffset == GVC.defaultGameboardViewContentOffset {
-                contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
-            }
-            gameboardView.contentOffset = contentOffset
+            reloadSceneExplorerView(animated: false)
         }
+
+        // 设置内容偏移量
+
+        var contentOffset: CGPoint = gameBundle.contentOffset
+        if contentOffset == GVC.defaultGameboardViewContentOffset {
+            contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
+        }
+        gameboardView.contentOffset = contentOffset
     }
 
     /// 显示消息
@@ -169,7 +162,7 @@ extension GameEditorViewController {
     }
 
     /// 展示「场景模拟器视图控制器」
-    func pushSceneEmulatorVC() {
+    func presentSceneEmulatorVC() {
 
         guard let selectedScene = gameBundle.selectedScene(), let selectedSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) else { return }
         let sceneEmulatorVC = SceneEmulatorViewController(sceneBundle: selectedSceneBundle, gameBundle: gameBundle)
@@ -180,7 +173,7 @@ extension GameEditorViewController {
     }
 
     /// 展示「场景编辑器视图控制器」
-    func pushSceneEditorVC() {
+    func presentSceneEditorVC() {
 
         guard let selectedScene = gameBundle.selectedScene(), let selectedSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) else { return }
         let sceneEditorVC = SceneEditorViewController(sceneBundle: selectedSceneBundle, gameBundle: gameBundle)
@@ -189,8 +182,10 @@ extension GameEditorViewController {
         sceneEditorNav.modalPresentationStyle = .currentContext
 
         present(sceneEditorNav, animated: true, completion: nil)
-
     }
+}
+
+extension GameEditorViewController {
 
     /// 添加场景
     func addSceneView(center location: CGPoint, forceSelection: Bool = false) {
@@ -198,14 +193,16 @@ extension GameEditorViewController {
         addScene(center: location) { [weak self] scene in
             guard let s = self else { return }
             s.gameboardView.addSceneView(scene: scene) { sceneView in
+                sceneView.delegate = self
                 if forceSelection {
                     s.selectSceneView(sceneView, animated: true)
                 } else {
-                    s.willAddScene = false
                     if s.gameBundle.selectedSceneIndex == 0 {
-                        s.resetBottomView(sceneSelected: false, animated: false)
+//                        s.resetBottomView(sceneSelected: false, animated: false)
+                        s.reloadToolBarView(animated: false)
                     } else {
-                        s.resetBottomView(sceneSelected: true, animated: false)
+//                        s.resetBottomView(sceneSelected: true, animated: false)
+                        s.reloadSceneExplorerView(animated: false)
                     }
                 }
             }
@@ -218,8 +215,7 @@ extension GameEditorViewController {
         gameboardView.selectSceneView(sceneView, animated: animated) { [weak self] sceneView in
             guard let s = self else { return }
             s.saveSelectedSceneIndex(sceneView.scene.index) {
-                s.willAddScene = false
-                s.resetBottomView(sceneSelected: true, animated: false)
+                s.reloadSceneExplorerView(animated: false)
                 s.gameboardView.centerSceneView(scene: sceneView.scene, animated: animated) { contentOffset in
                     s.saveContentOffset(contentOffset)
                 }
@@ -230,19 +226,19 @@ extension GameEditorViewController {
     /// 关闭「场景视图」
     func closeSceneView() {
 
-        let previousSelectedScene = gameBundle.selectedScene() // 暂存「先前选中场景」
+        let previousSelectedScene = gameBundle.selectedScene() // 暂存先前选中的场景
 
-        // 重置底部视图
+        // 重置「底部视图」
 
-        resetBottomView(sceneSelected: false, animated: true)
+//        resetBottomView(sceneSelected: false, animated: true)
+        reloadToolBarView(animated: true)
 
-        // 尽量将「先前选中场景」视图置于中央，并保存内容偏移量
+        // 尽量将先前选中的「场景视图」置于中央，并保存内容偏移量
 
         if let scene = previousSelectedScene {
             gameboardView.centerSceneView(scene: scene, animated: true) { [weak self] contentOffset in
                 guard let s = self else { return }
                 s.saveContentOffset(contentOffset)
-                print(contentOffset)
             }
         }
     }
@@ -261,7 +257,8 @@ extension GameEditorViewController {
             guard let s = self else { return }
             s.gameboardView.deleteSelectedSceneView() {
                 s.deleteSelectedScene() {
-                    s.resetBottomView(sceneSelected: false, animated: true)
+//                    s.resetBottomView(sceneSelected: false, animated: true)
+                    s.reloadToolBarView(animated: true)
                 }
             }
         }
@@ -310,7 +307,8 @@ extension GameEditorViewController {
             }
 
             s.saveSceneTitle(title) {
-                s.resetBottomView(sceneSelected: true, animated: true)
+//                s.resetBottomView(sceneSelected: true, animated: true)
+                s.reloadSceneExplorerView(animated: true)
                 s.gameboardView.updateSceneViewTitle(sceneIndex: s.gameBundle.selectedSceneIndex)
                 Logger.composition.info("saved scene title: \"\(title)\"")
             }

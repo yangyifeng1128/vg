@@ -8,21 +8,6 @@ import AVFoundation
 import SnapKit
 import UIKit
 
-protocol TimelineViewDelegate: AnyObject {
-    func timelineViewDidTap()
-    func timelineViewWillBeginScrolling()
-    func timelineViewDidEndScrolling(to time: CMTime, decelerate: Bool)
-    func trackItemViewDidBecomeActive(footage: MetaFootage)
-    func trackItemViewWillBeginExpanding(footage: MetaFootage)
-    func trackItemViewDidEndExpanding(footage: MetaFootage, cursorTimeOffsetMilliseconds: Int64)
-    func nodeItemViewDidBecomeActive(node: MetaNode)
-    func nodeItemViewDidResignActive(node: MetaNode)
-    func nodeItemViewWillBeginExpanding(node: MetaNode)
-    func nodeItemViewDidEndExpanding(node: MetaNode)
-    func nodeItemViewWillBeginEditing(node: MetaNode)
-    func newFootageButtonDidTap()
-}
-
 class TimelineView: UIView {
 
     /// 视图布局常量枚举值
@@ -123,23 +108,17 @@ class TimelineView: UIView {
     /// 初始化视图
     private func initViews() {
 
-        // 初始化底部视图
-
         initBottomView()
 
-        // 初始化内容视图
-
         initContentView()
-
-        // 初始化其他（游标、添加镜头片段）视图
 
         initMiscView()
     }
 
-    ///
+    /// 初始化「底部视图」
     private func initBottomView() {
 
-        // 初始化底部视图容器
+        // 初始化「底部视图容器」
 
         bottomViewContainer = UIView()
         addSubview(bottomViewContainer)
@@ -149,7 +128,7 @@ class TimelineView: UIView {
             make.left.bottom.equalToSuperview()
         }
 
-        // 初始化工具栏视图
+        // 初始化「工具栏视图」
 
         timelineToolBarView = TimelineToolBarView()
         timelineToolBarView.isHidden = true
@@ -158,7 +137,7 @@ class TimelineView: UIView {
             make.edges.equalToSuperview()
         }
 
-        // 初始化轨道项底部视图
+        // 初始化「轨道项底部视图」
 
         trackItemBottomBarView = TrackItemBottomBarView()
         trackItemBottomBarView.isHidden = true
@@ -167,7 +146,7 @@ class TimelineView: UIView {
             make.edges.equalToSuperview()
         }
 
-        // 初始化组件项底部视图
+        // 初始化「组件项底部视图」
 
         nodeItemBottomBarView = NodeItemBottomBarView()
         nodeItemBottomBarView.isHidden = true
@@ -176,11 +155,12 @@ class TimelineView: UIView {
             make.edges.equalToSuperview()
         }
 
-        // 重置底部视图
+        // 重置「底部视图」
 
         resetBottomView(bottomViewType: .timeline)
     }
 
+    /// 重置「底部视图」
     func resetBottomView(bottomViewType: TimelineBottomViewType, footage: MetaFootage? = nil, node: MetaNode? = nil) {
 
         switch bottomViewType {
@@ -215,15 +195,10 @@ class TimelineView: UIView {
         }
     }
 
-    //
-    //
-    // MARK: - 初始化内容视图
-    //
-    //
-
+    /// 初始化「内容视图」
     private func initContentView() {
 
-        // 初始化内容视图容器
+        // 初始化「内容视图容器」
 
         contentViewContainer = UIScrollView()
         contentViewContainer.delegate = self
@@ -239,7 +214,7 @@ class TimelineView: UIView {
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
 
-        // 初始化内容视图
+        // 初始化「内容视图」
 
         contentView = UIView()
         contentViewContainer.addSubview(contentView)
@@ -251,19 +226,20 @@ class TimelineView: UIView {
             make.top.equalToSuperview()
         }
 
-        // 初始化标尺视图
+        // 初始化「标尺视图」
 
         initMeasureView()
 
-        // 初始化组件项视图
+        // 初始化「组件项视图」
 
         initNodeItemViews()
 
-        // 初始化轨道项视图
+        // 初始化「轨道项视图」
 
         initTrackItemViews()
     }
 
+    /// 初始化「标尺视图」
     private func initMeasureView() {
 
         measureView = TimelineMeasureView()
@@ -275,9 +251,10 @@ class TimelineView: UIView {
         }
     }
 
+    // 初始化「轨道项视图」
     private func initTrackItemViews() {
 
-        // 初始化轨道项视图容器
+        // 初始化「轨道项视图容器」
 
         trackItemViewContainer = UIView()
         contentView.addSubview(trackItemViewContainer)
@@ -289,9 +266,10 @@ class TimelineView: UIView {
         }
     }
 
+    /// 初始化「内容项标签视图」
     private func initNodeItemViews() {
 
-        // 初始化内容项标签视图容器
+        // 初始化「内容项标签视图容器」
 
         nodeItemTagViewContainer = UIView()
         contentView.addSubview(nodeItemTagViewContainer)
@@ -302,7 +280,7 @@ class TimelineView: UIView {
             make.bottom.equalToSuperview().offset(-VC.nodeItemTagViewContainerBottomOffset)
         }
 
-        // 初始化内容项视图容器
+        // 初始化「内容项视图容器」
 
         nodeItemViewContainer = UIView()
         contentView.addSubview(nodeItemViewContainer)
@@ -314,15 +292,10 @@ class TimelineView: UIView {
         }
     }
 
-    //
-    //
-    // MARK: - 初始化其他（游标、添加镜头片段）视图
-    //
-    //
-
+    /// 初始化其他（游标、添加镜头片段）视图
     private func initMiscView() {
 
-        // 初始化游标视图
+        // 初始化「游标视图」
 
         cursorView = TimelineCursorView()
         addSubview(cursorView)
@@ -333,7 +306,7 @@ class TimelineView: UIView {
             make.bottom.equalToSuperview().offset(-VC.bottomViewContainerHeight)
         }
 
-        // 初始化「添加镜头片段」按钮
+        // 初始化「添加镜头片段按钮」
 
         newFootageButton = AddFootageButton(imageEdgeInset: VC.newFootageButtonImageEdgeInset)
         newFootageButton.addTarget(self, action: #selector(newFootageButtonDidTap), for: .touchUpInside)
@@ -881,7 +854,7 @@ extension TimelineView {
 
         unselectAllNodeItemViews()
 
-        // 重置底部视图
+        // 重置「底部视图」
 
         resetBottomView(bottomViewType: .trackItem, footage: trackItemView.footage)
     }
@@ -915,7 +888,7 @@ extension TimelineView {
 
             unselectAllTrackItemViews()
 
-            // 重置底部视图
+            // 重置「底部视图」
 
             resetBottomView(bottomViewType: .nodeItem, node: nodeItemView.node)
 
@@ -949,7 +922,7 @@ extension TimelineView {
                 make.height.equalTo(NodeItemCurveView.VC.height)
             }
 
-            // 重置底部视图
+            // 重置「底部视图」
 
             resetBottomView(bottomViewType: .timeline)
 
@@ -976,7 +949,7 @@ extension TimelineView {
 
         unselectAllNodeItemViews()
 
-        // 重置底部视图
+        // 重置「底部视图」
 
         resetBottomView(bottomViewType: .timeline)
     }

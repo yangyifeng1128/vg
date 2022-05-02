@@ -420,7 +420,10 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    /// 初始化「操作栏视图」
     private func initActionBarView() {
+
+        // 初始化「操作栏视图」
 
         actionBarView = BorderedView(side: .bottom)
         actionBarView.isHidden = true
@@ -432,7 +435,7 @@ class SceneEditorViewController: UIViewController {
             make.bottom.equalTo(workspaceView.snp.top)
         }
 
-        // 初始化播放按钮
+        // 初始化「播放按钮」
 
         playButton = SceneEditorPlayButton(imageEdgeInset: VC.playButtonImageEdgeInset)
         playButton.addTarget(self, action: #selector(playButtonDidTap), for: .touchUpInside)
@@ -442,7 +445,7 @@ class SceneEditorViewController: UIViewController {
             make.center.equalToSuperview()
         }
 
-        // 初始化场景时长标签
+        // 初始化「场景时长标签」
 
         currentTimeLabel = UILabel()
         currentTimeLabel.text = "00:00"
@@ -477,7 +480,7 @@ class SceneEditorViewController: UIViewController {
             make.right.equalTo(playButton.snp.left).offset(-12)
         }
 
-        // 初始化预览按钮
+        // 初始化「预览按钮」
 
         previewButton = UIButton()
         previewButton.backgroundColor = .clear
@@ -502,6 +505,7 @@ class SceneEditorViewController: UIViewController {
         }
     }
 
+    /// 准备「场景标题标签」文本
     private func prepareSceneTitleLabelAttributedText() -> NSMutableAttributedString {
 
         let completeSceneTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")

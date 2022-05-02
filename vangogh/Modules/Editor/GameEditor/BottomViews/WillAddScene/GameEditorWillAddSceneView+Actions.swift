@@ -1,12 +1,12 @@
 ///
-/// GameEditorWillAddSceneBottomView
+/// GameEditorWillAddSceneView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
 import UIKit
 
-extension GameEditorWillAddSceneBottomView {
+extension GameEditorWillAddSceneView {
 
     @objc func cancelAddingSceneButtonDidTap() {
 

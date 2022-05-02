@@ -4,7 +4,6 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import SnapKit
 import UIKit
 
 class GameScannerTorchButton: UIButton {
@@ -38,7 +37,7 @@ class GameScannerTorchButton: UIButton {
 
     /// 激活状态
     var isActive: Bool = false {
-        didSet {
+        willSet {
             setToggled()
         }
     }
