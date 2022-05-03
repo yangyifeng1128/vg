@@ -124,7 +124,7 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
 
     func sceneViewIsMoving(scene: MetaScene) {
 
-        gameboardView.updateSelectionRelatedTransitionViews()
+        gameboardView.updateRelatedTransitionViews(scene: scene)
     }
 
     func sceneViewDidPan(scene: MetaScene) {

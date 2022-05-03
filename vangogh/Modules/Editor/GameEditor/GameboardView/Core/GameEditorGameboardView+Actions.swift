@@ -67,24 +67,6 @@ extension GameEditorGameboardView {
         unhighlightRelatedTransitionViews(sceneView: selectedSceneView)
     }
 
-    /// 更新当前选中的「场景视图」相关的「穿梭器视图」
-    func updateSelectionRelatedTransitionViews() {
-
-        guard let dataSource = gameDataSource else { return }
-        let selectedSceneIndex: Int = dataSource.selectedSceneIndex()
-        if let selectedSceneView = sceneViewList.first(where: { $0.scene.index == selectedSceneIndex }), let scene = selectedSceneView.scene {
-            for transitionView in transitionViewList {
-                if transitionView.startScene.index == scene.index {
-                    transitionView.startScene = scene
-                    transitionView.updateView()
-                } else if transitionView.endScene.index == scene.index {
-                    transitionView.endScene = scene
-                    transitionView.updateView()
-                }
-            }
-        }
-    }
-
     /// 高亮显示相关的「场景视图」
     private func highlightRelatedSceneViews(sceneView: GameEditorSceneView?) {
 
@@ -113,6 +95,20 @@ extension GameEditorGameboardView {
             } else if transitionView.endScene.index == scene.index {
                 let startSceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.index == transitionView.startScene.index })
                 startSceneView?.unhighlight()
+            }
+        }
+    }
+
+    /// 更新相关的「穿梭器视图」
+    func updateRelatedTransitionViews(scene: MetaScene) {
+
+        for transitionView in transitionViewList {
+            if transitionView.startScene.index == scene.index {
+                transitionView.startScene = scene
+                transitionView.updateView()
+            } else if transitionView.endScene.index == scene.index {
+                transitionView.endScene = scene
+                transitionView.updateView()
             }
         }
     }
