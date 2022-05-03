@@ -37,6 +37,7 @@ class MetaScene: Codable, Equatable {
 extension MetaScene: CustomStringConvertible {
 
     var description: String {
+
         if let title = title, !title.isEmpty {
             return "\(index).\(title)"
         } else {
@@ -48,10 +49,12 @@ extension MetaScene: CustomStringConvertible {
 extension MetaScene: Hashable {
 
     func hash(into hasher: inout Hasher) {
+
         hasher.combine(uuid)
     }
 }
 
 func == (lhs: MetaScene, rhs: MetaScene) -> Bool {
+
     return lhs.uuid == rhs.uuid
 }

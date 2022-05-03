@@ -32,6 +32,7 @@ class MetaSensor: Codable, Equatable {
 extension MetaSensor: Hashable {
 
     func hash(into hasher: inout Hasher) {
+
         hasher.combine(gameUUID)
         hasher.combine(sceneUUID)
         hasher.combine(nodeUUID)
@@ -40,5 +41,6 @@ extension MetaSensor: Hashable {
 }
 
 func == (lhs: MetaSensor, rhs: MetaSensor) -> Bool {
+
     return lhs.gameUUID == rhs.gameUUID && lhs.sceneUUID == rhs.sceneUUID && lhs.nodeUUID == rhs.nodeUUID && lhs.key == rhs.key
 }

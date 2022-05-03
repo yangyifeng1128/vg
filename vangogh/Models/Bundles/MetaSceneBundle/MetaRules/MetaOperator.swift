@@ -31,10 +31,12 @@ class MetaOperator: Equatable {
 extension MetaOperator: Hashable {
 
     func hash(into hasher: inout Hasher) {
+
         hasher.combine(key)
     }
 }
 
 func == (lhs: MetaOperator, rhs: MetaOperator) -> Bool {
+
     return lhs.key == rhs.key
 }

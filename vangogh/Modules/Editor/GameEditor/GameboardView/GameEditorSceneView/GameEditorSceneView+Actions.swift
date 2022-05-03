@@ -22,6 +22,7 @@ extension GameEditorSceneView {
         switch sender.state {
 
         case .began:
+
             break
 
         case .changed:
@@ -38,14 +39,8 @@ extension GameEditorSceneView {
 
                 UISelectionFeedbackGenerator().selectionChanged()
 
-//                view.center = girdSnappedLocation
-//                scene.center = view.center
-
-//                delegate?.sceneViewIsMoving(scene: scene) // 传递 scene 对象的引用给 delegate，然后在 delegate 中矫正 scene.center
-
                 // 移动「场景视图」到作品板边缘时，停止移动
 
-//                var location: CGPoint = scene.center
                 var edgeSnappedLocation: CGPoint = girdSnappedLocation
 
                 let minX: CGFloat = GameEditorSceneView.VC.width
@@ -70,17 +65,18 @@ extension GameEditorSceneView {
 
                     view.center = edgeSnappedLocation
                     scene.center = edgeSnappedLocation
+                    delegate?.sceneViewIsMoving(scene: scene)
                 }
             }
             break
 
         case .ended:
 
-//            view.center = scene.center // 移动结束后，scene.center 已经在 delegate 中完成了矫正，这时候就可以回写给 view.center 了
             delegate?.sceneViewDidPan(scene: scene)
             break
 
         default:
+
             break
         }
     }

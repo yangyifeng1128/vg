@@ -50,10 +50,12 @@ extension MetaFootage: CustomStringConvertible {
 extension MetaFootage: Hashable {
 
     func hash(into hasher: inout Hasher) {
+
         hasher.combine(uuid)
     }
 }
 
 func == (lhs: MetaFootage, rhs: MetaFootage) -> Bool {
+
     return lhs.uuid == rhs.uuid
 }

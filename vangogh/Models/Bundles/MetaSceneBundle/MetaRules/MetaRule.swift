@@ -65,10 +65,12 @@ extension MetaRule: CustomStringConvertible {
 extension MetaRule: Hashable {
 
     func hash(into hasher: inout Hasher) {
+
         hasher.combine(uuid)
     }
 }
 
 func == (lhs: MetaRule, rhs: MetaRule) -> Bool {
+
     return lhs.uuid == rhs.uuid
 }

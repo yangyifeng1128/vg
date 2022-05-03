@@ -29,6 +29,7 @@ class MetaCondition: Codable, Equatable {
 extension MetaCondition: Hashable {
 
     func hash(into hasher: inout Hasher) {
+
         hasher.combine(sensor)
         hasher.combine(operatorKey)
         hasher.combine(value)
@@ -36,5 +37,6 @@ extension MetaCondition: Hashable {
 }
 
 func == (lhs: MetaCondition, rhs: MetaCondition) -> Bool {
+
     return lhs.sensor == rhs.sensor && lhs.operatorKey == rhs.operatorKey && lhs.value == rhs.value
 }
