@@ -6,6 +6,59 @@
 
 import UIKit
 
+extension GameEditorViewController: GameEditorGameboardViewDataSource {
+
+    /// 设置当前选中的场景索引
+    func selectedSceneIndex() -> Int {
+
+        return gameBundle.selectedSceneIndex
+    }
+
+    /// 设置「场景视图」数量
+    func numberOfSceneViews() -> Int {
+
+        return gameBundle.scenes.count
+    }
+
+    /// 设置「场景视图」
+    func sceneViewAt(_ index: Int) -> GameEditorSceneView {
+
+        let scene: MetaScene = gameBundle.scenes[index]
+        let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
+        sceneView.delegate = self
+
+        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: gameBundle.uuid) {
+            sceneView.thumbImageView.image = thumbImage
+        }
+
+        print(sceneView)
+        return sceneView
+    }
+
+    /// 设置「穿梭器视图」数量
+    func numberOfTransitionViews() -> Int {
+
+        return gameBundle.transitions.count
+    }
+
+    /// 设置「穿梭器视图」
+    func transitionViewAt(_ index: Int) -> GameEditorTransitionView {
+
+        let transition: MetaTransition = gameBundle.transitions[index]
+
+        guard let startScene = gameBundle.findScene(index: transition.from) else {
+            fatalError("Unexpected start scene")
+        }
+        guard let endScene = gameBundle.findScene(index: transition.to) else {
+            fatalError("Unexpected end scene")
+        }
+
+        let transitionView: GameEditorTransitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
+
+        return transitionView
+    }
+}
+
 extension GameEditorViewController: GameEditorGameboardViewDelegate {
 
     func gameboardViewDidTap(location: CGPoint) {
@@ -60,58 +113,6 @@ extension GameEditorViewController: GameEditorGameboardViewDelegate {
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
 
         scrollView.setZoomScale(1, animated: true)
-    }
-}
-
-extension GameEditorViewController: GameEditorGameboardViewDataSource {
-
-    /// 设置当前选中的场景索引
-    func selectedSceneIndex() -> Int {
-
-        return gameBundle.selectedSceneIndex
-    }
-
-    /// 设置「场景视图」数量
-    func numberOfSceneViews() -> Int {
-
-        return gameBundle.scenes.count
-    }
-
-    /// 设置「场景视图」
-    func sceneViewAt(_ index: Int) -> GameEditorSceneView {
-
-        let scene: MetaScene = gameBundle.scenes[index]
-        let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
-        sceneView.delegate = self
-
-        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: gameBundle.uuid) {
-            sceneView.thumbImageView.image = thumbImage
-        }
-
-        return sceneView
-    }
-
-    /// 设置「穿梭器视图」数量
-    func numberOfTransitionViews() -> Int {
-
-        return gameBundle.transitions.count
-    }
-
-    /// 设置「穿梭器视图」
-    func transitionViewAt(_ index: Int) -> GameEditorTransitionView {
-
-        let transition: MetaTransition = gameBundle.transitions[index]
-
-        guard let startScene = gameBundle.findScene(index: transition.from) else {
-            fatalError("Unexpected start scene")
-        }
-        guard let endScene = gameBundle.findScene(index: transition.to) else {
-            fatalError("Unexpected end scene")
-        }
-
-        let transitionView: GameEditorTransitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
-
-        return transitionView
     }
 }
 

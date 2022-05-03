@@ -494,11 +494,6 @@ extension GameEditorViewController {
         } else {
             addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
         }
-//        if let handler = handler, let sceneView: GameEditorSceneView = handler(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: gameBundle.uuid) {
-//            addTransitionDiagramView.startSceneView.image = thumbImage
-//        } else {
-//            addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
-//        }
         addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
         addTransitionDiagramView.isHidden = false
         let addTransitionDiagramViewLeftOffset: CGFloat = 12

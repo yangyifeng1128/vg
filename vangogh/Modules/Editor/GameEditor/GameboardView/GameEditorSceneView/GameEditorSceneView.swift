@@ -29,7 +29,7 @@ class GameEditorSceneView: RoundedView {
     var borderLayer: CAShapeLayer!
 
     /// 选中状态
-    var isSelected: Bool = false {
+    var isSelected: Bool! {
         willSet {
             if newValue {
                 activate()
@@ -106,6 +106,10 @@ class GameEditorSceneView: RoundedView {
         titleLabel.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
         }
+
+        // 设置选中状态
+
+        isSelected = false
     }
 }
 
