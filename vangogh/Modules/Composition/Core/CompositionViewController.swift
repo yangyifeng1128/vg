@@ -184,7 +184,7 @@ extension CompositionViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareDraftsTableViewCell(indexPath: indexPath)
+        return prepareDraftTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -199,41 +199,6 @@ extension CompositionViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectDraft(drafts[indexPath.row])
-    }
-}
-
-extension CompositionViewController {
-
-    /// 准备「草稿表格视图」单元格
-    private func prepareDraftsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        let draft: MetaGame = drafts[indexPath.row]
-
-        guard let cell = draftsTableView.dequeueReusableCell(withIdentifier: DraftTableViewCell.reuseId) as? DraftTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「更多按钮」
-
-        cell.moreButton.tag = indexPath.row
-        cell.moreButton.addTarget(self, action: #selector(moreButtonDidTap), for: .touchUpInside)
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = draft.title
-
-        // 准备「最近修改时间标签」
-
-        let mtimeFormatter = DateFormatter()
-        mtimeFormatter.dateStyle = .medium
-        mtimeFormatter.timeStyle = .short
-        cell.mtimeLabel.text = mtimeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(draft.mtime)))
-
-        // 准备「缩略图视图」
-
-        cell.thumbImageView.image = .sceneBackgroundThumb
-
-        return cell
+        selectDraftTableViewCell(indexPath: indexPath)
     }
 }

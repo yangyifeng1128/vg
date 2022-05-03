@@ -85,7 +85,7 @@ extension GameEditorGameboardView {
     }
 
     /// 删除「穿梭器视图」
-    func deleteTransitionView(transition: MetaTransition, completion handler: ((GameEditorSceneView) -> Void)? = nil) {
+    func deleteTransitionView(transition: MetaTransition, completion handler: (() -> Void)? = nil) {
 
         for (i, transitionView) in transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
 
@@ -109,10 +109,8 @@ extension GameEditorGameboardView {
             }
         }
 
-//        gameBundle.deleteTransition(transition)
-//        DispatchQueue.global(qos: .background).async { [weak self] in
-//            guard let s = self else { return }
-//            MetaGameBundleManager.shared.save(s.gameBundle)
-//        }
+        if let handler = handler {
+            handler()
+        }
     }
 }

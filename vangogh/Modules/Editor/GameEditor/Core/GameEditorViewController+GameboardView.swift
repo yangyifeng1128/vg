@@ -21,7 +21,7 @@ extension GameEditorViewController: GameEditorGameboardViewDataSource {
     }
 
     /// 设置「场景视图」
-    func sceneViewAt(_ index: Int) -> GameEditorSceneView {
+    func sceneView(at index: Int) -> GameEditorSceneView {
 
         let scene: MetaScene = gameBundle.scenes[index]
         let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
@@ -31,7 +31,6 @@ extension GameEditorViewController: GameEditorGameboardViewDataSource {
             sceneView.thumbImageView.image = thumbImage
         }
 
-        print(sceneView)
         return sceneView
     }
 
@@ -42,7 +41,7 @@ extension GameEditorViewController: GameEditorGameboardViewDataSource {
     }
 
     /// 设置「穿梭器视图」
-    func transitionViewAt(_ index: Int) -> GameEditorTransitionView {
+    func transitionView(at index: Int) -> GameEditorTransitionView {
 
         let transition: MetaTransition = gameBundle.transitions[index]
 

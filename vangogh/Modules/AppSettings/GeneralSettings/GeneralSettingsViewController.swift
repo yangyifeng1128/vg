@@ -148,7 +148,7 @@ extension GeneralSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareSettingsTableViewCell(indexPath: indexPath)
+        return prepareSettingTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -163,35 +163,6 @@ extension GeneralSettingsViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectGeneralSetting(settings[indexPath.row])
-    }
-}
-
-extension GeneralSettingsViewController {
-
-    /// 准备「设置表格视图」单元格
-    private func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        let setting: GeneralSetting = settings[indexPath.row]
-
-        guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: GeneralSettingTableViewCell.reuseId) as? GeneralSettingTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = setting.title
-
-        // 准备「信息标签」
-
-        if setting.type == .darkMode {
-            if !UserDefaults.standard.bool(forKey: GKC.ignoresSystemUserInterfaceStyle) {
-                cell.infoLabel.text = NSLocalizedString("FollowSystem", comment: "")
-            } else {
-                cell.infoLabel.text = UserDefaults.standard.bool(forKey: GKC.isInLightMode) ? NSLocalizedString("Disabled", comment: "") : NSLocalizedString("Enabled", comment: "")
-            }
-        }
-
-        return cell
+        selectSettingTableViewCell(indexPath: indexPath)
     }
 }

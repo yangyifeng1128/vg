@@ -17,7 +17,7 @@ class TargetAssetsViewController: UIViewController {
         static let titleLabelFontSize: CGFloat = 16
         static let menuControlTitleTextFontSize: CGFloat = 13
         static let targetAssetsCollectionViewInsetX: CGFloat = 4
-        static let targetAssetsCollectionViewCellSpacing: CGFloat = 8
+        static let targetAssetCollectionViewCellSpacing: CGFloat = 8
     }
 
     /// 代理
@@ -28,7 +28,7 @@ class TargetAssetsViewController: UIViewController {
     /// 目标素材集合视图
     var targetAssetsCollectionView: UICollectionView!
     /// 目标素材集合视图单元格尺寸
-    var targetAssetsCollectionViewCellSize: CGSize!
+    var targetAssetCollectionViewCellSize: CGSize!
 
     /// 菜单项
     var menuItems: [String] = [NSLocalizedString("Pictures", comment: ""), NSLocalizedString("Videos", comment: "")]
@@ -171,7 +171,7 @@ class TargetAssetsViewController: UIViewController {
 
         // 初始化「素材集合视图」
 
-        prepareTargetAssetsCollectionViewCellSize()
+        prepareTargetAssetCollectionViewCellSize()
 
         targetAssetsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         targetAssetsCollectionView.backgroundColor = .clear
@@ -207,7 +207,7 @@ extension TargetAssetsViewController: UICollectionViewDataSource {
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        return prepareTargetAssetsCollectionViewCell(indexPath: indexPath)
+        return prepareTargetAssetCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -217,7 +217,7 @@ extension TargetAssetsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         guard let cell = collectionView.cellForItem(at: indexPath) as? TargetAssetCollectionViewCell else { return }
-        selectTargetAsset(assets[indexPath.item], cell: cell)
+        selectTargetAssetCollectionViewCell(indexPath: indexPath, cell: cell)
     }
 }
 
@@ -226,122 +226,31 @@ extension TargetAssetsViewController: UICollectionViewDelegateFlowLayout {
     /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return targetAssetsCollectionViewCellSize
+        return targetAssetCollectionViewCellSize
     }
 
     /// 设置内边距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let inset = VC.targetAssetsCollectionViewCellSpacing
+        let inset = VC.targetAssetCollectionViewCellSpacing
         return UIEdgeInsets(top: 0, left: inset, bottom: inset, right: inset)
     }
 
     /// 设置最小行间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        return VC.targetAssetsCollectionViewCellSpacing
+        return VC.targetAssetCollectionViewCellSpacing
     }
 
     /// 设置最小单元格间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
-        return VC.targetAssetsCollectionViewCellSpacing
+        return VC.targetAssetCollectionViewCellSpacing
     }
 
     /// 滚动视图
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         updateCachedAssets()
-    }
-}
-
-extension TargetAssetsViewController {
-
-    /// 准备目标素材数量
-    private func prepareTargetAssetsCount() -> Int {
-
-        if assets.count == 0 {
-            var noDataInfoTitle: String = NSLocalizedString("NoPicturesAvailable", comment: "")
-            switch menuControl.selectedSegmentIndex {
-            case 0:
-                noDataInfoTitle = NSLocalizedString("NoPicturesAvailable", comment: "")
-                break
-            case 1:
-                noDataInfoTitle = NSLocalizedString("NoVideosAvailable", comment: "")
-                break
-            default:
-                break
-            }
-            targetAssetsCollectionView.showNoDataInfo(title: noDataInfoTitle)
-        } else {
-            targetAssetsCollectionView.hideNoDataInfo()
-        }
-
-        return assets.count
-    }
-
-    /// 准备「目标素材集合视图」单元格
-    private func prepareTargetAssetsCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
-
-        guard let cell = targetAssetsCollectionView.dequeueReusableCell(withReuseIdentifier: TargetAssetCollectionViewCell.reuseId, for: indexPath) as? TargetAssetCollectionViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        let asset = assets.object(at: indexPath.item)
-
-        // 准备「缩略图视图」
-
-        cell.assetIdentifier = asset.localIdentifier
-
-        let options = PHImageRequestOptions()
-        options.isNetworkAccessAllowed = true
-        options.isSynchronous = false
-        let scale = UIScreen.main.scale
-        let targetSize: CGSize = CGSize(width: targetAssetsCollectionViewCellSize.width * scale, height: targetAssetsCollectionViewCellSize.height * scale)
-        imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { (image, info) in
-            if cell.assetIdentifier == asset.localIdentifier {
-                cell.thumbImageView.image = image
-            }
-        }
-
-        // 准备「视频时长标签」
-
-        if asset.mediaType == .video {
-            cell.videoDurationLabel.isHidden = false
-            let formatter: DateComponentsFormatter = DateComponentsFormatter()
-            formatter.unitsStyle = .positional
-            formatter.allowedUnits = [.minute, .second]
-            formatter.zeroFormattingBehavior = [.pad]
-            cell.videoDurationLabel.text = formatter.string(from: asset.duration)
-        } else {
-            cell.videoDurationLabel.isHidden = true
-            cell.videoDurationLabel.text = ""
-        }
-
-        return cell
-    }
-
-    /// 准备「目标素材集合视图」单元格尺寸
-    private func prepareTargetAssetsCollectionViewCellSize() {
-
-        var numberOfCellsPerRow: Int
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            numberOfCellsPerRow = 3
-            break
-        case .pad, .mac, .tv, .carPlay, .unspecified:
-            numberOfCellsPerRow = 5
-            break
-        @unknown default:
-            numberOfCellsPerRow = 3
-            break
-        }
-
-        let cellSpacing = VC.targetAssetsCollectionViewCellSpacing
-
-        let cellWidth: CGFloat = ((view.bounds.width - VC.targetAssetsCollectionViewInsetX * 2 - CGFloat(numberOfCellsPerRow + 1) * cellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
-
-        targetAssetsCollectionViewCellSize = CGSize(width: cellWidth, height: cellHeight)
     }
 }

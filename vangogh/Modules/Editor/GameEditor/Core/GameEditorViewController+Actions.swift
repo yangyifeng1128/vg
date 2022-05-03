@@ -237,7 +237,7 @@ extension GameEditorViewController {
     }
 
     /// 删除「穿梭器视图」
-    func deleteTransitionView(_ transition: MetaTransition, completion: @escaping () -> Void) {
+    func deleteTransitionView(_ transition: MetaTransition) {
 
         // 创建提示框
 
@@ -248,8 +248,11 @@ extension GameEditorViewController {
         let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
-            s.gameboardView.deleteTransitionView(transition: transition) { _ in
-                completion()
+            s.gameboardView.deleteTransitionView(transition: transition) {
+                s.deleteTransition(transition) {
+                    s.sceneExplorerView.reloadData()
+                    Logger.gameEditor.info("deleted transition view: \(transition)")
+                }
             }
         }
         alert.addAction(confirmAction)

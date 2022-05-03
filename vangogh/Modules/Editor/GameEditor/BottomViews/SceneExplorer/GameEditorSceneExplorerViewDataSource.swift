@@ -1,16 +1,15 @@
 ///
-/// GameEditorSceneExplorerViewDataSource
+/// GameEditorSceneExplorerView
 ///
-/// © 2022 Beijing Mengma Education Technology Co., L
-//
+/// © 2022 Beijing Mengma Education Technology Co., Ltd
+///
+
+import UIKit
 
 protocol GameEditorSceneExplorerViewDataSource: AnyObject {
 
-    func selectedSceneIndex() -> Int
+    func selectedScene() -> MetaScene?
 
-    func numberOfSceneViews() -> Int
-    func sceneViewAt(_ index: Int) -> GameEditorSceneView
-
-    func numberOfTransitionViews() -> Int
-    func transitionViewAt(_ index: Int) -> GameEditorTransitionView
+    func numberOfTransitionTableViewCells() -> Int
+    func transitionTableViewCell(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell
 }

@@ -474,6 +474,7 @@ extension GameEditorViewController {
             view.layoutIfNeeded()
         }
         sceneExplorerView = GameEditorSceneExplorerView()
+        sceneExplorerView.dataSource = self
         sceneExplorerView.delegate = self
         bottomViewContainer.addSubview(sceneExplorerView)
         sceneExplorerView.snp.makeConstraints { make -> Void in
@@ -530,7 +531,7 @@ extension GameEditorViewController {
     }
 }
 
-extension GameEditorViewController: GameEditorToolBarViewDelegate, GameEditorWillAddSceneViewDelegate, GameEditorSceneExplorerViewDelegate {
+extension GameEditorViewController: GameEditorToolBarViewDelegate, GameEditorWillAddSceneViewDelegate {
 
     func addSceneButtonDidTap() {
 
@@ -544,49 +545,5 @@ extension GameEditorViewController: GameEditorToolBarViewDelegate, GameEditorWil
         reloadToolBarView(animated: false) {
             Logger.gameEditor.info("cancelled adding scene view")
         }
-    }
-
-    func closeSceneButtonDidTap() {
-
-        closeSceneView()
-    }
-
-    func deleteSceneButtonDidTap() {
-
-        deleteSceneView()
-    }
-
-    func editSceneTitleButtonDidTap() {
-
-        updateSceneTitleLabel()
-    }
-
-    func sceneTitleLabelDidTap() {
-
-        updateSceneTitleLabel()
-    }
-
-    func manageTransitionsButtonDidTap() {
-
-    }
-
-    func previewSceneButtonDidTap() {
-
-        presentSceneEmulatorVC()
-    }
-
-    func editSceneButtonDidTap() {
-
-        presentSceneEditorVC()
-    }
-
-    func transitionWillDelete(_ transition: MetaTransition, completion: @escaping () -> Void) {
-
-        deleteTransitionView(transition, completion: completion)
-    }
-
-    func transitionDidSelect(_ transition: MetaTransition) {
-
-        pushTransitionEditorVC(transition: transition)
     }
 }

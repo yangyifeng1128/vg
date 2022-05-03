@@ -209,7 +209,7 @@ extension DarkModeViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareStylesTableViewCell(indexPath: indexPath)
+        return prepareStyleTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -224,34 +224,6 @@ extension DarkModeViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectUserInterfaceStyle(type: styles[indexPath.row].type)
-    }
-}
-
-extension DarkModeViewController {
-
-    /// 准备「风格表格视图」单元格
-    private func prepareStylesTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        let style: UserInterfaceStyle = styles[indexPath.row]
-
-        guard let cell = stylesTableView.dequeueReusableCell(withIdentifier: UserInterfaceStyleTableViewCell.reuseId) as? UserInterfaceStyleTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = NSLocalizedString(style.title, comment: "")
-
-        // 准备「勾选视图」
-
-        let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
-        if style.type == .darkMode {
-            cell.checkmarkView.isHidden = isInLightMode
-        } else if style.type == .lightMode {
-            cell.checkmarkView.isHidden = !isInLightMode
-        }
-
-        return cell
+        selectStyleTableViewCell(indexPath: indexPath)
     }
 }

@@ -13,7 +13,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let contentViewHeight: CGFloat = 64
+        static let bodyViewHeight: CGFloat = 64
         static let editButtonWidth: CGFloat = 36
         static let titleLabelFontSize: CGFloat = 16
         static let deleteButtonWidth: CGFloat = 48
@@ -57,18 +57,18 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         contentView.addSubview(deleteButton)
         deleteButton.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.deleteButtonWidth)
-            make.height.equalTo(VC.contentViewHeight)
+            make.height.equalTo(VC.bodyViewHeight)
             make.right.equalToSuperview()
             make.top.equalToSuperview()
         }
 
-        // 初始化「内容视图」
+        // 初始化「主体视图」
 
-        let contentView: RoundedView = RoundedView()
-        contentView.backgroundColor = .tertiarySystemGroupedBackground
-        contentView.addSubview(contentView)
-        contentView.snp.makeConstraints { make -> Void in
-            make.height.equalTo(VC.contentViewHeight)
+        let bodyView: RoundedView = RoundedView()
+        bodyView.backgroundColor = .tertiarySystemGroupedBackground
+        contentView.addSubview(bodyView)
+        bodyView.snp.makeConstraints { make -> Void in
+            make.height.equalTo(VC.bodyViewHeight)
             make.left.equalToSuperview().offset(16)
             make.right.equalTo(deleteButton.snp.left)
             make.top.equalToSuperview()
@@ -82,7 +82,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         editButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 6)
         editButton.imageView?.contentMode = .scaleAspectFit
         editButton.imageView?.tintColor = .secondaryLabel
-        contentView.addSubview(editButton)
+        bodyView.addSubview(editButton)
         editButton.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.editButtonWidth)
             make.height.equalToSuperview()
@@ -97,7 +97,7 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         titleLabel.textColor = .mgLabel
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail
-        contentView.addSubview(titleLabel)
+        bodyView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.height.equalToSuperview()
             make.left.equalTo(editButton.snp.right)
@@ -114,8 +114,8 @@ class TransitionEditorConditionTableViewCell: UITableViewCell {
         contentView.addSubview(orLabel)
         orLabel.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.left.equalTo(contentView)
-            make.top.equalTo(contentView.snp.bottom)
+            make.left.equalTo(bodyView)
+            make.top.equalTo(bodyView.snp.bottom)
             make.bottom.equalToSuperview()
         }
     }

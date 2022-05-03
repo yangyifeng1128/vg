@@ -76,16 +76,6 @@ extension CompositionViewController {
         navigationController?.pushViewController(newGameVC, animated: true)
     }
 
-    /// 选择草稿
-    func selectDraft(_ draft: MetaGame) {
-
-        openDraft(draft) { [weak self] in
-            guard let s = self else { return }
-            s.pushGameEditorVC(game: draft)
-            Logger.composition.info("loaded draft: \"\(draft.title)\"")
-        }
-    }
-
     /// 跳转至「作品编辑器控制器」
     func pushGameEditorVC(game: MetaGame) {
 
@@ -95,6 +85,53 @@ extension CompositionViewController {
         gameEditorVC.hidesBottomBarWhenPushed = true
 
         navigationController?.pushViewController(gameEditorVC, animated: true)
+    }
+}
+
+extension CompositionViewController {
+
+    /// 准备「草稿表格视图」单元格
+    func prepareDraftTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+
+        let draft: MetaGame = drafts[indexPath.row]
+
+        guard let cell = draftsTableView.dequeueReusableCell(withIdentifier: DraftTableViewCell.reuseId) as? DraftTableViewCell else {
+            fatalError("Unexpected cell type")
+        }
+
+        // 准备「更多按钮」
+
+        cell.moreButton.tag = indexPath.row
+        cell.moreButton.addTarget(self, action: #selector(moreButtonDidTap), for: .touchUpInside)
+
+        // 准备「标题标签」
+
+        cell.titleLabel.text = draft.title
+
+        // 准备「最近修改时间标签」
+
+        let mtimeFormatter = DateFormatter()
+        mtimeFormatter.dateStyle = .medium
+        mtimeFormatter.timeStyle = .short
+        cell.mtimeLabel.text = mtimeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(draft.mtime)))
+
+        // 准备「缩略图视图」
+
+        cell.thumbImageView.image = .sceneBackgroundThumb
+
+        return cell
+    }
+
+    /// 选择「草稿表格视图」单元格
+    func selectDraftTableViewCell(indexPath: IndexPath) {
+
+        let draft: MetaGame = drafts[indexPath.row]
+
+        openDraft(draft) { [weak self] in
+            guard let s = self else { return }
+            s.pushGameEditorVC(game: draft)
+            Logger.composition.info("loaded draft: \"\(draft.title)\"")
+        }
     }
 
     /// 显示更多关于草稿

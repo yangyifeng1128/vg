@@ -94,13 +94,13 @@ extension GameEditorGameboardView {
         guard let dataSource = gameDataSource else { return }
 
         for index in 0..<dataSource.numberOfSceneViews() {
-            let sceneView: GameEditorSceneView = dataSource.sceneViewAt(index)
+            let sceneView: GameEditorSceneView = dataSource.sceneView(at: index)
             contentView.insertSubview(sceneView, at: 0)
             sceneViewList.append(sceneView)
         }
 
         for index in 0..<dataSource.numberOfTransitionViews() {
-            let transitionView = dataSource.transitionViewAt(index)
+            let transitionView = dataSource.transitionView(at: index)
             contentView.insertSubview(transitionView, at: 0)
             transitionViewList.append(transitionView)
         }

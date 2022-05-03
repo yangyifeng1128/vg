@@ -150,7 +150,7 @@ extension GameSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareSettingsTableViewCell(indexPath: indexPath)
+        return prepareSettingTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -166,56 +166,6 @@ extension GameSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         guard let cell = settingsTableView.cellForRow(at: indexPath) as? GameSettingTableViewCell else { return }
-        selectGameSetting(settings[indexPath.row], cell: cell)
-    }
-}
-
-extension GameSettingsViewController {
-
-    /// 准备「设置表格视图」单元格
-    private func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        let setting: GameSetting = settings[indexPath.row]
-
-        if setting.type == .gameThumbImage {
-
-            guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: GameSettingTableThumbImageViewCell.reuseId) as? GameSettingTableThumbImageViewCell else {
-                fatalError("Unexpected cell type")
-            }
-
-            cell.titleLabel.text = setting.title
-
-            if let thumbImage = MetaThumbManager.shared.loadGameThumbImage(gameUUID: game.uuid) {
-                cell.thumbImageView.image = thumbImage
-            } else {
-                cell.thumbImageView.image = .gameBackgroundThumb
-            }
-
-            return cell
-
-        } else {
-
-            guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: GameSettingTableViewCell.reuseId) as? GameSettingTableViewCell else {
-                fatalError("Unexpected cell type")
-            }
-
-            cell.titleLabel.text = setting.title
-
-            switch setting.type {
-            case .gameTitle:
-                var infoString: String?
-                if !game.title.isEmpty {
-                    infoString = game.title
-                } else {
-                    infoString = NSLocalizedString("Untitled", comment: "")
-                }
-                cell.infoLabel.text = infoString
-                break
-            default:
-                break
-            }
-
-            return cell
-        }
+        selectSettingTableViewCell(indexPath: indexPath, cell: cell)
     }
 }

@@ -180,7 +180,7 @@ extension SceneSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareSettingsTableViewCell(indexPath: indexPath)
+        return prepareSettingTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -196,59 +196,6 @@ extension SceneSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         guard let cell = tableView.cellForRow(at: indexPath) as? SceneSettingTableViewCell else { return }
-        selectSceneSetting(settings[indexPath.row], cell: cell)
-    }
-}
-
-extension SceneSettingsViewController {
-
-    /// 准备「设置表格视图」单元格
-    private func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        let setting: SceneSetting = settings[indexPath.row]
-
-        if setting.type == .sceneThumbImage {
-
-            guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: SceneSettingTableThumbImageViewCell.reuseId) as? SceneSettingTableThumbImageViewCell else {
-                fatalError("Unexpected cell type")
-            }
-
-            cell.titleLabel.text = setting.title
-
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneBundle.sceneUUID, gameUUID: sceneBundle.gameUUID) {
-                cell.thumbImageView.image = thumbImage
-            } else {
-                cell.thumbImageView.image = .sceneBackgroundThumb
-            }
-
-            return cell
-
-        } else {
-
-            guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: SceneSettingTableViewCell.reuseId) as? SceneSettingTableViewCell else {
-                fatalError("Unexpected cell type")
-            }
-
-            cell.titleLabel.text = setting.title
-
-            switch setting.type {
-            case .sceneTitle:
-                var infoString: String?
-                if let sceneTitle = gameBundle.selectedScene()?.title, !sceneTitle.isEmpty {
-                    infoString = sceneTitle
-                } else {
-                    infoString = NSLocalizedString("Untitled", comment: "")
-                }
-                cell.infoLabel.text = infoString
-                break
-            case .aspectRatio:
-                cell.infoLabel.text = sceneBundle.aspectRatioType.rawValue
-                break
-            default:
-                break
-            }
-
-            return cell
-        }
+        selectSettingTableViewCell(indexPath: indexPath, cell: cell)
     }
 }

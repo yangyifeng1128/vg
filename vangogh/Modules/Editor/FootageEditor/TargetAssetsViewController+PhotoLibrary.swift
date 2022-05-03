@@ -101,9 +101,9 @@ extension TargetAssetsViewController {
         // Update the assets the PHCachingImageManager is caching
 
         imageManager.startCachingImages(for: addedAssets,
-                                        targetSize: targetAssetsCollectionViewCellSize, contentMode: .aspectFill, options: nil)
+                                        targetSize: targetAssetCollectionViewCellSize, contentMode: .aspectFill, options: nil)
         imageManager.stopCachingImages(for: removedAssets,
-                                       targetSize: targetAssetsCollectionViewCellSize, contentMode: .aspectFill, options: nil)
+                                       targetSize: targetAssetCollectionViewCellSize, contentMode: .aspectFill, options: nil)
 
         // Store the computed rectangle for future comparison
 

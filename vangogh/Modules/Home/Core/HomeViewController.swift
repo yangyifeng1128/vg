@@ -126,7 +126,7 @@ extension HomeViewController: UICollectionViewDataSource {
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        return prepareRecordsCollectionViewCell(indexPath: indexPath)
+        return prepareRecordCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -135,7 +135,7 @@ extension HomeViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        selectRecord(records[indexPath.item])
+        selectRecordCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -144,7 +144,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return prepareRecordsCollectionViewCellSize(indexPath: indexPath)
+        return prepareRecordCollectionViewCellSize(indexPath: indexPath)
     }
 
     /// 设置内边距
@@ -164,58 +164,5 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
         return VC.recordCollectionViewCellSpacing
-    }
-}
-
-extension HomeViewController {
-
-    /// 准备记录数量
-    private func prepareRecordsCount() -> Int {
-
-        if records.isEmpty {
-            recordsCollectionView.showNoDataInfo(title: NSLocalizedString("NoRecordsFound", comment: ""))
-        } else {
-            recordsCollectionView.hideNoDataInfo()
-        }
-
-        return records.count
-    }
-
-    /// 准备「记录集合视图」单元格
-    private func prepareRecordsCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
-
-        let record: MetaRecord = records[indexPath.item]
-
-        guard let cell = recordsCollectionView.dequeueReusableCell(withReuseIdentifier: RecordCollectionViewCell.reuseId, for: indexPath) as? RecordCollectionViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = record.title
-
-        return cell
-    }
-
-    /// 准备「记录集合视图」单元格尺寸
-    private func prepareRecordsCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
-
-        var numberOfCellsPerRow: Int
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            numberOfCellsPerRow = 2
-            break
-        case .pad, .mac, .tv, .carPlay, .unspecified:
-            numberOfCellsPerRow = 3
-            break
-        @unknown default:
-            numberOfCellsPerRow = 2
-            break
-        }
-
-        let cellWidth: CGFloat = ((recordsCollectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * VC.recordCollectionViewCellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
-
-        return CGSize(width: cellWidth, height: cellHeight)
     }
 }

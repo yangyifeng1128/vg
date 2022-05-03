@@ -65,7 +65,7 @@ extension GameEditorSceneView {
                 }
 
                 // 最终确定「场景视图」中心位置
-                
+
                 if view.center != edgeSnappedLocation {
 
                     view.center = edgeSnappedLocation
@@ -96,6 +96,39 @@ extension GameEditorSceneView {
         titleLabel.numberOfLines = 3
         titleLabel.lineBreakMode = .byTruncatingTail
     }
+
+
+    /// 准备「标题标签」文本
+    func prepareTitleLabelAttributedText() -> NSMutableAttributedString {
+
+        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+
+        // 准备场景索引
+
+        let indexStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: VC.titleLabelLargeFontSize, weight: .regular)]
+        let indexString: NSAttributedString = NSAttributedString(string: scene.index.description, attributes: indexStringAttributes)
+        completeTitleString.append(indexString)
+
+        // 准备场景标题
+
+        let titleStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: VC.titleLabelSmallFontSize, weight: .regular)]
+        var titleString: NSAttributedString
+        if let title = scene.title, !title.isEmpty {
+            titleString = NSAttributedString(string: "\n" + title, attributes: titleStringAttributes)
+            completeTitleString.append(titleString)
+        }
+
+        // 准备段落样式
+
+        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 1
+        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
+
+        return completeTitleString
+    }
+}
+
+extension GameEditorSceneView {
 
     /// 激活
     func activate() {

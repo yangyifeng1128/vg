@@ -303,7 +303,7 @@ extension TargetScenesViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareTargetScenesTableViewCell(indexPath: indexPath)
+        return prepareTargetSceneTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -318,83 +318,6 @@ extension TargetScenesViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectTargetScene(targetScenes[indexPath.row])
-    }
-}
-
-extension TargetScenesViewController {
-
-    /// 准备目标场景数量
-    private func prepareTargetScenesCount() -> Int {
-
-        if targetScenes.isEmpty {
-            targetScenesTableView.showNoDataInfo(title: NSLocalizedString("NoTargetScenesAvailable", comment: ""))
-        } else {
-            targetScenesTableView.hideNoDataInfo()
-        }
-
-        return targetScenes.count
-    }
-
-    /// 准备「目标场景表格视图」单元格
-    private func prepareTargetScenesTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        let targetScene: MetaScene = targetScenes[indexPath.row]
-
-        guard let cell = targetScenesTableView.dequeueReusableCell(withIdentifier: TargetSceneTableViewCell.reuseId) as? TargetSceneTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「缩略图视图」
-
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: targetScene.uuid, gameUUID: s.gameBundle.uuid) {
-                DispatchQueue.main.async {
-                    cell.thumbImageView.image = thumbImage
-                }
-            } else {
-                DispatchQueue.main.async {
-                    cell.thumbImageView.image = .sceneBackgroundThumb
-                }
-            }
-        }
-
-        // 准备「索引标签」
-
-        cell.indexLabel.text = targetScene.index.description
-
-        // 准备「标题标签」
-
-        cell.titleLabel.attributedText = prepareTargetSceneTitleLabelAttributedText(scene: targetScene)
-        cell.titleLabel.numberOfLines = 2
-        cell.titleLabel.lineBreakMode = .byTruncatingTail
-
-        return cell
-    }
-
-    private func prepareTargetSceneTitleLabelAttributedText(scene: MetaScene) -> NSMutableAttributedString {
-
-        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        // 准备场景标题
-
-        var titleString: NSAttributedString
-        if let title = scene.title, !title.isEmpty {
-            let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-            titleString = NSAttributedString(string: title, attributes: titleStringAttributes)
-        } else {
-            let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
-            titleString = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""), attributes: titleStringAttributes)
-        }
-        completeTitleString.append(titleString)
-
-        // 准备段落样式
-
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
-
-        return completeTitleString
+        selectTargetSceneTableViewCell(indexPath: indexPath)
     }
 }

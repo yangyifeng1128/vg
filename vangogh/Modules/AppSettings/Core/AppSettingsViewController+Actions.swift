@@ -16,8 +16,26 @@ extension AppSettingsViewController {
 
 extension AppSettingsViewController {
 
-    /// 选择应用程序设置
-    func selectAppSetting(_ setting: AppSetting) {
+    /// 准备「设置表格视图」单元格
+    func prepareSettingTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+
+        let setting: AppSetting = settings[indexPath.row]
+
+        guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: AppSettingTableViewCell.reuseId) as? AppSettingTableViewCell else {
+            fatalError("Unexpected cell type")
+        }
+
+        // 准备「标题标签」
+
+        cell.titleLabel.text = setting.title
+
+        return cell
+    }
+
+    /// 选择「设置表格视图」单元格
+    func selectSettingTableViewCell(indexPath: IndexPath) {
+
+        let setting: AppSetting = settings[indexPath.row]
 
         var vc: UIViewController
 

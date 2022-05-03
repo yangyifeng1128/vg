@@ -40,6 +40,8 @@ class GameEditorSceneExplorerView: BorderedView {
     /// 代理
     weak var delegate: GameEditorSceneExplorerViewDelegate?
 
+    /// 场景标题标签
+    var sceneTitleLabel: UILabel!
     /// 穿梭器视图
     var transitionsView: RoundedView!
     /// 管理穿梭器按钮
@@ -47,19 +49,10 @@ class GameEditorSceneExplorerView: BorderedView {
     /// 穿梭器表格视图
     var transitionsTableView: UITableView!
 
-    /// 作品资源包
-    var gameBundle: MetaGameBundle!
-    /// 穿梭器列表
-    var transitions: [MetaTransition]!
-
     /// 初始化
     init() {
 
         super.init(side: .top)
-
-        /// FIXME
-        self.gameBundle = MetaGameBundleManager.shared.load(uuid: "0")
-        transitions = gameBundle.selectedTransitions()
 
         initViews()
     }
@@ -111,24 +104,9 @@ class GameEditorSceneExplorerView: BorderedView {
             make.top.equalTo(closeSceneButton)
         }
 
-        // 初始化「编辑场景标题按钮」
-
-        let editSceneTitleButton: UIButton = UIButton()
-        editSceneTitleButton.isHidden = true
-        editSceneTitleButton.tintColor = .secondaryLabel
-        editSceneTitleButton.setImage(.editNote, for: .normal)
-        editSceneTitleButton.imageView?.tintColor = .secondaryLabel
-        editSceneTitleButton.addTarget(self, action: #selector(editSceneTitleButtonDidTap), for: .touchUpInside)
-        contentView.addSubview(editSceneTitleButton)
-        editSceneTitleButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(VC.rightTopButtonWidth)
-            make.right.equalTo(deleteSceneButton.snp.left)
-            make.top.equalTo(deleteSceneButton)
-        }
-
         // 初始化「场景标题标签」
 
-        let sceneTitleLabel: UILabel = UILabel()
+        sceneTitleLabel = UILabel()
         sceneTitleLabel.attributedText = prepareSceneTitleLabelAttributedText()
         sceneTitleLabel.font = .systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)
         sceneTitleLabel.numberOfLines = 2
@@ -138,7 +116,7 @@ class GameEditorSceneExplorerView: BorderedView {
         contentView.addSubview(sceneTitleLabel)
         sceneTitleLabel.snp.makeConstraints { make -> Void in
             make.left.equalToSuperview().offset(16)
-            make.right.equalTo(editSceneTitleButton.snp.left).offset(-8)
+            make.right.equalTo(deleteSceneButton.snp.left).offset(-8)
             make.top.equalTo(closeSceneButton).offset(14)
         }
 
@@ -249,7 +227,8 @@ extension GameEditorSceneExplorerView: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareTransitionsTableViewCell(indexPath: indexPath)
+        guard let dataSource = dataSource else { fatalError("Unexpected data source") }
+        return dataSource.transitionTableViewCell(tableView: transitionsTableView, at: indexPath)
     }
 }
 
@@ -264,222 +243,6 @@ extension GameEditorSceneExplorerView: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectTransition(transitions[indexPath.row])
-    }
-}
-
-extension GameEditorSceneExplorerView {
-
-    /// 准备「场景标题标签」文本
-    private func prepareSceneTitleLabelAttributedText() -> NSMutableAttributedString {
-
-        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        guard let selectedScene = gameBundle.selectedScene() else { return completeTitleString }
-
-        // 准备场景索引
-
-        let indexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
-        let indexString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Scene", comment: "") + " " + selectedScene.index.description + "  ", attributes: indexStringAttributes)
-        completeTitleString.append(indexString)
-
-        // 准备场景标题
-
-        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        var titleString: NSAttributedString
-        if let title = selectedScene.title, !title.isEmpty {
-            titleString = NSAttributedString(string: title, attributes: titleStringAttributes)
-        } else {
-            titleString = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""), attributes: titleStringAttributes)
-        }
-        completeTitleString.append(titleString)
-
-        // 准备段落样式
-
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
-
-        return completeTitleString
-    }
-
-    /// 准备穿梭器数量
-    private func prepareTransitionsCount() -> Int {
-
-        if transitions.isEmpty {
-
-            manageTransitionsButton.snp.updateConstraints { make -> Void in
-                make.height.equalTo(VC.manageTransitionsButtonMinHeight)
-            }
-            manageTransitionsButton.isHidden = true
-
-            transitionsTableView.showNoDataInfo(title: NSLocalizedString("NoTransitionsAvailable", comment: ""), oops: false)
-            transitionsView.isHidden = true
-
-        } else {
-
-            manageTransitionsButton.snp.updateConstraints { make -> Void in
-                make.height.equalTo(VC.manageTransitionsButtonHeight)
-            }
-            // manageTransitionsButton.isHidden = false
-            manageTransitionsButton.isHidden = true
-
-            transitionsTableView.hideNoDataInfo()
-
-        }
-
-        return transitions.count
-    }
-
-    /// 准备「穿梭器表格视图」单元格
-    private func prepareTransitionsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        guard let startScene = gameBundle.selectedScene() else {
-            fatalError("Unexpected start scene")
-        }
-        guard let endScene = gameBundle.findScene(index: transitions[indexPath.row].to) else {
-            fatalError("Unexpected end scene")
-        }
-
-        guard let cell = transitionsTableView.dequeueReusableCell(withIdentifier: GameEditorTransitionTableViewCell.reuseId) as? GameEditorTransitionTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「条件视图」
-
-        cell.conditionsTitleLabel.attributedText = prepareConditionsTitleLabelAttributedText(startScene: startScene, conditions: transitions[indexPath.row].conditions)
-
-        // 准备「缩略图视图」
-
-        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: gameBundle.uuid) {
-            cell.endSceneThumbImageView.image = thumbImage
-        } else {
-            cell.endSceneThumbImageView.image = .sceneBackgroundThumb
-        }
-
-        // 准备「结束场景标题标签」
-
-        cell.endSceneTitleLabel.attributedText = prepareEndSceneTitleLabelAttributedText(endScene: endScene)
-        cell.endSceneTitleLabel.textAlignment = .center
-        cell.endSceneTitleLabel.numberOfLines = 3
-        cell.endSceneTitleLabel.lineBreakMode = .byTruncatingTail
-
-        // 准备「删除按钮」
-
-        cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(transitionWillDelete), for: .touchUpInside)
-
-        return cell
-    }
-
-    private func prepareConditionsTitleLabelAttributedText(startScene: MetaScene, conditions: [MetaCondition]) -> NSMutableAttributedString {
-
-        let completeConditionsTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        for (i, condition) in conditions.enumerated() {
-
-            let conditionTitleString = prepareConditionTitleLabelAttributedText(startScene: startScene, condition: condition)
-            completeConditionsTitleString.append(conditionTitleString)
-
-            if i < conditions.count - 1 {
-                let orStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.tertiaryLabel]
-                let orString = NSAttributedString(string: " " + NSLocalizedString("Or", comment: "") + " ", attributes: orStringAttributes)
-                completeConditionsTitleString.append(orString)
-            }
-        }
-
-        return completeConditionsTitleString
-    }
-
-    private func prepareConditionTitleLabelAttributedText(startScene: MetaScene, condition: MetaCondition) -> NSMutableAttributedString {
-
-        let completeConditionTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        // 准备「点」
-
-        let dotStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.VC.conditionsTitleLabelFontSize, weight: .semibold)]
-        let dotString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Dot", comment: ""), attributes: dotStringAttributes)
-
-        // 准备「开始场景」
-
-        let startSceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        let startSceneTitleString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Scene", comment: "") + " " + startScene.index.description, attributes: startSceneTitleStringAttributes)
-        completeConditionTitleString.append(startSceneTitleString)
-        completeConditionTitleString.append(dotString)
-
-        // FIXME：重新处理「MetaTransition - MetaCondition」
-
-        // 准备「组件」
-
-//        if let conditionDescriptor = MetaConditionDescriptorManager.shared.load(nodeType: condition.nodeType, nodeBehaviorType: condition.nodeBehaviorType) {
-
-        // 准备组件标题
-
-        let nodeTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.accent!]
-        let nodeTitle: String = "node type"
-//        if condition.nodeIndex == 0 {
-//            nodeTitle = conditionDescriptor.nodeTypeAlias
-//        } else {
-//            nodeTitle = conditionDescriptor.nodeTypeAlias + " " + condition.nodeIndex.description
-//        }
-        let nodeTitleString: NSAttributedString = NSAttributedString(string: nodeTitle, attributes: nodeTitleStringAttributes)
-        completeConditionTitleString.append(nodeTitleString)
-        completeConditionTitleString.append(dotString)
-
-        // 准备组件行为标题
-
-        let nodeBehaviorTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        let nodeBehaviorTitleString: NSAttributedString = NSAttributedString(string: /* conditionDescriptor.nodeBehaviorTypeAlias */ "action key", attributes: nodeBehaviorTitleStringAttributes)
-        completeConditionTitleString.append(nodeBehaviorTitleString)
-
-        // 准备参数
-
-//        let parametersTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
-//        var parametersTitle: String = ""
-//        if let parameters = condition.parameters {
-//            parametersTitle.append(" " + parameters)
-//            let parametersTitleString: NSAttributedString = NSAttributedString(string: parametersTitle, attributes: parametersTitleStringAttributes)
-//            completeConditionTitleString.append(parametersTitleString)
-//        }
-//        }
-
-        return completeConditionTitleString
-    }
-
-    private func prepareEndSceneTitleLabelAttributedText(endScene: MetaScene) -> NSMutableAttributedString {
-
-        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        // 准备场景索引
-
-        let indexStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.VC.endSceneTitleLabelLargeFontSize, weight: .regular)]
-        let indexString: NSAttributedString = NSAttributedString(string: endScene.index.description, attributes: indexStringAttributes)
-        completeTitleString.append(indexString)
-
-        // 准备场景标题
-
-        let titleStringAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: GameEditorTransitionTableViewCell.VC.endSceneTitleLabelSmallFontSize, weight: .regular)]
-        var titleString: NSAttributedString
-        if let title = endScene.title, !title.isEmpty {
-            titleString = NSAttributedString(string: "\n" + title, attributes: titleStringAttributes)
-            completeTitleString.append(titleString)
-        }
-
-        // 准备段落样式
-
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 1
-        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
-
-        return completeTitleString
-    }
-}
-
-extension GameEditorSceneExplorerView {
-
-    /// 重新加载数据
-    func reloadData() {
-
-        print("reloading game editor scene explorer view......................")
+        delegate?.transitionTableViewCellDidSelect(transitionsTableView, indexPath: indexPath)
     }
 }

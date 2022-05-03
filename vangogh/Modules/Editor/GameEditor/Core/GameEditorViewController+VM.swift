@@ -89,4 +89,15 @@ extension GameEditorViewController {
             handler()
         }
     }
+
+    /// 删除穿梭器
+    func deleteTransition(_ transition: MetaTransition, completion handler: (() -> Void)? = nil) {
+
+        gameBundle.deleteTransition(transition)
+        MetaGameBundleManager.shared.save(gameBundle)
+
+        if let handler = handler {
+            handler()
+        }
+    }
 }

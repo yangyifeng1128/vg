@@ -361,7 +361,7 @@ extension TransitionEditorViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareConditionsTableViewCell(indexPath: indexPath)
+        return prepareConditionTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -382,100 +382,6 @@ extension TransitionEditorViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectCondition(conditions[indexPath.row])
-    }
-}
-
-extension TransitionEditorViewController {
-
-    /// 准备条件数量
-    private func prepareConditionsCount() -> Int {
-
-        if conditions.isEmpty {
-            conditionsTableView.showNoDataInfo(title: NSLocalizedString("NoConditionsAvailable", comment: ""))
-        } else {
-            conditionsTableView.hideNoDataInfo()
-        }
-
-        return conditions.count
-    }
-
-    /// 准备「条件表格视图」单元格
-    private func prepareConditionsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        guard let cell = conditionsTableView.dequeueReusableCell(withIdentifier: TransitionEditorConditionTableViewCell.reuseId) as? TransitionEditorConditionTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「or 标签」
-
-        cell.orLabel.isHidden = indexPath.row == conditions.count - 1 ? true : false
-
-        // 准备「删除按钮」
-
-        cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(conditionWillDelete), for: .touchUpInside)
-
-        // 准备「标题标签」
-
-        cell.titleLabel.attributedText = prepareConditionTitleLabelAttributedText(startScene: startScene, condition: conditions[indexPath.row])
-
-        return cell
-    }
-
-    /// 准备「条件标题标签」文本
-    private func prepareConditionTitleLabelAttributedText(startScene: MetaScene, condition: MetaCondition) -> NSMutableAttributedString {
-
-        let completeConditionTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        // 准备「点」
-
-        let dotStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: TransitionEditorConditionTableViewCell.VC.titleLabelFontSize, weight: .semibold)]
-        let dotString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Dot", comment: ""), attributes: dotStringAttributes)
-
-        // 准备「开始场景」
-
-        let startSceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        let startSceneTitleString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Scene", comment: "") + " " + startScene.index.description, attributes: startSceneTitleStringAttributes)
-        completeConditionTitleString.append(startSceneTitleString)
-        completeConditionTitleString.append(dotString)
-
-        // FIXME：重新处理「MetaTransition - MetaCondition」
-
-        // 准备「组件」
-
-//        if let conditionDescriptor = MetaConditionDescriptorManager.shared.load(nodeType: condition.nodeType, nodeBehaviorType: condition.nodeBehaviorType) {
-
-        // 准备「组件标题」
-
-        let nodeTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.accent!]
-        let nodeTitle: String = "node type"
-//            if condition.nodeIndex == 0 {
-//                nodeTitle = conditionDescriptor.nodeTypeAlias
-//            } else {
-//                nodeTitle = conditionDescriptor.nodeTypeAlias + " " + condition.nodeIndex.description
-//            }
-        let nodeTitleString: NSAttributedString = NSAttributedString(string: nodeTitle, attributes: nodeTitleStringAttributes)
-        completeConditionTitleString.append(nodeTitleString)
-        completeConditionTitleString.append(dotString)
-
-        // 准备「组件行为标题」
-
-        let nodeBehaviorTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        let nodeBehaviorTitleString: NSAttributedString = NSAttributedString(string: /* conditionDescriptor.nodeBehaviorTypeAlias */ "action type", attributes: nodeBehaviorTitleStringAttributes)
-        completeConditionTitleString.append(nodeBehaviorTitleString)
-
-        // 准备「参数」
-
-//            let parametersTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
-//            var parametersTitle: String = ""
-//            if let parameters = condition.parameters {
-//                parametersTitle.append(" " + parameters)
-//                let parametersTitleString: NSAttributedString = NSAttributedString(string: parametersTitle, attributes: parametersTitleStringAttributes)
-//                completeConditionTitleString.append(parametersTitleString)
-//            }
-//        }
-
-        return completeConditionTitleString
+        selectConditionTableViewCell(indexPath: indexPath)
     }
 }

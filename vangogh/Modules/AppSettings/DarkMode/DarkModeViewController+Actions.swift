@@ -35,6 +35,38 @@ extension DarkModeViewController {
 
 extension DarkModeViewController {
 
+    /// 准备「风格表格视图」单元格
+    func prepareStyleTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+
+        let style: UserInterfaceStyle = styles[indexPath.row]
+
+        guard let cell = stylesTableView.dequeueReusableCell(withIdentifier: UserInterfaceStyleTableViewCell.reuseId) as? UserInterfaceStyleTableViewCell else {
+            fatalError("Unexpected cell type")
+        }
+
+        // 准备「标题标签」
+
+        cell.titleLabel.text = NSLocalizedString(style.title, comment: "")
+
+        // 准备「勾选视图」
+
+        let isInLightMode: Bool = UserDefaults.standard.bool(forKey: GKC.isInLightMode)
+        if style.type == .darkMode {
+            cell.checkmarkView.isHidden = isInLightMode
+        } else if style.type == .lightMode {
+            cell.checkmarkView.isHidden = !isInLightMode
+        }
+
+        return cell
+    }
+
+    /// 选择「风格表格视图」单元格
+    func selectStyleTableViewCell(indexPath: IndexPath) {
+
+        let type: UserInterfaceStyle.UserInterfaceStyleType = styles[indexPath.row].type
+        selectUserInterfaceStyle(type: type)
+    }
+
     /// 选择用户界面风格
     func selectUserInterfaceStyle(type: UserInterfaceStyle.UserInterfaceStyleType) {
 

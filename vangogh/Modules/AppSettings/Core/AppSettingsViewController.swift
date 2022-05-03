@@ -156,7 +156,7 @@ extension AppSettingsViewController: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        return prepareSettingsTableViewCell(indexPath: indexPath)
+        return prepareSettingTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -171,25 +171,6 @@ extension AppSettingsViewController: UITableViewDelegate {
     /// 选中单元格
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        selectAppSetting(settings[indexPath.row])
-    }
-}
-
-extension AppSettingsViewController {
-
-    /// 准备「设置表格视图」单元格
-    private func prepareSettingsTableViewCell(indexPath: IndexPath) -> UITableViewCell {
-
-        let setting: AppSetting = settings[indexPath.row]
-
-        guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: AppSettingTableViewCell.reuseId) as? AppSettingTableViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = setting.title
-
-        return cell
+        selectSettingTableViewCell(indexPath: indexPath)
     }
 }

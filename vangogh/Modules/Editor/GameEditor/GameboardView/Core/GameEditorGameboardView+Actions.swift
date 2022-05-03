@@ -209,13 +209,6 @@ extension GameEditorGameboardView {
     }
 
     /// 添加「穿梭器视图」
-//    func addTransitionView(_ transition: MetaTransition) {
-//
-//        guard let startScene = gameBundle.findScene(index: transition.from), let endScene = gameBundle.findScene(index: transition.to) else { return }
-//        let transitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
-//        contentView.addSubview(transitionView)
-//        transitionViewList.append(transitionView)
-//    }
     func addTransitionView(startScene: MetaScene, endScene: MetaScene) {
 
         let transitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)

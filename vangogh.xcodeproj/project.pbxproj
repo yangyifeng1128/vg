@@ -124,6 +124,7 @@
 		0F6705F52814483300034BD6 /* TransparentCoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705F42814483300034BD6 /* TransparentCoachMarkBodyView.swift */; };
 		0F6705F72814498800034BD6 /* RoundedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6705F62814498800034BD6 /* RoundedCollectionViewCell.swift */; };
 		0F684F4B2680F24200BC2FDE /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F684F4A2680F24200BC2FDE /* RoundedView.swift */; };
+		0F702A5128217862003B5302 /* GameEditorViewController+SceneExplorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F702A5028217862003B5302 /* GameEditorViewController+SceneExplorer.swift */; };
 		0F74CDEC2534738F0054D2CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F74CDEB2534738F0054D2CC /* SceneDelegate.swift */; };
 		0F74CDF4253473900054D2CC /* vangogh.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F74CDF2253473900054D2CC /* vangogh.xcdatamodeld */; };
 		0F74CDF6253473900054D2CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F74CDF5253473900054D2CC /* Assets.xcassets */; };
@@ -440,6 +441,7 @@
 		0F6705F42814483300034BD6 /* TransparentCoachMarkBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentCoachMarkBodyView.swift; sourceTree = "<group>"; };
 		0F6705F62814498800034BD6 /* RoundedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F684F4A2680F24200BC2FDE /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
+		0F702A5028217862003B5302 /* GameEditorViewController+SceneExplorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEditorViewController+SceneExplorer.swift"; sourceTree = "<group>"; };
 		0F74CDE62534738F0054D2CC /* vangogh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vangogh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F74CDEB2534738F0054D2CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0F74CDF3253473900054D2CC /* vangogh.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = vangogh.xcdatamodel; sourceTree = "<group>"; };
@@ -1088,6 +1090,7 @@
 				0F7A9985281AAC730007FB3E /* GameEditorViewController+Actions.swift */,
 				0F7A998B281AB2F50007FB3E /* GameEditorViewController+CoachMarks.swift */,
 				0F7A9987281AB08B0007FB3E /* GameEditorViewController+GameboardView.swift */,
+				0F702A5028217862003B5302 /* GameEditorViewController+SceneExplorer.swift */,
 				0F7A9983281AAB510007FB3E /* GameEditorViewController+VM.swift */,
 			);
 			path = Core;
@@ -2594,6 +2597,7 @@
 				1216849827B0FA3200D597E0 /* OrderedDictionarySlice.swift in Sources */,
 				0FB8D82626ED269C00D5C971 /* TransitionEditorViewController.swift in Sources */,
 				0F210E7D26DAADCC002CC564 /* AudioProcessingChain.swift in Sources */,
+				0F702A5128217862003B5302 /* GameEditorViewController+SceneExplorer.swift in Sources */,
 				0F38249F281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift in Sources */,
 				0FFA0ED5281590090008AC1C /* FeedbackViewController+Actions.swift in Sources */,
 				0F007F70281A426F008B1136 /* GameEditorTransitionView+Actions.swift in Sources */,

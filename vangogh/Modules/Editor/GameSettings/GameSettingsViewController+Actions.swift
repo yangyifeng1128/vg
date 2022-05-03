@@ -18,8 +18,57 @@ extension GameSettingsViewController {
 
 extension GameSettingsViewController {
 
-    /// 选择作品设置
-    func selectGameSetting(_ setting: GameSetting, cell: GameSettingTableViewCell) {
+    /// 准备「设置表格视图」单元格
+    func prepareSettingTableViewCell(indexPath: IndexPath) -> UITableViewCell {
+
+        let setting: GameSetting = settings[indexPath.row]
+
+        if setting.type == .gameThumbImage {
+
+            guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: GameSettingTableThumbImageViewCell.reuseId) as? GameSettingTableThumbImageViewCell else {
+                fatalError("Unexpected cell type")
+            }
+
+            cell.titleLabel.text = setting.title
+
+            if let thumbImage = MetaThumbManager.shared.loadGameThumbImage(gameUUID: game.uuid) {
+                cell.thumbImageView.image = thumbImage
+            } else {
+                cell.thumbImageView.image = .gameBackgroundThumb
+            }
+
+            return cell
+
+        } else {
+
+            guard let cell = settingsTableView.dequeueReusableCell(withIdentifier: GameSettingTableViewCell.reuseId) as? GameSettingTableViewCell else {
+                fatalError("Unexpected cell type")
+            }
+
+            cell.titleLabel.text = setting.title
+
+            switch setting.type {
+            case .gameTitle:
+                var infoString: String?
+                if !game.title.isEmpty {
+                    infoString = game.title
+                } else {
+                    infoString = NSLocalizedString("Untitled", comment: "")
+                }
+                cell.infoLabel.text = infoString
+                break
+            default:
+                break
+            }
+
+            return cell
+        }
+    }
+
+    /// 选择「设置表格视图」单元格
+    func selectSettingTableViewCell(indexPath: IndexPath, cell: GameSettingTableViewCell) {
+
+        let setting: GameSetting = settings[indexPath.row]
 
         switch setting.type {
         case .gameThumbImage:

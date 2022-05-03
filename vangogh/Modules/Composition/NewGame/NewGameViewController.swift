@@ -214,7 +214,7 @@ extension NewGameViewController: UICollectionViewDataSource {
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        return prepareTemplatesCollectionViewCell(indexPath: indexPath)
+        return prepareTemplateCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -223,7 +223,7 @@ extension NewGameViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        selectTemplate(templates[indexPath.item])
+        selectTemplateTableViewCell(indexPath: indexPath)
     }
 }
 
@@ -232,7 +232,7 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
     /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return prepareTemplatesCollectionViewCellSize(indexPath: indexPath)
+        return prepareTemplateCollectionViewCellSize(indexPath: indexPath)
     }
 
     /// 设置内边距
@@ -252,63 +252,5 @@ extension NewGameViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
         return VC.templateCollectionViewCellSpacing
-    }
-}
-
-extension NewGameViewController {
-
-    /// 准备模版数量
-    private func prepareTemplatesCount() -> Int {
-
-        if templates.isEmpty {
-            templatesCollectionView.showNoDataInfo(title: NSLocalizedString("NoTemplatesAvailable", comment: ""))
-        } else {
-            templatesCollectionView.hideNoDataInfo()
-        }
-
-        return templates.count
-    }
-
-    /// 准备「模版集合视图」单元格
-    private func prepareTemplatesCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
-
-        let template: MetaTemplate = templates[indexPath.item]
-
-        guard let cell = templatesCollectionView.dequeueReusableCell(withReuseIdentifier: TemplateCollectionViewCell.reuseId, for: indexPath) as? TemplateCollectionViewCell else {
-            fatalError("Unexpected cell type")
-        }
-
-        // 准备「标题标签」
-
-        cell.titleLabel.text = template.title
-
-        // 准备「缩略图视图」
-
-        let thumbURL = URL(string: "\(GUC.templateThumbsBaseURLString)/\(template.thumbFileName)")!
-        cell.thumbImageView.kf.setImage(with: thumbURL)
-
-        return cell
-    }
-
-    /// 准备「模版集合视图」单元格尺寸
-    private func prepareTemplatesCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
-
-        var numberOfCellsPerRow: Int
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            numberOfCellsPerRow = 3
-            break
-        case .pad, .mac, .tv, .carPlay, .unspecified:
-            numberOfCellsPerRow = 5
-            break
-        @unknown default:
-            numberOfCellsPerRow = 3
-            break
-        }
-
-        let cellWidth: CGFloat = ((templatesCollectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * VC.templateCollectionViewCellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
-        let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
-
-        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
