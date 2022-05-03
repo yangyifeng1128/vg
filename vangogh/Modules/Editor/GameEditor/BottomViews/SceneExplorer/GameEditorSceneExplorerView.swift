@@ -351,17 +351,10 @@ extension GameEditorSceneExplorerView {
 
         // 准备「缩略图视图」
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: s.gameBundle.uuid) {
-                DispatchQueue.main.async {
-                    cell.endSceneThumbImageView.image = thumbImage
-                }
-            } else {
-                DispatchQueue.main.async {
-                    cell.endSceneThumbImageView.image = .sceneBackgroundThumb
-                }
-            }
+        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: gameBundle.uuid) {
+            cell.endSceneThumbImageView.image = thumbImage
+        } else {
+            cell.endSceneThumbImageView.image = .sceneBackgroundThumb
         }
 
         // 准备「结束场景标题标签」

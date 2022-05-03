@@ -27,8 +27,10 @@ extension PublicationViewController {
         syncArchives() { [weak self] in
             guard let s = self else { return }
             s.loadArchives() {
-                s.archivesCollectionView.reloadData()
-                s.archivesCollectionView.refreshControl?.endRefreshing()
+                DispatchQueue.main.async {
+                    s.archivesCollectionView.reloadData()
+                    s.archivesCollectionView.refreshControl?.endRefreshing()
+                }
             }
         }
     }

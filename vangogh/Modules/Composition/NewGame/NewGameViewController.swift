@@ -76,7 +76,9 @@ class NewGameViewController: UIViewController {
         syncTemplates() { [weak self] in
             guard let s = self else { return }
             s.loadTemplates() {
-                s.templatesCollectionView.reloadData()
+                DispatchQueue.main.async {
+                    s.templatesCollectionView.reloadData()
+                }
             }
         }
     }

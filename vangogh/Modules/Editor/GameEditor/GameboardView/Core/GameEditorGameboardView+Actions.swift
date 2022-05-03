@@ -67,8 +67,26 @@ extension GameEditorGameboardView {
         unhighlightRelatedTransitionViews(sceneView: selectedSceneView)
     }
 
+    /// 更新当前选中的「场景视图」相关的「穿梭器视图」
+    func updateSelectionRelatedTransitionViews() {
+
+        guard let dataSource = gameDataSource else { return }
+        let selectedSceneIndex: Int = dataSource.selectedSceneIndex()
+        if let selectedSceneView = sceneViewList.first(where: { $0.scene.index == selectedSceneIndex }), let scene = selectedSceneView.scene {
+            for transitionView in transitionViewList {
+                if transitionView.startScene.index == scene.index {
+                    transitionView.startScene = scene
+                    transitionView.updateView()
+                } else if transitionView.endScene.index == scene.index {
+                    transitionView.endScene = scene
+                    transitionView.updateView()
+                }
+            }
+        }
+    }
+
     /// 高亮显示相关的「场景视图」
-    func highlightRelatedSceneViews(sceneView: GameEditorSceneView?) {
+    private func highlightRelatedSceneViews(sceneView: GameEditorSceneView?) {
 
         guard let sceneView = sceneView, let scene = sceneView.scene else { return }
 
@@ -84,7 +102,7 @@ extension GameEditorGameboardView {
     }
 
     /// 取消高亮显示相关的「场景视图」
-    func unhighlightRelatedSceneViews(sceneView: GameEditorSceneView?) {
+    private func unhighlightRelatedSceneViews(sceneView: GameEditorSceneView?) {
 
         guard let sceneView = sceneView, let scene = sceneView.scene else { return }
 
@@ -100,7 +118,7 @@ extension GameEditorGameboardView {
     }
 
     /// 高亮显示相关的「穿梭器视图」
-    func highlightRelatedTransitionViews(sceneView: GameEditorSceneView?) {
+    private func highlightRelatedTransitionViews(sceneView: GameEditorSceneView?) {
 
         guard let sceneView = sceneView, let scene = sceneView.scene else { return }
 
@@ -122,7 +140,7 @@ extension GameEditorGameboardView {
     }
 
     /// 取消高亮显示相关的「穿梭器视图」
-    func unhighlightRelatedTransitionViews(sceneView: GameEditorSceneView?) {
+    private func unhighlightRelatedTransitionViews(sceneView: GameEditorSceneView?) {
 
         guard let sceneView = sceneView, let scene = sceneView.scene else { return }
 
@@ -170,21 +188,21 @@ extension GameEditorGameboardView {
 extension GameEditorGameboardView {
 
     /// 更新「场景视图」标题
-    func updateSceneViewTitle(sceneIndex: Int) {
+    func updateSceneViewTitleLabel(sceneIndex: Int) {
 
         let sceneView = sceneViewList.first(where: { $0.scene.index == sceneIndex })
         sceneView?.updateTitleLabelAttributedText()
     }
 
     /// 更新「场景视图」标题
-    func updateSceneViewTitle(sceneUUID: String) {
+    func updateSceneViewTitleLabel(sceneUUID: String) {
 
         let sceneView = sceneViewList.first(where: { $0.scene.uuid == sceneUUID })
         sceneView?.updateTitleLabelAttributedText()
     }
 
     /// 更新「场景视图」缩略图
-    func updateSceneViewThumbImage(sceneUUID: String, thumbImage: UIImage) {
+    func updateSceneViewThumbImageView(sceneUUID: String, thumbImage: UIImage) {
 
         let sceneView = sceneViewList.first(where: { $0.scene.uuid == sceneUUID })
         sceneView?.thumbImageView.image = thumbImage

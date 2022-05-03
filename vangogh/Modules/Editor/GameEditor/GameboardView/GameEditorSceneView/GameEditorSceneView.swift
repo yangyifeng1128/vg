@@ -75,10 +75,8 @@ class GameEditorSceneView: RoundedView {
 
         center = scene.center
         isUserInteractionEnabled = true
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap))
-        )
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
-        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPress)))
 
         // 初始化「缩略图视图」
 

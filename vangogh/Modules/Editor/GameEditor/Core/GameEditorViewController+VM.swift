@@ -43,8 +43,26 @@ extension GameEditorViewController {
         }
     }
 
+    /// 保存内容偏移量
+    func saveContentOffset(_ contentOffset: CGPoint) {
+
+        gameBundle.contentOffset = contentOffset
+        MetaGameBundleManager.shared.save(gameBundle)
+    }
+
+    /// 保存场景
+    func saveScene(_ scene: MetaScene, completion handler: (() -> Void)? = nil) {
+
+        gameBundle.updateScene(scene)
+        MetaGameBundleManager.shared.save(gameBundle)
+
+        if let handler = handler {
+            handler()
+        }
+    }
+
     /// 保存场景标题
-    func saveSceneTitle(_ title: String, completion handler: (() -> Void)? = nil) {
+    func saveSelectedSceneTitle(_ title: String, completion handler: (() -> Void)? = nil) {
 
         guard let scene = gameBundle.selectedScene() else { return }
         scene.title = title
@@ -54,13 +72,6 @@ extension GameEditorViewController {
         if let handler = handler {
             handler()
         }
-    }
-
-    /// 保存内容偏移量
-    func saveContentOffset(_ contentOffset: CGPoint) {
-
-        gameBundle.contentOffset = contentOffset
-        MetaGameBundleManager.shared.save(gameBundle)
     }
 
     /// 删除当前选中的场景

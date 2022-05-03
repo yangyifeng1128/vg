@@ -16,7 +16,7 @@ extension SceneSettingsViewController {
 
         // 保存作品编辑器外部变更字典
 
-        GameEditorExternalChangeManager.shared.set(key: .updateSceneViewTitle, value: scene.uuid)
+        GameEditorExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid)
 
         if let handler = handler {
             handler()

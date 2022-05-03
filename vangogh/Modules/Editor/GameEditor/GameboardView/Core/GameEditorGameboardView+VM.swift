@@ -32,7 +32,7 @@ extension GameEditorGameboardView {
     }
 
     /// 删除「场景视图」
-    func deleteSelectedSceneView(completion handler: (() -> Void)? = nil) {
+    func deleteSelectionRelatedViews(completion handler: (() -> Void)? = nil) {
 
         // 获取当前选中的「场景视图」的索引和 UUID
 

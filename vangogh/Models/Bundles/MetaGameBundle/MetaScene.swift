@@ -8,9 +8,13 @@ import UIKit
 
 class MetaScene: Codable, Equatable {
 
+    /// 索引
     private(set) var index: Int
+    /// UUID
     private(set) var uuid: String
+    /// 标题
     var title: String?
+    /// 中心位置
     var center: CGPoint
 
     enum CodingKeys: String, CodingKey {
@@ -20,6 +24,7 @@ class MetaScene: Codable, Equatable {
         case center
     }
 
+    /// 初始化
     init(index: Int, uuid: String = UUID().uuidString.lowercased(), title: String? = "", center: CGPoint) {
 
         self.index = index
@@ -33,9 +38,9 @@ extension MetaScene: CustomStringConvertible {
 
     var description: String {
         if let title = title, !title.isEmpty {
-            return "\(index).\(title)\(center)"
+            return "\(index).\(title)"
         } else {
-            return "\(index)\(center)"
+            return "\(index)"
         }
     }
 }

@@ -33,98 +33,6 @@ extension GameEditorViewController {
 
 extension GameEditorViewController {
 
-    /// 重置父视图控制器
-    func resetParentViewControllers() {
-
-        // 如果刚刚从 NewGameViewController 跳转过来，则在返回上级时直接跳过 NewGameViewController
-
-        if parentType == .new {
-            guard var viewControllers = navigationController?.viewControllers else { return }
-            viewControllers.remove(at: viewControllers.count - 2)
-            navigationController?.setViewControllers(viewControllers, animated: false)
-            parentType = .draft
-        }
-    }
-
-    /// 重新加载外部变更记录
-    func reloadExternalChanges() {
-
-        let changes = GameEditorExternalChangeManager.shared.get()
-        for (key, value) in changes {
-            switch key {
-            case .updateGameTitle:
-                gameTitleLabel.text = game.title
-                break
-            case .updateSceneViewTitle:
-                guard let sceneUUID = value as? String else { continue }
-                gameboardView.updateSceneViewTitle(sceneUUID: sceneUUID)
-                break
-            case .updateSceneViewThumbImage:
-                guard let sceneUUID = value as? String else { continue }
-                if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneUUID, gameUUID: gameBundle.uuid) {
-                    gameboardView.updateSceneViewThumbImage(sceneUUID: sceneUUID, thumbImage: thumbImage)
-                }
-                break
-            case .addTransitionView:
-                guard let transition = value as? MetaTransition, let startScene = gameBundle.findScene(index: transition.from), let endScene = gameBundle.findScene(index: transition.to) else { continue }
-                gameboardView.addTransitionView(startScene: startScene, endScene: endScene)
-                break
-            }
-        }
-
-        GameEditorExternalChangeManager.shared.removeAll()
-    }
-
-    /// 重新加载作品资源包会话状态
-    func reloadGameBundleSession() {
-
-        if gameBundle.selectedSceneIndex == 0 {
-            reloadToolBarView(animated: false) { [weak self] in
-                guard let s = self else { return }
-                s.gameboardView.unhighlightSelectionRelatedViews()
-            }
-        } else {
-            reloadSceneExplorerView(animated: false) { [weak self] in
-                guard let s = self else { return nil }
-                return s.gameboardView.highlightSelectionRelatedViews()
-            }
-        }
-
-        var contentOffset: CGPoint = gameBundle.contentOffset
-        if contentOffset == GVC.defaultGameboardViewContentOffset {
-            contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
-        }
-        gameboardView.contentOffset = contentOffset
-    }
-
-    /// 显示消息
-    func showMessage() {
-
-        if let sceneSavedMessage = sceneSavedMessage {
-            let toast = Toast.default(text: sceneSavedMessage)
-            toast.show()
-            self.sceneSavedMessage = nil
-        }
-    }
-
-    /// 提示作品已保存
-    func sendGameSavedMessage() {
-
-        let title: String = (game.title.count > 8) ? game.title.prefix(8) + "..." : game.title
-        if let parent = navigationController?.viewControllers[0] as? CompositionViewController {
-            parent.draftSavedMessage = title + " " + NSLocalizedString("SavedToDrafts", comment: "")
-        }
-    }
-
-    /// 外观切换后更新视图
-    func updateViewsWhenTraitCollectionChanged() {
-
-        gameTitleLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
-    }
-}
-
-extension GameEditorViewController {
-
     /// 跳转至「发布作品控制器」
     func pushPublicationVC() {
 
@@ -197,12 +105,12 @@ extension GameEditorViewController {
                 if forceSelection {
                     s.selectSceneView(sceneView, animated: true)
                 } else {
-                    if s.gameBundle.selectedSceneIndex == 0 {
-                        s.reloadToolBarView(animated: false)
-                    } else {
-                        s.reloadSceneExplorerView(animated: false)
+                    s.reloadToolBarView(animated: false) { [weak self] in
+                        guard let s = self else { return }
+                        s.saveSelectedSceneIndex(0)
                     }
                 }
+                Logger.gameEditor.info("added scene view: \(sceneView.scene)")
             }
         }
     }
@@ -216,6 +124,7 @@ extension GameEditorViewController {
                 s.reloadSceneExplorerView(animated: false)
                 s.gameboardView.centerSceneView(scene: sceneView.scene, animated: animated) { contentOffset in
                     s.saveContentOffset(contentOffset)
+                    Logger.gameEditor.info("selected scene view: \(sceneView.scene)")
                 }
             }
         }
@@ -224,18 +133,18 @@ extension GameEditorViewController {
     /// 关闭「场景视图」
     func closeSceneView() {
 
-        let previousSelectedScene = gameBundle.selectedScene() // 暂存先前选中的场景
+        let previousSelectedScene: MetaScene? = gameBundle.selectedScene() // 暂存先前选中的场景
 
         // 重置「底部视图」
 
-        reloadToolBarView(animated: true)
-
-        // 尽量将先前选中的「场景视图」置于中央，并保存内容偏移量
-
-        if let scene = previousSelectedScene {
-            gameboardView.centerSceneView(scene: scene, animated: true) { [weak self] contentOffset in
-                guard let s = self else { return }
-                s.saveContentOffset(contentOffset)
+        reloadToolBarView(animated: true) { [weak self] in
+            guard let s = self else { return }
+            s.saveSelectedSceneIndex(0)
+            if let scene = previousSelectedScene {
+                s.gameboardView.centerSceneView(scene: scene, animated: true) { contentOffset in
+                    s.saveContentOffset(contentOffset)
+                }
+                Logger.gameEditor.info("closed scene view: \(scene)")
             }
         }
     }
@@ -271,10 +180,10 @@ extension GameEditorViewController {
                 return
             }
 
-            s.saveSceneTitle(title) {
+            s.saveSelectedSceneTitle(title) {
                 s.reloadSceneExplorerView(animated: true)
-                s.gameboardView.updateSceneViewTitle(sceneIndex: s.gameBundle.selectedSceneIndex)
-                Logger.composition.info("saved scene title: \"\(title)\"")
+                s.gameboardView.updateSceneViewTitleLabel(sceneIndex: s.gameBundle.selectedSceneIndex)
+                Logger.composition.info("updated scene title: \"\(title)\"")
             }
         }
         alert.addAction(confirmAction)
@@ -302,9 +211,15 @@ extension GameEditorViewController {
         let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
-            s.gameboardView.deleteSelectedSceneView() {
+            let previousSelectedScene: MetaScene? = s.gameBundle.selectedScene() // 暂存先前选中的场景
+            s.gameboardView.deleteSelectionRelatedViews() {
                 s.deleteSelectedScene() {
-                    s.reloadToolBarView(animated: true)
+                    s.reloadToolBarView(animated: true) {
+                        s.saveSelectedSceneIndex(0)
+                        if let scene = previousSelectedScene {
+                            Logger.gameEditor.info("deleted scene view: \(scene)")
+                        }
+                    }
                 }
             }
         }

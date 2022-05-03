@@ -4,7 +4,9 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
+import AwaitToast
 import Instructions
+import OSLog
 import SnapKit
 import UIKit
 
@@ -269,11 +271,97 @@ class GameEditorViewController: UIViewController {
 
 extension GameEditorViewController {
 
+    /// 重置父视图控制器
+    func resetParentViewControllers() {
+
+        // 如果刚刚从 NewGameViewController 跳转过来，则在返回上级时直接跳过 NewGameViewController
+
+        if parentType == .new {
+            guard var viewControllers = navigationController?.viewControllers else { return }
+            viewControllers.remove(at: viewControllers.count - 2)
+            navigationController?.setViewControllers(viewControllers, animated: false)
+            parentType = .draft
+        }
+    }
+
+    /// 重新加载外部变更记录
+    func reloadExternalChanges() {
+
+        let changes = GameEditorExternalChangeManager.shared.get()
+        for (key, value) in changes {
+            switch key {
+            case .updateGameTitle:
+                gameTitleLabel.text = game.title
+                break
+            case .updateSceneTitle:
+                guard let sceneUUID = value as? String else { continue }
+                gameboardView.updateSceneViewTitleLabel(sceneUUID: sceneUUID)
+                break
+            case .updateSceneThumbImage:
+                guard let sceneUUID = value as? String else { continue }
+                if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneUUID, gameUUID: gameBundle.uuid) {
+                    gameboardView.updateSceneViewThumbImageView(sceneUUID: sceneUUID, thumbImage: thumbImage)
+                }
+                break
+            case .addTransition:
+                guard let transition = value as? MetaTransition, let startScene = gameBundle.findScene(index: transition.from), let endScene = gameBundle.findScene(index: transition.to) else { continue }
+                gameboardView.addTransitionView(startScene: startScene, endScene: endScene)
+                break
+            }
+        }
+
+        GameEditorExternalChangeManager.shared.removeAll()
+    }
+
+    /// 重新加载作品资源包会话状态
+    func reloadGameBundleSession() {
+
+        if gameBundle.selectedSceneIndex == 0 {
+            reloadToolBarView(animated: false)
+        } else {
+            reloadSceneExplorerView(animated: false)
+        }
+
+        var contentOffset: CGPoint = gameBundle.contentOffset
+        if contentOffset == GVC.defaultGameboardViewContentOffset {
+            contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
+        }
+        gameboardView.contentOffset = contentOffset
+    }
+
+    /// 显示消息
+    func showMessage() {
+
+        if let sceneSavedMessage = sceneSavedMessage {
+            let toast = Toast.default(text: sceneSavedMessage)
+            toast.show()
+            self.sceneSavedMessage = nil
+        }
+    }
+
+    /// 提示作品已保存
+    func sendGameSavedMessage() {
+
+        let title: String = (game.title.count > 8) ? game.title.prefix(8) + "..." : game.title
+        if let parent = navigationController?.viewControllers[0] as? CompositionViewController {
+            parent.draftSavedMessage = title + " " + NSLocalizedString("SavedToDrafts", comment: "")
+        }
+    }
+
+    /// 外观切换后更新视图
+    func updateViewsWhenTraitCollectionChanged() {
+
+        gameTitleLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
+    }
+}
+
+extension GameEditorViewController {
+
     /// 重新加载「工具栏视图」
     func reloadToolBarView(animated: Bool, completion handler: (() -> Void)? = nil) {
 
-        removePreviousBottomView()
         willAddScene = false
+        removePreviousBottomView()
 
         // 初始化「工具栏视图」
 
@@ -304,26 +392,23 @@ extension GameEditorViewController {
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
-
-        if let handler = handler {
-            handler()
-        }
+        gameboardView.unhighlightSelectionRelatedViews()
 
         // 隐藏「添加穿梭器示意图视图」
 
         addTransitionDiagramView.startSceneIndexLabel.text = ""
         addTransitionDiagramView.isHidden = true
 
-        // 不选中任何场景
-
-        saveSelectedSceneIndex(0)
+        if let handler = handler {
+            handler()
+        }
     }
 
     /// 重新加载「即将添加场景视图」
     func reloadWillAddSceneView(animated: Bool, completion handler: (() -> Void)? = nil) {
 
-        removePreviousBottomView()
         willAddScene = true
+        removePreviousBottomView()
 
         // 初始化「即将添加场景视图」
 
@@ -354,26 +439,23 @@ extension GameEditorViewController {
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
-
-        if let handler = handler {
-            handler()
-        }
+        gameboardView.unhighlightSelectionRelatedViews()
 
         // 隐藏「添加穿梭器示意图视图」
 
         addTransitionDiagramView.startSceneIndexLabel.text = ""
         addTransitionDiagramView.isHidden = true
 
-        // 不选中任何场景
-
-        saveSelectedSceneIndex(0)
+        if let handler = handler {
+            handler()
+        }
     }
 
     /// 重新加载「场景探索器视图」
-    func reloadSceneExplorerView(animated: Bool, completion handler: (() -> GameEditorSceneView?)? = nil) {
+    func reloadSceneExplorerView(animated: Bool, completion handler: (() -> Void)? = nil) {
 
-        removePreviousBottomView()
         willAddScene = false
+        removePreviousBottomView()
 
         // 初始化「场景探索器视图」
 
@@ -407,11 +489,16 @@ extension GameEditorViewController {
 
         // 更新「添加穿梭器示意图视图」
 
-        if let handler = handler, let sceneView: GameEditorSceneView = handler(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: gameBundle.uuid) {
+        if let selectedSceneView = gameboardView.highlightSelectionRelatedViews(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: selectedSceneView.scene.uuid, gameUUID: gameBundle.uuid) {
             addTransitionDiagramView.startSceneView.image = thumbImage
         } else {
             addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
         }
+//        if let handler = handler, let sceneView: GameEditorSceneView = handler(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: gameBundle.uuid) {
+//            addTransitionDiagramView.startSceneView.image = thumbImage
+//        } else {
+//            addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
+//        }
         addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
         addTransitionDiagramView.isHidden = false
         let addTransitionDiagramViewLeftOffset: CGFloat = 12
@@ -421,6 +508,10 @@ extension GameEditorViewController {
             make.height.equalTo(AddTransitionDiagramView.VC.height)
             make.left.equalToSuperview().offset(addTransitionDiagramViewLeftOffset)
             make.top.equalTo(bottomViewContainer.safeAreaLayoutGuide.snp.top).offset(-addTransitionDiagramViewBottomOffset)
+        }
+
+        if let handler = handler {
+            handler()
         }
     }
 
@@ -441,5 +532,66 @@ extension GameEditorViewController {
             sceneExplorerView.removeFromSuperview()
             sceneExplorerView = nil
         }
+    }
+}
+
+extension GameEditorViewController: GameEditorToolBarViewDelegate, GameEditorWillAddSceneViewDelegate, GameEditorSceneExplorerViewDelegate {
+
+    func addSceneButtonDidTap() {
+
+        reloadWillAddSceneView(animated: true) {
+            Logger.gameEditor.info("will add scene view")
+        }
+    }
+
+    func cancelAddingSceneButtonDidTap() {
+
+        reloadToolBarView(animated: false) {
+            Logger.gameEditor.info("cancelled adding scene view")
+        }
+    }
+
+    func closeSceneButtonDidTap() {
+
+        closeSceneView()
+    }
+
+    func deleteSceneButtonDidTap() {
+
+        deleteSceneView()
+    }
+
+    func editSceneTitleButtonDidTap() {
+
+        updateSceneTitleLabel()
+    }
+
+    func sceneTitleLabelDidTap() {
+
+        updateSceneTitleLabel()
+    }
+
+    func manageTransitionsButtonDidTap() {
+
+    }
+
+    func previewSceneButtonDidTap() {
+
+        presentSceneEmulatorVC()
+    }
+
+    func editSceneButtonDidTap() {
+
+        presentSceneEditorVC()
+    }
+
+    func transitionWillDelete(_ transition: MetaTransition, completion: @escaping () -> Void) {
+
+        deleteTransitionView(transition, completion: completion)
+    }
+
+    func transitionDidSelect(_ transition: MetaTransition) {
+
+        pushTransitionEditorVC(transition: transition)
     }
 }

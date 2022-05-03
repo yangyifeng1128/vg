@@ -54,7 +54,7 @@ class MetaThumbManager: NSObject {
     //
     //
 
-    func getThumbImageFileURL(uuid: String, gameUUID: String) -> URL {
+    private func getThumbImageFileURL(uuid: String, gameUUID: String) -> URL {
 
         return getThumbImageFilesRootDirectoryURL(gameUUID: gameUUID).appendingPathComponent(uuid).appendingPathExtension("jpg")
     }

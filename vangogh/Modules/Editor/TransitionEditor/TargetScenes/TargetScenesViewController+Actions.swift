@@ -45,7 +45,7 @@ extension TargetScenesViewController {
                 MetaGameBundleManager.shared.save(s.gameBundle)
             }
 
-            GameEditorExternalChangeManager.shared.set(key: .addTransitionView, value: transition) // 保存作品编辑器外部变更字典
+            GameEditorExternalChangeManager.shared.set(key: .addTransition, value: transition) // 保存作品编辑器外部变更字典
         }
 
         // 返回父视图

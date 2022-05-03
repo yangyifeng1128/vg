@@ -59,7 +59,6 @@ class GameEditorGameboardView: UIScrollView {
     private func initViews() {
 
         initContentView()
-        initAllSceneAndTransitionViews()
     }
 }
 

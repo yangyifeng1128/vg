@@ -9,9 +9,9 @@ class GameEditorExternalChangeManager {
     /// 作品编辑器外部变更类型枚举值
     enum GameEditorExternalChangeType: Int {
         case updateGameTitle = 1
-        case updateSceneViewTitle = 2
-        case updateSceneViewThumbImage = 3
-        case addTransitionView = 4
+        case updateSceneTitle = 2
+        case updateSceneThumbImage = 3
+        case addTransition = 4
     }
 
     /// 单例

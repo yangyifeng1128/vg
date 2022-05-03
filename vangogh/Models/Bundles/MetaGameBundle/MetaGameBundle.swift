@@ -161,7 +161,6 @@ class MetaGameBundle: Codable {
                 sceneTransitions.transitions?.removeAll(where: { $0.to == selectedSceneIndex })
             }
         }
-        selectedSceneIndex = 0
     }
 
     func deleteTransition(_ transition: MetaTransition) {

@@ -30,33 +30,58 @@ extension GameEditorSceneView {
 
             let location: CGPoint = sender.location(in: superview)
             let gridWidth: CGFloat = GameEditorGameboardView.VC.gridWidth
-            let snappedLocation: CGPoint = CGPoint(x: gridWidth * floor(location.x / gridWidth), y: gridWidth * floor(location.y / gridWidth))
+            let girdSnappedLocation: CGPoint = CGPoint(x: gridWidth * floor(location.x / gridWidth), y: gridWidth * floor(location.y / gridWidth))
 
-            if view.center != snappedLocation {
+            if view.center != girdSnappedLocation {
 
-                UISelectionFeedbackGenerator().selectionChanged() // 震动反馈
+                // 震动反馈
 
-                view.center = snappedLocation
-                scene.center = view.center
-                delegate?.sceneViewIsMoving(scene: scene) // 传递 scene 对象的引用给 delegate，然后在 delegate 中矫正 scene.center
+                UISelectionFeedbackGenerator().selectionChanged()
+
+//                view.center = girdSnappedLocation
+//                scene.center = view.center
+
+//                delegate?.sceneViewIsMoving(scene: scene) // 传递 scene 对象的引用给 delegate，然后在 delegate 中矫正 scene.center
+
+                // 移动「场景视图」到作品板边缘时，停止移动
+
+//                var location: CGPoint = scene.center
+                var edgeSnappedLocation: CGPoint = girdSnappedLocation
+
+                let minX: CGFloat = GameEditorSceneView.VC.width
+                let maxX: CGFloat = GameEditorGameboardView.VC.contentViewWidth - GameEditorSceneView.VC.width
+                if edgeSnappedLocation.x < minX {
+                    edgeSnappedLocation.x = minX
+                } else if location.x > maxX {
+                    edgeSnappedLocation.x = maxX
+                }
+
+                let minY: CGFloat = GameEditorSceneView.VC.height
+                let maxY: CGFloat = GameEditorGameboardView.VC.contentViewHeight - GameEditorSceneView.VC.height
+                if edgeSnappedLocation.y < minY {
+                    edgeSnappedLocation.y = minY
+                } else if location.y > maxY {
+                    edgeSnappedLocation.y = maxY
+                }
+
+                // 最终确定「场景视图」中心位置
+                
+                if view.center != edgeSnappedLocation {
+
+                    view.center = edgeSnappedLocation
+                    scene.center = edgeSnappedLocation
+                }
             }
             break
 
         case .ended:
 
-            view.center = scene.center // 移动结束后，scene.center 已经在 delegate 中完成了矫正，这时候就可以回写给 view.center 了
+//            view.center = scene.center // 移动结束后，scene.center 已经在 delegate 中完成了矫正，这时候就可以回写给 view.center 了
             delegate?.sceneViewDidPan(scene: scene)
             break
 
         default:
             break
-        }
-    }
-
-    @objc func longPress(_ sender: UILongPressGestureRecognizer) {
-
-        if isSelected && sender.state == .began { // 处于激活状态且长按开始时，才会触发操作
-            delegate?.sceneViewDidLongPress(self)
         }
     }
 }
