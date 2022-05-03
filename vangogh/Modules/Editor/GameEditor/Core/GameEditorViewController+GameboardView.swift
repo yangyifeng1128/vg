@@ -190,7 +190,7 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
 
         let editSceneTitleAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("EditTitle", comment: ""), style: .default) { [weak self] _ in
             guard let s = self else { return }
-            s.editSceneTitle()
+            s.updateSceneTitleLabel()
         }
         alert.addAction(editSceneTitleAction)
 
@@ -198,7 +198,7 @@ extension GameEditorViewController: GameEditorSceneViewDelegate {
 
         let deleteSceneAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .default) { [weak self] _ in
             guard let s = self else { return }
-            s.deleteScene()
+            s.deleteSceneView()
         }
         alert.addAction(deleteSceneAction)
 

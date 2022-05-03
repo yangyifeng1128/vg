@@ -24,28 +24,28 @@ extension SceneSettingsViewController {
         switch setting.type {
         case .sceneThumbImage:
 
-            editSceneThumbImage()
+            updateSceneThumbImageView()
             break
 
         case .sceneTitle:
 
-            editSceneTitle(sourceView: cell.infoLabel)
+            updateSceneTitleLabel(cell.infoLabel)
             break
 
         case .aspectRatio:
 
-            editAspectRatio(sourceView: cell.infoLabel)
+            updateAspectRatioLabel(cell.infoLabel)
             break
         }
     }
 
-    /// 编辑场景缩略图
-    func editSceneThumbImage() {
+    /// 更新「场景缩略图视图」
+    func updateSceneThumbImageView() {
 
     }
 
-    /// 编辑场景标题
-    func editSceneTitle(sourceView: UIView) {
+    /// 更新「场景标题标签」
+    func updateSceneTitleLabel(_ label: UILabel) {
 
         // 创建提示框
 
@@ -90,8 +90,8 @@ extension SceneSettingsViewController {
         // 兼容 iPad 应用
 
         if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = sourceView
-            popoverController.sourceRect = sourceView.bounds
+            popoverController.sourceView = label
+            popoverController.sourceRect = label.bounds
         }
 
         // 展示提示框
@@ -99,8 +99,8 @@ extension SceneSettingsViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    /// 编辑尺寸比例
-    func editAspectRatio(sourceView: UIView) {
+    /// 更新「尺寸比例标签」
+    func updateAspectRatioLabel(_ label: UILabel) {
 
         // 创建提示框
 
@@ -128,8 +128,8 @@ extension SceneSettingsViewController {
         // 兼容 iPad 应用
 
         if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = sourceView
-            popoverController.sourceRect = sourceView.bounds
+            popoverController.sourceView = label
+            popoverController.sourceRect = label.bounds
         }
 
         // 展示提示框

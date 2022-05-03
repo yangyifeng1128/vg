@@ -24,14 +24,7 @@ extension GameEditorGameboardView {
         guard let sceneView = sceneView else { return }
         contentView.bringSubviewToFront(sceneView)
 
-        // 取消高亮显示先前选中的「场景视图」
-
-        guard let dataSource = gameDataSource else { return }
-        let previousSelectedSceneIndex: Int = dataSource.selectedSceneIndex()
-        let previousSelectedSceneView = sceneViewList.first(where: { $0.scene.index == previousSelectedSceneIndex })
-        previousSelectedSceneView?.isActive = false
-        unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
-        unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
+        unhighlightSelectionRelatedViews()
 
         if let handler = handler {
             handler(sceneView)

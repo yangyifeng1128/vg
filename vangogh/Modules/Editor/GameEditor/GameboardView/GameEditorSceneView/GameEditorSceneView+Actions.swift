@@ -55,7 +55,7 @@ extension GameEditorSceneView {
 
     @objc func longPress(_ sender: UILongPressGestureRecognizer) {
 
-        if isActive && sender.state == .began { // 处于激活状态且长按开始时，才会触发操作
+        if isSelected && sender.state == .began { // 处于激活状态且长按开始时，才会触发操作
             delegate?.sceneViewDidLongPress(self)
         }
     }

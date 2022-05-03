@@ -12,17 +12,16 @@ extension GameEditorViewController: GameEditorToolBarViewDelegate, GameEditorWil
 
         print("[GameEditor] did tap addSceneButton")
 
-//        willAddScene = true
-//        resetBottomView(sceneSelected: false, animated: true)
-        reloadWillAddSceneView(animated: true)
+        reloadWillAddSceneView(animated: true) { [weak self] in
+            guard let s = self else { return }
+            s.gameboardView.unhighlightSelectionRelatedViews()
+        }
     }
 
     func cancelAddingSceneButtonDidTap() {
 
         print("[GameEditor] did tap cancelAddingSceneButton")
 
-//        willAddScene = false
-//        resetBottomView(sceneSelected: false, animated: true)
         reloadToolBarView(animated: false)
     }
 
@@ -33,30 +32,22 @@ extension GameEditorViewController: GameEditorToolBarViewDelegate, GameEditorWil
 
     func deleteSceneButtonDidTap() {
 
-        print("[GameEditor] did tap deleteSceneButton")
-
-        deleteScene()
+        deleteSceneView()
     }
 
     func editSceneTitleButtonDidTap() {
 
-        print("[GameEditor] did tap editSceneTitleButton")
-
-        editSceneTitle()
+        updateSceneTitleLabel()
     }
 
     func sceneTitleLabelDidTap() {
 
-        print("[GameEditor] did tap editSceneTitleButton")
-
-        editSceneTitle()
+        updateSceneTitleLabel()
     }
 
     func manageTransitionsButtonDidTap() {
 
         print("[GameEditor] did tap manageTransitionsButton")
-
-        manageTransitions()
     }
 
     func previewSceneButtonDidTap() {

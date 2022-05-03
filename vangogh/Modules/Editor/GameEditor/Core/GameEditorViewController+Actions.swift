@@ -78,15 +78,17 @@ extension GameEditorViewController {
     /// 重新加载作品资源包会话状态
     func reloadGameBundleSession() {
 
-        // 重新加载「底部视图」
-
         if gameBundle.selectedSceneIndex == 0 {
-            reloadToolBarView(animated: false)
+            reloadToolBarView(animated: false) { [weak self] in
+                guard let s = self else { return }
+                s.gameboardView.unhighlightSelectionRelatedViews()
+            }
         } else {
-            reloadSceneExplorerView(animated: false)
+            reloadSceneExplorerView(animated: false) { [weak self] in
+                guard let s = self else { return nil }
+                return s.gameboardView.highlightSelectionRelatedViews()
+            }
         }
-
-        // 设置内容偏移量
 
         var contentOffset: CGPoint = gameBundle.contentOffset
         if contentOffset == GVC.defaultGameboardViewContentOffset {
@@ -116,8 +118,6 @@ extension GameEditorViewController {
 
     /// 外观切换后更新视图
     func updateViewsWhenTraitCollectionChanged() {
-
-        // 更新「作品标题标签」的图层阴影颜色
 
         gameTitleLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
     }
@@ -187,7 +187,7 @@ extension GameEditorViewController {
 
 extension GameEditorViewController {
 
-    /// 添加场景
+    /// 添加「场景视图」
     func addSceneView(center location: CGPoint, forceSelection: Bool = false) {
 
         addScene(center: location) { [weak self] scene in
@@ -198,10 +198,8 @@ extension GameEditorViewController {
                     s.selectSceneView(sceneView, animated: true)
                 } else {
                     if s.gameBundle.selectedSceneIndex == 0 {
-//                        s.resetBottomView(sceneSelected: false, animated: false)
                         s.reloadToolBarView(animated: false)
                     } else {
-//                        s.resetBottomView(sceneSelected: true, animated: false)
                         s.reloadSceneExplorerView(animated: false)
                     }
                 }
@@ -230,7 +228,6 @@ extension GameEditorViewController {
 
         // 重置「底部视图」
 
-//        resetBottomView(sceneSelected: false, animated: true)
         reloadToolBarView(animated: true)
 
         // 尽量将先前选中的「场景视图」置于中央，并保存内容偏移量
@@ -243,40 +240,8 @@ extension GameEditorViewController {
         }
     }
 
-    /// 删除「场景视图」
-    func deleteScene() {
-
-        // 创建提示框
-
-        let alert = UIAlertController(title: NSLocalizedString("DeleteScene", comment: ""), message: NSLocalizedString("DeleteSceneInfo", comment: ""), preferredStyle: .alert)
-
-        // 「确认」操作
-
-        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
-
-            guard let s = self else { return }
-            s.gameboardView.deleteSelectedSceneView() {
-                s.deleteSelectedScene() {
-//                    s.resetBottomView(sceneSelected: false, animated: true)
-                    s.reloadToolBarView(animated: true)
-                }
-            }
-        }
-        alert.addAction(confirmAction)
-
-        // 「取消」操作
-
-        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        }
-        alert.addAction(cancelAction)
-
-        // 展示提示框
-
-        present(alert, animated: true, completion: nil)
-    }
-
-    /// 编辑作品标题
-    func editSceneTitle() {
+    /// 更新「作品标题标签」
+    func updateSceneTitleLabel() {
 
         // 创建提示框
 
@@ -307,7 +272,6 @@ extension GameEditorViewController {
             }
 
             s.saveSceneTitle(title) {
-//                s.resetBottomView(sceneSelected: true, animated: true)
                 s.reloadSceneExplorerView(animated: true)
                 s.gameboardView.updateSceneViewTitle(sceneIndex: s.gameBundle.selectedSceneIndex)
                 Logger.composition.info("saved scene title: \"\(title)\"")
@@ -326,9 +290,35 @@ extension GameEditorViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    /// 管理穿梭器列表
-    func manageTransitions() {
+    /// 删除「场景视图」
+    func deleteSceneView() {
 
+        // 创建提示框
+
+        let alert = UIAlertController(title: NSLocalizedString("DeleteScene", comment: ""), message: NSLocalizedString("DeleteSceneInfo", comment: ""), preferredStyle: .alert)
+
+        // 「确认」操作
+
+        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
+
+            guard let s = self else { return }
+            s.gameboardView.deleteSelectedSceneView() {
+                s.deleteSelectedScene() {
+                    s.reloadToolBarView(animated: true)
+                }
+            }
+        }
+        alert.addAction(confirmAction)
+
+        // 「取消」操作
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        }
+        alert.addAction(cancelAction)
+
+        // 展示提示框
+
+        present(alert, animated: true, completion: nil)
     }
 
     /// 删除「穿梭器视图」

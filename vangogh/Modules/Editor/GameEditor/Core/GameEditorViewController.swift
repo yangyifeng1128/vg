@@ -25,13 +25,6 @@ class GameEditorViewController: UIViewController {
         case draft = 3
     }
 
-    /// 底部视图类型枚举值
-    enum BottomViewType: Int {
-        case toolBar = 1
-        case willAddScene = 2
-        case sceneExplorer = 3
-    }
-
     /// 引导标记控制器
     var coachMarksController: CoachMarksController!
 
@@ -140,7 +133,7 @@ class GameEditorViewController: UIViewController {
 
         super.viewDidDisappear(animated)
 
-        gameboardView.unhighlightSelectedSceneView()
+        gameboardView.unhighlightSelectionRelatedViews()
     }
 
     /// 重写用户界面风格变化处理方法
@@ -276,10 +269,13 @@ class GameEditorViewController: UIViewController {
 
 extension GameEditorViewController {
 
-    func reloadToolBarView(animated: Bool) {
+    /// 重新加载「工具栏视图」
+    func reloadToolBarView(animated: Bool, completion handler: (() -> Void)? = nil) {
 
         removePreviousBottomView()
         willAddScene = false
+
+        // 初始化「工具栏视图」
 
         bottomViewContainer.snp.updateConstraints { make -> Void in
             make.width.equalToSuperview()
@@ -302,24 +298,18 @@ extension GameEditorViewController {
             make.edges.equalToSuperview()
         }
 
-        // 更新作品板视图容器
+        // 更新「作品板视图」
 
         gameboardView.snp.remakeConstraints { make -> Void in
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
 
-        // 重置「先前选中场景」及其相关的穿梭器视图
+        if let handler = handler {
+            handler()
+        }
 
-//        if let previousSelectedSceneView = sceneViewList.first(where: { $0.vm.scene.index == GlobalViewModel.shared.gameBundle.selectedSceneIndex }) {
-//            previousSelectedSceneView.vm._isSelected.accept(false)
-//            // 取消高亮显示「先前选中场景」相关的穿梭器视图
-//            unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
-//            // 取消高亮显示「先前选中场景」相关的场景视图
-//            unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
-//        }
-
-        // 隐藏操作栏视图，包括「添加穿梭器示意图视图」
+        // 隐藏「添加穿梭器示意图视图」
 
         addTransitionDiagramView.startSceneIndexLabel.text = ""
         addTransitionDiagramView.isHidden = true
@@ -329,10 +319,13 @@ extension GameEditorViewController {
         saveSelectedSceneIndex(0)
     }
 
-    func reloadWillAddSceneView(animated: Bool) {
+    /// 重新加载「即将添加场景视图」
+    func reloadWillAddSceneView(animated: Bool, completion handler: (() -> Void)? = nil) {
 
         removePreviousBottomView()
         willAddScene = true
+
+        // 初始化「即将添加场景视图」
 
         bottomViewContainer.snp.updateConstraints { make -> Void in
             make.width.equalToSuperview()
@@ -355,24 +348,18 @@ extension GameEditorViewController {
             make.edges.equalToSuperview()
         }
 
-        // 更新作品板视图容器
+        // 更新「作品板视图」
 
         gameboardView.snp.remakeConstraints { make -> Void in
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
 
-        // 重置「先前选中场景」及其相关的穿梭器视图
+        if let handler = handler {
+            handler()
+        }
 
-//        if let previousSelectedSceneView = sceneViewList.first(where: { $0.vm.scene.index == GlobalViewModel.shared.gameBundle.selectedSceneIndex }) {
-//            previousSelectedSceneView.vm._isSelected.accept(false)
-//            // 取消高亮显示「先前选中场景」相关的穿梭器视图
-//            unhighlightRelatedTransitionViews(sceneView: previousSelectedSceneView)
-//            // 取消高亮显示「先前选中场景」相关的场景视图
-//            unhighlightRelatedSceneViews(sceneView: previousSelectedSceneView)
-//        }
-
-        // 隐藏操作栏视图，包括「添加穿梭器示意图视图」
+        // 隐藏「添加穿梭器示意图视图」
 
         addTransitionDiagramView.startSceneIndexLabel.text = ""
         addTransitionDiagramView.isHidden = true
@@ -382,10 +369,13 @@ extension GameEditorViewController {
         saveSelectedSceneIndex(0)
     }
 
-    func reloadSceneExplorerView(animated: Bool) {
+    /// 重新加载「场景探索器视图」
+    func reloadSceneExplorerView(animated: Bool, completion handler: (() -> GameEditorSceneView?)? = nil) {
 
         removePreviousBottomView()
         willAddScene = false
+
+        // 初始化「场景探索器视图」
 
         bottomViewContainer.snp.updateConstraints { make -> Void in
             make.width.equalToSuperview()
@@ -415,20 +405,13 @@ extension GameEditorViewController {
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
 
-        // 更新「当前选中场景」及其相关的穿梭器视图、场景视图
+        // 更新「添加穿梭器示意图视图」
 
-//        let sceneView = sceneViewList.first(where: { $0.vm.scene.index == GlobalViewModel.shared.gameBundle.selectedSceneIndex })
-//        sceneView?.vm._isSelected.accept(true)
-//        highlightRelatedTransitionViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的穿梭器视图
-//        highlightRelatedSceneViews(sceneView: sceneView) // 高亮显示「当前选中场景」相关的场景视图
-
-        // 显示操作栏视图，包括「添加穿梭器示意图视图」
-
-//        if let sceneView = sceneView, let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(gameUUID: gameBundle.uuid, sceneUUID: sceneView.scene.uuid) {
-//            addTransitionDiagramView.startSceneView.image = thumbImage
-//        } else {
-        addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
-//        }
+        if let handler = handler, let sceneView: GameEditorSceneView = handler(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: gameBundle.uuid) {
+            addTransitionDiagramView.startSceneView.image = thumbImage
+        } else {
+            addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
+        }
         addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
         addTransitionDiagramView.isHidden = false
         let addTransitionDiagramViewLeftOffset: CGFloat = 12
@@ -441,6 +424,7 @@ extension GameEditorViewController {
         }
     }
 
+    /// 移除先前的「底部视图」
     private func removePreviousBottomView() {
 
         if toolBarView != nil {

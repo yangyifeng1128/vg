@@ -43,13 +43,26 @@ extension GameEditorGameboardView {
         }
     }
 
+    /// 高亮显示当前选中的「场景视图」相关的视图
+    func highlightSelectionRelatedViews() -> GameEditorSceneView? {
+
+        guard let dataSource = gameDataSource else { return nil }
+        let selectedSceneIndex: Int = dataSource.selectedSceneIndex()
+        let selectedSceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.index == selectedSceneIndex })
+        selectedSceneView?.isSelected = true
+        highlightRelatedTransitionViews(sceneView: selectedSceneView)
+        highlightRelatedSceneViews(sceneView: selectedSceneView)
+
+        return selectedSceneView
+    }
+
     /// 取消高亮显示当前选中的「场景视图」相关的视图
-    func unhighlightSelectedSceneView() {
+    func unhighlightSelectionRelatedViews() {
 
         guard let dataSource = gameDataSource else { return }
         let selectedSceneIndex: Int = dataSource.selectedSceneIndex()
         let selectedSceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.index == selectedSceneIndex })
-        selectedSceneView?.isActive = false
+        selectedSceneView?.isSelected = false
         unhighlightRelatedSceneViews(sceneView: selectedSceneView)
         unhighlightRelatedTransitionViews(sceneView: selectedSceneView)
     }

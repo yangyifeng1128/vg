@@ -24,23 +24,23 @@ extension GameSettingsViewController {
         switch setting.type {
         case .gameThumbImage:
 
-            editGameThumbImage()
+            updateGameThumbImageView()
             break
 
         case .gameTitle:
 
-            editGameTitle(sourceView: cell.infoLabel)
+            updateGameTitleLabel(cell.infoLabel)
             break
         }
     }
 
-    /// 编辑作品缩略图
-    func editGameThumbImage() {
+    /// 更新「作品缩略图视图」
+    func updateGameThumbImageView() {
 
     }
 
-    /// 编辑作品标题
-    func editGameTitle(sourceView: UIView) {
+    /// 更新「作品标题标签」
+    func updateGameTitleLabel(_ label: UILabel) {
 
         // 创建提示框
 
@@ -86,8 +86,8 @@ extension GameSettingsViewController {
         // 兼容 iPad 应用
 
         if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = sourceView
-            popoverController.sourceRect = sourceView.bounds
+            popoverController.sourceView = label
+            popoverController.sourceRect = label.bounds
         }
 
         // 展示提示框
