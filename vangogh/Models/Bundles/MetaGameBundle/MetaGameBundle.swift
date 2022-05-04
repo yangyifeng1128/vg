@@ -34,16 +34,14 @@ class MetaGameBundle: Codable {
     }
     /// 穿梭器列表
     var transitions: [MetaTransition] {
-        var allTransitions = Set<MetaTransition>()
+        var allTransitions = [MetaTransition]()
         for sceneTransitions in paths {
-            guard let transitions = sceneTransitions.transitions else {
-                continue
-            }
+            guard let transitions = sceneTransitions.transitions else { continue }
             for transition in transitions {
-                allTransitions.insert(transition)
+                allTransitions.append(transition)
             }
         }
-        return Array(allTransitions)
+        return allTransitions
     }
 
     enum CodingKeys: String, CodingKey {

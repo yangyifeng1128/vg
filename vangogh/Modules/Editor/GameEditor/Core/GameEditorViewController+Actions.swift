@@ -110,7 +110,7 @@ extension GameEditorViewController {
                         s.saveSelectedSceneIndex(0)
                     }
                 }
-                Logger.gameEditor.info("added scene view: \(sceneView.scene)")
+                Logger.gameEditor.info("added scene view: \"\(sceneView.scene)\"")
             }
         }
     }
@@ -124,7 +124,7 @@ extension GameEditorViewController {
                 s.reloadSceneExplorerView(animated: false)
                 s.gameboardView.centerSceneView(scene: sceneView.scene, animated: animated) { contentOffset in
                     s.saveContentOffset(contentOffset)
-                    Logger.gameEditor.info("selected scene view: \(sceneView.scene)")
+                    Logger.gameEditor.info("selected scene view: \"\(sceneView.scene)\"")
                 }
             }
         }
@@ -144,7 +144,7 @@ extension GameEditorViewController {
                 s.gameboardView.centerSceneView(scene: scene, animated: true) { contentOffset in
                     s.saveContentOffset(contentOffset)
                 }
-                Logger.gameEditor.info("closed scene view: \(scene)")
+                Logger.gameEditor.info("closed scene view: \"\(scene)\"")
             }
         }
     }
@@ -219,7 +219,7 @@ extension GameEditorViewController {
                     s.reloadToolBarView(animated: true) {
                         s.saveSelectedSceneIndex(0)
                         if let scene = previousSelectedScene {
-                            Logger.gameEditor.info("deleted scene view: \(scene)")
+                            Logger.gameEditor.info("deleted scene view: \"\(scene)\"")
                         }
                     }
                 }
@@ -238,6 +238,16 @@ extension GameEditorViewController {
         present(alert, animated: true, completion: nil)
     }
 
+    /// 添加「穿梭器视图」
+    func addTransitionView(transition: MetaTransition) {
+
+        guard let startScene = gameBundle.findScene(index: transition.from), let endScene = gameBundle.findScene(index: transition.to) else { return }
+
+        gameboardView.addTransitionView(startScene: startScene, endScene: endScene) { transitionView in
+            Logger.gameEditor.info("added transition view: \"\(transition)\"")
+        }
+    }
+
     /// 删除「穿梭器视图」
     func deleteTransitionView(_ transition: MetaTransition) {
 
@@ -254,7 +264,7 @@ extension GameEditorViewController {
             s.gameboardView.deleteTransitionView(transition: transition) {
                 s.deleteTransition(transition) {
                     s.sceneExplorerView.reloadData()
-                    Logger.gameEditor.info("deleted transition view: \(transition)")
+                    Logger.gameEditor.info("deleted transition view: \"\(transition)\"")
                 }
             }
         }

@@ -304,8 +304,8 @@ extension GameEditorViewController {
                 }
                 break
             case .addTransition:
-                guard let transition = value as? MetaTransition, let startScene = gameBundle.findScene(index: transition.from), let endScene = gameBundle.findScene(index: transition.to) else { continue }
-                gameboardView.addTransitionView(startScene: startScene, endScene: endScene)
+                guard let transition = value as? MetaTransition else { continue }
+                addTransitionView(transition: transition)
                 break
             }
         }

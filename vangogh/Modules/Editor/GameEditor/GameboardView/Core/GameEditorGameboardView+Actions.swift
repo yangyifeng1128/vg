@@ -47,7 +47,7 @@ extension GameEditorGameboardView {
         }
 
         for index in 0..<dataSource.numberOfTransitionViews() {
-            let transitionView = dataSource.transitionView(at: index)
+            let transitionView: GameEditorTransitionView = dataSource.transitionView(at: index)
             contentView.insertSubview(transitionView, at: 0)
             transitionViewList.append(transitionView)
         }
@@ -313,11 +313,15 @@ extension GameEditorGameboardView {
     }
 
     /// 添加「穿梭器视图」
-    func addTransitionView(startScene: MetaScene, endScene: MetaScene) {
+    func addTransitionView(startScene: MetaScene, endScene: MetaScene, completion handler: ((GameEditorTransitionView) -> Void)? = nil) {
 
         let transitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
         contentView.addSubview(transitionView)
         transitionViewList.append(transitionView)
+
+        if let handler = handler {
+            handler(transitionView)
+        }
     }
 
     /// 删除「穿梭器视图」

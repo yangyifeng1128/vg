@@ -4,6 +4,7 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
+import OSLog
 import UIKit
 
 extension TransitionEditorViewController {
@@ -34,6 +35,7 @@ extension TransitionEditorViewController {
 
             s.deleteCondition(condition) {
                 s.conditionsTableView.reloadData()
+                Logger.transitionEditor.info("deleted transition condition: \"\(condition)\"")
             }
         }
         alert.addAction(confirmAction)
@@ -73,7 +75,7 @@ extension TransitionEditorViewController {
 
         // 准备「or 标签」
 
-        cell.orLabel.isHidden = indexPath.row == transition.conditions.count - 1 ? true : false
+        cell.orLabel.isHidden = (indexPath.row == transition.conditions.count - 1) ? true : false
 
         // 准备「删除按钮」
 

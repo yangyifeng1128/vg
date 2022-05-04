@@ -26,6 +26,14 @@ class MetaCondition: Codable, Equatable {
     }
 }
 
+extension MetaCondition: CustomStringConvertible {
+
+    var description: String {
+
+        return "\(sensor.key) \(operatorKey) \(value)"
+    }
+}
+
 extension MetaCondition: Hashable {
 
     func hash(into hasher: inout Hasher) {
