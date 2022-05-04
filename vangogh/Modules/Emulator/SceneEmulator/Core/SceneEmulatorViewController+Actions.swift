@@ -35,13 +35,6 @@ extension SceneEmulatorViewController {
         playOrPause()
     }
 
-    @objc func playIndicatorButtonDidTap() {
-
-        print("[SceneEmulator] did tap playIndicatorButton")
-
-        playOrPause()
-    }
-
     @objc func playerItemDidPlayToEndTime() {
 
         print("[SceneEmulator] player item did play to end time")
@@ -228,8 +221,6 @@ extension SceneEmulatorViewController {
                 playButton.isPlaying = false
                 player.pause()
 
-                view.bringSubviewToFront(playIndicatorButton)
-                playIndicatorButton.isHidden = false
                 closeButtonContainer.isHidden = false
                 progressView.isHidden = false
 
@@ -238,8 +229,6 @@ extension SceneEmulatorViewController {
                 playButton.isPlaying = true
                 player.play()
 
-                view.sendSubviewToBack(playIndicatorButton)
-                playIndicatorButton.isHidden = true
                 closeButtonContainer.isHidden = true
                 progressView.isHidden = true
             }
@@ -267,8 +256,6 @@ extension SceneEmulatorViewController {
             player.pause()
         }
 
-        view.sendSubviewToBack(playIndicatorButton)
-        playIndicatorButton.isHidden = true
         closeButtonContainer.isHidden = true
         progressView.isHidden = true
     }

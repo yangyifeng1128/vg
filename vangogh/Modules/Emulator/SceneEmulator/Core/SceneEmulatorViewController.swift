@@ -17,8 +17,6 @@ class SceneEmulatorViewController: UIViewController {
         static let playerViewPadding: CGFloat = 12
         static let playButtonWidth: CGFloat = 46
         static let playButtonImageEdgeInset: CGFloat = 9.2
-        static let playIndicatorButtonWidth: CGFloat = 80
-        static let playIndicatorButtonImageEdgeInset: CGFloat = 16
     }
 
     /// 用户界面风格偏好设置
@@ -39,8 +37,6 @@ class SceneEmulatorViewController: UIViewController {
     var progressView: SceneEmulatorProgressView!
     /// 播放按钮
     var playButton: SceneEmulatorPlayButton!
-    /// 播放提示器按钮
-    var playIndicatorButton: SceneEmulatorPlayButton!
 
     /// 渲染尺寸
     var renderSize: CGSize!
@@ -307,17 +303,6 @@ class SceneEmulatorViewController: UIViewController {
             make.width.height.equalTo(VC.playButtonWidth)
             make.left.equalToSuperview().offset(VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
-        }
-
-        // 初始化「播放提示器按钮」
-
-        playIndicatorButton = SceneEmulatorPlayButton(imageEdgeInset: VC.playIndicatorButtonImageEdgeInset)
-        playIndicatorButton.isHidden = true
-        playIndicatorButton.addTarget(self, action: #selector(playIndicatorButtonDidTap), for: .touchUpInside)
-        view.addSubview(playIndicatorButton)
-        playIndicatorButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(VC.playIndicatorButtonWidth)
-            make.center.equalToSuperview()
         }
     }
 }
