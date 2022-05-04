@@ -15,7 +15,7 @@ class DraftTableViewCell: UITableViewCell {
     enum VC {
         static let moreButtonWidth: CGFloat = 40
         static let mtimeLabelFontSize: CGFloat = 14
-        static let titleLabelFontSize: CGFloat = 18
+        static let titleLabelFontSize: CGFloat = 16
     }
 
     /// 缩略图视图

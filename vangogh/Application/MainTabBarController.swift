@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController {
 
         // 为 UITabBarItem 设置字体
 
-        // UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10, weight: .regular)], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .regular)], for: .normal)
     }
 
     /// 视图即将显示

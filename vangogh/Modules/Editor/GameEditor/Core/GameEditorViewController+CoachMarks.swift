@@ -14,7 +14,7 @@ extension GameEditorViewController {
 
         coachMarksController = CoachMarksController()
         coachMarksController.overlay.isUserInteractionEnabled = true
-        coachMarksController.overlay.backgroundColor = UIColor.systemFill.withAlphaComponent(0.8)
+        coachMarksController.overlay.backgroundColor = UIColor.systemFill.withAlphaComponent(0.6)
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
     }
