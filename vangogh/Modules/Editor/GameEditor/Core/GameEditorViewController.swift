@@ -241,7 +241,7 @@ class GameEditorViewController: UIViewController {
         gameTitleLabel = UILabel()
         gameTitleLabel.text = game.title
         gameTitleLabel.font = .systemFont(ofSize: VC.gameTitleLabelFontSize, weight: .regular)
-        gameTitleLabel.textColor = .mgLabel
+        gameTitleLabel.textColor = .secondaryLabel
         gameTitleLabel.numberOfLines = 2
         gameTitleLabel.lineBreakMode = .byTruncatingTail
         gameTitleLabel.layer.shadowOffset = .zero

@@ -23,7 +23,9 @@ class SceneEmulatorViewController: UIViewController {
 
     static let preferredUserInterfaceStyle: UIUserInterfaceStyle = .dark
 
+    /// 关闭按钮容器
     var closeButtonContainer: UIView!
+    /// 关闭按钮
     var closeButton: CircleNavigationBarButton!
 
     var noDataView: SceneEmulatorNoDataView!
