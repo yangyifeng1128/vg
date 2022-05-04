@@ -17,7 +17,7 @@ class GameEditorViewController: UIViewController {
         static let topButtonContainerWidth: CGFloat = 64
         static let topRightButtonContainerWidth: CGFloat = 52
         static let topButtonContainerPadding: CGFloat = 12
-        static let gameTitleLabelFontSize: CGFloat = 16
+        static let gameTitleLabelFontSize: CGFloat = 14
     }
 
     /// 父视图控制器类型枚举值

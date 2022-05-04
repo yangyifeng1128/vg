@@ -18,8 +18,7 @@ class SceneEditorViewController: UIViewController {
         static let topRightButtonContainerWidth: CGFloat = 52
         static let topButtonContainerPadding: CGFloat = 12
         static let sceneTitleLabelWidth: CGFloat = 160
-        static let sceneTitleLabelSmallFontSize: CGFloat = 14
-        static let sceneTitleLabelLargeFontSize: CGFloat = 16
+        static let sceneTitleLabelFontSize: CGFloat = 14
         static let workspaceViewHeight: CGFloat = 286
         static let actionBarViewHeight: CGFloat = 44
         static let playButtonHeight: CGFloat = 44
@@ -515,16 +514,7 @@ class SceneEditorViewController: UIViewController {
 
         // 准备场景索引
 
-        var sceneIndexFontSize: CGFloat
-        var sceneIndexColor: UIColor
-        if let title = scene.title, !title.isEmpty {
-            sceneIndexFontSize = VC.sceneTitleLabelSmallFontSize
-            sceneIndexColor = .secondaryLabel
-        } else {
-            sceneIndexFontSize = VC.sceneTitleLabelLargeFontSize
-            sceneIndexColor = .mgLabel!
-        }
-        let sceneIndexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: sceneIndexColor, .font: UIFont.systemFont(ofSize: sceneIndexFontSize, weight: .regular)]
+        let sceneIndexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)]
         // let trimmedGameTitleString: String = (gameTitle.count > 8) ? gameTitle.prefix(8) + "..." : gameTitle
         let sceneIndexString: NSAttributedString = NSAttributedString(string: /* trimmedGameTitleString + " -  " + */ NSLocalizedString("Scene", comment: "") + " " + scene.index.description, attributes: sceneIndexStringAttributes)
         completeSceneTitleString.append(sceneIndexString)
@@ -532,7 +522,7 @@ class SceneEditorViewController: UIViewController {
         // 准备场景标题
 
         if let title = scene.title, !title.isEmpty {
-            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: VC.sceneTitleLabelSmallFontSize, weight: .regular)]
+            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)]
             let sceneTitleString: NSAttributedString = NSAttributedString(string: "\n" + title, attributes: sceneTitleStringAttributes)
             completeSceneTitleString.append(sceneTitleString)
         }

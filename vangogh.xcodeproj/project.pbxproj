@@ -942,6 +942,14 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		0F3A4EF12822B04700E5921A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1251B0D62680657600813936 /* SceneEditorViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		0F467E6C2549561B00BC09A1 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -2235,8 +2243,8 @@
 		12FC02B6269ACC31004C32C0 /* SceneEditor */ = {
 			isa = PBXGroup;
 			children = (
-				1251B0D62680657600813936 /* SceneEditorViewController.swift */,
 				12666CE226D50FA700660A4B /* Controls */,
+				0F3A4EF12822B04700E5921A /* Core */,
 				12C2C895267F47F50070913C /* WorkspaceView */,
 			);
 			path = SceneEditor;
