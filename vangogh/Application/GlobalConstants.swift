@@ -147,6 +147,7 @@ extension UIImage {
     static let add: UIImage? = UIImage(named: "Add")
     static let addLink: UIImage? = UIImage(named: "AddLink")
     static let addNote: UIImage? = UIImage(named: "AddNote")
+    static let altRoute: UIImage? = UIImage(named: "AltRoute")
     static let animatedImage: UIImage? = UIImage(named: "AnimatedImage")
     static let answerPlus: UIImage? = UIImage(named: "AnswerPlus")
     static let arCamera: UIImage? = UIImage(named: "ARCamera")

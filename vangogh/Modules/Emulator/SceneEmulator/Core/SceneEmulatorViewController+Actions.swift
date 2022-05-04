@@ -28,6 +28,11 @@ extension SceneEmulatorViewController {
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
+    @objc func gameboardButtonDidTap() {
+
+        print("[SceneEmulator] did tap gameboardButton")
+    }
+
     @objc func playButtonDidTap() {
 
         print("[SceneEmulator] did tap playButton")
@@ -222,6 +227,7 @@ extension SceneEmulatorViewController {
                 player.pause()
 
                 closeButtonContainer.isHidden = false
+                gameboardButtonContainer.isHidden = false
                 progressView.isHidden = false
 
             } else {
@@ -230,6 +236,7 @@ extension SceneEmulatorViewController {
                 player.play()
 
                 closeButtonContainer.isHidden = true
+                gameboardButtonContainer.isHidden = true
                 progressView.isHidden = true
             }
         }
@@ -257,6 +264,7 @@ extension SceneEmulatorViewController {
         }
 
         closeButtonContainer.isHidden = true
+        gameboardButtonContainer.isHidden = true
         progressView.isHidden = true
     }
 }

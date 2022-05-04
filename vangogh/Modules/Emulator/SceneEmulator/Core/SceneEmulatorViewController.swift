@@ -27,6 +27,11 @@ class SceneEmulatorViewController: UIViewController {
     /// 关闭按钮
     var closeButton: CircleNavigationBarButton!
 
+    /// 作品板按钮容器
+    var gameboardButtonContainer: UIView!
+    /// 作品板按钮
+    var gameboardButton: CircleNavigationBarButton!
+
     var noDataView: SceneEmulatorNoDataView!
 
     /// 播放器视图
@@ -198,14 +203,7 @@ class SceneEmulatorViewController: UIViewController {
 
     private func initEmulatorRelatedViews() {
 
-        initPlayerView()
-        initNavigationBar()
-        initControls()
-    }
-
-    private func initPlayerView() {
-
-        // 初始化播放器视图
+        // 初始化「播放器视图」
 
         let renderHeight: CGFloat
         var renderWidth: CGFloat
@@ -241,7 +239,7 @@ class SceneEmulatorViewController: UIViewController {
             make.edges.equalToSuperview()
         }
 
-        // 初始化加载视图
+        // 初始化「加载视图」
 
         loadingView = LoadingView()
         view.addSubview(loadingView)
@@ -249,9 +247,6 @@ class SceneEmulatorViewController: UIViewController {
             make.width.height.equalTo(LoadingView.VC.width)
             make.center.equalToSuperview()
         }
-    }
-
-    private func initNavigationBar() {
 
         // 初始化「关闭按钮容器」
 
@@ -276,9 +271,30 @@ class SceneEmulatorViewController: UIViewController {
             make.width.height.equalTo(CircleNavigationBarButton.VC.width)
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
-    }
 
-    private func initControls() {
+        // 初始化「作品板按钮容器」
+
+        gameboardButtonContainer = UIView()
+        gameboardButtonContainer.isHidden = true
+        gameboardButtonContainer.backgroundColor = .clear
+        gameboardButtonContainer.isUserInteractionEnabled = true
+        gameboardButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gameboardButtonDidTap)))
+        view.addSubview(gameboardButtonContainer)
+        gameboardButtonContainer.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(VC.topButtonContainerWidth)
+            make.right.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        }
+
+        // 初始化「作品板按钮」
+
+        gameboardButton = CircleNavigationBarButton(icon: .altRoute, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
+        gameboardButton.addTarget(self, action: #selector(gameboardButtonDidTap), for: .touchUpInside)
+        gameboardButtonContainer.addSubview(gameboardButton)
+        gameboardButton.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
+        }
 
         // 初始化「进度视图」
 
