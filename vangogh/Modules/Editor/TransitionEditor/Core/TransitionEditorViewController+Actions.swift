@@ -20,7 +20,7 @@ extension TransitionEditorViewController {
     @objc func conditionWillDelete(sender: UIButton) {
 
         let index = sender.tag
-        let condition = conditions[index]
+        let condition = transition.conditions[index]
 
         // 创建提示框
 
@@ -32,17 +32,9 @@ extension TransitionEditorViewController {
 
             guard let s = self else { return }
 
-            // 保存「删除条件」信息
-
-            s.gameBundle.deleteCondition(transition: s.transition, condition: condition)
-            DispatchQueue.global(qos: .background).async {
-                MetaGameBundleManager.shared.save(s.gameBundle)
+            s.deleteCondition(condition) {
+                s.conditionsTableView.reloadData()
             }
-
-            // 重新加载条件
-
-            s.conditions = s.transition.conditions
-            s.conditionsTableView.reloadData()
         }
         alert.addAction(confirmAction)
 
@@ -63,13 +55,13 @@ extension TransitionEditorViewController {
     /// 准备条件数量
     func prepareConditionsCount() -> Int {
 
-        if conditions.isEmpty {
+        if transition.conditions.isEmpty {
             conditionsTableView.showNoDataInfo(title: NSLocalizedString("NoConditionsAvailable", comment: ""))
         } else {
             conditionsTableView.hideNoDataInfo()
         }
 
-        return conditions.count
+        return transition.conditions.count
     }
 
     /// 准备「条件表格视图」单元格
@@ -81,7 +73,7 @@ extension TransitionEditorViewController {
 
         // 准备「or 标签」
 
-        cell.orLabel.isHidden = indexPath.row == conditions.count - 1 ? true : false
+        cell.orLabel.isHidden = indexPath.row == transition.conditions.count - 1 ? true : false
 
         // 准备「删除按钮」
 
@@ -90,7 +82,7 @@ extension TransitionEditorViewController {
 
         // 准备「标题标签」
 
-        cell.titleLabel.attributedText = prepareConditionTitleLabelAttributedText(startScene: startScene, condition: conditions[indexPath.row])
+        cell.titleLabel.attributedText = prepareConditionTitleLabelAttributedText(startScene: startScene, condition: transition.conditions[indexPath.row])
 
         return cell
     }
@@ -154,6 +146,6 @@ extension TransitionEditorViewController {
     /// 选择「条件表格视图」单元格
     func selectConditionTableViewCell(indexPath: IndexPath) {
 
-        let _: MetaCondition = conditions[indexPath.row]
+        let _: MetaCondition = transition.conditions[indexPath.row]
     }
 }

@@ -206,8 +206,6 @@ extension CompositionViewController {
 
             let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { _ in
 
-                // 删除草稿
-
                 let draftTitle: String = draft.title
 
                 s.deleteDraft(draft) {

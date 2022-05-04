@@ -129,7 +129,7 @@ extension SceneSettingsViewController {
 
             s.saveSceneTitle(title) {
                 s.settingsTableView.reloadData()
-                Logger.composition.info("saved scene title: \"\(title)\"")
+                Logger.sceneEditor.info("saved scene title: \"\(title)\"")
             }
         }
         alert.addAction(confirmAction)
@@ -163,11 +163,10 @@ extension SceneSettingsViewController {
         for aspectRatioType in MetaSceneAspectRatioType.allCases {
             alert.addAction(UIAlertAction(title: aspectRatioType.rawValue, style: .default) { [weak self] _ in
                 guard let s = self else { return }
-                s.sceneBundle.aspectRatioType = aspectRatioType
-                DispatchQueue.global(qos: .background).async {
-                    MetaSceneBundleManager.shared.save(s.sceneBundle)
+                s.saveAspectRatioType(aspectRatioType) {
+                    s.settingsTableView.reloadData()
+                    Logger.sceneEditor.info("saved aspect ratio: \"\(aspectRatioType.rawValue)\"")
                 }
-                s.settingsTableView.reloadData()
             })
         }
 

@@ -32,6 +32,7 @@ class SceneEditorViewController: UIViewController {
         static let previewButtonTitleLabelFontSize: CGFloat = 14
     }
 
+    /// 用户界面风格偏好设置
     static let preferredUserInterfaceStyle: UIUserInterfaceStyle = .dark
 
     private var closeButtonContainer: UIView!
@@ -156,26 +157,24 @@ class SceneEditorViewController: UIViewController {
         if !timeline.videoChannel.isEmpty {
             pause()
         }
-        saveBundle()
+        saveSceneBundle()
 
-        // 提示已保存
+        // 提示场景已保存
 
-        sendSavedMessage()
+        sendSceneSavedMessage()
     }
 
-    ///
-    private func saveBundle() {
+    /// 保存场景资源包
+    private func saveSceneBundle() {
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            s.sceneBundle.currentTimeMilliseconds = s.currentTime.milliseconds() // 保存当前播放时刻
-            MetaGameBundleManager.shared.save(s.gameBundle)
-            MetaSceneBundleManager.shared.save(s.sceneBundle)
-        }
+        sceneBundle.currentTimeMilliseconds = currentTime.milliseconds()
+        MetaSceneBundleManager.shared.save(sceneBundle)
+
+        MetaGameBundleManager.shared.save(gameBundle)
     }
 
-    ///
-    private func sendSavedMessage() {
+    /// 提示场景已保存
+    private func sendSceneSavedMessage() {
 
         var message: String
         guard let scene = gameBundle.selectedScene() else { return }
@@ -699,7 +698,7 @@ extension SceneEditorViewController: TimelineToolBarViewDelegate, AddNodeItemVie
         if !timeline.videoChannel.isEmpty {
             pause()
         }
-        saveBundle()
+        saveSceneBundle()
 
         // 展示「添加组件项 Sheet 视图控制器」
 
@@ -822,7 +821,7 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
 
             MetaThumbManager.shared.saveSceneThumbImage(sceneUUID: sceneBundle.sceneUUID, gameUUID: sceneBundle.gameUUID, image: thumbImage) // 保存缩略图
 
-            GameEditorExternalChangeManager.shared.set(key: .updateSceneThumbImage, value: sceneBundle.sceneUUID) // 保存作品编辑器外部变更字典
+            GameEditorExternalChangeManager.shared.set(key: .updateSceneThumbImage, value: sceneBundle.sceneUUID) // 保存作品编辑器外部变更记录
         }
     }
 
@@ -896,7 +895,7 @@ extension SceneEditorViewController: ScenePlayerViewDelegate {
         if !timeline.videoChannel.isEmpty {
             pause()
         }
-        saveBundle()
+        saveSceneBundle()
 
         // 激活「时间线-组件项」视图
 
@@ -918,7 +917,7 @@ extension SceneEditorViewController: ScenePlayerViewDelegate {
 
         // 保存资源包
 
-        saveBundle()
+        saveSceneBundle()
     }
 }
 
@@ -1137,7 +1136,7 @@ extension SceneEditorViewController {
         if !timeline.videoChannel.isEmpty {
             pause()
         }
-        saveBundle()
+        saveSceneBundle()
     }
 
     @objc private func willEnterForeground() {

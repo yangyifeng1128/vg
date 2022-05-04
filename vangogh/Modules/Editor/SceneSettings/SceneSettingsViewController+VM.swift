@@ -14,9 +14,20 @@ extension SceneSettingsViewController {
         gameBundle.updateScene(scene)
         MetaGameBundleManager.shared.save(gameBundle)
 
-        // 保存作品编辑器外部变更字典
+        // 保存作品编辑器外部变更记录
 
         GameEditorExternalChangeManager.shared.set(key: .updateSceneTitle, value: scene.uuid)
+
+        if let handler = handler {
+            handler()
+        }
+    }
+
+    /// 保存尺寸比例类型
+    func saveAspectRatioType(_ aspectRatioType: MetaSceneAspectRatioType, completion handler: (() -> Void)? = nil) {
+
+        sceneBundle.aspectRatioType = aspectRatioType
+        MetaSceneBundleManager.shared.save(sceneBundle)
 
         if let handler = handler {
             handler()

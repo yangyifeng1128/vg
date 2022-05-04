@@ -21,6 +21,7 @@ class SceneEmulatorViewController: UIViewController {
         static let playIndicatorButtonImageEdgeInset: CGFloat = 16
     }
 
+    /// 用户界面风格偏好设置
     static let preferredUserInterfaceStyle: UIUserInterfaceStyle = .dark
 
     /// 关闭按钮容器
@@ -49,6 +50,7 @@ class SceneEmulatorViewController: UIViewController {
     /// 场景资源包
     var sceneBundle: MetaSceneBundle!
 
+    /// 作品引擎
     var gameEngine: MetaGameEngine!
 
     /// 播放器

@@ -12,7 +12,7 @@ extension GameSettingsViewController {
         game.title = title
         CoreDataManager.shared.saveContext()
 
-        // 保存作品编辑器外部变更字典
+        // 保存作品编辑器外部变更记录
 
         GameEditorExternalChangeManager.shared.set(key: .updateGameTitle, value: nil)
 

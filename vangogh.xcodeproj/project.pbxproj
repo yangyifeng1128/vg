@@ -104,6 +104,7 @@
 		0F3882DA2537373D0069A1A4 /* CodingUserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3882D92537373D0069A1A4 /* CodingUserInfoKey.swift */; };
 		0F3882E02538539A0069A1A4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3882DF2538539A0069A1A4 /* StoreKit.framework */; };
 		0F3A0C4D27B7EB240000711B /* MetaNodeEditorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A0C4C27B7EB240000711B /* MetaNodeEditorTableViewCell.swift */; };
+		0F3A4EF028227B5E00E5921A /* TransitionEditorViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */; };
 		0F3D6783271358FD006496B1 /* AddFootageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D6782271358FD006496B1 /* AddFootageButton.swift */; };
 		0F4C00FD26DA4EF900C4406C /* microphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F4C00FC26DA4EF900C4406C /* microphone.json */; };
 		0F51FAE7273ADD7800D90811 /* MetaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51FAE6273ADD7800D90811 /* MetaButton.swift */; };
@@ -420,6 +421,7 @@
 		0F3882D92537373D0069A1A4 /* CodingUserInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUserInfoKey.swift; sourceTree = "<group>"; };
 		0F3882DF2538539A0069A1A4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0F3A0C4C27B7EB240000711B /* MetaNodeEditorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeEditorTableViewCell.swift; sourceTree = "<group>"; };
+		0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransitionEditorViewController+VM.swift"; sourceTree = "<group>"; };
 		0F3D6782271358FD006496B1 /* AddFootageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFootageButton.swift; sourceTree = "<group>"; };
 		0F4C00FC26DA4EF900C4406C /* microphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = microphone.json; sourceTree = "<group>"; };
 		0F51FAE6273ADD7800D90811 /* MetaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaButton.swift; sourceTree = "<group>"; };
@@ -699,6 +701,7 @@
 				0FB8D82A26EE0F5700D5C971 /* TransitionEditorConditionTableViewCell.swift */,
 				0FB8D82526ED269C00D5C971 /* TransitionEditorViewController.swift */,
 				0F007F7E281A625D008B1136 /* TransitionEditorViewController+Actions.swift */,
+				0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2593,6 +2596,7 @@
 				1216849827B0FA3200D597E0 /* OrderedDictionarySlice.swift in Sources */,
 				0FB8D82626ED269C00D5C971 /* TransitionEditorViewController.swift in Sources */,
 				0F210E7D26DAADCC002CC564 /* AudioProcessingChain.swift in Sources */,
+				0F3A4EF028227B5E00E5921A /* TransitionEditorViewController+VM.swift in Sources */,
 				0F702A5128217862003B5302 /* GameEditorViewController+SceneExplorer.swift in Sources */,
 				0F38249F281A7DFD00A5E653 /* TargetAssetsViewController+Actions.swift in Sources */,
 				0FFA0ED5281590090008AC1C /* FeedbackViewController+Actions.swift in Sources */,

@@ -83,14 +83,14 @@ class MetaGameBundle: Codable {
     func addScene(uuid: String = UUID().uuidString.lowercased(), title: String? = "", center: CGPoint) -> MetaScene {
 
         maxSceneIndex = maxSceneIndex + 1
-        let scene = MetaScene(index: maxSceneIndex, uuid: uuid, title: title, center: center)
+        let scene: MetaScene = MetaScene(index: maxSceneIndex, uuid: uuid, title: title, center: center)
         paths.append(SceneTransitions(scene: scene))
         return scene
     }
 
     func addTransition(from: Int, to: Int, conditions: [MetaCondition]) -> MetaTransition? {
 
-        let transition = MetaTransition(from: from, to: to, conditions: conditions)
+        let transition: MetaTransition = MetaTransition(from: from, to: to, conditions: conditions)
         guard let sceneTransitions = paths.first(where: { $0.scene.index == from }) else { return nil }
         if sceneTransitions.transitions != nil {
             sceneTransitions.addTransition(transition)

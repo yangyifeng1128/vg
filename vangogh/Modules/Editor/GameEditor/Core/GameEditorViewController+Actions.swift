@@ -211,7 +211,9 @@ extension GameEditorViewController {
         let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
+
             let previousSelectedScene: MetaScene? = s.gameBundle.selectedScene() // 暂存先前选中的场景
+
             s.gameboardView.deleteSelectionRelatedViews() {
                 s.deleteSelectedScene() {
                     s.reloadToolBarView(animated: true) {
@@ -248,6 +250,7 @@ extension GameEditorViewController {
         let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
 
             guard let s = self else { return }
+
             s.gameboardView.deleteTransitionView(transition: transition) {
                 s.deleteTransition(transition) {
                     s.sceneExplorerView.reloadData()

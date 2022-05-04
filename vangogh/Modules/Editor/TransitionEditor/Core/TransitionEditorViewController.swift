@@ -45,7 +45,7 @@ class TransitionEditorViewController: UIViewController {
     /// 结束场景
     var endScene: MetaScene!
     /// 条件列表
-    var conditions: [MetaCondition]!
+//    var conditions: [MetaCondition]!
 
     /// 初始化
     init() {
@@ -60,7 +60,7 @@ class TransitionEditorViewController: UIViewController {
         self.gameBundle = gameBundle
 
         self.transition = transition
-        self.conditions = transition.conditions
+//        self.conditions = transition.conditions
 
         self.startScene = gameBundle.findScene(index: transition.from)
         self.endScene = gameBundle.findScene(index: transition.to)
