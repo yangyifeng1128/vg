@@ -296,7 +296,11 @@ class SceneEmulatorViewController: UIViewController {
 
         // 初始化「作品板按钮」
 
-        gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2, info: gameBundle.uuid)
+        var gameboardButtonInfo: String = ""
+        if let selectedScene = gameBundle.selectedScene(), let selectedSceneTitle = selectedScene.title {
+            gameboardButtonInfo = selectedSceneTitle
+        }
+        gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2, info: gameboardButtonInfo)
         gameboardButton.isHidden = true
         gameboardButton.addTarget(self, action: #selector(gameboardButtonDidTap), for: .touchUpInside)
         view.addSubview(gameboardButton)
