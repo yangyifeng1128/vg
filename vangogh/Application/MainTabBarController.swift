@@ -35,17 +35,17 @@ class MainTabBarController: UITabBarController {
     /// 初始化视图控制器
     private func initViewControllers() {
 
-        let homeVC: HomeViewController = HomeViewController()
-        let homeNav: UINavigationController = UINavigationController(rootViewController: homeVC)
-        let homeItem: UITabBarItem = UITabBarItem(title: NSLocalizedString("Play", comment: ""), image: .emulate, selectedImage: .emulate)
-        homeVC.tabBarItem = homeItem
-
         let compositionVC: CompositionViewController = CompositionViewController()
         let compositionNav: UINavigationController = UINavigationController(rootViewController: compositionVC)
         let compositionItem: UITabBarItem = UITabBarItem(title: NSLocalizedString("Compose", comment: ""), image: .compose, selectedImage: .compose)
         compositionNav.tabBarItem = compositionItem
 
-        viewControllers = [homeNav, compositionNav]
+        let homeVC: HomeViewController = HomeViewController()
+        let homeNav: UINavigationController = UINavigationController(rootViewController: homeVC)
+        let homeItem: UITabBarItem = UITabBarItem(title: NSLocalizedString("Play", comment: ""), image: .emulate, selectedImage: .emulate)
+        homeVC.tabBarItem = homeItem
+
+        viewControllers = [compositionNav, homeNav]
 
         detectFirstTimeUserIntent()
     }
@@ -55,7 +55,7 @@ class MainTabBarController: UITabBarController {
 
         if !UserDefaults.standard.bool(forKey: GKC.isOldFriend) {
             let wantsCompose: Bool = true
-            selectedIndex = wantsCompose ? 1 : 0
+            selectedIndex = wantsCompose ? 0 : 1
             UserDefaults.standard.setValue(selectedIndex, forKey: GKC.currentMainTabBarItemIndex)
             UserDefaults.standard.set(true, forKey: GKC.isOldFriend)
         } else {

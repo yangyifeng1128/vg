@@ -63,7 +63,7 @@ extension GameEditorViewController: GameEditorGameboardViewDelegate {
     func gameboardViewDidTap(location: CGPoint) {
 
         if willAddScene {
-            addSceneView(center: location, forceSelection: false)
+            addSceneView(center: location, forceSelection: true)
         } else {
             closeSceneView()
         }

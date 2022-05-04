@@ -1229,7 +1229,9 @@ extension SceneEditorViewController {
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { [weak self] status in
                 guard let s = self else { return }
-                s.pushTargetAssetsVC()
+                DispatchQueue.main.async {
+                    s.pushTargetAssetsVC()
+                }
             })
             break
         case .authorized, .limited:

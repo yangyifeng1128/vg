@@ -150,8 +150,8 @@ class AgreementsViewController: UIViewController {
         infoTextView.delegate = self
         infoTextView.attributedText = prepareInfoTextViewAttributedText()
         infoTextView.backgroundColor = .white
-        infoTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.accent!]
         infoTextView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        infoTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.accent!]
         infoTextView.isEditable = false
         infoTextView.isSelectable = true
         infoTextView.isScrollEnabled = true
