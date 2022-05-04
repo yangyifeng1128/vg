@@ -11,7 +11,6 @@ class SceneEmulatorGameboardButton: RoundedButton {
     /// 视图布局常量枚举值
     enum VC {
         static let iconViewWidth: CGFloat = 24
-        static let iconViewMarginRight: CGFloat = 12
         static let infoLabelFontSize: CGFloat = 14
     }
 
@@ -52,7 +51,7 @@ class SceneEmulatorGameboardButton: RoundedButton {
         iconView.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.iconViewWidth)
             make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-VC.iconViewMarginRight)
+            make.right.equalToSuperview().offset(-12)
         }
 
         // 初始化「信息标签」
@@ -66,7 +65,7 @@ class SceneEmulatorGameboardButton: RoundedButton {
         infoLabel.snp.makeConstraints { make -> Void in
             make.height.equalToSuperview().inset(8)
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(16)
+            make.left.equalToSuperview().offset(18)
             make.right.equalTo(iconView.snp.left).offset(-16)
         }
     }
