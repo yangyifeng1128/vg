@@ -23,6 +23,36 @@ extension GameEditorGameboardView {
 
 extension GameEditorGameboardView {
 
+    /// 重新加载数据
+    func reloadData() {
+
+        reloadAllSceneAndTransitionViews()
+    }
+
+    /// 重新加载全部「场景视图」与「穿梭器视图」
+    private func reloadAllSceneAndTransitionViews() {
+
+        guard let dataSource = gameDataSource else { return }
+
+        sceneViewList.forEach { $0.removeFromSuperview() }
+        sceneViewList.removeAll()
+
+        transitionViewList.forEach { $0.removeFromSuperview() }
+        transitionViewList.removeAll()
+
+        for index in 0..<dataSource.numberOfSceneViews() {
+            let sceneView: GameEditorSceneView = dataSource.sceneView(at: index)
+            contentView.insertSubview(sceneView, at: 0)
+            sceneViewList.append(sceneView)
+        }
+
+        for index in 0..<dataSource.numberOfTransitionViews() {
+            let transitionView = dataSource.transitionView(at: index)
+            contentView.insertSubview(transitionView, at: 0)
+            transitionViewList.append(transitionView)
+        }
+    }
+
     /// 外观切换后更新视图
     func updateViewsWhenTraitCollectionChanged() {
 
@@ -99,20 +129,6 @@ extension GameEditorGameboardView {
         }
     }
 
-    /// 更新相关的「穿梭器视图」
-    func updateRelatedTransitionViews(scene: MetaScene) {
-
-        for transitionView in transitionViewList {
-            if transitionView.startScene.index == scene.index {
-                transitionView.startScene = scene
-                transitionView.updateView()
-            } else if transitionView.endScene.index == scene.index {
-                transitionView.endScene = scene
-                transitionView.updateView()
-            }
-        }
-    }
-
     /// 高亮显示相关的「穿梭器视图」
     private func highlightRelatedTransitionViews(sceneView: GameEditorSceneView?) {
 
@@ -143,6 +159,20 @@ extension GameEditorGameboardView {
         for transitionView in transitionViewList {
             if transitionView.startScene.index == scene.index || transitionView.endScene.index == scene.index {
                 transitionView.unhighlight()
+            }
+        }
+    }
+
+    /// 更新相关的「穿梭器视图」
+    func updateRelatedTransitionViews(scene: MetaScene) {
+
+        for transitionView in transitionViewList {
+            if transitionView.startScene.index == scene.index {
+                transitionView.startScene = scene
+                transitionView.updateView()
+            } else if transitionView.endScene.index == scene.index {
+                transitionView.endScene = scene
+                transitionView.updateView()
             }
         }
     }
@@ -183,6 +213,31 @@ extension GameEditorGameboardView {
 
 extension GameEditorGameboardView {
 
+    /// 添加「场景视图」
+    func addSceneView(scene: MetaScene, completion handler: ((GameEditorSceneView) -> Void)? = nil) {
+
+        let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
+        contentView.addSubview(sceneView)
+        sceneViewList.append(sceneView)
+
+        if let handler = handler {
+            handler(sceneView)
+        }
+    }
+
+    /// 选择「场景视图」
+    func selectSceneView(_ sceneView: GameEditorSceneView?, animated: Bool, completion handler: ((GameEditorSceneView) -> Void)? = nil) {
+
+        guard let sceneView = sceneView else { return }
+        contentView.bringSubviewToFront(sceneView)
+
+        unhighlightSelectionRelatedViews()
+
+        if let handler = handler {
+            handler(sceneView)
+        }
+    }
+
     /// 更新「场景视图」标题
     func updateSceneViewTitleLabel(sceneIndex: Int) {
 
@@ -204,11 +259,94 @@ extension GameEditorGameboardView {
         sceneView?.thumbImageView.image = thumbImage
     }
 
+    /// 删除「场景视图」
+    func deleteSelectionRelatedViews(completion handler: (() -> Void)? = nil) {
+
+        // 获取当前选中的「场景视图」的索引和 UUID
+
+        guard let dataSource = gameDataSource else { return }
+        let selectedSceneIndex: Int = dataSource.selectedSceneIndex()
+
+        // 删除当前选中的「场景视图」相关的全部「穿梭器视图」
+
+        for (i, transitionView) in transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+
+            if transitionView.startScene.index == selectedSceneIndex {
+
+                // 取消高亮显示当前选中的「穿梭器视图」相关的「结束场景视图」
+
+                let endSceneView = sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
+                endSceneView?.unhighlight()
+
+                // 删除当前选中的「穿梭器视图」
+
+                transitionView.removeFromSuperview()
+                transitionViewList.remove(at: i)
+
+            } else if transitionView.endScene.index == selectedSceneIndex {
+
+                // 取消高亮显示当前选中的「穿梭器视图」相关的「开始场景视图」
+
+                let startSceneView = sceneViewList.first(where: { $0.scene.index == transitionView.startScene.index })
+                startSceneView?.unhighlight()
+
+                // 删除当前选中的「穿梭器视图」
+
+                transitionView.removeFromSuperview()
+                transitionViewList.remove(at: i)
+            }
+        }
+
+        // 删除当前选中的「场景视图」
+
+        for (i, sceneView) in sceneViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+            if sceneView.scene.index == selectedSceneIndex {
+                sceneView.removeFromSuperview()
+                sceneViewList.remove(at: i)
+                break // 找到就退出
+            }
+        }
+
+        if let handler = handler {
+            handler()
+        }
+    }
+
     /// 添加「穿梭器视图」
     func addTransitionView(startScene: MetaScene, endScene: MetaScene) {
 
         let transitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
         contentView.addSubview(transitionView)
         transitionViewList.append(transitionView)
+    }
+
+    /// 删除「穿梭器视图」
+    func deleteTransitionView(transition: MetaTransition, completion handler: (() -> Void)? = nil) {
+
+        for (i, transitionView) in transitionViewList.enumerated().reversed() { // 倒序遍历元素可保证安全删除
+
+            if transitionView.startScene.index == transition.from &&
+                transitionView.endScene.index == transition.to {
+
+                // 删除「待删除穿梭器」视图
+
+                transitionView.removeFromSuperview()
+                transitionViewList.remove(at: i)
+
+                // 取消高亮显示「待删除穿梭器」相关的「结束场景」视图
+
+                let oppositeTransitionView = transitionViewList.first(where: {
+                    $0.startScene.index == transition.to && $0.endScene.index == transition.from
+                }) // 如果存在反向的穿梭器，就不需要取消高亮显示「结束场景」视图了
+                if oppositeTransitionView == nil {
+                    let endSceneView = sceneViewList.first(where: { $0.scene.index == transitionView.endScene.index })
+                    endSceneView?.unhighlight()
+                }
+            }
+        }
+
+        if let handler = handler {
+            handler()
+        }
     }
 }

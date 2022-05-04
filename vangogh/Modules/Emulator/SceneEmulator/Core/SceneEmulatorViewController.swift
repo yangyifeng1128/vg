@@ -30,30 +30,43 @@ class SceneEmulatorViewController: UIViewController {
 
     var noDataView: SceneEmulatorNoDataView!
 
+    /// 播放器视图
     var playerView: ScenePlayerView!
+    /// 加载视图
     var loadingView: LoadingView!
+    /// 进度视图
     var progressView: SceneEmulatorProgressView!
+    /// 播放按钮
     var playButton: SceneEmulatorPlayButton!
+    /// 播放提示器按钮
     var playIndicatorButton: SceneEmulatorPlayButton!
 
+    /// 渲染尺寸
     var renderSize: CGSize!
 
+    /// 作品资源包
     var gameBundle: MetaGameBundle!
+    /// 场景资源包
     var sceneBundle: MetaSceneBundle!
 
     var gameEngine: MetaGameEngine!
 
+    /// 播放器
     var player: AVPlayer!
+    /// 播放器项
     var playerItem: AVPlayerItem!
+    /// 时间线
     var timeline: Timeline = Timeline()
+    /// 当前时刻
     var currentTime: CMTime = .zero {
         didSet {
             updateViewsWhenTimeElapsed(to: currentTime)
         }
     }
+    /// 周期时刻观察器
     var periodicTimeObserver: Any?
 
-    var needsReloadPlayer: Bool = true
+//    var needsReloadPlayer: Bool = true
 
     /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
@@ -63,9 +76,7 @@ class SceneEmulatorViewController: UIViewController {
         self.sceneBundle = sceneBundle
         self.gameBundle = gameBundle
 
-        // 初始化作品引擎
-
-        initMetaGameEngine()
+        initGameEngine()
     }
 
     required init?(coder: NSCoder) {
@@ -81,7 +92,7 @@ class SceneEmulatorViewController: UIViewController {
     }
 
     /// 初始化作品引擎
-    private func initMetaGameEngine() {
+    private func initGameEngine() {
 
         gameEngine = MetaGameEngine(rules: sceneBundle.rules)
     }
@@ -115,17 +126,17 @@ class SceneEmulatorViewController: UIViewController {
 
         super.viewDidAppear(animated)
 
-        if needsReloadPlayer && !isSceneBundleEmpty() { // （重新）加载播放器
+//        if needsReloadPlayer && !isSceneBundleEmpty() { // （重新）加载播放器
 
-            loadingView.startAnimating()
-            reloadPlayer()
+        loadingView.startAnimating()
+        reloadPlayer()
 
-        } else { // 不重新加载播放器，但是需要重新定位播放时刻
+//        } else { // 不重新加载播放器，但是需要重新定位播放时刻
 
-            if let player = player {
-                player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
-            }
-        }
+//            if let player = player {
+//                player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+//            }
+//        }
     }
 
     /// 视图即将消失
@@ -139,9 +150,9 @@ class SceneEmulatorViewController: UIViewController {
             pause()
         }
 
-        // 保存资源包
+        // 保存场景资源包
 
-        saveBundle()
+        saveSceneBundle()
     }
 
     /// 隐藏状态栏
@@ -269,20 +280,7 @@ class SceneEmulatorViewController: UIViewController {
         }
     }
 
-    //
-    //
-    // MARK: - 初始化控制器
-    //
-    //
-
     private func initControls() {
-
-        initProgressView()
-        initPlayButton()
-        initPlayIndicatorButton()
-    }
-
-    private func initProgressView() {
 
         // 初始化「进度视图」
 
@@ -296,9 +294,6 @@ class SceneEmulatorViewController: UIViewController {
             make.right.equalToSuperview().inset(VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-    }
-
-    private func initPlayButton() {
 
         // 初始化「播放按钮」
 
@@ -311,9 +306,6 @@ class SceneEmulatorViewController: UIViewController {
             make.left.equalToSuperview().offset(VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
-    }
-
-    private func initPlayIndicatorButton() {
 
         // 初始化「播放提示器按钮」
 

@@ -57,7 +57,7 @@ extension SceneEmulatorViewController {
             pause()
         }
 
-        saveBundle()
+        saveSceneBundle()
     }
 
     @objc func willEnterForeground() {
@@ -71,20 +71,9 @@ extension SceneEmulatorViewController {
 
 extension SceneEmulatorViewController {
 
-    /// 保存资源包
-    func saveBundle() {
-
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            s.sceneBundle.currentTimeMilliseconds = s.currentTime.milliseconds() // 保存当前播放时刻
-            MetaGameBundleManager.shared.save(s.gameBundle)
-            MetaSceneBundleManager.shared.save(s.sceneBundle)
-        }
-    }
-
     func reloadPlayer() {
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
 
             guard let s = self else { return }
 
@@ -104,12 +93,12 @@ extension SceneEmulatorViewController {
                 s.player = AVPlayer.init(playerItem: s.playerItem)
                 try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // 如果手机处于静音模式，则打开音频播放
             } else {
-                s.removePeriodicTimeObserver() // 移除「周期时间」监听器
+                s.removePeriodicTimeObserver() // 移除周期时刻观察器
                 NotificationCenter.default.removeObserver(s) // 移除其他全部监听器
                 s.player.replaceCurrentItem(with: s.playerItem)
             }
             s.player.seek(to: CMTimeMake(value: s.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
-            s.addPeriodicTimeObserver() // 添加「周期时间」监听器
+            s.addPeriodicTimeObserver() // 添加周期时刻观察器
             NotificationCenter.default.addObserver(s, selector: #selector(s.playerItemDidPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: s.player.currentItem) // 添加「播放完毕」监听器
             NotificationCenter.default.addObserver(s, selector: #selector(s.didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil) // 添加「进入后台」监听器
             NotificationCenter.default.addObserver(s, selector: #selector(s.willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil) // 添加「进入前台」监听器

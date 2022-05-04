@@ -87,37 +87,4 @@ extension GameEditorGameboardView {
             make.left.top.equalToSuperview()
         }
     }
-
-    /// 初始化全部「场景视图」与「穿梭器视图」
-    private func initAllSceneAndTransitionViews() {
-
-        guard let dataSource = gameDataSource else { return }
-
-        for index in 0..<dataSource.numberOfSceneViews() {
-            let sceneView: GameEditorSceneView = dataSource.sceneView(at: index)
-            contentView.insertSubview(sceneView, at: 0)
-            sceneViewList.append(sceneView)
-        }
-
-        for index in 0..<dataSource.numberOfTransitionViews() {
-            let transitionView = dataSource.transitionView(at: index)
-            contentView.insertSubview(transitionView, at: 0)
-            transitionViewList.append(transitionView)
-        }
-    }
-}
-
-extension GameEditorGameboardView {
-
-    /// 重新加载数据
-    func reloadData() {
-
-        sceneViewList.forEach { $0.removeFromSuperview() }
-        sceneViewList.removeAll()
-
-        transitionViewList.forEach { $0.removeFromSuperview() }
-        transitionViewList.removeAll()
-
-        initAllSceneAndTransitionViews()
-    }
 }

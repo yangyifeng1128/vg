@@ -40,17 +40,10 @@ extension TargetScenesViewController {
 
         // 准备「缩略图视图」
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let s = self else { return }
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: targetScene.uuid, gameUUID: s.gameBundle.uuid) {
-                DispatchQueue.main.async {
-                    cell.thumbImageView.image = thumbImage
-                }
-            } else {
-                DispatchQueue.main.async {
-                    cell.thumbImageView.image = .sceneBackgroundThumb
-                }
-            }
+        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: targetScene.uuid, gameUUID: gameBundle.uuid) {
+            cell.thumbImageView.image = thumbImage
+        } else {
+            cell.thumbImageView.image = .sceneBackgroundThumb
         }
 
         // 准备「索引标签」
