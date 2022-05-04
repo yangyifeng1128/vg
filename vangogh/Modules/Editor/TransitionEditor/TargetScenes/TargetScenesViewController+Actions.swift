@@ -67,11 +67,10 @@ extension TargetScenesViewController {
         // 准备场景标题
 
         var titleString: NSAttributedString
+        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
         if let title = scene.title, !title.isEmpty {
-            let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
             titleString = NSAttributedString(string: title, attributes: titleStringAttributes)
         } else {
-            let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
             titleString = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""), attributes: titleStringAttributes)
         }
         completeTitleString.append(titleString)

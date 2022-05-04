@@ -82,7 +82,7 @@ class TargetSceneTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.left.equalTo(thumbImageView.snp.right).offset(12)
-            make.right.equalToSuperview().offset(-24)
+            make.right.equalToSuperview().offset(-40)
             make.top.bottom.equalTo(thumbImageView)
         }
 
