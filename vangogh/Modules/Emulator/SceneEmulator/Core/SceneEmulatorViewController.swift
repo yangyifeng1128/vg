@@ -296,8 +296,8 @@ class SceneEmulatorViewController: UIViewController {
 
         // 初始化「作品板按钮」
 
-        var gameboardButtonInfo: String = ""
-        if let selectedScene = gameBundle.selectedScene(), let selectedSceneTitle = selectedScene.title {
+        var gameboardButtonInfo: String = NSLocalizedString("Untitled", comment: "")
+        if let selectedScene = gameBundle.selectedScene(), let selectedSceneTitle = selectedScene.title, !selectedSceneTitle.isEmpty {
             gameboardButtonInfo = selectedSceneTitle
         }
         gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2, info: gameboardButtonInfo)
