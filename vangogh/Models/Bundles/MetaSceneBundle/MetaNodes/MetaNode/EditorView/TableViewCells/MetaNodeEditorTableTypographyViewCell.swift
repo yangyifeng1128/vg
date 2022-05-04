@@ -72,8 +72,8 @@ class MetaNodeEditorTableTypographyViewCell: UITableViewCell {
         infoLabel.lineBreakMode = .byTruncatingTail
         infoView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in
-            make.left.equalToSuperview().offset(12)
             make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(12)
         }
     }
 

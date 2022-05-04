@@ -105,6 +105,7 @@
 		0F3882E02538539A0069A1A4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3882DF2538539A0069A1A4 /* StoreKit.framework */; };
 		0F3A0C4D27B7EB240000711B /* MetaNodeEditorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A0C4C27B7EB240000711B /* MetaNodeEditorTableViewCell.swift */; };
 		0F3A4EF028227B5E00E5921A /* TransitionEditorViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */; };
+		0F3A4EF42822D4BB00E5921A /* SceneEmulatorGameboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */; };
 		0F3D6783271358FD006496B1 /* AddFootageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D6782271358FD006496B1 /* AddFootageButton.swift */; };
 		0F4C00FD26DA4EF900C4406C /* microphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F4C00FC26DA4EF900C4406C /* microphone.json */; };
 		0F51FAE7273ADD7800D90811 /* MetaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51FAE6273ADD7800D90811 /* MetaButton.swift */; };
@@ -422,6 +423,7 @@
 		0F3882DF2538539A0069A1A4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0F3A0C4C27B7EB240000711B /* MetaNodeEditorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeEditorTableViewCell.swift; sourceTree = "<group>"; };
 		0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransitionEditorViewController+VM.swift"; sourceTree = "<group>"; };
+		0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorGameboardButton.swift; sourceTree = "<group>"; };
 		0F3D6782271358FD006496B1 /* AddFootageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFootageButton.swift; sourceTree = "<group>"; };
 		0F4C00FC26DA4EF900C4406C /* microphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = microphone.json; sourceTree = "<group>"; };
 		0F51FAE6273ADD7800D90811 /* MetaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaButton.swift; sourceTree = "<group>"; };
@@ -740,7 +742,9 @@
 			isa = PBXGroup;
 			children = (
 				0FC38687281FADB800823916 /* Core */,
-				0FB8D82726EDEA0C00D5C971 /* Controls */,
+				0F3A4EF22822D4A700E5921A /* GameboardButton */,
+				0F1FBF2827402DA500289748 /* PlayButton */,
+				0F1FBF2927402DB400289748 /* ProgressView */,
 			);
 			path = SceneEmulator;
 			sourceTree = "<group>";
@@ -948,6 +952,14 @@
 				1251B0D62680657600813936 /* SceneEditorViewController.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		0F3A4EF22822D4A700E5921A /* GameboardButton */ = {
+			isa = PBXGroup;
+			children = (
+				0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */,
+			);
+			path = GameboardButton;
 			sourceTree = "<group>";
 		};
 		0F467E6C2549561B00BC09A1 /* CoreData */ = {
@@ -1508,15 +1520,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		0FB8D82726EDEA0C00D5C971 /* Controls */ = {
-			isa = PBXGroup;
-			children = (
-				0F1FBF2827402DA500289748 /* PlayButton */,
-				0F1FBF2927402DB400289748 /* ProgressView */,
-			);
-			path = Controls;
-			sourceTree = "<group>";
-		};
 		0FBEFF4A254A82D600C5EB30 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -2050,14 +2053,6 @@
 			path = MetaThumb;
 			sourceTree = "<group>";
 		};
-		12666CE226D50FA700660A4B /* Controls */ = {
-			isa = PBXGroup;
-			children = (
-				0F32AE5E27551F1200BC1955 /* PlayButton */,
-			);
-			path = Controls;
-			sourceTree = "<group>";
-		};
 		1269E7A4267DDABB0077D05C /* MetaGameBundle */ = {
 			isa = PBXGroup;
 			children = (
@@ -2243,7 +2238,7 @@
 		12FC02B6269ACC31004C32C0 /* SceneEditor */ = {
 			isa = PBXGroup;
 			children = (
-				12666CE226D50FA700660A4B /* Controls */,
+				0F32AE5E27551F1200BC1955 /* PlayButton */,
 				0F3A4EF12822B04700E5921A /* Core */,
 				12C2C895267F47F50070913C /* WorkspaceView */,
 			);
@@ -2417,6 +2412,7 @@
 				0F210E4E26DA905C002CC564 /* GameEmulatorViewController.swift in Sources */,
 				12C383B926AD8E60006AFA7F /* PublicationViewController.swift in Sources */,
 				12349DA7271D5F8E00BC4626 /* MetaText.swift in Sources */,
+				0F3A4EF42822D4BB00E5921A /* SceneEmulatorGameboardButton.swift in Sources */,
 				12216E3B26DB2B6000F5E0DA /* MetaSceneBundleManager.swift in Sources */,
 				122748A326821FD90002684F /* MetaTransition.swift in Sources */,
 				0FC38686281FADAD00823916 /* SceneEmulatorViewController+Actions.swift in Sources */,

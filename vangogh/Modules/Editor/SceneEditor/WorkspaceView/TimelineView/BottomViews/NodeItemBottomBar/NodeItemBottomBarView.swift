@@ -111,8 +111,8 @@ class NodeItemBottomBarView: BorderedView {
         goBackView.addSubview(goBackIconView)
         goBackIconView.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.goBackIconViewWidth)
-            make.left.equalToSuperview().offset(12)
             make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(12)
         }
 
         let goBackTitleLabel: UILabel = UILabel()
@@ -121,9 +121,9 @@ class NodeItemBottomBarView: BorderedView {
         goBackTitleLabel.textColor = .secondaryLabel
         goBackView.addSubview(goBackTitleLabel)
         goBackTitleLabel.snp.makeConstraints { make -> Void in
+            make.centerY.equalToSuperview()
             make.left.equalTo(goBackIconView.snp.right).offset(4)
             make.right.equalToSuperview()
-            make.centerY.equalToSuperview()
         }
     }
 }

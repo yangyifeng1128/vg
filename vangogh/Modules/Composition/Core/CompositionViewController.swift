@@ -127,9 +127,9 @@ class CompositionViewController: UIViewController {
             break
         }
         composeButton.snp.makeConstraints { make -> Void in
-            make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(composeButtonHeight)
             make.centerY.equalToSuperview()
+            make.left.right.equalToSuperview().inset(16)
         }
 
         // 初始化「草稿视图」

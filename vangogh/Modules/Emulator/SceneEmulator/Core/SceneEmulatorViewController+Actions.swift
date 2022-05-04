@@ -227,7 +227,7 @@ extension SceneEmulatorViewController {
                 player.pause()
 
                 closeButtonContainer.isHidden = false
-                gameboardButtonContainer.isHidden = false
+                gameboardButton.isHidden = false
                 progressView.isHidden = false
 
             } else {
@@ -236,7 +236,7 @@ extension SceneEmulatorViewController {
                 player.play()
 
                 closeButtonContainer.isHidden = true
-                gameboardButtonContainer.isHidden = true
+                gameboardButton.isHidden = true
                 progressView.isHidden = true
             }
         }
@@ -264,7 +264,7 @@ extension SceneEmulatorViewController {
         }
 
         closeButtonContainer.isHidden = true
-        gameboardButtonContainer.isHidden = true
+        gameboardButton.isHidden = true
         progressView.isHidden = true
     }
 }

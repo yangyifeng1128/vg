@@ -27,11 +27,6 @@ class SceneEmulatorViewController: UIViewController {
     /// 关闭按钮
     var closeButton: CircleNavigationBarButton!
 
-    /// 作品板按钮容器
-    var gameboardButtonContainer: UIView!
-    /// 作品板按钮
-    var gameboardButton: CircleNavigationBarButton!
-
     var noDataView: SceneEmulatorNoDataView!
 
     /// 播放器视图
@@ -40,8 +35,11 @@ class SceneEmulatorViewController: UIViewController {
     var loadingView: LoadingView!
     /// 进度视图
     var progressView: SceneEmulatorProgressView!
+
     /// 播放按钮
     var playButton: SceneEmulatorPlayButton!
+    /// 作品板按钮
+    var gameboardButton: SceneEmulatorGameboardButton!
 
     /// 渲染尺寸
     var renderSize: CGSize!
@@ -272,30 +270,6 @@ class SceneEmulatorViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化「作品板按钮容器」
-
-        gameboardButtonContainer = UIView()
-        gameboardButtonContainer.isHidden = true
-        gameboardButtonContainer.backgroundColor = .clear
-        gameboardButtonContainer.isUserInteractionEnabled = true
-        gameboardButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gameboardButtonDidTap)))
-        view.addSubview(gameboardButtonContainer)
-        gameboardButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(VC.topButtonContainerWidth)
-            make.right.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-        }
-
-        // 初始化「作品板按钮」
-
-        gameboardButton = CircleNavigationBarButton(icon: .altRoute, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
-        gameboardButton.addTarget(self, action: #selector(gameboardButtonDidTap), for: .touchUpInside)
-        gameboardButtonContainer.addSubview(gameboardButton)
-        gameboardButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
-        }
-
         // 初始化「进度视图」
 
         progressView = SceneEmulatorProgressView()
@@ -304,9 +278,8 @@ class SceneEmulatorViewController: UIViewController {
         view.addSubview(progressView)
         progressView.snp.makeConstraints { make -> Void in
             make.height.equalTo(SceneEmulatorProgressView.VC.height)
-            make.left.equalTo(VC.playButtonWidth + VC.playerViewPadding * 2)
-            make.right.equalToSuperview().inset(VC.playerViewPadding)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.left.right.equalToSuperview().inset(VC.playerViewPadding)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-80)
         }
 
         // 初始化「播放按钮」
@@ -318,6 +291,19 @@ class SceneEmulatorViewController: UIViewController {
         playButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.playButtonWidth)
             make.left.equalToSuperview().offset(VC.playerViewPadding)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
+        }
+
+        // 初始化「作品板按钮」
+
+        gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2, info: gameBundle.uuid)
+        gameboardButton.isHidden = true
+        gameboardButton.addTarget(self, action: #selector(gameboardButtonDidTap), for: .touchUpInside)
+        view.addSubview(gameboardButton)
+        gameboardButton.snp.makeConstraints { make -> Void in
+            make.height.equalTo(VC.playButtonWidth)
+            make.left.equalTo(playButton.snp.right).offset(VC.playerViewPadding)
+            make.right.equalToSuperview().offset(-VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
     }

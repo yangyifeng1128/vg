@@ -82,8 +82,9 @@ class TargetSceneTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.left.equalTo(thumbImageView.snp.right).offset(12)
+            make.height.equalTo(thumbImageView)
             make.right.equalToSuperview().offset(-40)
-            make.top.bottom.equalTo(thumbImageView)
+            make.top.equalTo(thumbImageView)
         }
 
         // 初始化「chevron 视图」

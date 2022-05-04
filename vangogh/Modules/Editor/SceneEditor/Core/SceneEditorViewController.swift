@@ -452,8 +452,9 @@ class SceneEditorViewController: UIViewController {
         actionBarView.addSubview(currentTimeLabel)
         currentTimeLabel.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.currentTimeLabelWidth)
+            make.height.equalToSuperview()
             make.left.equalToSuperview().offset(12)
-            make.top.bottom.equalToSuperview()
+            make.top.equalToSuperview()
         }
 
         let timeSeparatorLabel: UILabel = UILabel()
