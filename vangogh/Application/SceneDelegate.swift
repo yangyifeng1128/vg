@@ -30,10 +30,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             overrideUserInterfaceStyle(window: window)
 
-            // 设置「标签栏」为根视图控制器
+            // 设置根视图控制器
 
-            setTabBarAsRootController(window: window)
-            // setNavigationBarAsRootController(window: window)
+            // setTabBarAsRootController(window: window)
+            setNavigationBarAsRootController(window: window)
 
             // 显示窗体
 

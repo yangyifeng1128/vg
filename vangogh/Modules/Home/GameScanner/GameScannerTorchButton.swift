@@ -37,7 +37,7 @@ class GameScannerTorchButton: UIButton {
 
     /// 激活状态
     var isActive: Bool = false {
-        willSet {
+        didSet {
             setToggled()
         }
     }
@@ -71,6 +71,8 @@ class GameScannerTorchButton: UIButton {
         setToggled()
 
         backgroundColor = GVC.defaultSceneControlBackgroundColor
+        tintColor = .white
+        imageView?.tintColor = .white
         adjustsImageWhenHighlighted = false
     }
 
@@ -88,14 +90,10 @@ class GameScannerTorchButton: UIButton {
         if isActive {
 
             setBackgroundImage(torchImage, for: .normal)
-            tintColor = .white
-            imageView?.tintColor = .white
 
         } else {
 
             setBackgroundImage(torchOffImage, for: .normal)
-            tintColor = .gray
-            imageView?.tintColor = .gray
         }
     }
 }
