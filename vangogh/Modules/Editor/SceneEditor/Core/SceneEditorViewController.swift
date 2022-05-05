@@ -523,7 +523,7 @@ class SceneEditorViewController: UIViewController {
         // 准备场景标题
 
         if let title = scene.title, !title.isEmpty {
-            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)]
+            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: VC.sceneTitleLabelFontSize, weight: .regular)]
             let sceneTitleString: NSAttributedString = NSAttributedString(string: "\n" + title, attributes: sceneTitleStringAttributes)
             completeSceneTitleString.append(sceneTitleString)
         }

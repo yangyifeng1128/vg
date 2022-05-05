@@ -69,6 +69,40 @@ extension SceneEmulatorViewController {
 
 extension SceneEmulatorViewController {
 
+    /// 准备「场景标题标签」文本
+    func prepareGameboardButtonInfoLabelAttributedText() -> NSMutableAttributedString {
+
+        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+
+        guard let scene = gameBundle.selectedScene() else { return completeTitleString }
+
+        // 准备场景索引
+
+        let indexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
+        let indexString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Scene", comment: "") + " " + scene.index.description, attributes: indexStringAttributes)
+        completeTitleString.append(indexString)
+
+        // 准备场景标题
+
+        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
+        var titleString: NSAttributedString
+        if let title = scene.title, !title.isEmpty {
+            titleString = NSAttributedString(string: "  " + title, attributes: titleStringAttributes)
+            completeTitleString.append(titleString)
+        }
+
+        // 准备段落样式
+
+        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
+
+        return completeTitleString
+    }
+}
+
+extension SceneEmulatorViewController {
+
     func reloadPlayer() {
 
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in

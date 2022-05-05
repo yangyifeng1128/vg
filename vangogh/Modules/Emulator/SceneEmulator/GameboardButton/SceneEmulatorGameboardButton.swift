@@ -19,15 +19,10 @@ class SceneEmulatorGameboardButton: RoundedButton {
     /// 信息标签
     var infoLabel: UILabel!
 
-    /// 信息
-    private var info: String!
-
     /// 初始化
-    init(cornerRadius: CGFloat, info: String) {
+    override init(cornerRadius: CGFloat) {
 
         super.init(cornerRadius: cornerRadius)
-
-        self.info = info
 
         initViews()
     }
@@ -57,7 +52,6 @@ class SceneEmulatorGameboardButton: RoundedButton {
         // 初始化「信息标签」
 
         infoLabel = UILabel()
-        infoLabel.text = info
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .mgLabel
         infoLabel.lineBreakMode = .byTruncatingTail

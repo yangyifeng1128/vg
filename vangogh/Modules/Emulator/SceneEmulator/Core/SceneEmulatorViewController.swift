@@ -298,18 +298,15 @@ class SceneEmulatorViewController: UIViewController {
 
         // 初始化「作品板按钮」
 
-        var gameboardButtonInfo: String = NSLocalizedString("Scene", comment: "") + " " + gameBundle.selectedSceneIndex.description
-        if let scene = gameBundle.selectedScene(), let sceneTitle = scene.title, !sceneTitle.isEmpty {
-            gameboardButtonInfo.append(" " + sceneTitle)
-        }
-        gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2, info: gameboardButtonInfo)
+        gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2)
         gameboardButton.isHidden = true
+        gameboardButton.infoLabel.attributedText = prepareGameboardButtonInfoLabelAttributedText()
         gameboardButton.addTarget(self, action: #selector(gameboardButtonDidTap), for: .touchUpInside)
         view.addSubview(gameboardButton)
         gameboardButton.snp.makeConstraints { make -> Void in
             make.height.equalTo(VC.playButtonWidth)
             make.left.equalTo(playButton.snp.right).offset(VC.playerViewPadding)
-            make.right.equalToSuperview().offset(-VC.playerViewPadding)
+            make.right.equalToSuperview().offset(-VC.playerViewPadding * 2)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
     }
