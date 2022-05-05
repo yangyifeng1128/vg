@@ -101,8 +101,8 @@
 "SceneThumbImage" = "Scene Thumb Image";
 "SceneTitle" = "Scene Title";
 "SelectManually" = "Select manually";
-"SelectTargetScene" = "Select the target scene from the list below";
-"SelectTemplate" = "or select a template below to start";
+"SelectTargetScene" = "Select a target scene from the list below";
+"SelectTemplate" = "Or select a template below to start";
 "StartComposing" = "Start Composing";
 "TermsOfService" = "Terms of Service";
 "Then" = ", THEN";
@@ -115,7 +115,7 @@
 
 "Hint_GameEditor_Back" = "Return";
 "Hint_GameEditor_GameSettings" = "Game Settings";
-"Hint_GameEditor_AddScene" = "Insert a New Scene";
+"Hint_GameEditor_AddScene" = "Insert a New Scene to Start";
 
 // ----- ToolBarItems  -----
 
