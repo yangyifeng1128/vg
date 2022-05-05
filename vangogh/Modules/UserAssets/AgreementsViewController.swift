@@ -153,7 +153,7 @@ class AgreementsViewController: UIViewController {
         infoTextView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         infoTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.accent!]
         infoTextView.isEditable = false
-        infoTextView.isSelectable = false
+        infoTextView.isSelectable = true
         infoTextView.isScrollEnabled = true
         contentView.addSubview(infoTextView)
         infoTextView.snp.makeConstraints { make -> Void in

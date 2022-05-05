@@ -81,10 +81,6 @@ extension GameEditorViewController: CoachMarksControllerDataSource {
             // coachMark.isUserInteractionEnabledInsideCutoutPath = true
             break
         case 2:
-            coachMark = coachMarksController.helper.makeCoachMark(for: publishButton, pointOfInterest: publishButton.center, cutoutPathMaker: circularCutoutPathMaker)
-            // coachMark.isUserInteractionEnabledInsideCutoutPath = true
-            break
-        case 3:
             coachMark = coachMarksController.helper.makeCoachMark(for: bottomViewContainer, pointOfInterest: bottomViewContainer.center, cutoutPathMaker: flatCutoutPathMaker)
             break
         default:
@@ -176,13 +172,13 @@ extension GameEditorViewController: CoachMarksControllerDelegate {
 
         // 暂停引导，等待用户下一步操作
 
-        if index == 3 {
-            // coachMarksController.flow.pause(and: .hideInstructions)
-        }
+        // if index == 2 {
+        // coachMarksController.flow.pause(and: .hideInstructions)
+        // }
 
         // 结束引导标记
 
-        if index == 3 {
+        if index == 2 {
             UserDefaults.standard.set(true, forKey: GKC.firstTourOfGameEditorEnded)
         }
     }

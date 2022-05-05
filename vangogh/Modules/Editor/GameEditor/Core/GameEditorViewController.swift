@@ -33,7 +33,7 @@ class GameEditorViewController: UIViewController {
     /// 返回按钮
     var backButton: CircleNavigationBarButton!
     /// 发布按钮
-    var publishButton: CircleNavigationBarButton!
+    // var publishButton: CircleNavigationBarButton!
     /// 作品设置按钮
     var gameSettingsButton: CircleNavigationBarButton!
     /// 作品标题标签
@@ -186,29 +186,29 @@ class GameEditorViewController: UIViewController {
 
         // 初始化「发布按钮容器」
 
-        let publishButtonContainer: UIView = UIView()
-        publishButtonContainer.backgroundColor = .clear
-        publishButtonContainer.isUserInteractionEnabled = true
-        publishButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(publishButtonDidTap)))
-        view.addSubview(publishButtonContainer)
-        let publishButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth
-        publishButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.equalTo(VC.topRightButtonContainerWidth)
-            make.height.equalTo(VC.topButtonContainerWidth)
-            make.left.equalToSuperview().offset(publishButtonContainerLeft)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-        }
+        // let publishButtonContainer: UIView = UIView()
+        // publishButtonContainer.backgroundColor = .clear
+        // publishButtonContainer.isUserInteractionEnabled = true
+        // publishButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(publishButtonDidTap)))
+        // view.addSubview(publishButtonContainer)
+        // let publishButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth
+        // publishButtonContainer.snp.makeConstraints { make -> Void in
+        //     make.width.equalTo(VC.topRightButtonContainerWidth)
+        //     make.height.equalTo(VC.topButtonContainerWidth)
+        //     make.left.equalToSuperview().offset(publishButtonContainerLeft)
+        //     make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        // }
 
         // 初始化「发布按钮」
 
-        publishButton = CircleNavigationBarButton(icon: .publish, backgroundColor: .accent, tintColor: .white, imageEdgeInset: 10) // 此处 .publish 图标稍大，所以单独设置了 imageEdgeInset
-        publishButton.addTarget(self, action: #selector(publishButtonDidTap), for: .touchUpInside)
-        publishButtonContainer.addSubview(publishButton)
-        publishButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.equalToSuperview().offset(-VC.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
-        }
+        // publishButton = CircleNavigationBarButton(icon: .publish, backgroundColor: .accent, tintColor: .white, imageEdgeInset: 10) // 此处 .publish 图标稍大，所以单独设置了 imageEdgeInset
+        // publishButton.addTarget(self, action: #selector(publishButtonDidTap), for: .touchUpInside)
+        // publishButtonContainer.addSubview(publishButton)
+        // publishButton.snp.makeConstraints { make -> Void in
+        //     make.width.height.equalTo(CircleNavigationBarButton.VC.width)
+        //     make.right.equalToSuperview().offset(-VC.topButtonContainerPadding)
+        //     make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
+        // }
 
         // 初始化「作品设置按钮容器」
 
@@ -217,7 +217,8 @@ class GameEditorViewController: UIViewController {
         gameSettingsButtonContainer.isUserInteractionEnabled = true
         gameSettingsButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gameSettingsButtonDidTap)))
         view.addSubview(gameSettingsButtonContainer)
-        let gameSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth * 2
+        // let gameSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth * 2
+        let gameSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth
         gameSettingsButtonContainer.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.topRightButtonContainerWidth)
             make.height.equalTo(VC.topButtonContainerWidth)
