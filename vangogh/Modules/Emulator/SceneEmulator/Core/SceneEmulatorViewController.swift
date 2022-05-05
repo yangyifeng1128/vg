@@ -165,6 +165,8 @@ class SceneEmulatorViewController: UIViewController {
     /// 初始化视图
     private func initViews() {
 
+        view.backgroundColor = .red
+
         // 初始化场景模拟器相关的视图
 
         initEmulatorRelatedViews()
@@ -296,9 +298,9 @@ class SceneEmulatorViewController: UIViewController {
 
         // 初始化「作品板按钮」
 
-        var gameboardButtonInfo: String = NSLocalizedString("Untitled", comment: "")
-        if let selectedScene = gameBundle.selectedScene(), let selectedSceneTitle = selectedScene.title, !selectedSceneTitle.isEmpty {
-            gameboardButtonInfo = selectedSceneTitle
+        var gameboardButtonInfo: String = NSLocalizedString("Scene", comment: "") + " " + gameBundle.selectedSceneIndex.description
+        if let scene = gameBundle.selectedScene(), let sceneTitle = scene.title, !sceneTitle.isEmpty {
+            gameboardButtonInfo.append(" " + sceneTitle)
         }
         gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2, info: gameboardButtonInfo)
         gameboardButton.isHidden = true

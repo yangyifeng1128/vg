@@ -6,7 +6,7 @@
 
 protocol GameEditorSceneViewDelegate: AnyObject {
 
-    func sceneViewDidTap(_ sceneView: GameEditorSceneView)
+    func sceneViewDidTap(scene: MetaScene)
     func sceneViewIsMoving(scene: MetaScene)
     func sceneViewDidPan(scene: MetaScene)
 }

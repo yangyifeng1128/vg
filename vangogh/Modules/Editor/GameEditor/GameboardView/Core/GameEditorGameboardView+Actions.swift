@@ -74,16 +74,14 @@ extension GameEditorGameboardView {
     }
 
     /// 高亮显示当前选中的「场景视图」相关的视图
-    func highlightSelectionRelatedViews() -> GameEditorSceneView? {
+    func highlightSelectionRelatedViews() {
 
-        guard let dataSource = gameDataSource else { return nil }
+        guard let dataSource = gameDataSource else { return }
         let selectedSceneIndex: Int = dataSource.selectedSceneIndex()
         let selectedSceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.index == selectedSceneIndex })
         selectedSceneView?.isSelected = true
         highlightRelatedTransitionViews(sceneView: selectedSceneView)
         highlightRelatedSceneViews(sceneView: selectedSceneView)
-
-        return selectedSceneView
     }
 
     /// 取消高亮显示当前选中的「场景视图」相关的视图
@@ -225,37 +223,24 @@ extension GameEditorGameboardView {
         }
     }
 
-    /// 选择「场景视图」
-    func selectSceneView(_ sceneView: GameEditorSceneView?, animated: Bool, completion handler: ((GameEditorSceneView) -> Void)? = nil) {
-
-        guard let sceneView = sceneView else { return }
-        contentView.bringSubviewToFront(sceneView)
-
-        unhighlightSelectionRelatedViews()
-
-        if let handler = handler {
-            handler(sceneView)
-        }
-    }
-
     /// 更新「场景视图」标题
     func updateSceneViewTitleLabel(sceneIndex: Int) {
 
-        let sceneView = sceneViewList.first(where: { $0.scene.index == sceneIndex })
+        let sceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.index == sceneIndex })
         sceneView?.updateTitleLabelAttributedText()
     }
 
     /// 更新「场景视图」标题
     func updateSceneViewTitleLabel(sceneUUID: String) {
 
-        let sceneView = sceneViewList.first(where: { $0.scene.uuid == sceneUUID })
+        let sceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.uuid == sceneUUID })
         sceneView?.updateTitleLabelAttributedText()
     }
 
     /// 更新「场景视图」缩略图
     func updateSceneViewThumbImageView(sceneUUID: String, thumbImage: UIImage) {
 
-        let sceneView = sceneViewList.first(where: { $0.scene.uuid == sceneUUID })
+        let sceneView: GameEditorSceneView? = sceneViewList.first(where: { $0.scene.uuid == sceneUUID })
         sceneView?.thumbImageView.image = thumbImage
     }
 
@@ -315,7 +300,7 @@ extension GameEditorGameboardView {
     /// 添加「穿梭器视图」
     func addTransitionView(startScene: MetaScene, endScene: MetaScene, completion handler: ((GameEditorTransitionView) -> Void)? = nil) {
 
-        let transitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
+        let transitionView: GameEditorTransitionView = GameEditorTransitionView(startScene: startScene, endScene: endScene)
         contentView.addSubview(transitionView)
         transitionViewList.append(transitionView)
 

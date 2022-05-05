@@ -63,7 +63,13 @@ extension GameEditorViewController: GameEditorGameboardViewDelegate {
     func gameboardViewDidTap(location: CGPoint) {
 
         if willAddScene {
-            addSceneView(center: location, forceSelection: false)
+            addSceneView(center: location) { [weak self] in
+                guard let s = self else { return }
+                s.gameboardView.unhighlightSelectionRelatedViews()
+                s.saveSelectedSceneIndex(0) {
+                    s.reloadToolBarView(animated: false)
+                }
+            }
         } else {
             closeSceneView()
         }
@@ -117,9 +123,9 @@ extension GameEditorViewController: GameEditorGameboardViewDelegate {
 
 extension GameEditorViewController: GameEditorSceneViewDelegate {
 
-    func sceneViewDidTap(_ sceneView: GameEditorSceneView) {
+    func sceneViewDidTap(scene: MetaScene) {
 
-        selectSceneView(sceneView, animated: true)
+        selectSceneView(scene: scene, animated: true)
     }
 
     func sceneViewIsMoving(scene: MetaScene) {

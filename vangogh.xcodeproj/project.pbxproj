@@ -106,6 +106,7 @@
 		0F3A0C4D27B7EB240000711B /* MetaNodeEditorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A0C4C27B7EB240000711B /* MetaNodeEditorTableViewCell.swift */; };
 		0F3A4EF028227B5E00E5921A /* TransitionEditorViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */; };
 		0F3A4EF42822D4BB00E5921A /* SceneEmulatorGameboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */; };
+		0F3A4EF72823C64C00E5921A /* empty_scene.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0F3A4EF62823C64C00E5921A /* empty_scene.mp4 */; };
 		0F3D6783271358FD006496B1 /* AddFootageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D6782271358FD006496B1 /* AddFootageButton.swift */; };
 		0F4C00FD26DA4EF900C4406C /* microphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F4C00FC26DA4EF900C4406C /* microphone.json */; };
 		0F51FAE7273ADD7800D90811 /* MetaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51FAE6273ADD7800D90811 /* MetaButton.swift */; };
@@ -424,6 +425,7 @@
 		0F3A0C4C27B7EB240000711B /* MetaNodeEditorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaNodeEditorTableViewCell.swift; sourceTree = "<group>"; };
 		0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransitionEditorViewController+VM.swift"; sourceTree = "<group>"; };
 		0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorGameboardButton.swift; sourceTree = "<group>"; };
+		0F3A4EF62823C64C00E5921A /* empty_scene.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = empty_scene.mp4; sourceTree = "<group>"; };
 		0F3D6782271358FD006496B1 /* AddFootageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFootageButton.swift; sourceTree = "<group>"; };
 		0F4C00FC26DA4EF900C4406C /* microphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = microphone.json; sourceTree = "<group>"; };
 		0F51FAE6273ADD7800D90811 /* MetaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaButton.swift; sourceTree = "<group>"; };
@@ -872,6 +874,7 @@
 				129375F626D76BC40081DF3F /* AnimatedIcons */,
 				0F21F5FC27AAABD9002404A2 /* AnimatedImages */,
 				12E6B1F0271929210077CCC0 /* Documents */,
+				0F3A4EF52823C5F900E5921A /* Videos */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -960,6 +963,14 @@
 				0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */,
 			);
 			path = GameboardButton;
+			sourceTree = "<group>";
+		};
+		0F3A4EF52823C5F900E5921A /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				0F3A4EF62823C64C00E5921A /* empty_scene.mp4 */,
+			);
+			path = Videos;
 			sourceTree = "<group>";
 		};
 		0F467E6C2549561B00BC09A1 /* CoreData */ = {
@@ -2321,6 +2332,7 @@
 				0F210E9626DAADCC002CC564 /* black_empty.mp4 in Resources */,
 				0F21F5FF27AAADC7002404A2 /* happy.gif in Resources */,
 				12E6B1FB271951730077CCC0 /* feedback.txt in Resources */,
+				0F3A4EF72823C64C00E5921A /* empty_scene.mp4 in Resources */,
 				0F74CDF9253473900054D2CC /* LaunchScreen.storyboard in Resources */,
 				0F3882C425355B6C0069A1A4 /* InfoPlist.strings in Resources */,
 				0F3882BB253559080069A1A4 /* Localizable.strings in Resources */,

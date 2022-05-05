@@ -317,17 +317,24 @@ extension GameEditorViewController {
     /// 重新加载作品资源包会话状态
     func reloadGameBundleSession() {
 
-        if gameBundle.selectedSceneIndex == 0 {
-            reloadToolBarView(animated: false)
-        } else {
-            reloadSceneExplorerView(animated: false)
-        }
+        if let scene = gameBundle.selectedScene() {
 
-        var contentOffset: CGPoint = gameBundle.contentOffset
-        if contentOffset == GVC.defaultGameboardViewContentOffset {
-            contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
+            selectSceneView(scene: scene, animated: true)
+
+        } else {
+
+            gameboardView.unhighlightSelectionRelatedViews()
+            saveSelectedSceneIndex(0) { [weak self] in
+                guard let s = self else { return }
+                s.reloadToolBarView(animated: false)
+            }
+
+            var contentOffset: CGPoint = gameBundle.contentOffset
+            if contentOffset == GVC.defaultGameboardViewContentOffset {
+                contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
+            }
+            gameboardView.contentOffset = contentOffset
         }
-        gameboardView.contentOffset = contentOffset
     }
 
     /// 显示消息
@@ -393,7 +400,6 @@ extension GameEditorViewController {
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
-        gameboardView.unhighlightSelectionRelatedViews()
 
         // 隐藏「添加穿梭器示意图视图」
 
@@ -440,7 +446,6 @@ extension GameEditorViewController {
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
-        gameboardView.unhighlightSelectionRelatedViews()
 
         // 隐藏「添加穿梭器示意图视图」
 
@@ -466,14 +471,6 @@ extension GameEditorViewController {
             make.left.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-        if animated {
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-                guard let s = self else { return }
-                s.view.layoutIfNeeded()
-            }, completion: nil)
-        } else {
-            view.layoutIfNeeded()
-        }
         sceneExplorerView = GameEditorSceneExplorerView()
         sceneExplorerView.dataSource = self
         sceneExplorerView.delegate = self
@@ -489,9 +486,20 @@ extension GameEditorViewController {
             make.bottom.equalTo(bottomViewContainer.snp.top)
         }
 
+        // 强制更新「底部视图」+「作品板视图」两者的布局
+
+        if animated {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+                guard let s = self else { return }
+                s.view.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            view.layoutIfNeeded()
+        }
+
         // 更新「添加穿梭器示意图视图」
 
-        if let selectedSceneView = gameboardView.highlightSelectionRelatedViews(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: selectedSceneView.scene.uuid, gameUUID: gameBundle.uuid) {
+        if let scene = gameBundle.selectedScene(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: scene.uuid, gameUUID: gameBundle.uuid) {
             addTransitionDiagramView.startSceneView.image = thumbImage
         } else {
             addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb

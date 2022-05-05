@@ -65,7 +65,7 @@ class SceneEmulatorGameboardButton: RoundedButton {
         infoLabel.snp.makeConstraints { make -> Void in
             make.height.equalToSuperview().inset(8)
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(18)
+            make.left.equalToSuperview().offset(24)
             make.right.equalTo(iconView.snp.left).offset(-16)
         }
     }

@@ -12,7 +12,7 @@ extension GameEditorSceneView {
 
         UISelectionFeedbackGenerator().selectionChanged()
 
-        delegate?.sceneViewDidTap(self)
+        delegate?.sceneViewDidTap(scene: scene)
     }
 
     @objc func pan(_ sender: UIPanGestureRecognizer) {

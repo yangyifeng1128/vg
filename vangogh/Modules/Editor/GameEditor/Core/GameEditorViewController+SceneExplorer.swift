@@ -59,7 +59,7 @@ extension GameEditorViewController: GameEditorSceneExplorerViewDataSource {
 
         let index = sender.tag
         let transitions: [MetaTransition] = gameBundle.selectedTransitions()
-        deleteTransitionView(transitions[index])
+        willDeleteTransitionView(transitions[index])
     }
 }
 
@@ -72,12 +72,12 @@ extension GameEditorViewController: GameEditorSceneExplorerViewDelegate {
 
     func deleteSceneButtonDidTap() {
 
-        deleteSceneView()
+        willDeleteSceneView()
     }
 
     func sceneTitleLabelDidTap() {
 
-        updateSceneTitleLabel()
+        willUpdateSceneTitleLabel()
     }
 
     func manageTransitionsButtonDidTap() {

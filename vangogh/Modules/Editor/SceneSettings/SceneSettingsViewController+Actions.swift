@@ -76,28 +76,28 @@ extension SceneSettingsViewController {
         switch setting.type {
         case .sceneThumbImage:
 
-            updateSceneThumbImageView()
+            willUpdateSceneThumbImageView()
             break
 
         case .sceneTitle:
 
-            updateSceneTitleLabel(cell.infoLabel)
+            willUpdateSceneTitleLabel(cell.infoLabel)
             break
 
         case .aspectRatio:
 
-            updateAspectRatioLabel(cell.infoLabel)
+            willUpdateAspectRatioLabel(cell.infoLabel)
             break
         }
     }
 
     /// 更新「场景缩略图视图」
-    func updateSceneThumbImageView() {
+    func willUpdateSceneThumbImageView() {
 
     }
 
     /// 更新「场景标题标签」
-    func updateSceneTitleLabel(_ label: UILabel) {
+    func willUpdateSceneTitleLabel(_ label: UILabel) {
 
         // 创建提示框
 
@@ -152,7 +152,7 @@ extension SceneSettingsViewController {
     }
 
     /// 更新「尺寸比例标签」
-    func updateAspectRatioLabel(_ label: UILabel) {
+    func willUpdateAspectRatioLabel(_ label: UILabel) {
 
         // 创建提示框
 

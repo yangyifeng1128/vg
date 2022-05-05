@@ -77,13 +77,13 @@ extension GameEditorViewController {
     /// 删除当前选中的场景
     func deleteSelectedScene(completion handler: (() -> Void)? = nil) {
 
-        guard let selectedScene = gameBundle.selectedScene() else { return }
-        let selectedSceneUUID: String = selectedScene.uuid
+        guard let scene = gameBundle.selectedScene() else { return }
+        let sceneUUID: String = scene.uuid
 
         gameBundle.deleteSelectedScene()
         MetaGameBundleManager.shared.save(gameBundle)
 
-        MetaSceneBundleManager.shared.delete(sceneUUID: selectedSceneUUID, gameUUID: gameBundle.uuid)
+        MetaSceneBundleManager.shared.delete(sceneUUID: sceneUUID, gameUUID: gameBundle.uuid)
 
         if let handler = handler {
             handler()
