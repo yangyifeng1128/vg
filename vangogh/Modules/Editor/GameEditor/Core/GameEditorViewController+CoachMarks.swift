@@ -50,7 +50,7 @@ extension GameEditorViewController: CoachMarksControllerDataSource {
     /// 设置引导标记数量
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
 
-        return 4
+        return 3
     }
 
     /// 设置引导标记
@@ -107,9 +107,6 @@ extension GameEditorViewController: CoachMarksControllerDataSource {
             hint = NSLocalizedString("Hint_GameEditor_GameSettings", comment: "")
             break
         case 2:
-            hint = NSLocalizedString("Hint_GameEditor_Publish", comment: "")
-            break
-        case 3:
             hint = NSLocalizedString("Hint_GameEditor_AddScene", comment: "")
             break
         default:
