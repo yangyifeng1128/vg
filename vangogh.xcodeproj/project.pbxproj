@@ -107,6 +107,10 @@
 		0F3A4EF028227B5E00E5921A /* TransitionEditorViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */; };
 		0F3A4EF42822D4BB00E5921A /* SceneEmulatorGameboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */; };
 		0F3A4EF72823C64C00E5921A /* empty_scene.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0F3A4EF62823C64C00E5921A /* empty_scene.mp4 */; };
+		0F3A4EF928240DC000E5921A /* SceneEditorViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EF828240DC000E5921A /* SceneEditorViewController+Actions.swift */; };
+		0F3A4EFB28240E8000E5921A /* SceneEditorViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EFA28240E8000E5921A /* SceneEditorViewController+VM.swift */; };
+		0F3A4EFD28240F0300E5921A /* SceneEditorViewController+AV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EFC28240F0300E5921A /* SceneEditorViewController+AV.swift */; };
+		0F3A4EFF28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EFE28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift */; };
 		0F3D6783271358FD006496B1 /* AddFootageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D6782271358FD006496B1 /* AddFootageButton.swift */; };
 		0F4C00FD26DA4EF900C4406C /* microphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F4C00FC26DA4EF900C4406C /* microphone.json */; };
 		0F51FAE7273ADD7800D90811 /* MetaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51FAE6273ADD7800D90811 /* MetaButton.swift */; };
@@ -426,6 +430,10 @@
 		0F3A4EEF28227B5E00E5921A /* TransitionEditorViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransitionEditorViewController+VM.swift"; sourceTree = "<group>"; };
 		0F3A4EF32822D4BB00E5921A /* SceneEmulatorGameboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorGameboardButton.swift; sourceTree = "<group>"; };
 		0F3A4EF62823C64C00E5921A /* empty_scene.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = empty_scene.mp4; sourceTree = "<group>"; };
+		0F3A4EF828240DC000E5921A /* SceneEditorViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEditorViewController+Actions.swift"; sourceTree = "<group>"; };
+		0F3A4EFA28240E8000E5921A /* SceneEditorViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEditorViewController+VM.swift"; sourceTree = "<group>"; };
+		0F3A4EFC28240F0300E5921A /* SceneEditorViewController+AV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEditorViewController+AV.swift"; sourceTree = "<group>"; };
+		0F3A4EFE28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEditorViewController+TimelineView.swift"; sourceTree = "<group>"; };
 		0F3D6782271358FD006496B1 /* AddFootageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFootageButton.swift; sourceTree = "<group>"; };
 		0F4C00FC26DA4EF900C4406C /* microphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = microphone.json; sourceTree = "<group>"; };
 		0F51FAE6273ADD7800D90811 /* MetaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaButton.swift; sourceTree = "<group>"; };
@@ -953,6 +961,10 @@
 			isa = PBXGroup;
 			children = (
 				1251B0D62680657600813936 /* SceneEditorViewController.swift */,
+				0F3A4EF828240DC000E5921A /* SceneEditorViewController+Actions.swift */,
+				0F3A4EFC28240F0300E5921A /* SceneEditorViewController+AV.swift */,
+				0F3A4EFE28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift */,
+				0F3A4EFA28240E8000E5921A /* SceneEditorViewController+VM.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2391,6 +2403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FFA0ED128158C360008AC1C /* AppSettingsViewController+Actions.swift in Sources */,
+				0F3A4EFB28240E8000E5921A /* SceneEditorViewController+VM.swift in Sources */,
 				0F3882DA2537373D0069A1A4 /* CodingUserInfoKey.swift in Sources */,
 				0FFA0EE32815B6780008AC1C /* NewGameViewController+VM.swift in Sources */,
 				0F14DF3F278206C20056872B /* MetaAnimatedImageEditorView.swift in Sources */,
@@ -2442,6 +2455,7 @@
 				120F238427018D340039CEC0 /* GameEditorGameboardView.swift in Sources */,
 				126AD0D226BD0D13007EBEBE /* ArrowView.swift in Sources */,
 				0FCA9EA1271C620D00B8E966 /* GameSettingsViewController.swift in Sources */,
+				0F3A4EF928240DC000E5921A /* SceneEditorViewController+Actions.swift in Sources */,
 				0F210E8C26DAADCC002CC564 /* Resource.swift in Sources */,
 				122833A72747DFF600DFD88E /* SceneRendererView.swift in Sources */,
 				0F7A9984281AAB510007FB3E /* GameEditorViewController+VM.swift in Sources */,
@@ -2551,6 +2565,7 @@
 				0F14DF2F278206330056872B /* MetaColoringEditorView.swift in Sources */,
 				0F8972D8274015B8001CD774 /* NodeItemBottomBarView.swift in Sources */,
 				0FC8316D27B42DF100698CF3 /* MetaSensorKey.swift in Sources */,
+				0F3A4EFD28240F0300E5921A /* SceneEditorViewController+AV.swift in Sources */,
 				1251B0D72680657600813936 /* SceneEditorViewController.swift in Sources */,
 				0FFA0EDB281592370008AC1C /* TermsOfServiceViewController+Actions.swift in Sources */,
 				0F3A0C4D27B7EB240000711B /* MetaNodeEditorTableViewCell.swift in Sources */,
@@ -2603,6 +2618,7 @@
 				0FCA7A5127342B4B0051CCC1 /* MetaNode.swift in Sources */,
 				123957D0275639A7003FCDC4 /* ScenePlayerView.swift in Sources */,
 				12725F6126A3019100C8EE01 /* DraftTableViewCell.swift in Sources */,
+				0F3A4EFF28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift in Sources */,
 				0F210E8026DAADCC002CC564 /* CompositionProvider.swift in Sources */,
 				12A3427D273BA14500D17979 /* MetaNodeType.swift in Sources */,
 				12725F5F26A2D10100C8EE01 /* RoundedImageView.swift in Sources */,

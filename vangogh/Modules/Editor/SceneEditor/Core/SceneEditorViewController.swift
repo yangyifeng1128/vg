@@ -34,51 +34,68 @@ class SceneEditorViewController: UIViewController {
     /// 用户界面风格偏好设置
     static let preferredUserInterfaceStyle: UIUserInterfaceStyle = .dark
 
-    private var closeButtonContainer: UIView!
-    private var closeButton: CircleNavigationBarButton!
-    private var saveButtonContainer: UIView!
-    private var saveButton: CircleNavigationBarButton!
-    private var sceneSettingsButtonContainer: UIView!
-    private var sceneSettingsButton: CircleNavigationBarButton!
+    /// 关闭按钮容器
+    var closeButtonContainer: UIView!
+    /// 关闭按钮
+    var closeButton: CircleNavigationBarButton!
+    /// 场景设置按钮容器
+    var sceneSettingsButtonContainer: UIView!
+    /// 场景设置按钮
+    var sceneSettingsButton: CircleNavigationBarButton!
 
-    private var playerViewContainer: UIView!
-    private var playerView: ScenePlayerView!
-    private var loadingView: LoadingView!
+    /// 播放器视图容器
+    var playerViewContainer: UIView!
+    /// 播放器视图
+    var playerView: ScenePlayerView!
+    /// 加载视图
+    var loadingView: LoadingView!
 
-    private var actionBarView: BorderedView!
-    private var playButton: SceneEditorPlayButton!
-    private var currentTimeLabel: UILabel!
-    private var sceneDurationLabel: UILabel!
-    private var previewButton: UIButton!
+    /// 操作栏视图
+    var actionBarView: BorderedView!
+    /// 播放按钮
+    var playButton: SceneEditorPlayButton!
+    /// 当前时刻标签
+    var currentTimeLabel: UILabel!
+    /// 场景时长标签
+    var sceneDurationLabel: UILabel!
+    /// 预览按钮
+    var previewButton: UIButton!
 
-    private var workspaceView: UIView!
-    private var workspaceNoDataView: WorkspaceNoDataView!
-    private var timelineView: TimelineView!
-    private var bottomSheetViewController: SheetViewController?
+    /// 工作区视图
+    var workspaceView: UIView!
+    /// 工作区无数据视图
+    var workspaceNoDataView: WorkspaceNoDataView!
+    /// 时间线视图
+    var timelineView: TimelineView!
+    /// 底部 Sheet 视图控制器
+    var bottomSheetViewController: SheetViewController?
 
-    private var renderSize: CGSize!
+    /// 渲染尺寸
+    var renderSize: CGSize!
 
-    private var sceneBundle: MetaSceneBundle!
-    private var gameBundle: MetaGameBundle!
+    /// 场景资源包
+    var sceneBundle: MetaSceneBundle!
+    /// 作品资源包
+    var gameBundle: MetaGameBundle!
 
-    private var player: AVPlayer!
-    private var playerItem: AVPlayerItem!
-    private var timeline: Timeline = Timeline()
-    private var currentTime: CMTime = .zero {
+    /// 播放器
+    var player: AVPlayer!
+    /// 播放器项
+    var playerItem: AVPlayerItem!
+    /// 时间线
+    var timeline: Timeline = Timeline()
+    /// 当前时刻
+    var currentTime: CMTime = .zero {
         didSet {
             updateViewsWhenTimeElapsed(to: currentTime)
         }
     }
-    private var periodicTimeObserver: Any?
+    /// 周期时刻观察器
+    var periodicTimeObserver: Any?
 
     var needsReloadPlayer: Bool = true
 
-    //
-    //
-    // MARK: - 视图生命周期
-    //
-    //
-
+    /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
 
         super.init(nibName: nil, bundle: nil)
@@ -92,6 +109,7 @@ class SceneEditorViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 反初始化
     deinit {
 
         removePeriodicTimeObserver()
@@ -106,6 +124,8 @@ class SceneEditorViewController: UIViewController {
         // 单独强制设置用户界面风格
 
         overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle
+
+        // 初始化视图
 
         initViews()
     }
@@ -164,7 +184,7 @@ class SceneEditorViewController: UIViewController {
     }
 
     /// 保存场景资源包
-    private func saveSceneBundle() {
+    func saveSceneBundle() {
 
         sceneBundle.currentTimeMilliseconds = currentTime.milliseconds()
         MetaSceneBundleManager.shared.save(sceneBundle)
@@ -173,7 +193,7 @@ class SceneEditorViewController: UIViewController {
     }
 
     /// 提示场景已保存
-    private func sendSceneSavedMessage() {
+    func sendSceneSavedMessage() {
 
         var message: String
         guard let scene = gameBundle.selectedScene() else { return }
@@ -234,32 +254,6 @@ class SceneEditorViewController: UIViewController {
             make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
         }
 
-        // 初始化「保存按钮容器」
-
-        saveButtonContainer = UIView()
-        saveButtonContainer.backgroundColor = .clear
-        saveButtonContainer.isUserInteractionEnabled = true
-        saveButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(saveButtonDidTap)))
-        view.addSubview(saveButtonContainer)
-        let saveButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth
-        saveButtonContainer.snp.makeConstraints { make -> Void in
-            make.width.equalTo(VC.topRightButtonContainerWidth)
-            make.height.equalTo(VC.topButtonContainerWidth)
-            make.left.equalToSuperview().offset(saveButtonContainerLeft)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-        }
-
-        // 初始化「保存按钮」
-
-        saveButton = CircleNavigationBarButton(icon: .save)
-        saveButton.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
-        saveButtonContainer.addSubview(saveButton)
-        saveButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
-            make.right.equalToSuperview().offset(-VC.topButtonContainerPadding)
-            make.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
-        }
-
         // 初始化「场景设置按钮容器」
 
         sceneSettingsButtonContainer = UIView()
@@ -267,7 +261,7 @@ class SceneEditorViewController: UIViewController {
         sceneSettingsButtonContainer.isUserInteractionEnabled = true
         sceneSettingsButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sceneSettingsButtonDidTap)))
         view.addSubview(sceneSettingsButtonContainer)
-        let sceneSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth * 2
+        let sceneSettingsButtonContainerLeft: CGFloat = view.bounds.width - VC.topRightButtonContainerWidth
         sceneSettingsButtonContainer.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.topRightButtonContainerWidth)
             make.height.equalTo(VC.topButtonContainerWidth)
@@ -565,8 +559,6 @@ extension SceneEditorViewController: TimelineViewDelegate {
 
         closeButtonContainer.isUserInteractionEnabled = false
         closeButton.isEnabled = false
-        saveButtonContainer.isUserInteractionEnabled = false
-        saveButton.isEnabled = false
         sceneSettingsButtonContainer.isUserInteractionEnabled = false
         sceneSettingsButton.isEnabled = false
         playButton.isEnabled = false
@@ -584,8 +576,6 @@ extension SceneEditorViewController: TimelineViewDelegate {
         if !decelerate {
             closeButtonContainer.isUserInteractionEnabled = true
             closeButton.isEnabled = true
-            saveButtonContainer.isUserInteractionEnabled = true
-            saveButton.isEnabled = true
             sceneSettingsButtonContainer.isUserInteractionEnabled = true
             sceneSettingsButton.isEnabled = true
             playButton.isEnabled = true
@@ -914,7 +904,7 @@ extension SceneEditorViewController: ScenePlayerViewDelegate {
 
 extension SceneEditorViewController {
 
-    private func reloadPlayer() {
+    func reloadPlayer() {
 
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
 
@@ -1053,389 +1043,5 @@ extension SceneEditorViewController {
         currentTimeLabel.text = time.toString()
         timelineView.autoScroll(to: time)
         playerView.showOrHideNodeViews(at: time)
-    }
-}
-
-extension SceneEditorViewController {
-
-    @objc private func closeButtonDidTap() {
-
-        print("[SceneEditor] did tap closeButton")
-
-        presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-
-    @objc private func saveButtonDidTap() {
-
-        print("[SceneEditor] did tap saveButton")
-
-        presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-
-    @objc private func sceneSettingsButtonDidTap() {
-
-        print("[SceneEditor] did tap sceneSettingsButton")
-
-        openSceneSettings()
-    }
-
-    @objc private func sceneTitleLabelDidTap() {
-
-        print("[SceneEditor] did tap sceneTitleLabel")
-    }
-
-    @objc private func playerViewContainerDidTap() {
-
-        print("[SceneEditor] did tap playerViewContainer")
-
-        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
-
-        dismissPreviousBottomSheetViewController()
-    }
-
-    @objc private func previewButtonDidTap() {
-
-        print("[SceneEditor] did tap previewButton")
-
-        previewScene()
-    }
-
-    @objc private func playButtonDidTap() {
-
-        print("[SceneEditor] did tap playButton")
-
-        playOrPause()
-    }
-
-    @objc private func playerItemDidPlayToEndTime() {
-
-        print("[SceneEditor] player item did play to end time")
-
-        loop()
-    }
-
-    @objc private func didEnterBackground() {
-
-        print("[SceneEditor] did enter background")
-
-        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
-
-        dismissPreviousBottomSheetViewController()
-
-        // 暂停并保存资源包
-
-        if !timeline.videoChannel.isEmpty {
-            pause()
-        }
-        saveSceneBundle()
-    }
-
-    @objc private func willEnterForeground() {
-
-        print("[SceneEditor] will enter foreground")
-
-        loadingView.startAnimating()
-        reloadPlayer()
-    }
-
-    private func openSceneSettings() {
-
-        let sceneSettingsVC = SceneSettingsViewController(sceneBundle: sceneBundle, gameBundle: gameBundle)
-        sceneSettingsVC.hidesBottomBarWhenPushed = true
-
-        navigationController?.pushViewController(sceneSettingsVC, animated: true)
-    }
-
-    private func previewScene() {
-
-        let sceneEmulatorVC = SceneEmulatorViewController(sceneBundle: sceneBundle, gameBundle: gameBundle)
-        sceneEmulatorVC.definesPresentationContext = false
-        sceneEmulatorVC.modalPresentationStyle = .currentContext
-
-        present(sceneEmulatorVC, animated: true, completion: nil)
-    }
-
-    private func playOrPause() {
-
-        if let player = player {
-
-            if player.timeControlStatus == .playing {
-
-                playButton.isPlaying = false
-                player.pause()
-
-            } else {
-
-                playButton.isPlaying = true
-                player.play()
-
-                timelineView.unselectAllTrackItemViews()
-                timelineView.unselectAllNodeItemViews()
-                timelineView.resetBottomView(bottomViewType: .timeline)
-            }
-        }
-    }
-
-    private func loop() {
-
-        if let player = player, player.timeControlStatus == .playing {
-
-            playButton.isPlaying = false
-            player.pause()
-
-            player.seek(to: .zero)
-            player.play()
-            playButton.isPlaying = true
-        }
-    }
-
-    private func pause() {
-
-        if let player = player, player.timeControlStatus == .playing {
-
-            playButton.isPlaying = false
-            player.pause()
-        }
-    }
-
-    private func resume() {
-
-        if let player = player, player.timeControlStatus != .playing {
-
-            playButton.isPlaying = true
-            player.play()
-
-            timelineView.unselectAllTrackItemViews()
-            timelineView.unselectAllNodeItemViews()
-            timelineView.resetBottomView(bottomViewType: .timeline)
-        }
-    }
-
-    /// 添加镜头片段
-    private func addFootage() {
-
-        let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-        switch status {
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { [weak self] status in
-                guard let s = self else { return }
-                DispatchQueue.main.async {
-                    s.pushTargetAssetsVC()
-                }
-            })
-            break
-        case .authorized, .limited:
-            pushTargetAssetsVC()
-            break
-        default:
-            let alert = UIAlertController(title: NSLocalizedString("PhotoLibraryAuthorizationDenied", comment: ""), message: NSLocalizedString("PhotoLibraryAuthorizationDeniedInfo", comment: ""), preferredStyle: .alert)
-            alert.overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle // 单独强制设置用户界面风格
-            let openSettingsAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("OpenSettings", comment: ""), style: .default) { _ in
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-            alert.addAction(openSettingsAction)
-            let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-            }
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
-        }
-    }
-
-    /// 跳转至「目标素材控制器」
-    private func pushTargetAssetsVC() {
-
-        let targetAssetsVC = TargetAssetsViewController()
-        targetAssetsVC.delegate = self
-        targetAssetsVC.hidesBottomBarWhenPushed = true
-
-        navigationController?.pushViewController(targetAssetsVC, animated: true)
-    }
-
-    private func deleteMetaFootage(_ footage: MetaFootage) {
-
-        // 创建提示框
-
-        let alert = UIAlertController(title: NSLocalizedString("DeleteFootage", comment: ""), message: NSLocalizedString("DeleteFootageInfo", comment: ""), preferredStyle: .alert)
-        alert.overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle // 单独强制设置用户界面风格
-
-        // 「确认」操作
-
-        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
-
-            guard let s = self else { return }
-
-            DispatchQueue.global(qos: .background).async {
-                MetaSceneBundleManager.shared.deleteMetaFootage(sceneBundle: s.sceneBundle, footage: footage)
-                DispatchQueue.main.sync {
-                    s.loadingView.startAnimating()
-                    s.currentTime = CMTimeMake(value: s.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale)
-                    s.reloadPlayer()
-                }
-            }
-        }
-        alert.addAction(confirmAction)
-
-        // 「取消」操作
-
-        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        }
-        alert.addAction(cancelAction)
-
-        // 展示提示框
-
-        present(alert, animated: true, completion: nil)
-    }
-
-    private func addMetaNode(nodeType: MetaNodeType) {
-
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let s = self else { return }
-            let node: MetaNode = MetaSceneBundleManager.shared.addMetaNode(sceneBundle: s.sceneBundle, nodeType: nodeType, startTimeMilliseconds: s.currentTime.milliseconds())
-            DispatchQueue.main.async {
-                s.playerView.addNodeView(node: node)
-                s.playerView.showOrHideNodeViews(at: s.currentTime)
-                s.timelineView.addNodeItemView(node: node)
-                s.timelineView.updateNodeItemViewContainer()
-            }
-        }
-    }
-
-    private func deleteMetaNode(_ node: MetaNode) {
-
-        // 创建提示框
-
-        let alert = UIAlertController(title: NSLocalizedString("DeleteNode", comment: ""), message: NSLocalizedString("DeleteNodeInfo", comment: ""), preferredStyle: .alert)
-        alert.overrideUserInterfaceStyle = SceneEditorViewController.preferredUserInterfaceStyle // 单独强制设置用户界面风格
-
-        // 「确认」操作
-
-        let confirmAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: ""), style: .default) { [weak self] _ in
-
-            guard let s = self else { return }
-
-            DispatchQueue.global(qos: .background).async {
-                MetaSceneBundleManager.shared.deleteMetaNode(sceneBundle: s.sceneBundle, node: node)
-                DispatchQueue.main.sync {
-
-                    s.dismissPreviousBottomSheetViewController() // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
-
-                    s.playerView.removeNodeView(node: node)
-                    s.timelineView.removeNodeItemView(node: node)
-                    s.timelineView.updateNodeItemViewContainer()
-                    s.timelineView.resetBottomView(bottomViewType: .timeline)
-                }
-            }
-        }
-        alert.addAction(confirmAction)
-
-        // 「取消」操作
-
-        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-        }
-        alert.addAction(cancelAction)
-
-        // 展示提示框
-
-        present(alert, animated: true, completion: nil)
-    }
-
-    private func isSceneBundleEmpty() -> Bool {
-
-        return sceneBundle.footages.isEmpty && sceneBundle.nodes.isEmpty
-    }
-
-    private func requestPhotoLibraryAuthorization(handler: @escaping (PHAuthorizationStatus) -> Void) {
-
-        let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-        if status == .notDetermined {
-            PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: { status in
-                handler(status)
-            })
-        } else {
-            handler(status)
-        }
-    }
-}
-
-extension SceneEditorViewController {
-
-    private func presentAddNodeItemSheetViewController(toolBarItem: TimelineToolBarItem) {
-
-        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
-
-        dismissPreviousBottomSheetViewController()
-
-        // 展示「添加组件项 Sheet 视图控制器」
-
-        let addNodeItemVC: AddNodeItemViewController = AddNodeItemViewController(toolBarItem: toolBarItem)
-        addNodeItemVC.delegate = self
-
-        let sheetHeight: CGFloat = view.safeAreaInsets.bottom + AddNodeItemViewController.VC.height
-
-        presentSheetViewController(controller: addNodeItemVC, sizes: [.fixed(sheetHeight)], cornerRadius: GVC.bottomSheetViewCornerRadius)
-    }
-
-    private func presentEditNodeItemSheetViewController(node: MetaNode) {
-
-        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
-
-        dismissPreviousBottomSheetViewController()
-
-        // 激活「播放器-组件」视图
-
-        if let nodeView = playerView.nodeViewList.first(where: { $0.node.uuid == node.uuid }) {
-            nodeView.isActive = true
-        }
-
-        // 展示「编辑组件项 Sheet 视图控制器」
-
-        let editNodeItemVC = EditNodeItemViewController(node: node, rules: sceneBundle.findNodeRules(index: node.index))
-        editNodeItemVC.delegate = self
-
-        let minSheetHeight: CGFloat = view.safeAreaInsets.bottom + SceneEditorViewController.VC.workspaceViewHeight + SceneEditorViewController.VC.actionBarViewHeight
-        let maxSheetHeight: CGFloat = view.safeAreaInsets.bottom + SceneEditorViewController.VC.workspaceViewHeight + SceneEditorViewController.VC.actionBarViewHeight + renderSize.height
-
-        presentSheetViewController(controller: editNodeItemVC, sizes: [.fixed(minSheetHeight), .fixed(maxSheetHeight)], cornerRadius: 0)
-    }
-
-    private func presentSheetViewController(controller: UIViewController, sizes: [SheetSize], cornerRadius: CGFloat) {
-
-        // 展示「Sheet 视图控制器」
-
-        let options: SheetOptions = SheetOptions(
-            pullBarHeight: GVC.bottomSheetViewPullBarHeight,
-            shouldExtendBackground: true,
-            useInlineMode: true
-        )
-
-        bottomSheetViewController = SheetViewController(controller: controller, sizes: sizes, options: options)
-        if let vc = bottomSheetViewController {
-            vc.gripSize = CGSize(width: GVC.bottomSheetViewGripWidth, height: GVC.bottomSheetViewGripHeight)
-            vc.gripColor = .mgLabel
-            vc.cornerRadius = cornerRadius
-            vc.allowGestureThroughOverlay = true
-            vc.didDismiss = { [weak self] vc -> Void in
-                guard let s = self else { return }
-                s.dismissPreviousBottomSheetViewController()
-            }
-            vc.animateIn(to: view, in: self)
-        }
-    }
-
-    private func dismissPreviousBottomSheetViewController() {
-
-        // 取消激活全部已激活的「播放器-组件视图」
-
-        playerView.nodeViewList.filter({ $0.isActive }).forEach {
-            $0.isActive = false
-        }
-
-        // 关闭先前展示的「Sheet 视图控制器」
-
-        if let vc = bottomSheetViewController {
-            vc.animateOut()
-            bottomSheetViewController = nil
-        }
     }
 }

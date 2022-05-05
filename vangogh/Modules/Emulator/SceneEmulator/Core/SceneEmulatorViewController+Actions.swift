@@ -5,6 +5,7 @@
 ///
 
 import AVKit
+import OSLog
 import UIKit
 
 extension SceneEmulatorViewController {
@@ -35,21 +36,22 @@ extension SceneEmulatorViewController {
 
     @objc func playButtonDidTap() {
 
-        print("[SceneEmulator] did tap playButton")
-
         playOrPause()
     }
 
     @objc func playerItemDidPlayToEndTime() {
 
-        print("[SceneEmulator] player item did play to end time")
+        Logger.sceneEmulator.info("player item did play to end time")
+        
+        // loop()
 
-        loop()
+        playButton.isPlaying = false
+        player.seek(to: .zero)
     }
 
     @objc func didEnterBackground() {
 
-        print("[SceneEmulator] did enter background")
+        Logger.sceneEmulator.info("application did enter background")
 
         if !timeline.videoChannel.isEmpty {
             pause()
@@ -60,7 +62,7 @@ extension SceneEmulatorViewController {
 
     @objc func willEnterForeground() {
 
-        print("[SceneEmulator] will enter foreground")
+        Logger.sceneEmulator.info("application will enter foreground")
 
         loadingView.startAnimating()
         reloadPlayer()

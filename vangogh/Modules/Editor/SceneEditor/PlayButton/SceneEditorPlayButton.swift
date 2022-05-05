@@ -15,11 +15,15 @@ class SceneEditorPlayButton: UIButton {
         }
     }
 
+    /// 播放图像
     private var playImage: UIImage? = .play
+    /// 暂停图像
     private var pauseImage: UIImage? = .pause
 
+    /// 图像边缘内边距
     private var imageEdgeInset: CGFloat!
 
+    /// 初始化
     init(imageEdgeInset: CGFloat) {
 
         super.init(frame: .zero)
@@ -38,6 +42,7 @@ class SceneEditorPlayButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 重写背景矩形区域
     override func backgroundRect(forBounds bounds: CGRect) -> CGRect {
 
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)
