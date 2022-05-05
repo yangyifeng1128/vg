@@ -319,7 +319,13 @@ extension GameEditorViewController {
 
         if let scene = gameBundle.selectedScene() {
 
-            selectSceneView(scene: scene, animated: true)
+            gameboardView.unhighlightSelectionRelatedViews()
+            saveSelectedSceneIndex(scene.index) { [weak self] in
+                guard let s = self else { return }
+                s.reloadSceneExplorerView(animated: false) {
+                    s.gameboardView.highlightSelectionRelatedViews()
+                }
+            }
 
         } else {
 
@@ -328,13 +334,13 @@ extension GameEditorViewController {
                 guard let s = self else { return }
                 s.reloadToolBarView(animated: false)
             }
-
-            var contentOffset: CGPoint = gameBundle.contentOffset
-            if contentOffset == GVC.defaultGameboardViewContentOffset {
-                contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
-            }
-            gameboardView.contentOffset = contentOffset
         }
+
+        var contentOffset: CGPoint = gameBundle.contentOffset
+        if contentOffset == GVC.defaultGameboardViewContentOffset {
+            contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
+        }
+        gameboardView.contentOffset = contentOffset
     }
 
     /// 显示消息
@@ -471,6 +477,14 @@ extension GameEditorViewController {
             make.left.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        if animated {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+                guard let s = self else { return }
+                s.view.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            view.layoutIfNeeded()
+        }
         sceneExplorerView = GameEditorSceneExplorerView()
         sceneExplorerView.dataSource = self
         sceneExplorerView.delegate = self
@@ -484,17 +498,6 @@ extension GameEditorViewController {
         gameboardView.snp.remakeConstraints { make -> Void in
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(bottomViewContainer.snp.top)
-        }
-
-        // 强制更新「底部视图」+「作品板视图」两者的布局
-
-        if animated {
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-                guard let s = self else { return }
-                s.view.layoutIfNeeded()
-            }, completion: nil)
-        } else {
-            view.layoutIfNeeded()
         }
 
         // 更新「添加穿梭器示意图视图」
