@@ -52,8 +52,8 @@ extension AgreementsViewController {
 
         // 准备链接内容
 
-        completeInfoTextString.addAttribute(.link, value: LocalDocumentType.termsOfService.rawValue, range: (completeInfoTextString.string as NSString).range(of: "《服务协议》"))
-        completeInfoTextString.addAttribute(.link, value: LocalDocumentType.privacyPolicy.rawValue, range: (completeInfoTextString.string as NSString).range(of: "《隐私政策》"))
+        completeInfoTextString.addAttribute(.link, value: L.termsOfServiceLink, range: (completeInfoTextString.string as NSString).range(of: "《服务协议》"))
+        completeInfoTextString.addAttribute(.link, value: L.privacyPolicyLink, range: (completeInfoTextString.string as NSString).range(of: "《隐私政策》"))
 
         // 准备段落样式
 
@@ -73,9 +73,9 @@ extension AgreementsViewController: UITextViewDelegate {
 
         var vc: UIViewController?
 
-        if URL.absoluteString == LocalDocumentType.termsOfService.rawValue {
+        if URL.absoluteString == L.termsOfServiceLink {
             vc = TermsOfServiceViewController()
-        } else if URL.absoluteString == LocalDocumentType.privacyPolicy.rawValue {
+        } else if URL.absoluteString == L.privacyPolicyLink {
             vc = PrivacyPolicyViewController()
         }
 

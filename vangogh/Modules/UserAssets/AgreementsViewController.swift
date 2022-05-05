@@ -23,6 +23,12 @@ class AgreementsViewController: UIViewController {
         static let infoTextViewFontSize: CGFloat = 13
     }
 
+    /// 内部链接枚举值
+    enum L {
+        static let termsOfServiceLink: String = "\(GUC.metaGameURLScheme)://\(LocalDocumentType.termsOfService.rawValue)"
+        static let privacyPolicyLink: String = "\(GUC.metaGameURLScheme)://\(LocalDocumentType.privacyPolicy.rawValue)"
+    }
+
     /// 初始化
     init() {
 
