@@ -98,7 +98,6 @@ class AboutViewController: UIViewController {
         infoTextView.isEditable = false
         infoTextView.isSelectable = false
         infoTextView.isScrollEnabled = true
-        infoTextView.isUserInteractionEnabled = false
         infoTextViewContainer.addSubview(infoTextView)
         infoTextView.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
