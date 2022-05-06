@@ -42,7 +42,7 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
 
-        // 添加标题标签
+        // 初始化「标题标签」
 
         titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
@@ -55,7 +55,7 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
             make.top.equalToSuperview()
         }
 
-        // 准备信息视图
+        // 初始化「信息视图」
 
         infoView = RoundedView()
         infoView.backgroundColor = .systemGroupedBackground
@@ -65,6 +65,8 @@ class MetaNodeEditorTableViewCell: UITableViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.bottom.equalToSuperview().offset(-16)
         }
+
+        // 初始化「信息标签」
 
         infoLabel = UILabel()
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)

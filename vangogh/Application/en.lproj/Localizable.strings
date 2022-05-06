@@ -23,6 +23,7 @@
 "CameraAuthorizationDenied" = "Insufficient Permissions for Camera";
 "CameraAuthorizationDeniedInfo" = "Please \"Open Settings\" and enable \"Camera\"";
 "Cancel" = "Cancel";
+"Colon" = " ";
 "Compose" = "Compose";
 "ConfigureConditions" = "Scene transition will be triggered if the following conditions are satisfied";
 "Confirm" = "Confirm";
@@ -86,7 +87,7 @@
 "PhotoLibraryAuthorizationDeniedInfo" = "Please \"Open Settings\" and select \"Photos\" - \"Allow All Photos Access\"";
 "Pictures" = "Pictures";
 "Play" = "Play";
-"Preview" = "Preview";
+"Preview" = "Run";
 "PrivacyPolicy" = "Privacy Policy";
 "Publish" = "Publish Game";
 "PublishInitialVersion" = "Publish the Initial Version";

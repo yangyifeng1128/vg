@@ -42,6 +42,8 @@ class MetaTextView: MetaNodeView {
 
         backgroundColor = UIColor.colorWithRGBA(rgba: text.backgroundColorCode)
 
+        // 初始化「信息标签」
+
         infoLabel = AttributedLabel()
         infoLabel.text = text.info
         infoLabel.textColor = UIColor.colorWithRGBA(rgba: text.foregroundColorCode)

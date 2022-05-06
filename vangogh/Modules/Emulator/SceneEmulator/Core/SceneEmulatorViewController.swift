@@ -280,33 +280,31 @@ class SceneEmulatorViewController: UIViewController {
         view.addSubview(progressView)
         progressView.snp.makeConstraints { make -> Void in
             make.height.equalTo(SceneEmulatorProgressView.VC.height)
-            make.left.right.equalToSuperview().inset(VC.playerViewPadding)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-80)
+            make.left.right.equalToSuperview().inset(VC.playerViewPadding * 2)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-72)
         }
 
         // 初始化「播放按钮」
 
         playButton = SceneEmulatorPlayButton(imageEdgeInset: VC.playButtonImageEdgeInset)
-        playButton.isHidden = true
         playButton.addTarget(self, action: #selector(playButtonDidTap), for: .touchUpInside)
         view.addSubview(playButton)
         playButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.playButtonWidth)
-            make.left.equalToSuperview().offset(VC.playerViewPadding)
+            make.right.equalToSuperview().offset(-VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
 
         // 初始化「作品板按钮」
 
         gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2)
-        gameboardButton.isHidden = true
         gameboardButton.infoLabel.attributedText = prepareGameboardButtonInfoLabelAttributedText()
         gameboardButton.addTarget(self, action: #selector(gameboardButtonDidTap), for: .touchUpInside)
         view.addSubview(gameboardButton)
         gameboardButton.snp.makeConstraints { make -> Void in
             make.height.equalTo(VC.playButtonWidth)
-            make.left.equalTo(playButton.snp.right).offset(VC.playerViewPadding)
-            make.right.equalToSuperview().offset(-VC.playerViewPadding * 2)
+            make.left.equalToSuperview().offset(VC.playerViewPadding)
+            make.right.equalTo(playButton.snp.left).offset(-VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
     }

@@ -94,7 +94,7 @@ enum GVC {
     static let bottomSheetViewCornerRadius: CGFloat = 32
     static let defaultGameboardViewContentOffset: CGPoint = CGPoint(x: -1, y: -1) // 代表当前作品板居中
     static let defaultSceneAspectRatio: CGFloat = 0.75
-    static let defaultSceneControlBackgroundColor: UIColor = UIColor.systemGroupedBackground.withAlphaComponent(0.9)
+    static let defaultSceneControlBackgroundColor: UIColor = UIColor.secondarySystemGroupedBackground.withAlphaComponent(0.8)
     static let defaultTopBarButtonContainerWidth: CGFloat = 64
     static let defaultTopBarButtonContainerPadding: CGFloat = 12
     static let defaultTopBarTitleLabelFontSize: CGFloat = 16
@@ -162,6 +162,7 @@ extension UIImage {
     static let checkpoint: UIImage? = UIImage(named: "Checkpoint")
     static let chevronLeft: UIImage? = UIImage(named: "ChevronLeft")
     static let chevronRight: UIImage? = UIImage(named: "ChevronRight")
+    static let chevronUp: UIImage? = UIImage(named: "ChevronUp")
     static let circle: UIImage? = UIImage(named: "Circle")
     static let close: UIImage? = UIImage(named: "Close")
     static let coloring: UIImage? = UIImage(named: "Coloring")

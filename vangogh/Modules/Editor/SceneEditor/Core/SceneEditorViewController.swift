@@ -26,7 +26,7 @@ class SceneEditorViewController: UIViewController {
         static let currentTimeLabelWidth: CGFloat = 44
         static let actionBarViewLabelFontSize: CGFloat = 14
         static let timeSeparatorLabelFontSize: CGFloat = 10
-        static let previewButtonWidth: CGFloat = 88
+        static let previewButtonWidth: CGFloat = 80
         static let previewButtonMarginRight: CGFloat = 12
         static let previewButtonTitleLabelFontSize: CGFloat = 14
     }
@@ -59,7 +59,7 @@ class SceneEditorViewController: UIViewController {
     /// 场景时长标签
     var sceneDurationLabel: UILabel!
     /// 运行按钮
-    var previewButton: UIButton!
+    var previewButton: RoundedButton!
 
     /// 工作区视图
     var workspaceView: UIView!
@@ -475,11 +475,9 @@ class SceneEditorViewController: UIViewController {
 
         // 初始化「运行按钮」
 
-        previewButton = UIButton()
-        previewButton.backgroundColor = .clear
+        previewButton = RoundedButton(cornerRadius: 6)
+        previewButton.backgroundColor = .accent
         previewButton.tintColor = .mgLabel
-        previewButton.contentHorizontalAlignment = .right
-        previewButton.contentVerticalAlignment = .center
         previewButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
         previewButton.setTitleColor(.mgLabel, for: .normal)
         previewButton.setTitleColor(UIColor.mgLabel?.withAlphaComponent(0.5), for: .disabled)
@@ -492,7 +490,7 @@ class SceneEditorViewController: UIViewController {
         actionBarView.addSubview(previewButton)
         previewButton.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.previewButtonWidth)
-            make.height.equalToSuperview()
+            make.height.equalToSuperview().inset(6)
             make.centerY.equalTo(playButton)
             make.right.equalToSuperview().offset(-VC.previewButtonMarginRight)
         }

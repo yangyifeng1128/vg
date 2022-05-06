@@ -42,11 +42,8 @@ extension SceneEmulatorViewController {
     @objc func playerItemDidPlayToEndTime() {
 
         Logger.sceneEmulator.info("player item did play to end time")
-        
-        // loop()
 
-        playButton.isPlaying = false
-        player.seek(to: .zero)
+        loop()
     }
 
     @objc func didEnterBackground() {
@@ -78,19 +75,25 @@ extension SceneEmulatorViewController {
 
         guard let scene = gameBundle.selectedScene() else { return completeTitleString }
 
-        // 准备场景索引
+        // 准备场景标题
 
-        let indexStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
-        let indexString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Scene", comment: "") + " " + scene.index.description, attributes: indexStringAttributes)
-        completeTitleString.append(indexString)
+        var gameTitleString: NSAttributedString
+        let gameTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
+        gameTitleString = NSAttributedString(string: "草稿 2", attributes: gameTitleStringAttributes)
+        completeTitleString.append(gameTitleString)
 
         // 准备场景标题
 
-        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        var titleString: NSAttributedString
-        if let title = scene.title, !title.isEmpty {
-            titleString = NSAttributedString(string: "  " + title, attributes: titleStringAttributes)
-            completeTitleString.append(titleString)
+        var sceneTitleString: NSAttributedString
+        if let sceneTitle = scene.title, !sceneTitle.isEmpty {
+
+            let colonStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
+            let colonString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Colon", comment: ""), attributes: colonStringAttributes)
+            completeTitleString.append(colonString)
+
+            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
+            sceneTitleString = NSAttributedString(string: sceneTitle, attributes: sceneTitleStringAttributes)
+            completeTitleString.append(sceneTitleString)
         }
 
         // 准备段落样式
@@ -206,7 +209,6 @@ extension SceneEmulatorViewController {
 
             playerView.rendererView.image = .sceneBackground
             playerView.rendererView.contentMode = .scaleAspectFill
-            playButton.isHidden = true
             noDataView.isHidden = false
             view.bringSubviewToFront(noDataView)
 
@@ -215,7 +217,6 @@ extension SceneEmulatorViewController {
             playerView.rendererView.player = player
 
             playerView.rendererView.image = nil
-            playButton.isHidden = false
             noDataView.isHidden = true
             view.sendSubviewToBack(noDataView)
         }
@@ -263,7 +264,6 @@ extension SceneEmulatorViewController {
                 player.pause()
 
                 closeButtonContainer.isHidden = false
-                gameboardButton.isHidden = false
                 progressView.isHidden = false
 
             } else {
@@ -272,7 +272,6 @@ extension SceneEmulatorViewController {
                 player.play()
 
                 closeButtonContainer.isHidden = true
-                gameboardButton.isHidden = true
                 progressView.isHidden = true
             }
         }
@@ -300,7 +299,6 @@ extension SceneEmulatorViewController {
         }
 
         closeButtonContainer.isHidden = true
-        gameboardButton.isHidden = true
         progressView.isHidden = true
     }
 }

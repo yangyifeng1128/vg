@@ -40,13 +40,13 @@ class SceneEmulatorGameboardButton: RoundedButton {
         // 初始化「图标视图」
 
         iconView = UIImageView()
-        iconView.image = .unfold
+        iconView.image = .emulate
         iconView.tintColor = .mgLabel
         addSubview(iconView)
         iconView.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.iconViewWidth)
             make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-12)
+            make.left.equalTo(24)
         }
 
         // 初始化「信息标签」
@@ -59,8 +59,8 @@ class SceneEmulatorGameboardButton: RoundedButton {
         infoLabel.snp.makeConstraints { make -> Void in
             make.height.equalToSuperview().inset(8)
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(24)
-            make.right.equalTo(iconView.snp.left).offset(-16)
+            make.left.equalTo(iconView.snp.right).offset(8)
+            make.right.equalToSuperview().offset(-24)
         }
     }
 }

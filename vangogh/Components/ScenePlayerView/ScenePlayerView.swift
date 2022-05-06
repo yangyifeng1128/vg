@@ -56,7 +56,7 @@ class ScenePlayerView: UIView {
     /// 初始化视图
     private func initViews() {
 
-        backgroundColor = isEditable ? .clear : .black
+        backgroundColor = isEditable ? .clear : .systemGroupedBackground
 
         // 初始化「渲染器视图」
 

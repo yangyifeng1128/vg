@@ -12,7 +12,7 @@
 "AgreementsInfo" = "如果您同意上述内容，请点击下面的「同意」按钮以接受我们的服务";
 "AddAsset" = "插入一条新素材";
 "AddCondition" = "插入一个新条件";
-"AddFootage" = "添加内容素材";
+"AddFootage" = "添加素材";
 "AddNodeInfo" = "点击下面的按钮，插入互动组件";
 "AddScene" = "新建场景";
 "AddSceneInfo" = "点击下面的按钮，为此作品插入一个新场景";
@@ -23,6 +23,7 @@
 "CameraAuthorizationDenied" = "未被允许访问相机";
 "CameraAuthorizationDeniedInfo" = "请「打开设置」，然后启用「相机」";
 "Cancel" = "取消";
+"Colon" = " 之 ";
 "Compose" = "创作";
 "ConfigureConditions" = "当满足下面的条件时，会触发场景穿梭";
 "Confirm" = "确定";
