@@ -120,7 +120,7 @@ class GameEditorSceneExplorerView: BorderedView {
             make.top.equalTo(closeSceneButton).offset(14)
         }
 
-        // 初始化「预览场景按钮」
+        // 初始化「运行场景按钮」
 
         let previewSceneButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         previewSceneButton.backgroundColor = .accent

@@ -58,7 +58,7 @@ class SceneEditorViewController: UIViewController {
     var currentTimeLabel: UILabel!
     /// 场景时长标签
     var sceneDurationLabel: UILabel!
-    /// 预览按钮
+    /// 运行按钮
     var previewButton: UIButton!
 
     /// 工作区视图
@@ -473,7 +473,7 @@ class SceneEditorViewController: UIViewController {
             make.right.equalTo(playButton.snp.left).offset(-12)
         }
 
-        // 初始化「预览按钮」
+        // 初始化「运行按钮」
 
         previewButton = UIButton()
         previewButton.backgroundColor = .clear

@@ -6,7 +6,7 @@
 
 // ----- Application  -----
 
-"About" = "关于全互动";
+"About" = "关于元互动";
 "Agree" = "同意";
 "Agreements" = "服务协议与隐私政策";
 "AgreementsInfo" = "如果您同意上述内容，请点击下面的「同意」按钮以接受我们的服务";
@@ -86,7 +86,7 @@
 "PhotoLibraryAuthorizationDeniedInfo" = "请「打开设置」，然后选择「照片」-「允许访问所有照片」";
 "Pictures" = "图片";
 "Play" = "互动";
-"Preview" = "预览";
+"Preview" = "运行";
 "PrivacyPolicy" = "隐私政策";
 "Publish" = "发布作品";
 "PublishInitialVersion" = "发布第一个版本";
