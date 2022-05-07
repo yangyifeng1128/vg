@@ -19,10 +19,7 @@ class SceneEditorPlayButton: UIButton {
     /// 播放状态
     var isPlaying: Bool = false {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.setToggled()
-            }
+            setToggled()
         }
     }
 

@@ -49,37 +49,28 @@ class TimelineView: UIView {
     /// 内容视图宽度
     private var contentViewWidth: CGFloat = 0 {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.contentView.snp.updateConstraints { make -> Void in
-                    make.width.equalTo(s.contentViewWidth)
-                }
-                s.contentViewContainer.contentSize = CGSize(width: s.contentViewWidth, height: .zero)
+            contentView.snp.updateConstraints { make -> Void in
+                make.width.equalTo(contentViewWidth)
             }
+            contentViewContainer.contentSize = CGSize(width: contentViewWidth, height: .zero)
         }
     }
     /// 轨道项视图容器宽度
     private var trackItemViewContainerWidth: CGFloat = 0 {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.trackItemViewContainer.snp.updateConstraints { make -> Void in
-                    make.width.equalTo(s.trackItemViewContainerWidth)
-                }
+            trackItemViewContainer.snp.updateConstraints { make -> Void in
+                make.width.equalTo(trackItemViewContainerWidth)
             }
         }
     }
     /// 组件项视图容器宽度
     private var nodeItemViewContainerWidth: CGFloat = 0 {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.nodeItemTagViewContainer.snp.updateConstraints { make -> Void in
-                    make.width.equalTo(s.nodeItemViewContainerWidth)
-                }
-                s.nodeItemViewContainer.snp.updateConstraints { make -> Void in
-                    make.width.equalTo(s.nodeItemViewContainerWidth)
-                }
+            nodeItemTagViewContainer.snp.updateConstraints { make -> Void in
+                make.width.equalTo(nodeItemViewContainerWidth)
+            }
+            nodeItemViewContainer.snp.updateConstraints { make -> Void in
+                make.width.equalTo(nodeItemViewContainerWidth)
             }
         }
     }
@@ -92,11 +83,8 @@ class TimelineView: UIView {
     /// 可用状态
     var isEnabled: Bool = true {
         willSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.timelineToolBarView.isUserInteractionEnabled = newValue
-                s.newFootageButton.isEnabled = newValue
-            }
+            timelineToolBarView.isUserInteractionEnabled = newValue
+            newFootageButton.isEnabled = newValue
         }
     }
 

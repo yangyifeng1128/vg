@@ -35,12 +35,7 @@ class GameEditorSceneExplorerView: BorderedView {
 
     /// 数据源
     weak var dataSource: GameEditorSceneExplorerViewDataSource? {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.reloadData()
-            }
-        }
+        didSet { reloadData() }
     }
     /// 代理
     weak var delegate: GameEditorSceneExplorerViewDelegate?

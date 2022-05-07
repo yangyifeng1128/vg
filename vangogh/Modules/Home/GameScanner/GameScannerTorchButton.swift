@@ -46,10 +46,7 @@ class GameScannerTorchButton: UIButton {
     /// 激活状态
     var isActive: Bool = false {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.setToggled()
-            }
+            setToggled()
         }
     }
 

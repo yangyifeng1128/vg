@@ -25,10 +25,7 @@ class LoadingView: RoundedView {
     var progress: CGFloat = 0 {
         didSet {
             let percentage: Int = Int(round(progress * 100))
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.infoLabel.text = percentage >= 100 ? "" : "\(percentage)%"
-            }
+            infoLabel.text = percentage >= 100 ? "" : "\(percentage)%"
         }
     }
 

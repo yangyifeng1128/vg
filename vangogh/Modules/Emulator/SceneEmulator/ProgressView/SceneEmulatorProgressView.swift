@@ -38,10 +38,7 @@ class SceneEmulatorProgressView: UIView {
     /// 播放进度
     var progress: CGFloat = 0 {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let s = self else { return }
-                s.slider.setValue(Float(min(max(GVC.minProgressValue, s.progress), GVC.maxProgressValue)), animated: false)
-            }
+            slider.setValue(Float(min(max(GVC.minProgressValue, progress), GVC.maxProgressValue)), animated: false)
         }
     }
 
