@@ -25,8 +25,10 @@ class SceneEmulatorCircleProgressView: UIView {
     var isAnimating: Bool = false
     /// 进度
     var progress: CGFloat = 0 {
-        guard !isAnimating else { return }
-        animate(from: progressLayer.strokeEnd, to: min(max(0, progress / GVC.maxProgressValue), 1))
+        didSet {
+            guard !isAnimating else { return }
+            animate(from: progressLayer.strokeEnd, to: min(max(0, progress / GVC.maxProgressValue), 1))
+        }
     }
 
     /// 初始化
