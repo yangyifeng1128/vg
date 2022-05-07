@@ -31,7 +31,10 @@ class NodeItemBottomBarView: BorderedView {
     private var actionBarItems: [NodeItemBottomBarItem]!
     var node: MetaNode? {
         didSet {
-            updateContentView()
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.updateContentView()
+            }
         }
     }
 

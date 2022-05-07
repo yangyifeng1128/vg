@@ -8,13 +8,6 @@ import UIKit
 
 class SceneEditorPlayButton: UIButton {
 
-    /// 播放状态
-    var isPlaying: Bool = false {
-        didSet {
-            setToggled()
-        }
-    }
-
     /// 播放图像
     private var playImage: UIImage? = .play
     /// 暂停图像
@@ -22,6 +15,16 @@ class SceneEditorPlayButton: UIButton {
 
     /// 图像边缘内边距
     private var imageEdgeInset: CGFloat!
+
+    /// 播放状态
+    var isPlaying: Bool = false {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.setToggled()
+            }
+        }
+    }
 
     /// 初始化
     init(imageEdgeInset: CGFloat) {
@@ -47,6 +50,9 @@ class SceneEditorPlayButton: UIButton {
 
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)
     }
+}
+
+extension SceneEditorPlayButton {
 
     /// 设置切换状态
     private func setToggled() {

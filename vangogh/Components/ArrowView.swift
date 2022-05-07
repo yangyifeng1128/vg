@@ -60,15 +60,6 @@ class ArrowView: UIView {
 
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension ArrowView {
-
-    /// 初始化视图
-    private func initViews() {
-
-        backgroundColor = .clear
-    }
 
     /// 重写绘制视图方法
     override func draw(_ rect: CGRect) {
@@ -77,6 +68,15 @@ extension ArrowView {
 
         updateView()
     }
+
+    /// 初始化视图
+    private func initViews() {
+
+        backgroundColor = .clear
+    }
+}
+
+extension ArrowView {
 
     /// 更新视图
     func updateView() {

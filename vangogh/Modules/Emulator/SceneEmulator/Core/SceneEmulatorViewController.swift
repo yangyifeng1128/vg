@@ -61,7 +61,10 @@ class SceneEmulatorViewController: UIViewController {
     /// 当前时刻
     var currentTime: CMTime = .zero {
         didSet {
-            updateViewsWhenTimeElapsed(to: currentTime)
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.updateViewsWhenTimeElapsed(to: s.currentTime)
+            }
         }
     }
     /// 周期时刻观察器

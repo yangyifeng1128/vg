@@ -8,11 +8,13 @@ import UIKit
 
 class SceneEmulatorPlayButton: UIButton {
 
+    /// 遮罩图层
     private lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
         return $0
     }(CAShapeLayer())
 
+    /// 重写边框大小
     override var bounds: CGRect {
         set {
             super.bounds = newValue
@@ -33,7 +35,7 @@ class SceneEmulatorPlayButton: UIButton {
         }
     }
 
-    /// 可用状态
+    /// 重写可用状态
     override var isEnabled: Bool {
         willSet {
             if newValue == false {
@@ -48,14 +50,20 @@ class SceneEmulatorPlayButton: UIButton {
 
     /// 播放状态
     var isPlaying: Bool = false {
-        didSet {
-            setToggled()
+        willSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.setToggled()
+            }
         }
     }
 
+    /// 播放图像
     var playImage: UIImage? = .play
+    /// 暂停图像
     var pauseImage: UIImage? = .pause
 
+    /// 图像边缘内边距
     private var imageEdgeInset: CGFloat!
 
     /// 初始化
@@ -83,6 +91,9 @@ class SceneEmulatorPlayButton: UIButton {
 
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)
     }
+}
+
+extension SceneEmulatorPlayButton {
 
     /// 设置切换状态
     private func setToggled() {

@@ -35,13 +35,6 @@ class GameScannerTorchButton: UIButton {
         }
     }
 
-    /// 激活状态
-    var isActive: Bool = false {
-        didSet {
-            setToggled()
-        }
-    }
-
     /// 开启手电筒图像
     private var torchImage: UIImage? = .torch
     /// 关闭手电筒图像
@@ -50,23 +43,22 @@ class GameScannerTorchButton: UIButton {
     /// 图像边缘内边距
     private var imageEdgeInset: CGFloat!
 
+    /// 激活状态
+    var isActive: Bool = false {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.setToggled()
+            }
+        }
+    }
+
     /// 初始化
     init(imageEdgeInset: CGFloat) {
 
         super.init(frame: .zero)
 
         self.imageEdgeInset = imageEdgeInset
-
-        initViews()
-    }
-
-    required init?(coder: NSCoder) {
-
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    /// 初始化视图
-    private func initViews() {
 
         setToggled()
 
@@ -76,11 +68,19 @@ class GameScannerTorchButton: UIButton {
         adjustsImageWhenHighlighted = false
     }
 
+    required init?(coder: NSCoder) {
+
+        fatalError("init(coder:) has not been implemented")
+    }
+
     /// 重写背景矩形区域
     override func backgroundRect(forBounds bounds: CGRect) -> CGRect {
 
         return CGRect(x: imageEdgeInset, y: imageEdgeInset, width: bounds.width - imageEdgeInset * 2, height: bounds.height - imageEdgeInset * 2)
     }
+}
+
+extension GameScannerTorchButton {
 
     /// 设置切换状态
     private func setToggled() {

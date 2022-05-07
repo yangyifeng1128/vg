@@ -10,19 +10,10 @@ class SceneEmulatorProgressBarView: UIView {
 
     private var maskLayer: CAShapeLayer!
 
+    /// 初始化
     init() {
 
         super.init(frame: .zero)
-
-        initViews()
-    }
-
-    required init?(coder: NSCoder) {
-
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func initViews() {
 
         isUserInteractionEnabled = false
         layer.backgroundColor = GVC.defaultSceneControlBackgroundColor.cgColor
@@ -31,6 +22,12 @@ class SceneEmulatorProgressBarView: UIView {
         layer.mask = maskLayer
     }
 
+    required init?(coder: NSCoder) {
+
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    /// 重写绘制视图方法
     override func draw(_ rect: CGRect) {
 
         super.draw(rect)

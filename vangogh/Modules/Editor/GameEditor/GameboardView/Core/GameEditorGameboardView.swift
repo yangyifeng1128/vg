@@ -18,7 +18,12 @@ class GameEditorGameboardView: UIScrollView {
 
     /// 数据源
     weak var gameDataSource: GameEditorGameboardViewDataSource? {
-        didSet { reloadData() }
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.reloadData()
+            }
+        }
     }
     /// 代理
     weak var gameDelegate: GameEditorGameboardViewDelegate? {

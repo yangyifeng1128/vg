@@ -35,13 +35,19 @@ class SceneEmulatorProgressView: UIView {
         }
     }
 
-    var value: CGFloat = 0 {
+    /// 最小进度
+    static let minimumValue: CGFloat = 0
+    /// 最大进度
+    static let maximumValue: CGFloat = 100
+    /// 播放进度
+    var progress: CGFloat = 0 {
         didSet {
-            slider.setValue(Float(value), animated: false)
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.slider.setValue(Float(s.progress), animated: false)
+            }
         }
     }
-    static let minimumValue: CGFloat = 0
-    static let maximumValue: CGFloat = 100
 
     private var playerItemDurationMilliseconds: Int64!
 

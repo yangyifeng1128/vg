@@ -31,7 +31,10 @@ class TrackItemBottomBarView: BorderedView {
     private var actionBarItems: [TrackItemBottomBarItem]!
     var footage: MetaFootage? {
         didSet {
-            updateContentView()
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                s.updateContentView()
+            }
         }
     }
 

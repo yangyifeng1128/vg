@@ -46,22 +46,16 @@ class AddFootageButton: UIButton {
 
         self.imageEdgeInset = imageEdgeInset
 
-        initViews()
-    }
-
-    required init?(coder: NSCoder) {
-
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    /// 初始化视图
-    private func initViews() {
-
         backgroundColor = .accent
         tintColor = .white
         setBackgroundImage(.add, for: .normal)
         adjustsImageWhenHighlighted = false
         imageView?.tintColor = .white
+    }
+
+    required init?(coder: NSCoder) {
+
+        fatalError("init(coder:) has not been implemented")
     }
 
     /// 重写背景矩形区域
