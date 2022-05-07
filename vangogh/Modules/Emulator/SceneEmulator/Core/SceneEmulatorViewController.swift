@@ -287,7 +287,7 @@ class SceneEmulatorViewController: UIViewController {
         progressView.snp.makeConstraints { make -> Void in
             make.height.equalTo(SceneEmulatorProgressView.VC.height)
             make.left.right.equalToSuperview().inset(VC.playerViewPadding * 2)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-72)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-96)
         }
 
         // 环形进度视图

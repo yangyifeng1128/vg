@@ -8,20 +8,6 @@ import UIKit
 
 extension GameEditorTransitionView {
 
-    /// 更新视图
-    func updateView() {
-
-        layer.sublayers?.removeAll()
-
-        let arrow = UIBezierPath.arrow2(from: startScene.center, to: endScene.center, tailWidth: VC.tailWidth, headWidth: VC.headWidth, headLength: VC.headLength)
-
-        let arrowLayer = CAShapeLayer()
-        arrowLayer.fillColor = arrowLayerColor
-        arrowLayer.path = arrow.cgPath
-
-        layer.addSublayer(arrowLayer)
-    }
-
     /// 高亮
     func highlight(isSent: Bool) {
 
@@ -38,6 +24,20 @@ extension GameEditorTransitionView {
         updateView()
 
         stopPulseAnimating()
+    }
+
+    /// 更新视图
+    func updateView() {
+
+        layer.sublayers?.removeAll()
+
+        let arrow = UIBezierPath.arrow2(from: startScene.center, to: endScene.center, tailWidth: VC.tailWidth, headWidth: VC.headWidth, headLength: VC.headLength)
+
+        let arrowLayer = CAShapeLayer()
+        arrowLayer.fillColor = arrowLayerColor
+        arrowLayer.path = arrow.cgPath
+
+        layer.addSublayer(arrowLayer)
     }
 
     /// 开启脉冲动画

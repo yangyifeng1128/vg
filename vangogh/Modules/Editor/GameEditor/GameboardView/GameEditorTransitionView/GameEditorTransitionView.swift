@@ -50,8 +50,8 @@ class GameEditorTransitionView: UIView {
     private func initViews() {
 
         backgroundColor = .clear
-        arrowLayerColor = UIColor.tertiaryLabel.cgColor
 
+        arrowLayerColor = UIColor.tertiaryLabel.cgColor
         updateView()
     }
 }

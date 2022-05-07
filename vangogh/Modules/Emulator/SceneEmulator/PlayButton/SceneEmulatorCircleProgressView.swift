@@ -60,6 +60,15 @@ class SceneEmulatorCircleProgressView: UIView {
 
         super.draw(rect)
 
+        updateView()
+    }
+}
+
+extension SceneEmulatorCircleProgressView {
+
+    /// 更新视图
+    func updateView() {
+
         let arcCenter = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
         let radius = (min(bounds.width, bounds.height) - VC.trackLayerLineWidth) / 2
         trackLayer.path = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: VC.startAngle, endAngle: VC.endAngle, clockwise: true).cgPath
@@ -74,11 +83,11 @@ class SceneEmulatorCircleProgressView: UIView {
         progressLayer.lineCap = .round
         progressLayer.lineWidth = VC.progressLayerLineWidth
         progressLayer.strokeEnd = 0
-    }
-}
 
-extension SceneEmulatorCircleProgressView {
-    
+        animate(from: progressLayer.strokeEnd, to: min(max(0, progress / GVC.maxProgressValue), 1))
+    }
+
+    /// 执行动画
     private func animate(from fromValue: CGFloat, to endValue: CGFloat) {
 
         isAnimating = true
@@ -95,6 +104,7 @@ extension SceneEmulatorCircleProgressView {
 
 extension SceneEmulatorCircleProgressView: CAAnimationDelegate {
 
+    /// 动画已结束
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
 
         isAnimating = !flag
