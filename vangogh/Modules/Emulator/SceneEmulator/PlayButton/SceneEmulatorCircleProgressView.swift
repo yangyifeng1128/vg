@@ -94,9 +94,8 @@ extension SceneEmulatorCircleProgressView {
         progressLayer.strokeEnd = endValue
 
         let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         animation.fromValue = fromValue
-        animation.duration = 0.3
+        animation.duration = 0.2
         animation.delegate = self
         progressLayer.add(animation, forKey: "strokeEnd")
     }

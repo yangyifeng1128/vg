@@ -286,8 +286,8 @@ class SceneEmulatorViewController: UIViewController {
         view.addSubview(progressView)
         progressView.snp.makeConstraints { make -> Void in
             make.height.equalTo(SceneEmulatorProgressView.VC.height)
-            make.left.right.equalToSuperview().inset(VC.playerViewPadding * 2)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-104)
+            make.left.right.equalToSuperview().inset(VC.playerViewPadding)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-80)
         }
 
         // 环形进度视图
@@ -320,7 +320,7 @@ class SceneEmulatorViewController: UIViewController {
         gameboardButton.snp.makeConstraints { make -> Void in
             make.height.equalTo(VC.gameboardButtonHeight)
             make.left.equalTo(playButton.snp.right).offset(VC.playerViewPadding)
-            make.right.equalToSuperview().offset(-VC.playerViewPadding * 2)
+            make.right.equalToSuperview().offset(-VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
     }
