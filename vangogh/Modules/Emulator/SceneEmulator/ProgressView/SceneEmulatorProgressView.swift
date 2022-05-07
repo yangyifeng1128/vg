@@ -35,16 +35,12 @@ class SceneEmulatorProgressView: UIView {
         }
     }
 
-    /// 最小进度
-    static let minimumValue: CGFloat = 0
-    /// 最大进度
-    static let maximumValue: CGFloat = 100
     /// 播放进度
     var progress: CGFloat = 0 {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let s = self else { return }
-                s.slider.setValue(Float(s.progress), animated: false)
+                s.slider.setValue(Float(min(max(GVC.minProgressValue, s.progress), GVC.maxProgressValue)), animated: false)
             }
         }
     }
@@ -89,8 +85,8 @@ class SceneEmulatorProgressView: UIView {
         slider.isContinuous = true
         slider.minimumTrackTintColor = .clear
         slider.maximumTrackTintColor = .clear
-        slider.minimumValue = Float(SceneEmulatorProgressView.minimumValue)
-        slider.maximumValue = Float(SceneEmulatorProgressView.maximumValue)
+        slider.minimumValue = Float(GVC.minProgressValue)
+        slider.maximumValue = Float(GVC.maxProgressValue)
         slider.setThumbImage(UIImage.circle(diameter: VC.sliderThumbImageHeight, color: .accent!), for: .normal)
         slider.addTarget(self, action: #selector(slide), for: .valueChanged)
         addSubview(slider)

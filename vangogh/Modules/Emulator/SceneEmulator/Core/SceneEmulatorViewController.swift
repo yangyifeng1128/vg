@@ -15,8 +15,9 @@ class SceneEmulatorViewController: UIViewController {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let playerViewPadding: CGFloat = 12
-        static let playButtonWidth: CGFloat = 46
+        static let playButtonWidth: CGFloat = 42
         static let playButtonImageEdgeInset: CGFloat = 9.2
+        static let gameboardButtonHeight: CGFloat = 46
     }
 
     /// 用户界面风格偏好设置
@@ -36,6 +37,8 @@ class SceneEmulatorViewController: UIViewController {
     /// 进度视图
     var progressView: SceneEmulatorProgressView!
 
+    /// 环形进度视图
+    var circleProgressView: SceneEmulatorCircleProgressView!
     /// 播放按钮
     var playButton: SceneEmulatorPlayButton!
     /// 作品板按钮
@@ -287,26 +290,35 @@ class SceneEmulatorViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-72)
         }
 
-        // 初始化「播放按钮」
+        // 环形进度视图
 
-        playButton = SceneEmulatorPlayButton(imageEdgeInset: VC.playButtonImageEdgeInset)
-        playButton.addTarget(self, action: #selector(playButtonDidTap), for: .touchUpInside)
-        view.addSubview(playButton)
-        playButton.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(VC.playButtonWidth)
+        circleProgressView = SceneEmulatorCircleProgressView()
+        view.addSubview(circleProgressView)
+        circleProgressView.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(VC.playButtonWidth + SceneEmulatorCircleProgressView.VC.trackLayerLineWidth * 2)
             make.left.equalToSuperview().offset(VC.playerViewPadding)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
         }
 
+        // 初始化「播放按钮」
+
+        playButton = SceneEmulatorPlayButton(imageEdgeInset: VC.playButtonImageEdgeInset)
+        playButton.addTarget(self, action: #selector(playButtonDidTap), for: .touchUpInside)
+        circleProgressView.addSubview(playButton)
+        playButton.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(VC.playButtonWidth)
+            make.center.equalToSuperview()
+        }
+
         // 初始化「作品板按钮」
 
-        gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.playButtonWidth / 2)
+        gameboardButton = SceneEmulatorGameboardButton(cornerRadius: VC.gameboardButtonHeight / 2)
         gameboardButton.isHidden = true
         gameboardButton.infoLabel.attributedText = prepareGameboardButtonInfoLabelAttributedText()
         gameboardButton.addTarget(self, action: #selector(gameboardButtonDidTap), for: .touchUpInside)
         view.addSubview(gameboardButton)
         gameboardButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(VC.playButtonWidth)
+            make.height.equalTo(VC.gameboardButtonHeight)
             make.left.equalTo(playButton.snp.right).offset(VC.playerViewPadding)
             make.right.equalToSuperview().offset(-VC.playerViewPadding * 2)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-VC.playerViewPadding)
@@ -358,13 +370,13 @@ extension SceneEmulatorViewController: SceneEmulatorProgressViewDelegate {
 
     func progressViewDidEndSliding(to value: Double) {
 
-        print("[SceneEmulator] did end sliding progressView to \(value * 100 / SceneEmulatorProgressView.maximumValue)%")
+        print("[SceneEmulator] did end sliding progressView to \(value * 100 / GVC.maxProgressValue)%")
 
         // 重新定位播放时刻
 
         if let duration = player.currentItem?.duration {
 
-            let currentTimeMilliseconds: Int64 = Int64((duration.seconds * 1000 * value / SceneEmulatorProgressView.maximumValue).rounded())
+            let currentTimeMilliseconds: Int64 = Int64((duration.seconds * 1000 * value / GVC.maxProgressValue).rounded())
             player.seek(to: CMTimeMake(value: currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
         }
     }

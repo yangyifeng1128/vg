@@ -245,9 +245,9 @@ extension SceneEmulatorViewController {
     func updateViewsWhenTimeElapsed(to time: CMTime) {
 
         if let duration = player.currentItem?.duration {
-            let progress: CGFloat = SceneEmulatorProgressView.maximumValue * time.seconds / duration.seconds
-            print(progress)
+            let progress: CGFloat = GVC.maxProgressValue * time.seconds / duration.seconds
             progressView.progress = progress
+            circleProgressView.progress = progress
         }
 
         playerView.showOrHideNodeViews(at: time)
@@ -292,6 +292,7 @@ extension SceneEmulatorViewController {
             player.play()
             playButton.isPlaying = true
             progressView.progress = 0
+            circleProgressView.progress = 0
         }
     }
 

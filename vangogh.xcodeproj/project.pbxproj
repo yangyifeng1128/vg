@@ -111,6 +111,7 @@
 		0F3A4EFB28240E8000E5921A /* SceneEditorViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EFA28240E8000E5921A /* SceneEditorViewController+VM.swift */; };
 		0F3A4EFD28240F0300E5921A /* SceneEditorViewController+AV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EFC28240F0300E5921A /* SceneEditorViewController+AV.swift */; };
 		0F3A4EFF28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4EFE28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift */; };
+		0F3A4F012826924C00E5921A /* SceneEmulatorCircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A4F002826924C00E5921A /* SceneEmulatorCircleProgressView.swift */; };
 		0F3D6783271358FD006496B1 /* AddFootageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D6782271358FD006496B1 /* AddFootageButton.swift */; };
 		0F4C00FD26DA4EF900C4406C /* microphone.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F4C00FC26DA4EF900C4406C /* microphone.json */; };
 		0F51FAE7273ADD7800D90811 /* MetaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51FAE6273ADD7800D90811 /* MetaButton.swift */; };
@@ -434,6 +435,7 @@
 		0F3A4EFA28240E8000E5921A /* SceneEditorViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEditorViewController+VM.swift"; sourceTree = "<group>"; };
 		0F3A4EFC28240F0300E5921A /* SceneEditorViewController+AV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEditorViewController+AV.swift"; sourceTree = "<group>"; };
 		0F3A4EFE28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEditorViewController+TimelineView.swift"; sourceTree = "<group>"; };
+		0F3A4F002826924C00E5921A /* SceneEmulatorCircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorCircleProgressView.swift; sourceTree = "<group>"; };
 		0F3D6782271358FD006496B1 /* AddFootageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFootageButton.swift; sourceTree = "<group>"; };
 		0F4C00FC26DA4EF900C4406C /* microphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = microphone.json; sourceTree = "<group>"; };
 		0F51FAE6273ADD7800D90811 /* MetaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaButton.swift; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				12666CE026D4F1AB00660A4B /* SceneEmulatorPlayButton.swift */,
+				0F3A4F002826924C00E5921A /* SceneEmulatorCircleProgressView.swift */,
 			);
 			path = PlayButton;
 			sourceTree = "<group>";
@@ -2462,6 +2465,7 @@
 				12349DA0271D220D00BC4626 /* MetaTextView.swift in Sources */,
 				124363C82711ADC1003FEAE3 /* TrackItemView.swift in Sources */,
 				120F23882701D1860039CEC0 /* MetaFootage.swift in Sources */,
+				0F3A4F012826924C00E5921A /* SceneEmulatorCircleProgressView.swift in Sources */,
 				0FD21FC8281F972000E50643 /* NodeItemViewDelegate.swift in Sources */,
 				126AD0D026BD09FA007EBEBE /* UIBezierPath+Arrow.swift in Sources */,
 				0F210E7926DAADCC002CC564 /* VideoCompositor.swift in Sources */,
