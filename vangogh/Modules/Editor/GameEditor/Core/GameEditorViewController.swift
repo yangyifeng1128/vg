@@ -358,7 +358,7 @@ extension GameEditorViewController {
 
         let title: String = (game.title.count > 8) ? game.title.prefix(8) + "..." : game.title
         if let parent = navigationController?.viewControllers[0] as? CompositionViewController {
-            parent.draftSavedMessage = title + " " + NSLocalizedString("SavedToDrafts", comment: "")
+            parent.draftSavedMessage = title + " " + NSLocalizedString("Saved", comment: "")
         }
     }
 

@@ -47,7 +47,7 @@
 "Dot" = ". ";
 "Download" = "下载";
 "Draft" = "草稿";
-"Drafts" = "草稿箱";
+"Drafts" = "我的作品";
 "Edit" = "编辑";
 "EditAlias" = "修改别名";
 "EditGameTitle" = "编辑作品标题";
@@ -95,7 +95,6 @@
 "Rescan" = "重新扫描";
 "Return" = "返回";
 "Saved" = "已保存";
-"SavedToDrafts" = "已保存至草稿箱";
 "Scene" = "场景";
 "SceneEmulatorNoData" = "暂无可互动的内容";
 "SceneSettings" = "场景设置";
