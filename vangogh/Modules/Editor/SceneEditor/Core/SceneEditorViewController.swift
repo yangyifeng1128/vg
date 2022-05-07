@@ -26,9 +26,8 @@ class SceneEditorViewController: UIViewController {
         static let currentTimeLabelWidth: CGFloat = 44
         static let actionBarViewLabelFontSize: CGFloat = 14
         static let timeSeparatorLabelFontSize: CGFloat = 10
-        static let previewButtonWidth: CGFloat = 80
-        static let previewButtonMarginRight: CGFloat = 12
-        static let previewButtonTitleLabelFontSize: CGFloat = 14
+        static let previewButtonWidth: CGFloat = 72
+        static let previewButtonTitleLabelFontSize: CGFloat = 13
     }
 
     /// 用户界面风格偏好设置
@@ -475,7 +474,7 @@ class SceneEditorViewController: UIViewController {
 
         // 初始化「运行按钮」
 
-        previewButton = RoundedButton(cornerRadius: 6)
+        previewButton = RoundedButton(cornerRadius: 4.8)
         previewButton.backgroundColor = .accent
         previewButton.tintColor = .mgLabel
         previewButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
@@ -490,9 +489,9 @@ class SceneEditorViewController: UIViewController {
         actionBarView.addSubview(previewButton)
         previewButton.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.previewButtonWidth)
-            make.height.equalToSuperview().inset(6)
+            make.height.equalToSuperview().inset(8)
             make.centerY.equalTo(playButton)
-            make.right.equalToSuperview().offset(-VC.previewButtonMarginRight)
+            make.right.equalToSuperview().offset(-12)
         }
     }
 
