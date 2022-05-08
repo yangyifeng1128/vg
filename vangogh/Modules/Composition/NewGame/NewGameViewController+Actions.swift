@@ -95,7 +95,7 @@ extension NewGameViewController {
     }
 
     /// 选择「模版集合视图」单元格
-    func selectTemplateTableViewCell(indexPath: IndexPath) {
+    func selectTemplateCollectionViewCell(indexPath: IndexPath) {
 
         let template: MetaTemplate = templates[indexPath.item]
 

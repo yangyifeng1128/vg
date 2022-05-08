@@ -163,6 +163,11 @@
 		0F9155202827CBB200E0AFCB /* SceneEmulatorPlayControlViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91551F2827CBB200E0AFCB /* SceneEmulatorPlayControlViewDataSource.swift */; };
 		0F9155222827CC0F00E0AFCB /* SceneEmulatorPlayControlViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155212827CC0F00E0AFCB /* SceneEmulatorPlayControlViewDelegate.swift */; };
 		0F9155242827CCCA00E0AFCB /* SceneEmulatorViewController+PlayControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155232827CCCA00E0AFCB /* SceneEmulatorViewController+PlayControlView.swift */; };
+		0F9155282827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155272827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift */; };
+		0F91552A2827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155292827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift */; };
+		0F91552C2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */; };
+		0F91552F2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */; };
+		0F9155312827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */; };
 		0F95E700271C6366005EE818 /* GameSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E6FF271C6366005EE818 /* GameSetting.swift */; };
 		0F95E702271C6438005EE818 /* GameSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E701271C6438005EE818 /* GameSettingTableViewCell.swift */; };
 		0F95E705271DB34C005EE818 /* WorkspaceNoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E704271DB34C005EE818 /* WorkspaceNoDataView.swift */; };
@@ -494,6 +499,11 @@
 		0F91551F2827CBB200E0AFCB /* SceneEmulatorPlayControlViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorPlayControlViewDataSource.swift; sourceTree = "<group>"; };
 		0F9155212827CC0F00E0AFCB /* SceneEmulatorPlayControlViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorPlayControlViewDelegate.swift; sourceTree = "<group>"; };
 		0F9155232827CCCA00E0AFCB /* SceneEmulatorViewController+PlayControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorViewController+PlayControlView.swift"; sourceTree = "<group>"; };
+		0F9155272827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorTransitionViewController.swift; sourceTree = "<group>"; };
+		0F9155292827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorViewController+Transition.swift"; sourceTree = "<group>"; };
+		0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorTransitionViewController+Actions.swift"; sourceTree = "<group>"; };
+		0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSceneCollectionViewCell.swift; sourceTree = "<group>"; };
+		0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorTransitionViewController+VM.swift"; sourceTree = "<group>"; };
 		0F95E6FF271C6366005EE818 /* GameSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetting.swift; sourceTree = "<group>"; };
 		0F95E701271C6438005EE818 /* GameSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingTableViewCell.swift; sourceTree = "<group>"; };
 		0F95E704271DB34C005EE818 /* WorkspaceNoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceNoDataView.swift; sourceTree = "<group>"; };
@@ -764,6 +774,7 @@
 		0F210E4926DA889E002CC564 /* SceneEmulator */ = {
 			isa = PBXGroup;
 			children = (
+				0F91552D2827F42200E0AFCB /* Transition */,
 				0FC38687281FADB800823916 /* Core */,
 				0F91551A2827C84600E0AFCB /* PlayControlView */,
 			);
@@ -1305,6 +1316,17 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		0F91552D2827F42200E0AFCB /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */,
+				0F9155272827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift */,
+				0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */,
+				0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
 		0F95E703271C68CA005EE818 /* GameSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1596,6 +1618,7 @@
 				1290E50726AC8264006EA422 /* SceneEmulatorViewController.swift */,
 				0FC38685281FADAD00823916 /* SceneEmulatorViewController+Actions.swift */,
 				0F9155232827CCCA00E0AFCB /* SceneEmulatorViewController+PlayControlView.swift */,
+				0F9155292827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift */,
 				0F13E409281FAED500A79D99 /* SceneEmulatorViewController+VM.swift */,
 			);
 			path = Core;
@@ -2450,6 +2473,7 @@
 				0F76B86D27B55D6000C09133 /* MetaActionType.swift in Sources */,
 				0F210E8826DAADCC002CC564 /* PHAssetTrackResource.swift in Sources */,
 				0F210E7C26DAADCC002CC564 /* AudioMixer.swift in Sources */,
+				0F91552C2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift in Sources */,
 				0F210E9026DAADCC002CC564 /* TimingFunctionFactory.swift in Sources */,
 				12349DAD271FCC5000BC4626 /* NodeItemView.swift in Sources */,
 				129C2BEA27AD3CA600850AFC /* Decimal+Extensions.swift in Sources */,
@@ -2608,6 +2632,7 @@
 				1251B0D72680657600813936 /* SceneEditorViewController.swift in Sources */,
 				0FFA0EDB281592370008AC1C /* TermsOfServiceViewController+Actions.swift in Sources */,
 				0F3A0C4D27B7EB240000711B /* MetaNodeEditorTableViewCell.swift in Sources */,
+				0F9155282827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift in Sources */,
 				0FBF35E3274BEABF00DB168B /* MetaVoteView.swift in Sources */,
 				120BB43327AAC05700926BEA /* MetaBulletScreenCellModel.swift in Sources */,
 				0FBF35E9274BEC2500DB168B /* MetaMultipleChoiceView.swift in Sources */,
@@ -2616,6 +2641,7 @@
 				1213CE6026F57C0000D474EB /* TimelineView.swift in Sources */,
 				0F51FAE7273ADD7800D90811 /* MetaButton.swift in Sources */,
 				0F007F69281A38E0008B1136 /* GameEditorSceneView+Actions.swift in Sources */,
+				0F91552F2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift in Sources */,
 				0FEC934C279D8B9B0001FD32 /* MetaVoiceOverView.swift in Sources */,
 				0F14DF29278205FD0056872B /* MetaButtonEditorView.swift in Sources */,
 				129C483F2688DB9A0035A116 /* TimelineToolBarView.swift in Sources */,
@@ -2630,6 +2656,7 @@
 				0F76B87627B5643700C09133 /* MetaQuitGame.swift in Sources */,
 				0F210E8626DAADCC002CC564 /* ImageCompositionGroupProvider.swift in Sources */,
 				0FD21FC4281F968A00E50643 /* SceneEmulatorProgressViewDelegate.swift in Sources */,
+				0F91552A2827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift in Sources */,
 				0F210E9226DAADCC002CC564 /* CGMathFunctions.swift in Sources */,
 				0F14DF25278205AC0056872B /* MetaARCameraEditorView.swift in Sources */,
 				0FEA352B256BD5C000A6B581 /* CircleNavigationBarButton.swift in Sources */,
@@ -2692,6 +2719,7 @@
 				0FFA0ED328158C960008AC1C /* DarkModeViewController+Actions.swift in Sources */,
 				121D738426BF974100792DD4 /* HomeViewController.swift in Sources */,
 				12D413EC2817BA5400E310B3 /* HomeViewController+VM.swift in Sources */,
+				0F9155312827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift in Sources */,
 				0F91551C2827C8AB00E0AFCB /* SceneEmulatorPlayControlView.swift in Sources */,
 				0F34D70F274A519C00736DD5 /* DarkModeViewController.swift in Sources */,
 				0F3824AA281AA62C00A5E653 /* SceneSettingsViewController+VM.swift in Sources */,

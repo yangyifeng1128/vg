@@ -33,7 +33,9 @@ extension SceneEmulatorViewController {
 
         Logger.sceneEmulator.info("player item did play to end time")
 
-        loop()
+        // loop()
+
+        presentSceneEmulatorTransitionVC()
     }
 
     @objc func didEnterBackground() {

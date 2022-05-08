@@ -40,7 +40,7 @@ class TargetScenesViewController: UIViewController {
     /// 当前选中的场景
     var selectedScene: MetaScene!
     /// 目标场景列表
-    var targetScenes: [MetaScene]!
+    var targetScenes: [MetaScene] = [MetaScene]()
 
     /// 初始化
     init(gameBundle: MetaGameBundle) {

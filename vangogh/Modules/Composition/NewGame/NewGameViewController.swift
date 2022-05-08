@@ -223,7 +223,7 @@ extension NewGameViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        selectTemplateTableViewCell(indexPath: indexPath)
+        selectTemplateCollectionViewCell(indexPath: indexPath)
     }
 }
 
