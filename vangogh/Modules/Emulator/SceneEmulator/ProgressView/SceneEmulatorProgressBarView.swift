@@ -8,6 +8,7 @@ import UIKit
 
 class SceneEmulatorProgressBarView: UIView {
 
+    /// 遮罩图层
     private var maskLayer: CAShapeLayer!
 
     /// 初始化

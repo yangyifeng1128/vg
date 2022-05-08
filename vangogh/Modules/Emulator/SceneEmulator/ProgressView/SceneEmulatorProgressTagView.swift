@@ -15,11 +15,13 @@ class SceneEmulatorProgressTagView: UIView {
         static let iconViewWidth: CGFloat = width / 2
     }
 
+    /// 遮罩图层
     private lazy var maskLayer: CAShapeLayer = {
         self.layer.mask = $0
         return $0
     }(CAShapeLayer())
 
+    /// 重写边框大小
     override var bounds: CGRect {
         set {
             super.bounds = newValue
@@ -40,10 +42,13 @@ class SceneEmulatorProgressTagView: UIView {
         }
     }
 
+    /// 图标视图
     private var iconView: UIImageView!
 
+    /// 节点
     private(set) var node: MetaNode!
 
+    /// 初始化
     init(node: MetaNode) {
 
         super.init(frame: .zero)
@@ -58,10 +63,13 @@ class SceneEmulatorProgressTagView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// 初始化视图
     private func initViews() {
 
         backgroundColor = MetaNodeTypeManager.shared.getNodeTypeBackgroundColor(nodeType: node.nodeType)
         tintColor = .mgLabel
+
+        // 初始化「图标视图」
 
         iconView = UIImageView()
         iconView.image = MetaNodeTypeManager.shared.getNodeTypeIcon(nodeType: node.nodeType)
