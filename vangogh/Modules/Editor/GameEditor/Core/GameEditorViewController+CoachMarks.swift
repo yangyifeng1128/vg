@@ -13,8 +13,8 @@ extension GameEditorViewController {
     func initCoachMarksController() {
 
         coachMarksController = CoachMarksController()
-        coachMarksController.overlay.isUserInteractionEnabled = true
         coachMarksController.overlay.backgroundColor = UIColor.systemFill.withAlphaComponent(0.6)
+        coachMarksController.overlay.isUserInteractionEnabled = true
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
     }

@@ -88,6 +88,9 @@ extension GameEditorSceneExplorerView {
 
         return completeTitleString
     }
+}
+
+extension GameEditorSceneExplorerView {
 
     /// 准备穿梭器数量
     func prepareTransitionsCount() -> Int {

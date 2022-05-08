@@ -29,16 +29,6 @@ extension SceneEmulatorViewController {
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
-    @objc func gameboardButtonDidTap() {
-
-        print("[SceneEmulator] did tap gameboardButton")
-    }
-
-    @objc func playButtonDidTap() {
-
-        playOrPause()
-    }
-
     @objc func playerItemDidPlayToEndTime() {
 
         Logger.sceneEmulator.info("player item did play to end time")
@@ -63,46 +53,6 @@ extension SceneEmulatorViewController {
 
         loadingView.startAnimating()
         reloadPlayer()
-    }
-}
-
-extension SceneEmulatorViewController {
-
-    /// 准备「场景标题标签」文本
-    func prepareGameboardButtonInfoLabelAttributedText() -> NSMutableAttributedString {
-
-        let completeTitleString: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-        guard let scene = gameBundle.selectedScene() else { return completeTitleString }
-
-        // 准备场景标题
-
-        var gameTitleString: NSAttributedString
-        let gameTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        gameTitleString = NSAttributedString(string: "草稿 2", attributes: gameTitleStringAttributes)
-        completeTitleString.append(gameTitleString)
-
-        // 准备场景标题
-
-        var sceneTitleString: NSAttributedString
-        if let sceneTitle = scene.title, !sceneTitle.isEmpty {
-
-            let colonStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel]
-            let colonString: NSAttributedString = NSAttributedString(string: NSLocalizedString("Colon", comment: ""), attributes: colonStringAttributes)
-            completeTitleString.append(colonString)
-
-            let sceneTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-            sceneTitleString = NSAttributedString(string: sceneTitle, attributes: sceneTitleStringAttributes)
-            completeTitleString.append(sceneTitleString)
-        }
-
-        // 准备段落样式
-
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        completeTitleString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeTitleString.length))
-
-        return completeTitleString
     }
 }
 
@@ -222,7 +172,8 @@ extension SceneEmulatorViewController {
         }
 
         playerView.updateNodeViews(nodes: sceneBundle.nodes)
-        progressView.updateNodeItemViews(nodes: sceneBundle.nodes, playerItemDurationMilliseconds: playerItem.duration.milliseconds())
+        // FIXME
+//        progressView.updateNodeItemViews(nodes: sceneBundle.nodes, playerItemDurationMilliseconds: playerItem.duration.milliseconds())
     }
 
     func addPeriodicTimeObserver() {
@@ -246,8 +197,7 @@ extension SceneEmulatorViewController {
 
         if let duration = player.currentItem?.duration {
             let progress: CGFloat = GVC.maxProgressValue * time.seconds / duration.seconds
-            progressView.progress = progress
-            circleProgressView.progress = progress
+            playControlView.seek(to: progress)
         }
 
         playerView.showOrHideNodeViews(at: time)
@@ -256,55 +206,50 @@ extension SceneEmulatorViewController {
 
 extension SceneEmulatorViewController {
 
+    /// 播放或暂停
     func playOrPause() {
 
         if let player = player {
 
             if player.timeControlStatus == .playing {
 
-                playButton.isPlaying = false
                 player.pause()
-
+                playControlView.pause()
                 closeButtonContainer.isHidden = false
-                gameboardButton.isHidden = false
-                progressView.isHidden = false
 
             } else {
 
-                playButton.isPlaying = true
                 player.play()
-
+                playControlView.play()
                 closeButtonContainer.isHidden = true
-                gameboardButton.isHidden = true
-                progressView.isHidden = true
             }
         }
     }
 
+    /// 循环播放
     func loop() {
 
         if let player = player, player.timeControlStatus == .playing {
 
-            playButton.isPlaying = false
             player.pause()
+            playControlView.pause()
 
             player.seek(to: .zero)
+            playControlView.seek(to: 0)
+
             player.play()
-            playButton.isPlaying = true
-            progressView.progress = 0
-            circleProgressView.progress = 0
+            playControlView.play()
         }
     }
 
+    /// 暂停
     func pause() {
 
-        playButton.isPlaying = false
         if let player = player {
-            player.pause()
-        }
 
-        closeButtonContainer.isHidden = true
-        gameboardButton.isHidden = true
-        progressView.isHidden = true
+            player.pause()
+            playControlView.pause()
+            closeButtonContainer.isHidden = false
+        }
     }
 }

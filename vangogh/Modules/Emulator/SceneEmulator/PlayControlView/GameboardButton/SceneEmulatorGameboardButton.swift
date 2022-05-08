@@ -54,7 +54,6 @@ class SceneEmulatorGameboardButton: RoundedButton {
         infoLabel = UILabel()
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .mgLabel
-        infoLabel.lineBreakMode = .byTruncatingTail
         addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in
             make.height.equalToSuperview().inset(8)

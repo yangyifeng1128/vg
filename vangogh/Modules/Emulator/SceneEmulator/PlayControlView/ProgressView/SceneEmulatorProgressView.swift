@@ -20,9 +20,13 @@ class SceneEmulatorProgressView: UIView {
     /// 代理
     weak var delegate: SceneEmulatorProgressViewDelegate?
 
+    /// 进度条视图
     private var barView: SceneEmulatorProgressBarView!
+    /// 滚动条视图
     private var slider: UISlider!
+    /// 标签视图容器
     private var tagViewContainer: UIView!
+    /// 标签视图列表
     private var tagViewList: [SceneEmulatorProgressTagView] = []
 
     /// 可用状态
@@ -60,12 +64,7 @@ class SceneEmulatorProgressView: UIView {
     /// 初始化视图
     private func initViews() {
 
-        initBarView()
-        initSlider()
-        initTagViews()
-    }
-
-    private func initBarView() {
+        // 初始化「进度条视图」
 
         barView = SceneEmulatorProgressBarView()
         addSubview(barView)
@@ -74,9 +73,8 @@ class SceneEmulatorProgressView: UIView {
             make.height.equalTo(VC.barHeight)
             make.left.top.equalToSuperview()
         }
-    }
 
-    private func initSlider() {
+        // 初始化「滚动条视图」
 
         slider = UISlider()
         slider.isContinuous = true
@@ -93,9 +91,8 @@ class SceneEmulatorProgressView: UIView {
             make.right.equalTo(barView).offset(VC.sliderThumbImageHeight / 2 - 2)
             make.top.equalTo(barView).offset(-1)
         }
-    }
 
-    private func initTagViews() {
+        // 初始化「标签视图容器」
 
         tagViewContainer = UIView()
         insertSubview(tagViewContainer, at: 0)

@@ -30,7 +30,7 @@ extension GameEditorGameboardView {
     }
 
     /// 重新加载全部「场景视图」与「穿梭器视图」
-    private func reloadAllSceneAndTransitionViews() {
+    func reloadAllSceneAndTransitionViews() {
 
         guard let dataSource = gameDataSource else { return }
 
@@ -52,6 +52,9 @@ extension GameEditorGameboardView {
             transitionViewList.append(transitionView)
         }
     }
+}
+
+extension GameEditorGameboardView {
 
     /// 外观切换后更新视图
     func updateViewsWhenTraitCollectionChanged() {
