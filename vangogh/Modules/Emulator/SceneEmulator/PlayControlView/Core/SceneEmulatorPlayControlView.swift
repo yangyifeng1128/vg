@@ -68,7 +68,7 @@ class SceneEmulatorPlayControlView: UIView {
         circleProgressView.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.playButtonWidth + SceneEmulatorCircleProgressView.VC.trackLayerLineWidth * 2)
             make.left.equalToSuperview().offset(VC.paddingX)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-12)
         }
 
         // 初始化「播放按钮」

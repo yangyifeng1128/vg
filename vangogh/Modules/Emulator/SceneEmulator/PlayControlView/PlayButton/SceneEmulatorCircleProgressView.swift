@@ -10,8 +10,8 @@ class SceneEmulatorCircleProgressView: UIView {
 
     // 视图布局常量枚举值
     enum VC {
-        static let trackLayerLineWidth: CGFloat = 2
-        static let progressLayerLineWidth: CGFloat = 2
+        static let trackLayerLineWidth: CGFloat = 2.4
+        static let progressLayerLineWidth: CGFloat = 2.4
         static let startAngle: CGFloat = -.pi * 0.5
         static let endAngle: CGFloat = .pi * 1.5
     }
