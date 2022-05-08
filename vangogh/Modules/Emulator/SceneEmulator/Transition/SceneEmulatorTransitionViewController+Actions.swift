@@ -11,6 +11,13 @@ extension SceneEmulatorTransitionViewController {
 
     @objc func defaultButtonDidTap() {
 
+        let parentVC = presentingViewController?.children.last
+
+        if let sceneEmulatorVC = parentVC as? SceneEmulatorViewController {
+
+            sceneEmulatorVC.needsReloadPlayer = false // 禁止重新加载播放器
+        }
+
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
