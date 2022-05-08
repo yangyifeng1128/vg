@@ -10,7 +10,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let defaultButtonHeight: CGFloat = 56
+        static let defaultButtonHeight: CGFloat = 72
         static let titleLabelFontSize: CGFloat = 22
         static let nextScenesTitleLabelFontSize: CGFloat = 16
         static let nextSceneCollectionViewCellSpacing: CGFloat = 8

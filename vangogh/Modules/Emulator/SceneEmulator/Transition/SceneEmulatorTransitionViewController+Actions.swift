@@ -11,6 +11,8 @@ extension SceneEmulatorTransitionViewController {
 
     @objc func defaultButtonDidTap() {
 
+        print("default button tapped")
+
         let parentVC = presentingViewController?.children.last
 
         if let sceneEmulatorVC = parentVC as? SceneEmulatorViewController {
