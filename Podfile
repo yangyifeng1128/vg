@@ -7,6 +7,7 @@ target 'vangogh' do
   pod 'DanmakuKit'
   pod 'EFQRCode'
   pod 'FittedSheets'
+  pod 'Hero'
   pod 'Instructions'
   pod 'Kingfisher'
   pod 'lottie-ios'
