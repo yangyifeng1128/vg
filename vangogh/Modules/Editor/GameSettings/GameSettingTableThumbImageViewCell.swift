@@ -67,7 +67,7 @@ class GameSettingTableThumbImageViewCell: UITableViewCell {
 
         // 初始化「缩略图视图」
 
-        thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
+        thumbImageView = RoundedImageView()
         thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
         let thumbImageViewHeight: CGFloat = GameSettingTableThumbImageViewCell.VC.thumbImageViewHeight

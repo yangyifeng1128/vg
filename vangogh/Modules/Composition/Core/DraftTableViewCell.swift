@@ -48,7 +48,7 @@ class DraftTableViewCell: UITableViewCell {
 
         // 初始化「缩略图视图」
 
-        thumbImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
+        thumbImageView = RoundedImageView()
         thumbImageView.backgroundColor = GVC.defaultViewBackgroundColor
         contentView.addSubview(thumbImageView)
         let thumbImageViewHeight: CGFloat = CompositionViewController.VC.draftTableViewCellHeight - 16

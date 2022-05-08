@@ -122,7 +122,7 @@ class GameEditorSceneExplorerView: BorderedView {
 
         // 初始化「运行场景按钮」
 
-        let previewSceneButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let previewSceneButton: RoundedButton = RoundedButton()
         previewSceneButton.backgroundColor = .accent
         previewSceneButton.tintColor = .white
         previewSceneButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
@@ -144,7 +144,7 @@ class GameEditorSceneExplorerView: BorderedView {
 
         // 初始化「编辑场景按钮」
 
-        let editSceneButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let editSceneButton: RoundedButton = RoundedButton()
         editSceneButton.backgroundColor = .secondarySystemBackground
         editSceneButton.tintColor = .mgLabel
         editSceneButton.setTitle(NSLocalizedString("EditScene", comment: ""), for: .normal)

@@ -50,7 +50,7 @@ class GameEditorToolBarView: BorderedView {
 
         // 初始化「添加场景按钮」
 
-        let addSceneButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let addSceneButton: RoundedButton = RoundedButton()
         addSceneButton.backgroundColor = .secondarySystemBackground
         addSceneButton.tintColor = .mgLabel
         addSceneButton.setTitle(NSLocalizedString("AddScene", comment: ""), for: .normal)

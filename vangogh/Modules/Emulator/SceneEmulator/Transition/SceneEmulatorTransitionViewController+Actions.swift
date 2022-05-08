@@ -9,6 +9,14 @@ import UIKit
 
 extension SceneEmulatorTransitionViewController {
 
+    @objc func defaultButtonDidTap() {
+
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SceneEmulatorTransitionViewController {
+
     /// 准备模版数量
     func prepareNextScenesCount() -> Int {
 

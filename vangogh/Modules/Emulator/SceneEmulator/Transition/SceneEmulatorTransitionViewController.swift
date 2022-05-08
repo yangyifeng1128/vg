@@ -10,11 +10,14 @@ class SceneEmulatorTransitionViewController: UIViewController {
 
     /// 视图布局常量枚举值
     enum VC {
+        static let defaultButtonHeight: CGFloat = 56
         static let titleLabelFontSize: CGFloat = 22
         static let nextScenesTitleLabelFontSize: CGFloat = 16
         static let nextSceneCollectionViewCellSpacing: CGFloat = 8
     }
 
+    /// 默认按钮
+    var defaultButton: RoundedButton!
     /// 后续场景集合视图
     var nextScenesCollectionView: UICollectionView!
 
@@ -64,7 +67,28 @@ class SceneEmulatorTransitionViewController: UIViewController {
     /// 初始化视图
     private func initViews() {
 
-        view.backgroundColor = .red.withAlphaComponent(0.2)
+        // 初始化「默认按钮」
+
+        defaultButton = RoundedButton()
+        defaultButton.backgroundColor = .secondarySystemGroupedBackground
+        defaultButton.tintColor = .mgLabel
+        defaultButton.contentHorizontalAlignment = .center
+        defaultButton.contentVerticalAlignment = .center
+        defaultButton.setTitle(NSLocalizedString("StartComposing", comment: ""), for: .normal)
+        defaultButton.setTitleColor(.mgLabel, for: .normal)
+        defaultButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+//        defaultButton.titleLabel?.font = .systemFont(ofSize: VC.composeButtonTitleLabelFontSize, weight: .regular)
+        defaultButton.setImage(.open, for: .normal)
+        defaultButton.adjustsImageWhenHighlighted = false
+        defaultButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        defaultButton.imageView?.tintColor = .mgLabel
+        defaultButton.addTarget(self, action: #selector(defaultButtonDidTap), for: .touchUpInside)
+        view.addSubview(defaultButton)
+        defaultButton.snp.makeConstraints { make -> Void in
+            make.height.equalTo(VC.defaultButtonHeight)
+            make.left.right.equalToSuperview().inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+        }
 
         // 初始化「标题标签」
 
@@ -91,7 +115,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
             make.width.equalToSuperview()
             make.left.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(24)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(defaultButton.snp.top).offset(-16)
         }
     }
 }

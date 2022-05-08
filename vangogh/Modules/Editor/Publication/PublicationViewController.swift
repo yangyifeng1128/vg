@@ -140,7 +140,7 @@ class PublicationViewController: UIViewController {
 
         // 初始化「发布按钮」
 
-        let publishButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let publishButton: RoundedButton = RoundedButton()
         publishButton.backgroundColor = .secondarySystemGroupedBackground
         publishButton.contentHorizontalAlignment = .center
         publishButton.contentVerticalAlignment = .center

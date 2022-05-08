@@ -45,7 +45,7 @@ class GameEditorSceneView: RoundedView {
     /// 初始化
     init(scene: MetaScene) {
 
-        super.init(cornerRadius: GVC.defaultViewCornerRadius)
+        super.init()
 
         self.scene = scene
 

@@ -127,7 +127,7 @@ class NewGameViewController: UIViewController {
 
         // 初始化「新建空白作品按钮」
 
-        let newBlankGameButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let newBlankGameButton: RoundedButton = RoundedButton()
         newBlankGameButton.backgroundColor = .secondarySystemGroupedBackground
         newBlankGameButton.contentHorizontalAlignment = .center
         newBlankGameButton.contentVerticalAlignment = .center

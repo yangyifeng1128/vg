@@ -99,7 +99,7 @@ class CompositionViewController: UIViewController {
 
         // 初始化「创作按钮」
 
-        let composeButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
+        let composeButton: RoundedButton = RoundedButton()
         composeButton.backgroundColor = .secondarySystemGroupedBackground
         composeButton.tintColor = .mgLabel
         composeButton.contentHorizontalAlignment = .center
