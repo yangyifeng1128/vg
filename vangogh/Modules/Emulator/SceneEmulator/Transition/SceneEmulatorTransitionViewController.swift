@@ -4,29 +4,28 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
+import Hero
 import UIKit
 
 class SceneEmulatorTransitionViewController: UIViewController {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let defaultButtonHeight: CGFloat = 72
-        static let titleLabelFontSize: CGFloat = 22
+        static let oopsLabelFontSize: CGFloat = 64
+        static let titleLabelFontSize: CGFloat = 20
         static let nextScenesTitleLabelFontSize: CGFloat = 16
-        static let nextSceneCollectionViewCellSpacing: CGFloat = 8
+        static let nextSceneIndicatorCollectionViewCellSpacing: CGFloat = 8
     }
 
-    /// 默认按钮
-    var defaultButton: RoundedButton!
-    /// 后续场景集合视图
-    var nextScenesCollectionView: UICollectionView!
+    /// 后续场景提示器集合视图
+    var nextSceneIndicatorsCollectionView: UICollectionView!
 
     /// 场景资源包
     var sceneBundle: MetaSceneBundle!
     /// 作品资源包
     var gameBundle: MetaGameBundle!
-    /// 后续场景列表
-    var nextScenes: [MetaScene] = [MetaScene]()
+    /// 后续场景提示器列表
+    var nextSceneIndicators: [NextSceneIndicator] = [NextSceneIndicator]()
 
     /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
@@ -59,66 +58,59 @@ class SceneEmulatorTransitionViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
 
-        // 加载目标场景列表
+        // 加载后续场景提示器列表
 
-        loadNextScenes() { [weak self] in
+        loadNextSceneIndicators() { [weak self] in
             guard let s = self else { return }
-            s.nextScenesCollectionView.reloadData()
+            s.nextSceneIndicatorsCollectionView.reloadData()
         }
     }
 
     /// 初始化视图
     private func initViews() {
 
-        // 初始化「默认按钮」
+        // 启用 hero 转场动画
 
-        defaultButton = RoundedButton()
-        defaultButton.backgroundColor = .secondarySystemGroupedBackground
-        defaultButton.tintColor = .mgLabel
-        defaultButton.contentHorizontalAlignment = .center
-        defaultButton.contentVerticalAlignment = .center
-        defaultButton.setTitle(NSLocalizedString("StartComposing", comment: ""), for: .normal)
-        defaultButton.setTitleColor(.mgLabel, for: .normal)
-        defaultButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-//        defaultButton.titleLabel?.font = .systemFont(ofSize: VC.composeButtonTitleLabelFontSize, weight: .regular)
-        defaultButton.setImage(.open, for: .normal)
-        defaultButton.adjustsImageWhenHighlighted = false
-        defaultButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
-        defaultButton.imageView?.tintColor = .mgLabel
-        defaultButton.addTarget(self, action: #selector(defaultButtonDidTap), for: .touchUpInside)
-        view.addSubview(defaultButton)
-        defaultButton.snp.makeConstraints { make -> Void in
-            make.height.equalTo(VC.defaultButtonHeight)
-            make.left.right.equalToSuperview().inset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+        hero.isEnabled = true
+
+        // 初始化「oops 标签」
+
+        let oopsLabel: UILabel = UILabel()
+        oopsLabel.text = "\\(^o^)/"
+        oopsLabel.font = .systemFont(ofSize: VC.oopsLabelFontSize, weight: .regular)
+        oopsLabel.textColor = .secondaryLabel
+        view.addSubview(oopsLabel)
+        oopsLabel.snp.makeConstraints { make -> Void in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(120)
         }
 
         // 初始化「标题标签」
 
         let titleLabel: UILabel = UILabel()
-        titleLabel.text = NSLocalizedString("About", comment: "")
+        titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), 8)
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.centerX.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(24)
+            make.top.equalTo(oopsLabel.snp.bottom).offset(48)
         }
 
-        // 初始化「后续场景集合视图」
+        // 初始化「后续场景提示器集合视图」
 
-        nextScenesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        nextScenesCollectionView.backgroundColor = .clear
-        nextScenesCollectionView.showsVerticalScrollIndicator = false
-        nextScenesCollectionView.register(NextSceneCollectionViewCell.self, forCellWithReuseIdentifier: NextSceneCollectionViewCell.reuseId)
-        nextScenesCollectionView.dataSource = self
-        nextScenesCollectionView.delegate = self
-        view.addSubview(nextScenesCollectionView)
-        nextScenesCollectionView.snp.makeConstraints { make -> Void in
+        nextSceneIndicatorsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        nextSceneIndicatorsCollectionView.backgroundColor = .clear
+        nextSceneIndicatorsCollectionView.showsVerticalScrollIndicator = false
+        nextSceneIndicatorsCollectionView.register(NextSceneIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: NextSceneIndicatorCollectionViewCell.reuseId)
+        nextSceneIndicatorsCollectionView.dataSource = self
+        nextSceneIndicatorsCollectionView.delegate = self
+        view.addSubview(nextSceneIndicatorsCollectionView)
+        nextSceneIndicatorsCollectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
             make.left.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(24)
-            make.bottom.equalTo(defaultButton.snp.top).offset(-16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(48)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
     }
 }
@@ -128,13 +120,13 @@ extension SceneEmulatorTransitionViewController: UICollectionViewDataSource {
     /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return prepareNextScenesCount()
+        return prepareNextSceneIndicatorsCount()
     }
 
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        return prepareNextSceneCollectionViewCell(indexPath: indexPath)
+        return prepareNextSceneIndicatorCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -143,7 +135,7 @@ extension SceneEmulatorTransitionViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        selectNextSceneCollectionViewCell(indexPath: indexPath)
+        selectNextSceneIndicatorCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -152,25 +144,25 @@ extension SceneEmulatorTransitionViewController: UICollectionViewDelegateFlowLay
     /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return prepareNextSceneCollectionViewCellSize(indexPath: indexPath)
+        return prepareNextSceneIndicatorCollectionViewCellSize(indexPath: indexPath)
     }
 
     /// 设置内边距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let inset = VC.nextSceneCollectionViewCellSpacing
+        let inset = VC.nextSceneIndicatorCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
     /// 设置最小行间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        return VC.nextSceneCollectionViewCellSpacing
+        return VC.nextSceneIndicatorCollectionViewCellSpacing
     }
 
     /// 设置最小单元格间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
-        return VC.nextSceneCollectionViewCellSpacing
+        return VC.nextSceneIndicatorCollectionViewCellSpacing
     }
 }

@@ -16,30 +16,29 @@ class SceneEmulatorPlayerView: UIView {
         case topCenter
     }
 
+    /// 数据源
+    weak var dataSource: SceneEmulatorPlayerViewDataSource? {
+        didSet { reloadData() }
+    }
+    /// 代理
+    weak var delegate: SceneEmulatorPlayerViewDelegate?
+
+    /// 渲染视图
     var rendererView: SceneEmulatorRendererView!
 
-    private var renderSize: CGSize!
-    private var renderAlignment: RenderAlignment!
+    var nodeViewContainer: RoundedView!
+    var nodeViewList: [MetaNodeView] = []
+
+    var renderSize: CGSize!
+    var renderAlignment: RenderAlignment!
     var renderScale: CGFloat!
 
-    private var nodeViewContainer: RoundedView!
-    private(set) var nodeViewList: [MetaNodeView] = []
-
     /// 初始化
-    init(renderSize: CGSize, renderAlignment: RenderAlignment = .center) {
+    init() {
 
         super.init(frame: .zero)
 
-        self.renderSize = renderSize
-        self.renderAlignment = renderAlignment
-
-        // 计算渲染缩放比例
-
-        var multiplier: CGFloat = 1
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            multiplier = 768 / GVC.standardDeviceSize.width // 计算 multiplier，以兼容不同设备（phone、pad）之间的标准设备尺寸
-        }
-        renderScale = (renderSize.height / (GVC.standardDeviceSize.height * multiplier)).rounded(toPlaces: 4) // 以高度为基准，计算渲染缩放比例
+        calculateRenderOptions()
 
         initViews()
     }
@@ -53,41 +52,6 @@ class SceneEmulatorPlayerView: UIView {
     private func initViews() {
 
         backgroundColor = .systemGroupedBackground
-
-        // 初始化「渲染器视图」
-
-        initRendererView()
-
-        // 初始化「组件视图」
-
-        initNodeViews()
-    }
-
-    /// 初始化「渲染器视图」
-    private func initRendererView() {
-
-        rendererView = SceneEmulatorRendererView(renderScale: renderScale)
-        addSubview(rendererView)
-        rendererView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(renderSize.width)
-            make.height.equalTo(renderSize.height)
-            if renderAlignment == .topCenter {
-                make.centerX.equalToSuperview()
-                make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            } else {
-                make.center.equalToSuperview()
-            }
-        }
-    }
-
-    /// 初始化「组件视图」
-    private func initNodeViews() {
-
-        nodeViewContainer = RoundedView(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
-        addSubview(nodeViewContainer)
-        nodeViewContainer.snp.makeConstraints { make -> Void in
-            make.edges.equalTo(rendererView)
-        }
     }
 }
 

@@ -6,10 +6,12 @@
 
 extension SceneEmulatorTransitionViewController {
 
-    /// 加载后续场景列表
-    func loadNextScenes(completion handler: (() -> Void)? = nil) {
+    /// 加载后续场景提示器列表
+    func loadNextSceneIndicators(completion handler: (() -> Void)? = nil) {
 
-        nextScenes = gameBundle.scenes
+        guard let selectedScene = gameBundle.selectedScene(), let selectedSceneTitle = selectedScene.title else { return }
+        let defaultNextSceneIndicator: NextSceneIndicator = NextSceneIndicator(type: .loop, title: selectedSceneTitle)
+        nextSceneIndicators.append(defaultNextSceneIndicator)
 
         if let handler = handler {
             handler()

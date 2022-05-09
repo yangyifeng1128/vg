@@ -166,10 +166,15 @@
 		0F9155282827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155272827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift */; };
 		0F91552A2827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155292827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift */; };
 		0F91552C2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */; };
-		0F91552F2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */; };
+		0F91552F2827F7DA00E0AFCB /* NextSceneIndicatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91552E2827F7DA00E0AFCB /* NextSceneIndicatorCollectionViewCell.swift */; };
 		0F9155312827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */; };
 		0F9155342828B27E00E0AFCB /* SceneEmulatorPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155332828B27E00E0AFCB /* SceneEmulatorPlayerView.swift */; };
 		0F9155362828B37600E0AFCB /* SceneEmulatorRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155352828B37600E0AFCB /* SceneEmulatorRendererView.swift */; };
+		0F9155382828B7A600E0AFCB /* SceneEmulatorPlayerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155372828B7A600E0AFCB /* SceneEmulatorPlayerViewDataSource.swift */; };
+		0F91553A2828B8B000E0AFCB /* SceneEmulatorPlayerView+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155392828B8B000E0AFCB /* SceneEmulatorPlayerView+Actions.swift */; };
+		0F91553C2828B91200E0AFCB /* SceneEmulatorPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91553B2828B91200E0AFCB /* SceneEmulatorPlayerViewDelegate.swift */; };
+		0F91553E2828EC2800E0AFCB /* SceneEmulatorViewController+PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91553D2828EC2700E0AFCB /* SceneEmulatorViewController+PlayerView.swift */; };
+		0F9155402829432700E0AFCB /* NextSceneIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91553F2829432700E0AFCB /* NextSceneIndicator.swift */; };
 		0F95E700271C6366005EE818 /* GameSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E6FF271C6366005EE818 /* GameSetting.swift */; };
 		0F95E702271C6438005EE818 /* GameSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E701271C6438005EE818 /* GameSettingTableViewCell.swift */; };
 		0F95E705271DB34C005EE818 /* WorkspaceNoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E704271DB34C005EE818 /* WorkspaceNoDataView.swift */; };
@@ -504,10 +509,15 @@
 		0F9155272827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorTransitionViewController.swift; sourceTree = "<group>"; };
 		0F9155292827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorViewController+Transition.swift"; sourceTree = "<group>"; };
 		0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorTransitionViewController+Actions.swift"; sourceTree = "<group>"; };
-		0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSceneCollectionViewCell.swift; sourceTree = "<group>"; };
+		0F91552E2827F7DA00E0AFCB /* NextSceneIndicatorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSceneIndicatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorTransitionViewController+VM.swift"; sourceTree = "<group>"; };
 		0F9155332828B27E00E0AFCB /* SceneEmulatorPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorPlayerView.swift; sourceTree = "<group>"; };
 		0F9155352828B37600E0AFCB /* SceneEmulatorRendererView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorRendererView.swift; sourceTree = "<group>"; };
+		0F9155372828B7A600E0AFCB /* SceneEmulatorPlayerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorPlayerViewDataSource.swift; sourceTree = "<group>"; };
+		0F9155392828B8B000E0AFCB /* SceneEmulatorPlayerView+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorPlayerView+Actions.swift"; sourceTree = "<group>"; };
+		0F91553B2828B91200E0AFCB /* SceneEmulatorPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorPlayerViewDelegate.swift; sourceTree = "<group>"; };
+		0F91553D2828EC2700E0AFCB /* SceneEmulatorViewController+PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorViewController+PlayerView.swift"; sourceTree = "<group>"; };
+		0F91553F2829432700E0AFCB /* NextSceneIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSceneIndicator.swift; sourceTree = "<group>"; };
 		0F95E6FF271C6366005EE818 /* GameSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetting.swift; sourceTree = "<group>"; };
 		0F95E701271C6438005EE818 /* GameSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingTableViewCell.swift; sourceTree = "<group>"; };
 		0F95E704271DB34C005EE818 /* WorkspaceNoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceNoDataView.swift; sourceTree = "<group>"; };
@@ -1323,7 +1333,8 @@
 		0F91552D2827F42200E0AFCB /* Transition */ = {
 			isa = PBXGroup;
 			children = (
-				0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */,
+				0F91553F2829432700E0AFCB /* NextSceneIndicator.swift */,
+				0F91552E2827F7DA00E0AFCB /* NextSceneIndicatorCollectionViewCell.swift */,
 				0F9155272827E70000E0AFCB /* SceneEmulatorTransitionViewController.swift */,
 				0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */,
 				0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */,
@@ -1336,6 +1347,9 @@
 			children = (
 				0F9155332828B27E00E0AFCB /* SceneEmulatorPlayerView.swift */,
 				0F9155352828B37600E0AFCB /* SceneEmulatorRendererView.swift */,
+				0F9155372828B7A600E0AFCB /* SceneEmulatorPlayerViewDataSource.swift */,
+				0F9155392828B8B000E0AFCB /* SceneEmulatorPlayerView+Actions.swift */,
+				0F91553B2828B91200E0AFCB /* SceneEmulatorPlayerViewDelegate.swift */,
 			);
 			path = PlayerView;
 			sourceTree = "<group>";
@@ -1633,6 +1647,7 @@
 				0F9155232827CCCA00E0AFCB /* SceneEmulatorViewController+PlayControlView.swift */,
 				0F9155292827E98700E0AFCB /* SceneEmulatorViewController+Transition.swift */,
 				0F13E409281FAED500A79D99 /* SceneEmulatorViewController+VM.swift */,
+				0F91553D2828EC2700E0AFCB /* SceneEmulatorViewController+PlayerView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2494,11 +2509,13 @@
 				129C2BEA27AD3CA600850AFC /* Decimal+Extensions.swift in Sources */,
 				0F054950275CB00500BB598A /* MetaMultipleChoiceOptionTableViewCell.swift in Sources */,
 				0F5FB11127B2C50F005634B4 /* MetaGameEngine.swift in Sources */,
+				0F91553E2828EC2800E0AFCB /* SceneEmulatorViewController+PlayerView.swift in Sources */,
 				12C985B127350A8200299AF3 /* MetaNodeView.swift in Sources */,
 				0F95E702271C6438005EE818 /* GameSettingTableViewCell.swift in Sources */,
 				0F007F67281A3849008B1136 /* GameEditorSceneViewDelegate.swift in Sources */,
 				0FD21FC2281F921000E50643 /* EditNodeItemViewControllerDelegate.swift in Sources */,
 				0FC2A43226A87B39001363D8 /* NewGameViewController.swift in Sources */,
+				0F91553C2828B91200E0AFCB /* SceneEmulatorPlayerViewDelegate.swift in Sources */,
 				0F7A999E281F91480007FB3E /* TimelineViewDelegate.swift in Sources */,
 				0FBF35FE274BEF3600DB168B /* MetaBulletScreenView.swift in Sources */,
 				1251CF2827A3B94F00F329D5 /* GameScannerViewController.swift in Sources */,
@@ -2548,6 +2565,7 @@
 				0FBF35E0274BEA5400DB168B /* MetaButtonView.swift in Sources */,
 				0F9155202827CBB200E0AFCB /* SceneEmulatorPlayControlViewDataSource.swift in Sources */,
 				0FEC9348279D8B4D0001FD32 /* MetaVoiceOverEditorView.swift in Sources */,
+				0F91553A2828B8B000E0AFCB /* SceneEmulatorPlayerView+Actions.swift in Sources */,
 				12FC02B4269AB215004C32C0 /* RoundedButton.swift in Sources */,
 				0FB8D82926EDEDAB00D5C971 /* MetaCondition.swift in Sources */,
 				0F34D711274A524D00736DD5 /* UserInterfaceStyleTableViewCell.swift in Sources */,
@@ -2653,11 +2671,12 @@
 				120BB43327AAC05700926BEA /* MetaBulletScreenCellModel.swift in Sources */,
 				0FBF35E9274BEC2500DB168B /* MetaMultipleChoiceView.swift in Sources */,
 				0FD21FC6281F96DD00E50643 /* TrackItemViewDelegate.swift in Sources */,
+				0F9155382828B7A600E0AFCB /* SceneEmulatorPlayerViewDataSource.swift in Sources */,
 				0F007F75281A4882008B1136 /* SceneSettingsViewController+Actions.swift in Sources */,
 				1213CE6026F57C0000D474EB /* TimelineView.swift in Sources */,
 				0F51FAE7273ADD7800D90811 /* MetaButton.swift in Sources */,
 				0F007F69281A38E0008B1136 /* GameEditorSceneView+Actions.swift in Sources */,
-				0F91552F2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift in Sources */,
+				0F91552F2827F7DA00E0AFCB /* NextSceneIndicatorCollectionViewCell.swift in Sources */,
 				0FEC934C279D8B9B0001FD32 /* MetaVoiceOverView.swift in Sources */,
 				0F14DF29278205FD0056872B /* MetaButtonEditorView.swift in Sources */,
 				129C483F2688DB9A0035A116 /* TimelineToolBarView.swift in Sources */,
@@ -2680,6 +2699,7 @@
 				128B164B2718654C00CD917B /* FeedbackViewController.swift in Sources */,
 				12666CE126D4F1AB00660A4B /* SceneEmulatorPlayButton.swift in Sources */,
 				12349DA5271D4F1200BC4626 /* TimelineToolBarItemCell.swift in Sources */,
+				0F9155402829432700E0AFCB /* NextSceneIndicator.swift in Sources */,
 				122282FB272FF3A200AF7FCA /* AddNodeItemViewController.swift in Sources */,
 				12433A4C267D9DB8001633D8 /* MetaRecord+CoreDataClass.swift in Sources */,
 				0F51FAF9273ADDF200D90811 /* MetaDuet.swift in Sources */,

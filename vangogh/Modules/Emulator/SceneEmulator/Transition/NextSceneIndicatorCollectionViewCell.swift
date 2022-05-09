@@ -1,5 +1,5 @@
 ///
-/// NextSceneCollectionViewCell
+/// NextSceneIndicatorCollectionViewCell
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -7,9 +7,9 @@
 import SnapKit
 import UIKit
 
-class NextSceneCollectionViewCell: RoundedCollectionViewCell {
+class NextSceneIndicatorCollectionViewCell: RoundedCollectionViewCell {
 
-    static let reuseId: String = "NextSceneCollectionViewCell"
+    static let reuseId: String = "NextSceneIndicatorCollectionViewCell"
 
     /// 视图布局常量枚举值
     enum VC {

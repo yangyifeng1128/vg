@@ -23,7 +23,7 @@ extension HomeViewController: GameScannerViewControllerDelegate {
         guard let gameBundle = MetaGameBundleManager.shared.load(uuid: gameUUID), let selectedScene = gameBundle.selectedScene(), let selectedSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) else { return }
 
         let sceneEmulatorVC = SceneEmulatorViewController(sceneBundle: selectedSceneBundle, gameBundle: gameBundle)
-        sceneEmulatorVC.definesPresentationContext = false
+        sceneEmulatorVC.definesPresentationContext = true
         sceneEmulatorVC.modalPresentationStyle = .currentContext
 
         present(sceneEmulatorVC, animated: true, completion: nil)

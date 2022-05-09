@@ -102,7 +102,7 @@ extension SceneEditorViewController {
     func previewScene() {
 
         let sceneEmulatorVC = SceneEmulatorViewController(sceneBundle: sceneBundle, gameBundle: gameBundle)
-        sceneEmulatorVC.definesPresentationContext = false
+        sceneEmulatorVC.definesPresentationContext = true
         sceneEmulatorVC.modalPresentationStyle = .currentContext
 
         present(sceneEmulatorVC, animated: true, completion: nil)

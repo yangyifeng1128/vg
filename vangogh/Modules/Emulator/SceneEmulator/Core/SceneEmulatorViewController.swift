@@ -5,6 +5,7 @@
 ///
 
 import AVKit
+import Hero
 import SnapKit
 import UIKit
 
@@ -31,7 +32,7 @@ class SceneEmulatorViewController: UIViewController {
     /// 加载视图
     var loadingView: LoadingView!
     /// 渲染尺寸
-    var renderSize: CGSize!
+//    var renderSize: CGSize!
 
     /// 播放控制视图
     var playControlView: SceneEmulatorPlayControlView!
@@ -195,35 +196,39 @@ class SceneEmulatorViewController: UIViewController {
 
         // 初始化「播放器视图」
 
-        let renderHeight: CGFloat
-        var renderWidth: CGFloat
-        var renderAlignment: SceneEmulatorPlayerView.RenderAlignment
-        if isSceneBundleEmpty() {
-            renderHeight = UIScreen.main.bounds.height
-            renderWidth = renderHeight * GVC.defaultSceneAspectRatio
-            renderAlignment = .center
-        } else {
-            if UIDevice.current.userInterfaceIdiom == .phone { // 如果是手机设备
-                renderWidth = UIScreen.main.bounds.width // 宽度适配：视频渲染宽度 = 屏幕宽度
-                renderHeight = MetaSceneAspectRatioTypeManager.shared.calculateHeight(width: renderWidth, aspectRatioType: sceneBundle.aspectRatioType) // 按照场景尺寸比例计算视频渲染高度
-                if sceneBundle.aspectRatioType == .h16w9 { // 如果场景尺寸比例 = 16:9
-                    let deviceAspectRatio: CGFloat = UIScreen.main.bounds.width / UIScreen.main.bounds.height
-                    if deviceAspectRatio <= 0.5 {
-                        renderAlignment = .topCenter
-                    } else {
-                        renderAlignment = .center // 兼容 iPhone 8, 8 Plus
-                    }
-                } else { // 如果场景尺寸比例 = 4:3或其他
-                    renderAlignment = .center
-                }
-            } else { // 如果是平板或其他类型设备
-                renderHeight = UIScreen.main.bounds.height // 高度适配：视频渲染高度 = 屏幕高度
-                renderWidth = MetaSceneAspectRatioTypeManager.shared.calculateWidth(height: renderHeight, aspectRatioType: sceneBundle.aspectRatioType) // 按照场景尺寸比例计算视频渲染宽度
-                renderAlignment = .center // 不管场景尺寸比例是什么，在平板或其他类型设备上都进行居中对齐
-            }
-        }
-        renderSize = CGSize(width: renderWidth, height: renderHeight)
-        playerView = SceneEmulatorPlayerView(renderSize: renderSize, renderAlignment: renderAlignment)
+//        let renderHeight: CGFloat
+//        var renderWidth: CGFloat
+//        var renderAlignment: SceneEmulatorPlayerView.RenderAlignment
+//        if isSceneBundleEmpty() {
+//            renderHeight = UIScreen.main.bounds.height
+//            renderWidth = renderHeight * GVC.defaultSceneAspectRatio
+//            renderAlignment = .center
+//        } else {
+//            if UIDevice.current.userInterfaceIdiom == .phone { // 如果是手机设备
+//                renderWidth = UIScreen.main.bounds.width // 宽度适配：视频渲染宽度 = 屏幕宽度
+//                renderHeight = MetaSceneAspectRatioTypeManager.shared.calculateHeight(width: renderWidth, aspectRatioType: sceneBundle.aspectRatioType) // 按照场景尺寸比例计算视频渲染高度
+//                if sceneBundle.aspectRatioType == .h16w9 { // 如果场景尺寸比例 = 16:9
+//                    let deviceAspectRatio: CGFloat = UIScreen.main.bounds.width / UIScreen.main.bounds.height
+//                    if deviceAspectRatio <= 0.5 {
+//                        renderAlignment = .topCenter
+//                    } else {
+//                        renderAlignment = .center // 兼容 iPhone 8, 8 Plus
+//                    }
+//                } else { // 如果场景尺寸比例 = 4:3或其他
+//                    renderAlignment = .center
+//                }
+//            } else { // 如果是平板或其他类型设备
+//                renderHeight = UIScreen.main.bounds.height // 高度适配：视频渲染高度 = 屏幕高度
+//                renderWidth = MetaSceneAspectRatioTypeManager.shared.calculateWidth(height: renderHeight, aspectRatioType: sceneBundle.aspectRatioType) // 按照场景尺寸比例计算视频渲染宽度
+//                renderAlignment = .center // 不管场景尺寸比例是什么，在平板或其他类型设备上都进行居中对齐
+//            }
+//        }
+//        renderSize = CGSize(width: renderWidth, height: renderHeight)
+//        playerView = SceneEmulatorPlayerView(renderSize: renderSize, renderAlignment: renderAlignment)
+        playerView = SceneEmulatorPlayerView()
+        playerView.dataSource = self
+        playerView.delegate = self
+        playerView.hero.id = "SceneEmulatorPlayerView" // 设置 hero 转场动画 id
         view.addSubview(playerView)
         playerView.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
@@ -293,7 +298,7 @@ extension SceneEmulatorViewController: SceneEmulatorNoDataViewDelegate {
         guard let selectedScene = gameBundle.selectedScene(), let sceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) else { return }
         let sceneEditorVC = SceneEditorViewController(sceneBundle: sceneBundle, gameBundle: gameBundle)
         let sceneEditorNav = UINavigationController(rootViewController: sceneEditorVC)
-        sceneEditorNav.definesPresentationContext = false
+        sceneEditorNav.definesPresentationContext = true
         sceneEditorNav.modalPresentationStyle = .currentContext
 
         presentingViewController?.present(sceneEditorNav, animated: true, completion: nil)

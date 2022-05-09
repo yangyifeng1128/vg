@@ -26,36 +26,37 @@ extension SceneEmulatorTransitionViewController {
 
 extension SceneEmulatorTransitionViewController {
 
-    /// 准备模版数量
-    func prepareNextScenesCount() -> Int {
+    /// 准备后续场景提示器数量
+    func prepareNextSceneIndicatorsCount() -> Int {
 
-        if nextScenes.isEmpty {
-            nextScenesCollectionView.showNoDataInfo(title: NSLocalizedString("NoScenesAvailable", comment: ""))
+        if nextSceneIndicators.isEmpty {
+            nextSceneIndicatorsCollectionView.showNoDataInfo(title: NSLocalizedString("NoScenesAvailable", comment: ""))
         } else {
-            nextScenesCollectionView.hideNoDataInfo()
+            nextSceneIndicatorsCollectionView.hideNoDataInfo()
         }
 
-        return nextScenes.count
+        return nextSceneIndicators.count
     }
 
-    /// 准备「模版集合视图」单元格
-    func prepareNextSceneCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
+    /// 准备「后续场景提示器集合视图」单元格
+    func prepareNextSceneIndicatorCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
 
-        let nextScene: MetaScene = nextScenes[indexPath.item]
+        let nextScene: NextSceneIndicator = nextSceneIndicators[indexPath.item]
 
-        guard let cell = nextScenesCollectionView.dequeueReusableCell(withReuseIdentifier: NextSceneCollectionViewCell.reuseId, for: indexPath) as? NextSceneCollectionViewCell else {
+        guard let cell = nextSceneIndicatorsCollectionView.dequeueReusableCell(withReuseIdentifier: NextSceneIndicatorCollectionViewCell.reuseId, for: indexPath) as? NextSceneIndicatorCollectionViewCell else {
             fatalError("Unexpected cell type")
         }
 
         // 准备「标题标签」
 
+        cell.hero.id = "SceneEmulatorPlayerView"
         cell.titleLabel.text = nextScene.title
 
         return cell
     }
 
-    /// 准备「模版集合视图」单元格尺寸
-    func prepareNextSceneCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
+    /// 准备「后续场景提示器集合视图」单元格尺寸
+    func prepareNextSceneIndicatorCollectionViewCellSize(indexPath: IndexPath) -> CGSize {
 
         var numberOfCellsPerRow: Int
         switch UIDevice.current.userInterfaceIdiom {
@@ -70,17 +71,22 @@ extension SceneEmulatorTransitionViewController {
             break
         }
 
-        let cellWidth: CGFloat = ((nextScenesCollectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * VC.nextSceneCollectionViewCellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
+        let cellWidth: CGFloat = ((nextSceneIndicatorsCollectionView.bounds.width - CGFloat(numberOfCellsPerRow + 1) * VC.nextSceneIndicatorCollectionViewCellSpacing) / CGFloat(numberOfCellsPerRow)).rounded(.down)
         let cellHeight: CGFloat = (cellWidth / GVC.defaultSceneAspectRatio).rounded(.down)
 
         return CGSize(width: cellWidth, height: cellHeight)
     }
 
-    /// 选择「模版集合视图」单元格
-    func selectNextSceneCollectionViewCell(indexPath: IndexPath) {
+    /// 选择「后续场景提示器集合视图」单元格
+    func selectNextSceneIndicatorCollectionViewCell(indexPath: IndexPath) {
 
-        let nextScene: MetaScene = nextScenes[indexPath.item]
+        let nextSceneIndicator: NextSceneIndicator = nextSceneIndicators[indexPath.item]
 
-        print(nextScene)
+        if nextSceneIndicator.type == .loop {
+
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+
+        print(nextSceneIndicator)
     }
 }

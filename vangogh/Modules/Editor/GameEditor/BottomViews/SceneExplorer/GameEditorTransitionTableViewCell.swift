@@ -216,7 +216,7 @@ extension GameEditorTransitionTableViewCell {
         // 准备组件标题
 
         let nodeTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.accent!]
-        let nodeTitle: String = "node type"
+        let nodeTitle: String = "播放器"
 //        if condition.nodeIndex == 0 {
 //            nodeTitle = conditionDescriptor.nodeTypeAlias
 //        } else {
@@ -229,7 +229,7 @@ extension GameEditorTransitionTableViewCell {
         // 准备组件行为标题
 
         let nodeBehaviorTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        let nodeBehaviorTitleString: NSAttributedString = NSAttributedString(string: /* conditionDescriptor.nodeBehaviorTypeAlias */ "action key", attributes: nodeBehaviorTitleStringAttributes)
+        let nodeBehaviorTitleString: NSAttributedString = NSAttributedString(string: /* conditionDescriptor.nodeBehaviorTypeAlias */ "播放完毕", attributes: nodeBehaviorTitleStringAttributes)
         completeConditionTitleString.append(nodeBehaviorTitleString)
 
         // 准备参数

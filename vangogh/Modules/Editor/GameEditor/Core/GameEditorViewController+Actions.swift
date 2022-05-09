@@ -74,7 +74,7 @@ extension GameEditorViewController {
 
         guard let scene = gameBundle.selectedScene(), let selectedSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: scene.uuid, gameUUID: gameBundle.uuid) else { return }
         let sceneEmulatorVC = SceneEmulatorViewController(sceneBundle: selectedSceneBundle, gameBundle: gameBundle)
-        sceneEmulatorVC.definesPresentationContext = false
+        sceneEmulatorVC.definesPresentationContext = true
         sceneEmulatorVC.modalPresentationStyle = .currentContext
 
         present(sceneEmulatorVC, animated: true, completion: nil)

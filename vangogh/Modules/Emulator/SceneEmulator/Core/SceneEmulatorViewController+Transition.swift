@@ -12,7 +12,7 @@ extension SceneEmulatorViewController {
     func presentSceneEmulatorTransitionVC() {
 
         let transitionVC: SceneEmulatorTransitionViewController = SceneEmulatorTransitionViewController(sceneBundle: sceneBundle, gameBundle: gameBundle)
-        transitionVC.definesPresentationContext = false
+        transitionVC.definesPresentationContext = true
         transitionVC.modalPresentationStyle = .currentContext
         transitionVC.modalTransitionStyle = .crossDissolve
 

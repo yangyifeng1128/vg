@@ -150,7 +150,7 @@ extension SceneEmulatorViewController {
         try? Timeline.reloadVideoStartTime(providers: timeline.videoChannel)
 
         let scale = UIScreen.main.scale
-        timeline.renderSize = CGSize(width: renderSize.width * scale, height: renderSize.height * scale)
+        timeline.renderSize = CGSize(width: playerView.renderSize.width * scale, height: playerView.renderSize.height * scale)
     }
 
     func updatePlayerRelatedViews() {
