@@ -174,8 +174,7 @@ extension SceneEmulatorViewController {
         }
 
         playerView.updateNodeViews(nodes: sceneBundle.nodes)
-        // FIXME
-//        progressView.updateNodeItemViews(nodes: sceneBundle.nodes, playerItemDurationMilliseconds: playerItem.duration.milliseconds())
+        playControlView.progressView.updateNodeItemViews(nodes: sceneBundle.nodes, playerItemDurationMilliseconds: playerItem.duration.milliseconds())
     }
 
     func addPeriodicTimeObserver() {
