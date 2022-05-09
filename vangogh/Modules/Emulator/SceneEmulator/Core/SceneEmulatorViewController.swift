@@ -27,7 +27,7 @@ class SceneEmulatorViewController: UIViewController {
     var noDataView: SceneEmulatorNoDataView!
 
     /// 播放器视图
-    var playerView: ScenePlayerView!
+    var playerView: SceneEmulatorPlayerView!
     /// 加载视图
     var loadingView: LoadingView!
     /// 渲染尺寸
@@ -36,10 +36,10 @@ class SceneEmulatorViewController: UIViewController {
     /// 播放控制视图
     var playControlView: SceneEmulatorPlayControlView!
 
-    /// 作品资源包
-    var gameBundle: MetaGameBundle!
     /// 场景资源包
     var sceneBundle: MetaSceneBundle!
+    /// 作品资源包
+    var gameBundle: MetaGameBundle!
 
     /// 作品引擎
     var gameEngine: MetaGameEngine!
@@ -197,7 +197,7 @@ class SceneEmulatorViewController: UIViewController {
 
         let renderHeight: CGFloat
         var renderWidth: CGFloat
-        var renderAlignment: ScenePlayerView.RenderAlignment
+        var renderAlignment: SceneEmulatorPlayerView.RenderAlignment
         if isSceneBundleEmpty() {
             renderHeight = UIScreen.main.bounds.height
             renderWidth = renderHeight * GVC.defaultSceneAspectRatio
@@ -223,7 +223,7 @@ class SceneEmulatorViewController: UIViewController {
             }
         }
         renderSize = CGSize(width: renderWidth, height: renderHeight)
-        playerView = ScenePlayerView(renderSize: renderSize, renderAlignment: renderAlignment)
+        playerView = SceneEmulatorPlayerView(renderSize: renderSize, renderAlignment: renderAlignment)
         view.addSubview(playerView)
         playerView.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()

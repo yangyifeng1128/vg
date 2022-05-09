@@ -1,5 +1,5 @@
 ///
-/// SceneRendererView
+/// SceneEmulatorRendererView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -7,7 +7,7 @@
 import AVKit
 import UIKit
 
-class SceneRendererView: RoundedImageView {
+class SceneEmulatorRendererView: RoundedImageView {
 
     override static var layerClass: AnyClass { AVPlayerLayer.self }
 
@@ -24,7 +24,7 @@ class SceneRendererView: RoundedImageView {
 
         self.renderScale = renderScale
         super.init(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
-        
+
         backgroundColor = .black
     }
 

@@ -21,16 +21,19 @@ class SceneEmulatorTransitionViewController: UIViewController {
     /// 后续场景集合视图
     var nextScenesCollectionView: UICollectionView!
 
+    /// 场景资源包
+    var sceneBundle: MetaSceneBundle!
     /// 作品资源包
     var gameBundle: MetaGameBundle!
     /// 后续场景列表
     var nextScenes: [MetaScene] = [MetaScene]()
 
     /// 初始化
-    init(gameBundle: MetaGameBundle) {
+    init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
 
         super.init(nibName: nil, bundle: nil)
 
+        self.sceneBundle = sceneBundle
         self.gameBundle = gameBundle
     }
 

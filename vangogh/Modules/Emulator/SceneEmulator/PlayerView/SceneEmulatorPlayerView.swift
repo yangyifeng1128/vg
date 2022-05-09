@@ -1,5 +1,5 @@
 ///
-/// ScenePlayerView
+/// SceneEmulatorPlayerView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -8,7 +8,7 @@ import CoreMedia
 import SnapKit
 import UIKit
 
-class ScenePlayerView: UIView {
+class SceneEmulatorPlayerView: UIView {
 
     /// 渲染对齐方式枚举值
     enum RenderAlignment {
@@ -16,26 +16,22 @@ class ScenePlayerView: UIView {
         case topCenter
     }
 
-    weak var delegate: ScenePlayerViewDelegate?
-
-    var rendererView: SceneRendererView!
+    var rendererView: SceneEmulatorRendererView!
 
     private var renderSize: CGSize!
     private var renderAlignment: RenderAlignment!
-    var isEditable: Bool!
     var renderScale: CGFloat!
 
     private var nodeViewContainer: RoundedView!
     private(set) var nodeViewList: [MetaNodeView] = []
 
     /// 初始化
-    init(renderSize: CGSize, renderAlignment: RenderAlignment = .center, isEditable: Bool = false) {
+    init(renderSize: CGSize, renderAlignment: RenderAlignment = .center) {
 
         super.init(frame: .zero)
 
         self.renderSize = renderSize
         self.renderAlignment = renderAlignment
-        self.isEditable = isEditable
 
         // 计算渲染缩放比例
 
@@ -56,7 +52,7 @@ class ScenePlayerView: UIView {
     /// 初始化视图
     private func initViews() {
 
-        backgroundColor = isEditable ? .clear : .systemGroupedBackground
+        backgroundColor = .systemGroupedBackground
 
         // 初始化「渲染器视图」
 
@@ -67,10 +63,10 @@ class ScenePlayerView: UIView {
         initNodeViews()
     }
 
-    /// 初始化渲染器视图
+    /// 初始化「渲染器视图」
     private func initRendererView() {
 
-        rendererView = SceneRendererView(renderScale: renderScale)
+        rendererView = SceneEmulatorRendererView(renderScale: renderScale)
         addSubview(rendererView)
         rendererView.snp.makeConstraints { make -> Void in
             make.width.equalTo(renderSize.width)
@@ -84,7 +80,7 @@ class ScenePlayerView: UIView {
         }
     }
 
-    /// 初始化组件视图
+    /// 初始化「组件视图」
     private func initNodeViews() {
 
         nodeViewContainer = RoundedView(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
@@ -95,7 +91,7 @@ class ScenePlayerView: UIView {
     }
 }
 
-extension ScenePlayerView {
+extension SceneEmulatorPlayerView {
 
     func updateNodeViews(nodes: [MetaNode]) {
 
@@ -202,11 +198,8 @@ extension ScenePlayerView {
         }
 
         if let nodeView = nodeView {
-            nodeView.playerView = self
+//            nodeView.playerView = self
             nodeView.isHidden = true
-            if isEditable {
-                nodeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nodeViewWillBeginEditing)))
-            }
             nodeView.layout(parent: nodeViewContainer)
             nodeViewList.append(nodeView)
         }
@@ -236,20 +229,5 @@ extension ScenePlayerView {
                 nodeView.isHidden = true
             }
         }
-    }
-}
-
-extension ScenePlayerView {
-
-    @objc func nodeViewWillBeginEditing(_ sender: UITapGestureRecognizer) {
-
-        guard let nodeView: MetaNodeView = sender.view as? MetaNodeView else { return }
-
-        delegate?.nodeViewWillBeginEditing(nodeView)
-    }
-
-    func saveBundleWhenNodeViewChanged(node: MetaNode) {
-
-        delegate?.saveBundleWhenNodeViewChanged(node: node)
     }
 }

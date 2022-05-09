@@ -16,7 +16,7 @@ class MetaNodeView: UIView {
     }
 
     /// 播放器视图
-    weak var playerView: ScenePlayerView?
+    weak var playerView: SceneEditorPlayerView?
 
     /// 组件
     private(set) var node: MetaNode!

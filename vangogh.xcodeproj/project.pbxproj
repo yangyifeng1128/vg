@@ -11,7 +11,7 @@
 		0F007F5028195217008B1136 /* GameScannerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F4F28195217008B1136 /* GameScannerViewControllerDelegate.swift */; };
 		0F007F52281980AF008B1136 /* GameScannerViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F51281980AF008B1136 /* GameScannerViewController+Actions.swift */; };
 		0F007F5428198107008B1136 /* GameScannerViewController+QRScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5328198107008B1136 /* GameScannerViewController+QRScanner.swift */; };
-		0F007F5628199474008B1136 /* ScenePlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5528199474008B1136 /* ScenePlayerViewDelegate.swift */; };
+		0F007F5628199474008B1136 /* SceneEditorPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5528199474008B1136 /* SceneEditorPlayerViewDelegate.swift */; };
 		0F007F582819952B008B1136 /* TargetAssetsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F572819952B008B1136 /* TargetAssetsViewControllerDelegate.swift */; };
 		0F007F5A28199574008B1136 /* GameEditorToolBarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5928199574008B1136 /* GameEditorToolBarViewDelegate.swift */; };
 		0F007F5C281995C0008B1136 /* GameEditorSceneExplorerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F007F5B281995C0008B1136 /* GameEditorSceneExplorerViewDelegate.swift */; };
@@ -168,6 +168,8 @@
 		0F91552C2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */; };
 		0F91552F2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */; };
 		0F9155312827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */; };
+		0F9155342828B27E00E0AFCB /* SceneEmulatorPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155332828B27E00E0AFCB /* SceneEmulatorPlayerView.swift */; };
+		0F9155362828B37600E0AFCB /* SceneEmulatorRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9155352828B37600E0AFCB /* SceneEmulatorRendererView.swift */; };
 		0F95E700271C6366005EE818 /* GameSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E6FF271C6366005EE818 /* GameSetting.swift */; };
 		0F95E702271C6438005EE818 /* GameSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E701271C6438005EE818 /* GameSettingTableViewCell.swift */; };
 		0F95E705271DB34C005EE818 /* WorkspaceNoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F95E704271DB34C005EE818 /* WorkspaceNoDataView.swift */; };
@@ -253,7 +255,7 @@
 		122282FB272FF3A200AF7FCA /* AddNodeItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122282FA272FF3A200AF7FCA /* AddNodeItemViewController.swift */; };
 		122748A326821FD90002684F /* MetaTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122748A226821FD90002684F /* MetaTransition.swift */; };
 		122748A7268453F40002684F /* GameEditorToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122748A6268453F40002684F /* GameEditorToolBarView.swift */; };
-		122833A72747DFF600DFD88E /* SceneRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122833A62747DFF600DFD88E /* SceneRendererView.swift */; };
+		122833A72747DFF600DFD88E /* SceneEditorRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122833A62747DFF600DFD88E /* SceneEditorRendererView.swift */; };
 		12349D9D271D219600BC4626 /* MetaAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12349D9C271D219600BC4626 /* MetaAnimatedImageView.swift */; };
 		12349DA0271D220D00BC4626 /* MetaTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12349D9F271D220D00BC4626 /* MetaTextView.swift */; };
 		12349DA3271D238900BC4626 /* MetaCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12349DA2271D238900BC4626 /* MetaCameraView.swift */; };
@@ -262,7 +264,7 @@
 		12349DA9271D602300BC4626 /* MetaAnimatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12349DA8271D602300BC4626 /* MetaAnimatedImage.swift */; };
 		12349DAD271FCC5000BC4626 /* NodeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12349DAC271FCC5000BC4626 /* NodeItemView.swift */; };
 		12355E932715B9AB00BED759 /* GameEditorExternalChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12355E922715B9AB00BED759 /* GameEditorExternalChangeManager.swift */; };
-		123957D0275639A7003FCDC4 /* ScenePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123957CF275639A7003FCDC4 /* ScenePlayerView.swift */; };
+		123957D0275639A7003FCDC4 /* SceneEditorPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123957CF275639A7003FCDC4 /* SceneEditorPlayerView.swift */; };
 		123957D22756526F003FCDC4 /* MetaVoteOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123957D12756526F003FCDC4 /* MetaVoteOptionTableViewCell.swift */; };
 		12433A47267D9DB8001633D8 /* MetaGame+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12433A46267D9DB8001633D8 /* MetaGame+CoreDataProperties.swift */; };
 		12433A48267D9DB8001633D8 /* MetaRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12433A45267D9DB8001633D8 /* MetaRecord+CoreDataProperties.swift */; };
@@ -343,7 +345,7 @@
 		0F007F4F28195217008B1136 /* GameScannerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScannerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		0F007F51281980AF008B1136 /* GameScannerViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScannerViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F007F5328198107008B1136 /* GameScannerViewController+QRScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScannerViewController+QRScanner.swift"; sourceTree = "<group>"; };
-		0F007F5528199474008B1136 /* ScenePlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePlayerViewDelegate.swift; sourceTree = "<group>"; };
+		0F007F5528199474008B1136 /* SceneEditorPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditorPlayerViewDelegate.swift; sourceTree = "<group>"; };
 		0F007F572819952B008B1136 /* TargetAssetsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetAssetsViewControllerDelegate.swift; sourceTree = "<group>"; };
 		0F007F5928199574008B1136 /* GameEditorToolBarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorToolBarViewDelegate.swift; sourceTree = "<group>"; };
 		0F007F5B281995C0008B1136 /* GameEditorSceneExplorerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorSceneExplorerViewDelegate.swift; sourceTree = "<group>"; };
@@ -504,6 +506,8 @@
 		0F91552B2827EFE400E0AFCB /* SceneEmulatorTransitionViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorTransitionViewController+Actions.swift"; sourceTree = "<group>"; };
 		0F91552E2827F7DA00E0AFCB /* NextSceneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSceneCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneEmulatorTransitionViewController+VM.swift"; sourceTree = "<group>"; };
+		0F9155332828B27E00E0AFCB /* SceneEmulatorPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorPlayerView.swift; sourceTree = "<group>"; };
+		0F9155352828B37600E0AFCB /* SceneEmulatorRendererView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEmulatorRendererView.swift; sourceTree = "<group>"; };
 		0F95E6FF271C6366005EE818 /* GameSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetting.swift; sourceTree = "<group>"; };
 		0F95E701271C6438005EE818 /* GameSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingTableViewCell.swift; sourceTree = "<group>"; };
 		0F95E704271DB34C005EE818 /* WorkspaceNoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceNoDataView.swift; sourceTree = "<group>"; };
@@ -589,7 +593,7 @@
 		122282FA272FF3A200AF7FCA /* AddNodeItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNodeItemViewController.swift; sourceTree = "<group>"; };
 		122748A226821FD90002684F /* MetaTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaTransition.swift; sourceTree = "<group>"; };
 		122748A6268453F40002684F /* GameEditorToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorToolBarView.swift; sourceTree = "<group>"; };
-		122833A62747DFF600DFD88E /* SceneRendererView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRendererView.swift; sourceTree = "<group>"; };
+		122833A62747DFF600DFD88E /* SceneEditorRendererView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditorRendererView.swift; sourceTree = "<group>"; };
 		12349D9C271D219600BC4626 /* MetaAnimatedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaAnimatedImageView.swift; sourceTree = "<group>"; };
 		12349D9F271D220D00BC4626 /* MetaTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaTextView.swift; sourceTree = "<group>"; };
 		12349DA2271D238900BC4626 /* MetaCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCameraView.swift; sourceTree = "<group>"; };
@@ -598,7 +602,7 @@
 		12349DA8271D602300BC4626 /* MetaAnimatedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaAnimatedImage.swift; sourceTree = "<group>"; };
 		12349DAC271FCC5000BC4626 /* NodeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeItemView.swift; sourceTree = "<group>"; };
 		12355E922715B9AB00BED759 /* GameEditorExternalChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEditorExternalChangeManager.swift; sourceTree = "<group>"; };
-		123957CF275639A7003FCDC4 /* ScenePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePlayerView.swift; sourceTree = "<group>"; };
+		123957CF275639A7003FCDC4 /* SceneEditorPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditorPlayerView.swift; sourceTree = "<group>"; };
 		123957D12756526F003FCDC4 /* MetaVoteOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaVoteOptionTableViewCell.swift; sourceTree = "<group>"; };
 		12433A41267D9DB7001633D8 /* MetaTemplate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetaTemplate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		12433A42267D9DB8001633D8 /* MetaTemplate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MetaTemplate+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -774,6 +778,7 @@
 		0F210E4926DA889E002CC564 /* SceneEmulator */ = {
 			isa = PBXGroup;
 			children = (
+				0F9155322828B26C00E0AFCB /* PlayerView */,
 				0F91552D2827F42200E0AFCB /* Transition */,
 				0FC38687281FADB800823916 /* Core */,
 				0F91551A2827C84600E0AFCB /* PlayControlView */,
@@ -948,7 +953,6 @@
 				0F8972CB273D6BAD001CD774 /* LoadingView.swift */,
 				0F6705F12814481300034BD6 /* CoachMarks */,
 				0F6705F0281447E300034BD6 /* RoundedViews */,
-				1283C6E727A7AABE00CF76D5 /* ScenePlayerView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1325,6 +1329,15 @@
 				0F9155302827FE1300E0AFCB /* SceneEmulatorTransitionViewController+VM.swift */,
 			);
 			path = Transition;
+			sourceTree = "<group>";
+		};
+		0F9155322828B26C00E0AFCB /* PlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				0F9155332828B27E00E0AFCB /* SceneEmulatorPlayerView.swift */,
+				0F9155352828B37600E0AFCB /* SceneEmulatorRendererView.swift */,
+			);
+			path = PlayerView;
 			sourceTree = "<group>";
 		};
 		0F95E703271C68CA005EE818 /* GameSettings */ = {
@@ -2167,14 +2180,14 @@
 			path = MetaNodes;
 			sourceTree = "<group>";
 		};
-		1283C6E727A7AABE00CF76D5 /* ScenePlayerView */ = {
+		1283C6E727A7AABE00CF76D5 /* PlayerView */ = {
 			isa = PBXGroup;
 			children = (
-				123957CF275639A7003FCDC4 /* ScenePlayerView.swift */,
-				0F007F5528199474008B1136 /* ScenePlayerViewDelegate.swift */,
-				122833A62747DFF600DFD88E /* SceneRendererView.swift */,
+				123957CF275639A7003FCDC4 /* SceneEditorPlayerView.swift */,
+				0F007F5528199474008B1136 /* SceneEditorPlayerViewDelegate.swift */,
+				122833A62747DFF600DFD88E /* SceneEditorRendererView.swift */,
 			);
-			path = ScenePlayerView;
+			path = PlayerView;
 			sourceTree = "<group>";
 		};
 		1290E50626AC822B006EA422 /* Emulator */ = {
@@ -2318,8 +2331,9 @@
 		12FC02B6269ACC31004C32C0 /* SceneEditor */ = {
 			isa = PBXGroup;
 			children = (
-				0F32AE5E27551F1200BC1955 /* PlayButton */,
 				0F3A4EF12822B04700E5921A /* Core */,
+				0F32AE5E27551F1200BC1955 /* PlayButton */,
+				1283C6E727A7AABE00CF76D5 /* PlayerView */,
 				12C2C895267F47F50070913C /* WorkspaceView */,
 			);
 			path = SceneEditor;
@@ -2462,6 +2476,7 @@
 				0FFA0ED128158C360008AC1C /* AppSettingsViewController+Actions.swift in Sources */,
 				0F3A4EFB28240E8000E5921A /* SceneEditorViewController+VM.swift in Sources */,
 				0F3882DA2537373D0069A1A4 /* CodingUserInfoKey.swift in Sources */,
+				0F9155362828B37600E0AFCB /* SceneEmulatorRendererView.swift in Sources */,
 				0FFA0EE32815B6780008AC1C /* NewGameViewController+VM.swift in Sources */,
 				0F14DF3F278206C20056872B /* MetaAnimatedImageEditorView.swift in Sources */,
 				0FAAE3DB272C4D0F000A7681 /* SceneSetting.swift in Sources */,
@@ -2516,7 +2531,7 @@
 				0FCA9EA1271C620D00B8E966 /* GameSettingsViewController.swift in Sources */,
 				0F3A4EF928240DC000E5921A /* SceneEditorViewController+Actions.swift in Sources */,
 				0F210E8C26DAADCC002CC564 /* Resource.swift in Sources */,
-				122833A72747DFF600DFD88E /* SceneRendererView.swift in Sources */,
+				122833A72747DFF600DFD88E /* SceneEditorRendererView.swift in Sources */,
 				0F7A9984281AAB510007FB3E /* GameEditorViewController+VM.swift in Sources */,
 				12349DA0271D220D00BC4626 /* MetaTextView.swift in Sources */,
 				124363C82711ADC1003FEAE3 /* TrackItemView.swift in Sources */,
@@ -2546,6 +2561,7 @@
 				0F210E8426DAADCC002CC564 /* TrackConfiguration.swift in Sources */,
 				0FEF1E3A26C59DEA00028A5F /* GameEditorWillAddSceneView.swift in Sources */,
 				12349DA9271D602300BC4626 /* MetaAnimatedImage.swift in Sources */,
+				0F9155342828B27E00E0AFCB /* SceneEmulatorPlayerView.swift in Sources */,
 				0FEC9342279D87AD0001FD32 /* MetaMusicView.swift in Sources */,
 				129CF785267E4B4400DCB097 /* MetaScene.swift in Sources */,
 				0FAB9809256A1781005CBF6E /* MainTabBarController.swift in Sources */,
@@ -2600,7 +2616,7 @@
 				0FAB1465254F9AE100D09168 /* CGFloat+Rounded.swift in Sources */,
 				128B16472718302500CD917B /* AppSettingTableViewCell.swift in Sources */,
 				0F210E7A26DAADCC002CC564 /* CompositionGenerator.swift in Sources */,
-				0F007F5628199474008B1136 /* ScenePlayerViewDelegate.swift in Sources */,
+				0F007F5628199474008B1136 /* SceneEditorPlayerViewDelegate.swift in Sources */,
 				0F14DF3B278206A00056872B /* MetaMultipleChoiceEditorView.swift in Sources */,
 				120D7D1F27A11B9D00605DCE /* MetaNodeConstants.swift in Sources */,
 				0F14DF14278204170056872B /* MetaVoteEditorView.swift in Sources */,
@@ -2682,7 +2698,7 @@
 				0F8972D0273F6979001CD774 /* SceneEmulatorProgressTagView.swift in Sources */,
 				12216E3D26DB2B9700F5E0DA /* MetaSceneBundle.swift in Sources */,
 				0FCA7A5127342B4B0051CCC1 /* MetaNode.swift in Sources */,
-				123957D0275639A7003FCDC4 /* ScenePlayerView.swift in Sources */,
+				123957D0275639A7003FCDC4 /* SceneEditorPlayerView.swift in Sources */,
 				12725F6126A3019100C8EE01 /* DraftTableViewCell.swift in Sources */,
 				0F3A4EFF28240F3A00E5921A /* SceneEditorViewController+TimelineView.swift in Sources */,
 				0F210E8026DAADCC002CC564 /* CompositionProvider.swift in Sources */,

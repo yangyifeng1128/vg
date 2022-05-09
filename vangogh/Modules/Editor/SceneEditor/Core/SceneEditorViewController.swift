@@ -45,7 +45,7 @@ class SceneEditorViewController: UIViewController {
     /// 播放器视图容器
     var playerViewContainer: UIView!
     /// 播放器视图
-    var playerView: ScenePlayerView!
+    var playerView: SceneEditorPlayerView!
     /// 加载视图
     var loadingView: LoadingView!
 
@@ -384,7 +384,7 @@ class SceneEditorViewController: UIViewController {
 
         // 初始化「播放器视图」
 
-        playerView = ScenePlayerView(renderSize: renderSize, isEditable: true)
+        playerView = SceneEditorPlayerView(renderSize: renderSize, isEditable: true)
         playerView.delegate = self
         playerViewContainer.addSubview(playerView)
         playerView.snp.makeConstraints { make -> Void in
@@ -861,7 +861,7 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
     }
 }
 
-extension SceneEditorViewController: ScenePlayerViewDelegate {
+extension SceneEditorViewController: SceneEditorPlayerViewDelegate {
 
     func nodeViewWillBeginEditing(_ nodeView: MetaNodeView) {
 

@@ -15,4 +15,15 @@ extension SceneEmulatorTransitionViewController {
             handler()
         }
     }
+
+    func saveCurrentTime() {
+
+    }
+
+    /// 保存场景资源包
+    func saveCurrentTimeMilliseconds(_ milliseconds: Int64) {
+
+        sceneBundle.currentTimeMilliseconds = milliseconds
+        MetaSceneBundleManager.shared.save(sceneBundle)
+    }
 }

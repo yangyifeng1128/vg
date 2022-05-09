@@ -8,10 +8,10 @@ import UIKit
 
 extension SceneEmulatorViewController {
 
-    /// 展示「场景模拟器视图控制器」
+    /// 展示「场景模拟器穿梭器视图控制器」
     func presentSceneEmulatorTransitionVC() {
 
-        let transitionVC: SceneEmulatorTransitionViewController = SceneEmulatorTransitionViewController(gameBundle: gameBundle)
+        let transitionVC: SceneEmulatorTransitionViewController = SceneEmulatorTransitionViewController(sceneBundle: sceneBundle, gameBundle: gameBundle)
         transitionVC.definesPresentationContext = false
         transitionVC.modalPresentationStyle = .currentContext
         transitionVC.modalTransitionStyle = .crossDissolve
