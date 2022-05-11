@@ -47,7 +47,7 @@ class SceneEditorViewController: UIViewController {
     /// 播放器视图
     var playerView: SceneEditorPlayerView!
     /// 加载视图
-    var loadingView: LoadingView!
+    var loadingIndicatorView: LoadingIndicatorView!
 
     /// 操作栏视图
     var actionBarView: BorderedView!
@@ -150,7 +150,7 @@ class SceneEditorViewController: UIViewController {
 
         if needsReloadPlayer && !isSceneBundleEmpty() { // （重新）加载播放器
 
-            loadingView.startAnimating()
+            loadingIndicatorView.startAnimating()
             reloadPlayer()
 
         } else { // 不重新加载播放器
@@ -384,7 +384,8 @@ class SceneEditorViewController: UIViewController {
 
         // 初始化「播放器视图」
 
-        playerView = SceneEditorPlayerView(renderSize: renderSize, isEditable: true)
+        playerView = SceneEditorPlayerView(renderSize: renderSize)
+        playerView.dataSource = self
         playerView.delegate = self
         playerViewContainer.addSubview(playerView)
         playerView.snp.makeConstraints { make -> Void in
@@ -395,10 +396,10 @@ class SceneEditorViewController: UIViewController {
 
         // 初始化「加载视图」
 
-        loadingView = LoadingView()
-        playerView.addSubview(loadingView)
-        loadingView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(LoadingView.VC.width)
+        loadingIndicatorView = LoadingIndicatorView()
+        playerView.addSubview(loadingIndicatorView)
+        loadingIndicatorView.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(LoadingIndicatorView.VC.width)
             make.center.equalToSuperview()
         }
 
@@ -773,7 +774,7 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
 
         print("[SceneEditor] asset did pick")
 
-        loadingView.startAnimating()
+        loadingIndicatorView.startAnimating()
         disablePlayerRelatedViews()
 
         // 加载刚刚选取的素材
@@ -825,7 +826,7 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
             print("[SceneEditor] load picked image: \(progress)")
             guard let s = self else { return }
             DispatchQueue.main.sync {
-                s.loadingView.progress = progress
+                s.loadingIndicatorView.progress = progress
             }
         }
 
@@ -847,7 +848,7 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
             print("[SceneEditor] load picked video: \(progress)")
             guard let s = self else { return }
             DispatchQueue.main.sync {
-                s.loadingView.progress = progress
+                s.loadingIndicatorView.progress = progress
             }
         }
 
@@ -858,44 +859,6 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
             }
             completion()
         }
-    }
-}
-
-extension SceneEditorViewController: SceneEditorPlayerViewDelegate {
-
-    func nodeViewWillBeginEditing(_ nodeView: MetaNodeView) {
-
-        guard let node = nodeView.node, let nodeTypeTitle = MetaNodeTypeManager.shared.getNodeTypeLocalizedTitle(nodeType: node.nodeType) else { return }
-        print("[SceneEditor] \"\(nodeTypeTitle) \(node.index)\" will begin editing")
-
-        // 暂停并保存资源包
-
-        if !timeline.videoChannel.isEmpty {
-            pause()
-        }
-        saveSceneBundle()
-
-        // 激活「时间线-组件项」视图
-
-        timelineView.activateNodeItemView(node: nodeView.node)
-
-        // 展示「编辑组件项 Sheet 视图控制器」
-
-        presentEditNodeItemSheetViewController(node: nodeView.node)
-    }
-
-    func saveBundleWhenNodeViewChanged(node: MetaNode) {
-
-        guard let nodeTypeTitle = MetaNodeTypeManager.shared.getNodeTypeLocalizedTitle(nodeType: node.nodeType) else { return }
-        print("[SceneEditor] save bundle when \"\(nodeTypeTitle) \(node.index)\" changed")
-
-        // 更新组件数据
-
-        sceneBundle.updateNode(node)
-
-        // 保存资源包
-
-        saveSceneBundle()
     }
 }
 
@@ -934,7 +897,7 @@ extension SceneEditorViewController {
 
             DispatchQueue.main.async {
                 s.updatePlayerRelatedViews() // 更新播放器相关的界面
-                s.loadingView.stopAnimating() // 停止加载视图的加载动画
+                s.loadingIndicatorView.stopAnimating() // 停止加载视图的加载动画
             }
         }
     }

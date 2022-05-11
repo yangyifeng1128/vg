@@ -93,7 +93,6 @@ extension GameEditorSceneView {
         titleLabel.lineBreakMode = .byTruncatingTail
     }
 
-
     /// 准备「标题标签」文本
     func prepareTitleLabelAttributedText() -> NSMutableAttributedString {
 

@@ -9,21 +9,27 @@ import UIKit
 
 class SceneEmulatorRendererView: RoundedImageView {
 
+    /// 图层类
     override static var layerClass: AnyClass { AVPlayerLayer.self }
 
+    /// 播放器图层
     private var playerLayer: AVPlayerLayer { layer as! AVPlayerLayer }
 
+    /// 播放器
     var player: AVPlayer? {
         get { playerLayer.player }
         set { playerLayer.player = newValue }
     }
 
-    private(set) var renderScale: CGFloat!
+    /// 渲染缩放比例
+    var renderScale: CGFloat!
 
+    /// 初始化
     init(renderScale: CGFloat) {
 
-        self.renderScale = renderScale
         super.init(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
+
+        self.renderScale = renderScale
 
         backgroundColor = .black
     }

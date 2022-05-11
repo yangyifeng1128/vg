@@ -54,15 +54,17 @@ class MetaButtonView: MetaNodeView {
         addSubview(infoLabel)
     }
 
-    override func layout(parent: UIView) {
+    override func reloadData() {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+        guard let dataSource = dataSource else { return }
 
-        if playerView.isEditable {
-            addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
-        } else {
-            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
-        }
+        let renderScale: CGFloat = dataSource.renderScale()
+
+//        if playerView.isEditable {
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
+//        } else {
+//            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
+//        }
 
         // 更新背景视图布局
 
@@ -83,7 +85,7 @@ class MetaButtonView: MetaNodeView {
 
         // 更新当前视图布局
 
-        parent.addSubview(self)
+        // parent.addSubview(self)
 
         bounds = CGRect(origin: .zero, size: CGSize(width: button.size.width * renderScale, height: button.size.height * renderScale))
         center = CGPoint(x: button.center.x * renderScale, y: button.center.y * renderScale)
@@ -110,7 +112,9 @@ extension MetaButtonView {
 
         case .changed:
 
-            guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+            guard let dataSource = dataSource else { return }
+
+            let renderScale: CGFloat = dataSource.renderScale()
 
             let location: CGPoint = sender.location(in: superview)
 
@@ -126,7 +130,7 @@ extension MetaButtonView {
 
             // 保存资源包
 
-            playerView.saveBundleWhenNodeViewChanged(node: button)
+            // delegate.saveBundleWhenNodeViewChanged(node: button)
 
             break
 

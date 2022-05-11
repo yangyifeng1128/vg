@@ -1,5 +1,5 @@
 ///
-/// LoadingView
+/// LoadingIndicatorView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class LoadingView: RoundedView {
+class LoadingIndicatorView: RoundedView {
 
     /// 视图常量枚举值
     enum VC {
@@ -43,7 +43,7 @@ class LoadingView: RoundedView {
     }
 }
 
-extension LoadingView {
+extension LoadingIndicatorView {
 
     /// 初始化视图
     private func initViews() {
@@ -78,7 +78,7 @@ extension LoadingView {
     }
 }
 
-extension LoadingView {
+extension LoadingIndicatorView {
 
     /// 启动加载动画
     func startAnimating() {

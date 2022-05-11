@@ -42,13 +42,15 @@ class MetaVoiceOverView: MetaNodeView {
         backgroundColor = UIColor.colorWithRGBA(rgba: voiceOver.backgroundColorCode)
     }
 
-    override func layout(parent: UIView) {
+    override func reloadData() {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+        guard let dataSource = dataSource else { return }
+
+        let renderScale: CGFloat = dataSource.renderScale()
 
         // 更新当前视图布局
 
-        parent.addSubview(self)
+        // parent.addSubview(self)
 
         snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()

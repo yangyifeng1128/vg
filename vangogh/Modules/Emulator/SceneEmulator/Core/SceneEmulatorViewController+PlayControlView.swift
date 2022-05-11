@@ -36,7 +36,6 @@ extension SceneEmulatorViewController: SceneEmulatorProgressViewDelegate {
 
         if player.timeControlStatus == .playing {
 
-//            playButton.isPlaying = false
             player.pause()
         }
     }
@@ -47,8 +46,9 @@ extension SceneEmulatorViewController: SceneEmulatorProgressViewDelegate {
 
         // 重新定位播放时刻
 
-        if let duration = player.currentItem?.duration {
+        if let currentItem = player.currentItem {
 
+            let duration: CMTime = currentItem.duration
             let currentTimeMilliseconds: Int64 = Int64((duration.seconds * 1000 * value / GVC.maxProgressValue).rounded())
             player.seek(to: CMTimeMake(value: currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
         }

@@ -57,13 +57,15 @@ class MetaTextView: MetaNodeView {
         addSubview(infoLabel)
     }
 
-    override func layout(parent: UIView) {
+    override func reloadData() {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+        guard let dataSource = dataSource else { return }
 
-        if playerView.isEditable {
-            addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
-        }
+        let renderScale: CGFloat = dataSource.renderScale()
+
+//        if playerView.isEditable {
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
+//        }
 
         // 更新信息标签布局
 
@@ -76,7 +78,7 @@ class MetaTextView: MetaNodeView {
 
         // 更新当前视图布局
 
-        parent.addSubview(self)
+        // parent.addSubview(self)
 
         bounds = CGRect(origin: .zero, size: CGSize(width: text.size.width * renderScale, height: text.size.height * renderScale))
         center = CGPoint(x: text.center.x * renderScale, y: text.center.y * renderScale)
@@ -95,7 +97,9 @@ extension MetaTextView {
 
         case .changed:
 
-            guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+            guard let dataSource = dataSource else { return }
+
+            let renderScale: CGFloat = dataSource.renderScale()
 
             let location: CGPoint = sender.location(in: superview)
 
@@ -111,7 +115,7 @@ extension MetaTextView {
 
             // 保存资源包
 
-            playerView.saveBundleWhenNodeViewChanged(node: text)
+            // delegate.saveBundleWhenNodeViewChanged(node: text)
 
             break
 

@@ -86,7 +86,7 @@ extension GameEditorViewController {
         guard let scene = gameBundle.selectedScene(), let selectedSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: scene.uuid, gameUUID: gameBundle.uuid) else { return }
         let sceneEditorVC = SceneEditorViewController(sceneBundle: selectedSceneBundle, gameBundle: gameBundle)
         let sceneEditorNav = UINavigationController(rootViewController: sceneEditorVC)
-        sceneEditorNav.definesPresentationContext = false
+        sceneEditorNav.definesPresentationContext = true
         sceneEditorNav.modalPresentationStyle = .currentContext
 
         present(sceneEditorNav, animated: true, completion: nil)

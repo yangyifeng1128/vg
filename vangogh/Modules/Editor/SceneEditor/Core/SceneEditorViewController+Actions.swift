@@ -87,7 +87,7 @@ extension SceneEditorViewController {
 
         print("[SceneEditor] will enter foreground")
 
-        loadingView.startAnimating()
+        loadingIndicatorView.startAnimating()
         reloadPlayer()
     }
 
@@ -221,7 +221,7 @@ extension SceneEditorViewController {
             DispatchQueue.global(qos: .background).async {
                 MetaSceneBundleManager.shared.deleteMetaFootage(sceneBundle: s.sceneBundle, footage: footage)
                 DispatchQueue.main.sync {
-                    s.loadingView.startAnimating()
+                    s.loadingIndicatorView.startAnimating()
                     s.currentTime = CMTimeMake(value: s.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale)
                     s.reloadPlayer()
                 }

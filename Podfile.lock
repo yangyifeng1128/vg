@@ -7,7 +7,6 @@ PODS:
   - EFQRCode (6.2.1):
     - swift_qrcodejs (~> 2.2.2)
   - FittedSheets (2.4.2)
-  - Hero (1.6.1)
   - Instructions (2.1.1)
   - Kingfisher (7.2.1)
   - lottie-ios (3.3.0)
@@ -21,7 +20,6 @@ DEPENDENCIES:
   - DanmakuKit
   - EFQRCode
   - FittedSheets
-  - Hero
   - Instructions
   - Kingfisher
   - lottie-ios
@@ -36,7 +34,6 @@ SPEC REPOS:
     - DanmakuKit
     - EFQRCode
     - FittedSheets
-    - Hero
     - Instructions
     - Kingfisher
     - lottie-ios
@@ -50,7 +47,6 @@ SPEC CHECKSUMS:
   DanmakuKit: 99ed52495c18e4cd8f0ce49d968236e176c3da4e
   EFQRCode: a4d39ec3466b68dffa71de3b5caef7c9ceefdc53
   FittedSheets: 661408776eb4ff514a31da75b3600bd7222b2b3d
-  Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
   Instructions: bde4a699f27e8e43d20efa3508e5bc53215d0879
   Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
@@ -58,6 +54,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
 
-PODFILE CHECKSUM: 469c4192fcd4e4aa77f145aee7dafe0b1db83930
+PODFILE CHECKSUM: 3d3169cd85ad212476229e62e9ef58f101007595
 
 COCOAPODS: 1.11.3

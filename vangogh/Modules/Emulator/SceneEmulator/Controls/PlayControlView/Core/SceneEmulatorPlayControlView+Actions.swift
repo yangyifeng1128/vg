@@ -91,6 +91,14 @@ extension SceneEmulatorPlayControlView {
         progressView.isHidden = false
     }
 
+    /// 停止
+    func stop() {
+
+        playButton.isPlaying = false
+        gameboardButton.isHidden = true
+        progressView.isHidden = true
+    }
+
     /// 更新进度
     func seek(to progress: CGFloat) {
 

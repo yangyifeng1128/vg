@@ -102,11 +102,13 @@ class MetaDuetView: MetaNodeView {
         addSubview(progressView)
     }
 
-    override func layout(parent: UIView) {
+    override func reloadData() {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+        guard let dataSource = dataSource else { return }
 
-        // 更新提示器视图布局
+        let renderScale: CGFloat = dataSource.renderScale()
+
+        // 更新「指示器视图」布局
 
         indicatorView.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.indicatorViewWidth * renderScale)
@@ -114,7 +116,7 @@ class MetaDuetView: MetaNodeView {
             make.bottom.equalToSuperview().offset(-VC.indicatorViewMarginBottom * renderScale)
         }
 
-        // 更新提示器按钮布局
+        // 更新「指示器按钮」布局
 
         indicatorButton.layer.cornerRadius = VC.indicatorButtonWidth * renderScale / 2
         indicatorButton.backgroundColor = .white
@@ -150,7 +152,7 @@ class MetaDuetView: MetaNodeView {
 
         // 更新当前视图布局
 
-        parent.addSubview(self)
+        // parent.addSubview(self)
 
         snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.width * renderScale)
@@ -175,7 +177,9 @@ extension MetaDuetView {
 
     func startPulseAnimating() {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+        guard let dataSource = dataSource else { return }
+
+        let renderScale: CGFloat = dataSource.renderScale()
 
         pulseAnimationLayer = CALayer()
         let position = CGPoint(x: VC.indicatorViewWidth * renderScale / 2, y: VC.indicatorViewWidth * renderScale / 2)

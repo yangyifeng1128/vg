@@ -15,8 +15,10 @@ class MetaNodeView: UIView {
         static let progressViewMarginBottom: CGFloat = 16
     }
 
-    /// 播放器视图
-    weak var playerView: SceneEditorPlayerView?
+    /// 数据源
+    weak var dataSource: MetaNodeViewDataSource? {
+        didSet { reloadData() }
+    }
 
     /// 组件
     private(set) var node: MetaNode!
@@ -45,8 +47,8 @@ class MetaNodeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// 布局
-    func layout(parent: UIView) {
+    /// 重新加载数据
+    func reloadData() {
 
         fatalError("Method \"layout\" must be overriden")
     }

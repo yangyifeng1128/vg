@@ -75,6 +75,7 @@
 "NoArchivesAvailable" = "当前没有可用的档案";
 "NoGamesFound" = "没有找到作品";
 "NoGamesFoundInfo" = "请确认作品二维码是否正确";
+"NoNextSceneDescriptorsAvailable" = "当前没有可用的场景";
 "NoPicturesAvailable" = "当前没有可用的图片";
 "NoRecordsFound" = "还没有访问过任何作品";
 "NoTargetScenesAvailable" = "当前没有可用的目标场景";

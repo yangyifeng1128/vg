@@ -75,6 +75,7 @@
 "NoArchivesAvailable" = "No archives available";
 "NoGamesFound" = "No Games Found";
 "NoGamesFoundInfo" = "Please make sure you scanned the correct MetaGame QRCode";
+"NoNextSceneDescriptorsAvailable" = "No scenes available";
 "NoPicturesAvailable" = "No pictures available";
 "NoRecordsFound" = "No games played yet";
 "NoTargetScenesAvailable" = "No target scenes available";

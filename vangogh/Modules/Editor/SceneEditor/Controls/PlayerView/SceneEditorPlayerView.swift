@@ -1,5 +1,5 @@
 ///
-/// SceneEmulatorPlayerView
+/// SceneEditorPlayerView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
@@ -8,37 +8,31 @@ import CoreMedia
 import SnapKit
 import UIKit
 
-class SceneEmulatorPlayerView: UIView {
-
-    /// 渲染对齐方式枚举值
-    enum RenderAlignment {
-        case center
-        case topCenter
-    }
+class SceneEditorPlayerView: UIView {
 
     /// 数据源
-    weak var dataSource: SceneEmulatorPlayerViewDataSource? {
+    weak var dataSource: SceneEditorPlayerViewDataSource? {
         didSet { reloadData() }
     }
     /// 代理
-    weak var delegate: SceneEmulatorPlayerViewDelegate?
+    weak var delegate: SceneEditorPlayerViewDelegate?
 
     /// 渲染视图
-    var rendererView: SceneEmulatorRendererView!
-
+    var rendererView: SceneEditorRendererView!
     var nodeViewContainer: RoundedView!
     var nodeViewList: [MetaNodeView] = []
 
-    var renderSize: CGSize!
-    var renderAlignment: RenderAlignment!
-    var renderScale: CGFloat!
+    /// 渲染尺寸
+    var renderSize: CGSize = .zero
+    /// 渲染缩放比例
+    var scale: CGFloat = 1
 
     /// 初始化
-    init() {
+    init(renderSize: CGSize) {
 
         super.init(frame: .zero)
 
-        calculateRenderOptions()
+        self.renderSize = renderSize
 
         initViews()
     }
@@ -51,11 +45,11 @@ class SceneEmulatorPlayerView: UIView {
     /// 初始化视图
     private func initViews() {
 
-        backgroundColor = .systemGroupedBackground
+        backgroundColor = .clear
     }
 }
 
-extension SceneEmulatorPlayerView {
+extension SceneEditorPlayerView {
 
     func updateNodeViews(nodes: [MetaNode]) {
 
@@ -162,9 +156,11 @@ extension SceneEmulatorPlayerView {
         }
 
         if let nodeView = nodeView {
-//            nodeView.playerView = self
+            nodeView.dataSource = self
             nodeView.isHidden = true
-            nodeView.layout(parent: nodeViewContainer)
+            nodeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nodeViewWillBeginEditing)))
+//            nodeView.layout(parent: nodeViewContainer)
+            nodeView.reloadData()
             nodeViewList.append(nodeView)
         }
     }

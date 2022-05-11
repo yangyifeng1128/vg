@@ -52,15 +52,17 @@ class MetaAnimatedImageView: MetaNodeView {
         }
     }
 
-    override func layout(parent: UIView) {
+    override func reloadData() {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+        guard let dataSource = dataSource else { return }
 
-        if playerView.isEditable {
-            addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
-        } else {
-            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
-        }
+        let renderScale: CGFloat = dataSource.renderScale()
+
+//        if playerView.isEditable {
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan)))
+//        } else {
+//            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
+//        }
 
         // 更新图像视图布局
 
@@ -70,7 +72,7 @@ class MetaAnimatedImageView: MetaNodeView {
 
         // 更新当前视图布局
 
-        parent.addSubview(self)
+        // parent.addSubview(self)
 
         bounds = CGRect(origin: .zero, size: CGSize(width: animatedImage.size.width * renderScale, height: animatedImage.size.height * renderScale))
         center = CGPoint(x: animatedImage.center.x * renderScale, y: animatedImage.center.y * renderScale)
@@ -97,7 +99,9 @@ extension MetaAnimatedImageView {
 
         case .changed:
 
-            guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+            guard let dataSource = dataSource else { return }
+
+            let renderScale: CGFloat = dataSource.renderScale()
 
             let location: CGPoint = sender.location(in: superview)
 
@@ -113,7 +117,7 @@ extension MetaAnimatedImageView {
 
             // 保存资源包
 
-            playerView.saveBundleWhenNodeViewChanged(node: animatedImage)
+            // delegate.saveBundleWhenNodeViewChanged(node: animatedImage)
 
             break
 

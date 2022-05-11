@@ -47,7 +47,7 @@ class MetaBulletScreenView: MetaNodeView {
         addSubview(rendererView)
     }
 
-    override func layout(parent: UIView) {
+    override func reloadData() {
 
         // 更新渲染器视图布局
 
@@ -61,7 +61,7 @@ class MetaBulletScreenView: MetaNodeView {
 
         // 更新当前视图布局
 
-        parent.addSubview(self)
+//        parent.addSubview(self)
 
         snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()

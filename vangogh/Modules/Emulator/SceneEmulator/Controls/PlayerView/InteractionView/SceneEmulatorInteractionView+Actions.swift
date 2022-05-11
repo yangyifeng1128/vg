@@ -1,101 +1,13 @@
 ///
-/// SceneEditorPlayerView
+/// SceneEmulatorInteractionView
 ///
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import CoreMedia
-import SnapKit
+import AVKit
 import UIKit
 
-class SceneEditorPlayerView: UIView {
-
-    /// 渲染对齐方式枚举值
-    enum RenderAlignment {
-        case center
-        case topCenter
-    }
-
-    weak var delegate: SceneEditorPlayerViewDelegate?
-
-    var rendererView: SceneEditorRendererView!
-
-    private var renderSize: CGSize!
-    private var renderAlignment: RenderAlignment!
-    var isEditable: Bool!
-    var renderScale: CGFloat!
-
-    private var nodeViewContainer: RoundedView!
-    private(set) var nodeViewList: [MetaNodeView] = []
-
-    /// 初始化
-    init(renderSize: CGSize, renderAlignment: RenderAlignment = .center, isEditable: Bool = false) {
-
-        super.init(frame: .zero)
-
-        self.renderSize = renderSize
-        self.renderAlignment = renderAlignment
-        self.isEditable = isEditable
-
-        // 计算渲染缩放比例
-
-        var multiplier: CGFloat = 1
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            multiplier = 768 / GVC.standardDeviceSize.width // 计算 multiplier，以兼容不同设备（phone、pad）之间的标准设备尺寸
-        }
-        renderScale = (renderSize.height / (GVC.standardDeviceSize.height * multiplier)).rounded(toPlaces: 4) // 以高度为基准，计算渲染缩放比例
-
-        initViews()
-    }
-
-    required init?(coder: NSCoder) {
-
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    /// 初始化视图
-    private func initViews() {
-
-        backgroundColor = isEditable ? .clear : .systemGroupedBackground
-
-        // 初始化「渲染器视图」
-
-        initRendererView()
-
-        // 初始化「组件视图」
-
-        initNodeViews()
-    }
-
-    /// 初始化「渲染器视图」
-    private func initRendererView() {
-
-        rendererView = SceneEditorRendererView(renderScale: renderScale)
-        addSubview(rendererView)
-        rendererView.snp.makeConstraints { make -> Void in
-            make.width.equalTo(renderSize.width)
-            make.height.equalTo(renderSize.height)
-            if renderAlignment == .topCenter {
-                make.centerX.equalToSuperview()
-                make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            } else {
-                make.center.equalToSuperview()
-            }
-        }
-    }
-
-    /// 初始化「组件视图」
-    private func initNodeViews() {
-
-        nodeViewContainer = RoundedView(cornerRadius: GVC.standardDeviceCornerRadius * renderScale)
-        addSubview(nodeViewContainer)
-        nodeViewContainer.snp.makeConstraints { make -> Void in
-            make.edges.equalTo(rendererView)
-        }
-    }
-}
-
-extension SceneEditorPlayerView {
+extension SceneEmulatorInteractionView {
 
     func updateNodeViews(nodes: [MetaNode]) {
 
@@ -202,16 +114,15 @@ extension SceneEditorPlayerView {
         }
 
         if let nodeView = nodeView {
-            nodeView.playerView = self
+//            nodeView.playerView = self
+//            nodeView.dataSource = self
             nodeView.isHidden = true
-            if isEditable {
-                nodeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nodeViewWillBeginEditing)))
-            }
-            nodeView.layout(parent: nodeViewContainer)
+//            nodeView.layout(parent: nodeViewContainer)
+            nodeView.reloadData()
             nodeViewList.append(nodeView)
         }
     }
-
+    
     func removeNodeView(node: MetaNode) {
 
         for (i, nodeView) in nodeViewList.enumerated().reversed() {
@@ -236,20 +147,5 @@ extension SceneEditorPlayerView {
                 nodeView.isHidden = true
             }
         }
-    }
-}
-
-extension SceneEditorPlayerView {
-
-    @objc func nodeViewWillBeginEditing(_ sender: UITapGestureRecognizer) {
-
-        guard let nodeView: MetaNodeView = sender.view as? MetaNodeView else { return }
-
-        delegate?.nodeViewWillBeginEditing(nodeView)
-    }
-
-    func saveBundleWhenNodeViewChanged(node: MetaNode) {
-
-        delegate?.saveBundleWhenNodeViewChanged(node: node)
     }
 }

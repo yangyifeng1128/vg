@@ -4,7 +4,6 @@ ${BUILT_PRODUCTS_DIR}/AwaitToast/AwaitToast.framework
 ${BUILT_PRODUCTS_DIR}/DanmakuKit/DanmakuKit.framework
 ${BUILT_PRODUCTS_DIR}/EFQRCode/EFQRCode.framework
 ${BUILT_PRODUCTS_DIR}/FittedSheets/FittedSheets.framework
-${BUILT_PRODUCTS_DIR}/Hero/Hero.framework
 ${BUILT_PRODUCTS_DIR}/Instructions/Instructions.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
 ${BUILT_PRODUCTS_DIR}/MercariQRScanner/MercariQRScanner.framework

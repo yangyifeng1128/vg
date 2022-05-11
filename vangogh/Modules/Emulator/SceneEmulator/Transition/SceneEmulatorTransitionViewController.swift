@@ -4,28 +4,33 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
-import Hero
 import UIKit
 
 class SceneEmulatorTransitionViewController: UIViewController {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let oopsLabelFontSize: CGFloat = 64
         static let titleLabelFontSize: CGFloat = 20
         static let nextScenesTitleLabelFontSize: CGFloat = 16
-        static let nextSceneIndicatorCollectionViewCellSpacing: CGFloat = 8
+        static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 16
     }
 
-    /// 后续场景提示器集合视图
-    var nextSceneIndicatorsCollectionView: UICollectionView!
+    /// 标题标签
+    var titleLabel: UILabel!
+    /// 后续场景描述符集合视图
+    var nextSceneDescriptorsCollectionView: UICollectionView!
 
     /// 场景资源包
     var sceneBundle: MetaSceneBundle!
     /// 作品资源包
     var gameBundle: MetaGameBundle!
-    /// 后续场景提示器列表
-    var nextSceneIndicators: [NextSceneIndicator] = [NextSceneIndicator]()
+    /// 后续场景描述符列表
+    var nextSceneDescriptors: [NextSceneDescriptor] = [NextSceneDescriptor]()
+
+    /// 后续计时器
+    var upNextTimer: Timer?
+    /// 后续时间
+    var upNextTimeSeconds: Int = 8
 
     /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
@@ -58,58 +63,65 @@ class SceneEmulatorTransitionViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
 
-        // 加载后续场景提示器列表
+        // 加载后续场景描述符列表
 
-        loadNextSceneIndicators() { [weak self] in
+        loadNextSceneDescriptors() { [weak self] in
             guard let s = self else { return }
-            s.nextSceneIndicatorsCollectionView.reloadData()
+            s.nextSceneDescriptorsCollectionView.reloadData()
         }
+
+        // 开启后续计时器
+
+        startUpNextTimer()
+    }
+
+    /// 视图即将消失
+    override func viewWillDisappear(_ animated: Bool) {
+
+        super.viewWillDisappear(animated)
+
+        // 停止后续计时器
+
+        stopUpNextTimer()
+    }
+
+    /// 隐藏状态栏
+    override var prefersStatusBarHidden: Bool {
+
+        return true
     }
 
     /// 初始化视图
     private func initViews() {
 
-        // 启用 hero 转场动画
-
-        hero.isEnabled = true
-
-        // 初始化「oops 标签」
-
-        let oopsLabel: UILabel = UILabel()
-        oopsLabel.text = "\\(^o^)/"
-        oopsLabel.font = .systemFont(ofSize: VC.oopsLabelFontSize, weight: .regular)
-        oopsLabel.textColor = .secondaryLabel
-        view.addSubview(oopsLabel)
-        oopsLabel.snp.makeConstraints { make -> Void in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(120)
-        }
+        view.backgroundColor = SceneEmulatorPlayerView.VC.backgroundColor
 
         // 初始化「标题标签」
 
-        let titleLabel: UILabel = UILabel()
-        titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), 8)
+        titleLabel = UILabel()
+        titleLabel.text = prepareTitleLabelText()
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
+        titleLabel.textAlignment = .center
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
             make.centerX.equalToSuperview()
-            make.top.equalTo(oopsLabel.snp.bottom).offset(48)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(160)
         }
 
-        // 初始化「后续场景提示器集合视图」
+        // 初始化「后续场景描述符集合视图」
 
-        nextSceneIndicatorsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        nextSceneIndicatorsCollectionView.backgroundColor = .clear
-        nextSceneIndicatorsCollectionView.showsVerticalScrollIndicator = false
-        nextSceneIndicatorsCollectionView.register(NextSceneIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: NextSceneIndicatorCollectionViewCell.reuseId)
-        nextSceneIndicatorsCollectionView.dataSource = self
-        nextSceneIndicatorsCollectionView.delegate = self
-        view.addSubview(nextSceneIndicatorsCollectionView)
-        nextSceneIndicatorsCollectionView.snp.makeConstraints { make -> Void in
+        nextSceneDescriptorsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        nextSceneDescriptorsCollectionView.backgroundColor = .clear
+        nextSceneDescriptorsCollectionView.showsVerticalScrollIndicator = false
+        nextSceneDescriptorsCollectionView.register(NextSceneDescriptorCollectionViewCell.self, forCellWithReuseIdentifier: NextSceneDescriptorCollectionViewCell.reuseId)
+        nextSceneDescriptorsCollectionView.dataSource = self
+        nextSceneDescriptorsCollectionView.delegate = self
+        view.addSubview(nextSceneDescriptorsCollectionView)
+        nextSceneDescriptorsCollectionView.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
             make.left.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(48)
+            make.top.equalTo(titleLabel.snp.bottom).offset(120)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
     }
@@ -120,13 +132,13 @@ extension SceneEmulatorTransitionViewController: UICollectionViewDataSource {
     /// 设置单元格数量
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return prepareNextSceneIndicatorsCount()
+        return prepareNextSceneDescriptorsCount()
     }
 
     /// 设置单元格
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        return prepareNextSceneIndicatorCollectionViewCell(indexPath: indexPath)
+        return prepareNextSceneDescriptorCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -135,7 +147,7 @@ extension SceneEmulatorTransitionViewController: UICollectionViewDelegate {
     /// 选中单元格
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        selectNextSceneIndicatorCollectionViewCell(indexPath: indexPath)
+        selectNextSceneDescriptorCollectionViewCell(indexPath: indexPath)
     }
 }
 
@@ -144,25 +156,25 @@ extension SceneEmulatorTransitionViewController: UICollectionViewDelegateFlowLay
     /// 设置单元格尺寸
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return prepareNextSceneIndicatorCollectionViewCellSize(indexPath: indexPath)
+        return prepareNextSceneDescriptorCollectionViewCellSize(indexPath: indexPath)
     }
 
     /// 设置内边距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        let inset = VC.nextSceneIndicatorCollectionViewCellSpacing
+        let inset = VC.nextSceneDescriptorCollectionViewCellSpacing
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
     /// 设置最小行间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 
-        return VC.nextSceneIndicatorCollectionViewCellSpacing
+        return VC.nextSceneDescriptorCollectionViewCellSpacing
     }
 
     /// 设置最小单元格间距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 
-        return VC.nextSceneIndicatorCollectionViewCellSpacing
+        return VC.nextSceneDescriptorCollectionViewCellSpacing
     }
 }

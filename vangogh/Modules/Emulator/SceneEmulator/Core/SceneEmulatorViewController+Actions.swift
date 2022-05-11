@@ -12,14 +12,12 @@ extension SceneEmulatorViewController {
 
     @objc func closeButtonDidTap() {
 
-        print("[SceneEmulator] did tap closeButton")
-
         let parentVC = presentingViewController?.children.last
 
         if let gameEditorVC = parentVC as? GameEditorViewController {
 
-            gameBundle.selectedSceneIndex = 1 // FIXME：保存当前选中的场景
-            print(gameEditorVC)
+            // FIXME
+            print("如果在SceneEmulator中改变了scene，返回前看看变没变: \(gameEditorVC.gameBundle.selectedSceneIndex)")
 
         } else if let sceneEditorVC = parentVC as? SceneEditorViewController {
 
@@ -33,7 +31,7 @@ extension SceneEmulatorViewController {
 
         Logger.sceneEmulator.info("player item did play to end time")
 
-//        loop()
+        stop()
 
         presentSceneEmulatorTransitionVC()
     }
@@ -42,9 +40,7 @@ extension SceneEmulatorViewController {
 
         Logger.sceneEmulator.info("application did enter background")
 
-        if !timeline.videoChannel.isEmpty {
-            pause()
-        }
+        pause()
 
         saveSceneBundle()
     }
@@ -53,27 +49,30 @@ extension SceneEmulatorViewController {
 
         Logger.sceneEmulator.info("application will enter foreground")
 
-        loadingView.startAnimating()
         reloadPlayer()
     }
 }
 
 extension SceneEmulatorViewController {
 
+    /// 重新加载播放器
     func reloadPlayer() {
+
+        loadingIndicatorView.startAnimating()
 
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
 
             guard let s = self else { return }
 
-            // （重新）加载时间线
+            // 重新加载轨道项列表
 
-            s.reloadTimeline()
+            s.reloadTrackItems()
+
             DispatchQueue.main.sync {
-                s.loadingView.progress = 0.33
+                s.loadingIndicatorView.progress = 0.33
             }
 
-            // （重新）初始化播放器
+            // 重新初始化播放器
 
             let compositionGenerator = CompositionGenerator(timeline: s.timeline)
             s.playerItem = compositionGenerator.buildPlayerItem()
@@ -86,28 +85,30 @@ extension SceneEmulatorViewController {
                 NotificationCenter.default.removeObserver(s) // 移除其他全部监听器
                 s.player.replaceCurrentItem(with: s.playerItem)
             }
+
             s.player.seek(to: CMTimeMake(value: s.sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
             s.addPeriodicTimeObserver() // 添加周期时刻观察器
             NotificationCenter.default.addObserver(s, selector: #selector(s.playerItemDidPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: s.player.currentItem) // 添加「播放完毕」监听器
             NotificationCenter.default.addObserver(s, selector: #selector(s.didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil) // 添加「进入后台」监听器
             NotificationCenter.default.addObserver(s, selector: #selector(s.willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil) // 添加「进入前台」监听器
             DispatchQueue.main.sync {
-                s.loadingView.progress = 0.67
+                s.loadingIndicatorView.progress = 0.67
             }
 
-            // （重新）初始化界面
+            // 重新初始化界面
 
             DispatchQueue.main.async {
-                s.updatePlayerRelatedViews() // 更新播放器相关的界面
-                s.loadingView.stopAnimating() // 停止加载视图的加载动画
-                if !s.timeline.videoChannel.isEmpty {
-                    s.playOrPause() // 立即播放
-                }
+                s.playerView.rendererView.player = s.player
+                s.playerView.interactionView.updateNodeViews(nodes: s.sceneBundle.nodes)
+                s.playControlView.progressView.updateNodeItemViews(nodes: s.sceneBundle.nodes, playerItemDurationMilliseconds: s.playerItem.duration.milliseconds())
+                s.loadingIndicatorView.stopAnimating()
+                s.playOrPause()
             }
         }
     }
 
-    func reloadTimeline() {
+    /// 重新加载轨道项列表
+    func reloadTrackItems() {
 
         var trackItems: [TrackItem] = []
 
@@ -149,34 +150,11 @@ extension SceneEmulatorViewController {
 
         try? Timeline.reloadVideoStartTime(providers: timeline.videoChannel)
 
-        let scale = UIScreen.main.scale
+        let scale: CGFloat = UIScreen.main.scale
         timeline.renderSize = CGSize(width: playerView.renderSize.width * scale, height: playerView.renderSize.height * scale)
     }
 
-    func updatePlayerRelatedViews() {
-
-        if timeline.videoChannel.isEmpty {
-
-            playerView.rendererView.player = nil
-
-            playerView.rendererView.image = .sceneBackground
-            playerView.rendererView.contentMode = .scaleAspectFill
-            noDataView.isHidden = false
-            view.bringSubviewToFront(noDataView)
-
-        } else {
-
-            playerView.rendererView.player = player
-
-            playerView.rendererView.image = nil
-            noDataView.isHidden = true
-            view.sendSubviewToBack(noDataView)
-        }
-
-        playerView.updateNodeViews(nodes: sceneBundle.nodes)
-        playControlView.progressView.updateNodeItemViews(nodes: sceneBundle.nodes, playerItemDurationMilliseconds: playerItem.duration.milliseconds())
-    }
-
+    /// 添加周期时刻观察器
     func addPeriodicTimeObserver() {
 
         let interval: CMTime = CMTimeMake(value: 1, timescale: 100)
@@ -186,22 +164,13 @@ extension SceneEmulatorViewController {
         }
     }
 
+    /// 移除周期时刻观察器
     func removePeriodicTimeObserver() {
 
         if let timeObserver = periodicTimeObserver {
             player.removeTimeObserver(timeObserver)
             periodicTimeObserver = nil
         }
-    }
-
-    func updateViewsWhenTimeElapsed(to time: CMTime) {
-
-        if let duration = player.currentItem?.duration {
-            let progress: CGFloat = GVC.maxProgressValue * time.seconds / duration.seconds
-            playControlView.seek(to: progress)
-        }
-
-        playerView.showOrHideNodeViews(at: time)
     }
 }
 
@@ -210,47 +179,44 @@ extension SceneEmulatorViewController {
     /// 播放或暂停
     func playOrPause() {
 
-        if let player = player {
+        if player.timeControlStatus == .playing {
 
-            if player.timeControlStatus == .playing {
+            pause()
 
-                player.pause()
-                playControlView.pause()
-                closeButtonContainer.isHidden = false
 
-            } else {
+        } else {
 
-                player.play()
-                playControlView.play()
-                closeButtonContainer.isHidden = true
-            }
+            play()
         }
     }
 
-    /// 循环播放
-    func loop() {
+    /// 播放
+    func play() {
 
-        if let player = player, player.timeControlStatus == .playing {
+        player.play()
+        playControlView.play()
 
-            player.pause()
-            playControlView.pause()
-
-            player.seek(to: .zero)
-            playControlView.seek(to: 0)
-
-            player.play()
-            playControlView.play()
-        }
+        closeButtonContainer.isHidden = true
     }
 
     /// 暂停
     func pause() {
 
-        if let player = player {
+        player.pause()
+        playControlView.pause()
 
-            player.pause()
-            playControlView.pause()
-            closeButtonContainer.isHidden = false
-        }
+        closeButtonContainer.isHidden = false
+    }
+
+    /// 停止
+    func stop() {
+
+        player.pause()
+        playControlView.stop()
+
+        player.seek(to: .zero)
+        playControlView.seek(to: 0)
+
+        closeButtonContainer.isHidden = true
     }
 }

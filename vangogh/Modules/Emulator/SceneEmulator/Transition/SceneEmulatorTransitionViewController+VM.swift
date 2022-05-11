@@ -6,26 +6,30 @@
 
 extension SceneEmulatorTransitionViewController {
 
-    /// 加载后续场景提示器列表
-    func loadNextSceneIndicators(completion handler: (() -> Void)? = nil) {
+    /// 加载后续场景描述符列表
+    func loadNextSceneDescriptors(completion handler: (() -> Void)? = nil) {
 
-        guard let selectedScene = gameBundle.selectedScene(), let selectedSceneTitle = selectedScene.title else { return }
-        let defaultNextSceneIndicator: NextSceneIndicator = NextSceneIndicator(type: .loop, title: selectedSceneTitle)
-        nextSceneIndicators.append(defaultNextSceneIndicator)
+        guard let selectedScene = gameBundle.selectedScene() else { return }
+        let defaultNextSceneDescriptor: NextSceneDescriptor = NextSceneDescriptor(type: .restart, scene: selectedScene)
+        nextSceneDescriptors.append(defaultNextSceneDescriptor)
+
+        gameBundle.scenes.forEach { scene in
+            let nextSceneDescriptor: NextSceneDescriptor = NextSceneDescriptor(type: .redirectTo, scene: scene)
+            nextSceneDescriptors.append(nextSceneDescriptor)
+        }
 
         if let handler = handler {
             handler()
         }
     }
 
-    func saveCurrentTime() {
+    func restartSelectedScene(completion handler: ((MetaSceneBundle) -> Void)? = nil) {
 
-    }
-
-    /// 保存场景资源包
-    func saveCurrentTimeMilliseconds(_ milliseconds: Int64) {
-
-        sceneBundle.currentTimeMilliseconds = milliseconds
+        sceneBundle.currentTimeMilliseconds = 0
         MetaSceneBundleManager.shared.save(sceneBundle)
+
+        if let handler = handler {
+            handler(sceneBundle)
+        }
     }
 }

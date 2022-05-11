@@ -78,9 +78,11 @@ class MetaMultipleChoiceView: MetaNodeView {
         addSubview(progressView)
     }
 
-    override func layout(parent: UIView) {
+    override func reloadData() {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else { return }
+        guard let dataSource = dataSource else { return }
+
+        let renderScale: CGFloat = dataSource.renderScale()
 
         let optionsTableViewHeight: CGFloat = VC.optionTableViewCellHeight * CGFloat(multipleChoice.options.count)
         optionsTableView.snp.makeConstraints { make -> Void in
@@ -106,7 +108,7 @@ class MetaMultipleChoiceView: MetaNodeView {
 
         // 更新当前视图布局
 
-        parent.addSubview(self)
+        // parent.addSubview(self)
 
         snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.width * renderScale)
@@ -128,9 +130,13 @@ extension MetaMultipleChoiceView: UITableViewDataSource {
     /// 设置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = optionsTableView.dequeueReusableCell(withIdentifier: MetaMultipleChoiceOptionTableViewCell.reuseId) as? MetaMultipleChoiceOptionTableViewCell, let playerView = playerView, let renderScale = playerView.renderScale else {
+        guard let cell = optionsTableView.dequeueReusableCell(withIdentifier: MetaMultipleChoiceOptionTableViewCell.reuseId) as? MetaMultipleChoiceOptionTableViewCell else {
             fatalError("Unexpected cell")
         }
+
+        guard let dataSource = dataSource else { fatalError("Unexpected data source") }
+
+        let renderScale: CGFloat = dataSource.renderScale()
 
         // 准备选项视图
 
@@ -160,9 +166,11 @@ extension MetaMultipleChoiceView: UITableViewDelegate {
     /// 设置单元格高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        guard let playerView = playerView, let renderScale = playerView.renderScale else {
+        guard let dataSource = dataSource else {
             fatalError("Unexpected row height")
         }
+
+        let renderScale: CGFloat = dataSource.renderScale()
 
         return VC.optionTableViewCellHeight * renderScale
     }
