@@ -50,8 +50,6 @@ class SceneEmulatorViewController: UIViewController {
     }
     /// 周期时刻观察器
     var periodicTimeObserver: Any?
-    /// 需要重新加载播放器
-    var needsReloadPlayer: Bool = true
 
     /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {
@@ -96,27 +94,6 @@ class SceneEmulatorViewController: UIViewController {
         // 隐藏导航栏
 
         navigationController?.navigationBar.isHidden = true
-    }
-
-    /// 视图显示完成
-    override func viewDidAppear(_ animated: Bool) {
-
-        super.viewDidAppear(animated)
-
-        if needsReloadPlayer { // 重新加载播放器
-
-            reloadPlayer()
-
-        } else { // 不重新加载播放器，只希望重新定位播放时刻
-
-            needsReloadPlayer = true
-
-            if let player = player {
-
-                player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
-                play()
-            }
-        }
     }
 
     /// 视图即将消失

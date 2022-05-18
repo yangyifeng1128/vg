@@ -111,7 +111,9 @@ extension SceneEditorViewController {
         sceneEmulatorVC.definesPresentationContext = true
         sceneEmulatorVC.modalPresentationStyle = .currentContext
 
-        present(sceneEmulatorVC, animated: true, completion: nil)
+        present(sceneEmulatorVC, animated: true) {
+            sceneEmulatorVC.reloadPlayer()
+        }
     }
 
     func playOrPause() {

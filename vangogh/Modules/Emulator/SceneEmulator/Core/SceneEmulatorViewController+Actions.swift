@@ -48,7 +48,7 @@ extension SceneEmulatorViewController {
 
             // 暂停播放
 
-            s.pause()
+            s.stop()
         }
     }
 
@@ -61,12 +61,6 @@ extension SceneEmulatorViewController {
 }
 
 extension SceneEmulatorViewController {
-
-    /// 重新加载数据
-    func reloadData() {
-
-        reloadPlayer()
-    }
 
     /// 重新加载播放器
     func reloadPlayer() {
@@ -183,6 +177,16 @@ extension SceneEmulatorViewController {
         if let timeObserver = periodicTimeObserver {
             player.removeTimeObserver(timeObserver)
             periodicTimeObserver = nil
+        }
+    }
+
+    /// 恢复播放器
+    func resumePlayer() {
+
+        if let player = player {
+
+            player.seek(to: CMTimeMake(value: sceneBundle.currentTimeMilliseconds, timescale: GVC.preferredTimescale), toleranceBefore: .zero, toleranceAfter: .zero)
+            play()
         }
     }
 }

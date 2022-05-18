@@ -96,8 +96,9 @@ extension SceneEmulatorTransitionViewController {
 
         restartSelectedScene() { sceneBundle in
             sceneEmulatorVC.sceneBundle = sceneBundle
-            sceneEmulatorVC.needsReloadPlayer = false
-            sceneEmulatorVC.dismiss(animated: true, completion: nil)
+            sceneEmulatorVC.dismiss(animated: true) {
+                sceneEmulatorVC.resumePlayer()
+            }
         }
     }
 }

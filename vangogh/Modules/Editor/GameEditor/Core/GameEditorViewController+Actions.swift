@@ -77,7 +77,9 @@ extension GameEditorViewController {
         sceneEmulatorVC.definesPresentationContext = true
         sceneEmulatorVC.modalPresentationStyle = .currentContext
 
-        present(sceneEmulatorVC, animated: true, completion: nil)
+        present(sceneEmulatorVC, animated: true) {
+            sceneEmulatorVC.reloadPlayer()
+        }
     }
 
     /// 展示「场景编辑器视图控制器」

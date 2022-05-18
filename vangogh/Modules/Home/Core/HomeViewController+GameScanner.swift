@@ -26,7 +26,9 @@ extension HomeViewController: GameScannerViewControllerDelegate {
         sceneEmulatorVC.definesPresentationContext = true
         sceneEmulatorVC.modalPresentationStyle = .currentContext
 
-        present(sceneEmulatorVC, animated: true, completion: nil)
+        present(sceneEmulatorVC, animated: true) {
+            sceneEmulatorVC.reloadPlayer()
+        }
     }
 
     /// 扫描
