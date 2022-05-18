@@ -21,20 +21,26 @@ extension SceneEditorViewController: SceneEditorPlayerViewDelegate {
         guard let node = nodeView.node, let nodeTypeTitle = MetaNodeTypeManager.shared.getNodeTypeLocalizedTitle(nodeType: node.nodeType) else { return }
         print("[SceneEditor] \"\(nodeTypeTitle) \(node.index)\" will begin editing")
 
-        // 暂停并保存资源包
+        // 保存场景资源包
 
-        if !timeline.videoChannel.isEmpty {
-            pause()
+        saveSceneBundle() { [weak self] in
+
+            guard let s = self else { return }
+
+            // 暂停播放
+
+            if !s.timeline.videoChannel.isEmpty {
+                s.pause()
+            }
+
+            // 激活「时间线-组件项」视图
+
+            s.timelineView.activateNodeItemView(node: nodeView.node)
+
+            // 展示「编辑组件项 Sheet 视图控制器」
+
+            s.presentEditNodeItemSheetViewController(node: nodeView.node)
         }
-        saveSceneBundle()
-
-        // 激活「时间线-组件项」视图
-
-        timelineView.activateNodeItemView(node: nodeView.node)
-
-        // 展示「编辑组件项 Sheet 视图控制器」
-
-        presentEditNodeItemSheetViewController(node: nodeView.node)
     }
 
     func saveBundleWhenNodeViewChanged(node: MetaNode) {
@@ -45,9 +51,6 @@ extension SceneEditorViewController: SceneEditorPlayerViewDelegate {
         // 更新组件数据
 
         sceneBundle.updateNode(node)
-
-        // 保存资源包
-
         saveSceneBundle()
     }
 }

@@ -170,25 +170,35 @@ class SceneEditorViewController: UIViewController {
 
         dismissPreviousBottomSheetViewController()
 
-        // 暂停并保存资源包
+        // 保存场景资源包
 
-        if !timeline.videoChannel.isEmpty {
-            pause()
+        saveSceneBundle() { [weak self] in
+
+            guard let s = self else { return }
+
+            // 暂停播放
+
+            if !s.timeline.videoChannel.isEmpty {
+                s.pause()
+            }
+
+            // 提示场景已保存
+
+            s.sendSceneSavedMessage()
         }
-        saveSceneBundle()
-
-        // 提示场景已保存
-
-        sendSceneSavedMessage()
     }
 
     /// 保存场景资源包
-    func saveSceneBundle() {
+    func saveSceneBundle(completion handler: (() -> Void)? = nil) {
 
         sceneBundle.currentTimeMilliseconds = currentTime.milliseconds()
         MetaSceneBundleManager.shared.save(sceneBundle)
 
         MetaGameBundleManager.shared.save(gameBundle)
+
+        if let handler = handler {
+            handler()
+        }
     }
 
     /// 提示场景已保存
@@ -672,16 +682,22 @@ extension SceneEditorViewController: TimelineToolBarViewDelegate, AddNodeItemVie
 
         print("[SceneEditor] toolBarItem \"\(toolBarItem.type)\" did tap")
 
-        // 暂停并保存资源包
+        // 保存场景资源包
 
-        if !timeline.videoChannel.isEmpty {
-            pause()
+        saveSceneBundle() { [weak self] in
+
+            guard let s = self else { return }
+
+            // 暂停播放
+
+            if !s.timeline.videoChannel.isEmpty {
+                s.pause()
+            }
+
+            // 展示「添加组件项 Sheet 视图控制器」
+
+            s.presentAddNodeItemSheetViewController(toolBarItem: toolBarItem)
         }
-        saveSceneBundle()
-
-        // 展示「添加组件项 Sheet 视图控制器」
-
-        presentAddNodeItemSheetViewController(toolBarItem: toolBarItem)
     }
 
     func toolBarSubitemDidTap(_ toolBarSubitem: TimelineToolBarSubitem) {

@@ -40,9 +40,16 @@ extension SceneEmulatorViewController {
 
         Logger.sceneEmulator.info("application did enter background")
 
-        pause()
+        // 保存场景资源包
 
-        saveSceneBundle()
+        saveSceneBundle() { [weak self] in
+
+            guard let s = self else { return }
+
+            // 暂停播放
+
+            s.pause()
+        }
     }
 
     @objc func willEnterForeground() {
@@ -182,16 +189,12 @@ extension SceneEmulatorViewController {
 
 extension SceneEmulatorViewController {
 
-    /// 播放或暂停
+    /// 播放或暂停播放
     func playOrPause() {
 
         if player.timeControlStatus == .playing {
-
             pause()
-
-
         } else {
-
             play()
         }
     }
@@ -205,7 +208,7 @@ extension SceneEmulatorViewController {
         closeButtonContainer.isHidden = true
     }
 
-    /// 暂停
+    /// 暂停播放
     func pause() {
 
         player.pause()
@@ -214,7 +217,7 @@ extension SceneEmulatorViewController {
         closeButtonContainer.isHidden = false
     }
 
-    /// 停止
+    /// 停止播放
     func stop() {
 
         player.pause()

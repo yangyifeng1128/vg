@@ -71,16 +71,22 @@ extension SceneEditorViewController {
 
         print("[SceneEditor] did enter background")
 
-        // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
+        // 保存场景资源包
 
-        dismissPreviousBottomSheetViewController()
+        saveSceneBundle() { [weak self] in
 
-        // 暂停并保存资源包
+            guard let s = self else { return }
 
-        if !timeline.videoChannel.isEmpty {
-            pause()
+            // 暂停播放
+
+            if !s.timeline.videoChannel.isEmpty {
+                s.pause()
+            }
+
+            // 关闭先前展示的「Sheet 视图控制器」（如果有的话）
+
+            s.dismissPreviousBottomSheetViewController()
         }
-        saveSceneBundle()
     }
 
     @objc func willEnterForeground() {

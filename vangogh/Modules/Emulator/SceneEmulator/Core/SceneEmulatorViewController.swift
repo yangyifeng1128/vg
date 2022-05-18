@@ -126,7 +126,14 @@ class SceneEmulatorViewController: UIViewController {
 
         // 保存场景资源包
 
-        saveSceneBundle()
+        saveSceneBundle() { [weak self] in
+
+            guard let s = self else { return }
+
+            // 停止播放
+
+            s.stop()
+        }
     }
 
     /// 隐藏状态栏

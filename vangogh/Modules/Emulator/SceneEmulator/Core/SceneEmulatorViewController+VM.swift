@@ -6,12 +6,16 @@
 
 extension SceneEmulatorViewController {
 
-    /// 保存资源包
-    func saveSceneBundle() {
+    /// 保存场景资源包
+    func saveSceneBundle(completion handler: (() -> Void)? = nil) {
 
         sceneBundle.currentTimeMilliseconds = currentTime.milliseconds()
         MetaSceneBundleManager.shared.save(sceneBundle)
 
         MetaGameBundleManager.shared.save(gameBundle)
+
+        if let handler = handler {
+            handler()
+        }
     }
 }
