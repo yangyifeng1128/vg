@@ -80,8 +80,10 @@ extension TargetAssetsViewController {
         let scale = UIScreen.main.scale
         let targetSize: CGSize = CGSize(width: targetAssetCollectionViewCellSize.width * scale, height: targetAssetCollectionViewCellSize.height * scale)
         imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { (image, info) in
-            if cell.assetIdentifier == asset.localIdentifier {
-                cell.thumbImageView.image = image
+            DispatchQueue.main.async {
+                if cell.assetIdentifier == asset.localIdentifier {
+                    cell.thumbImageView.image = image
+                }
             }
         }
 

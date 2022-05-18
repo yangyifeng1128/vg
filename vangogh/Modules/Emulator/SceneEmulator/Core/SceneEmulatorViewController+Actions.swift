@@ -55,6 +55,12 @@ extension SceneEmulatorViewController {
 
 extension SceneEmulatorViewController {
 
+    /// 重新加载数据
+    func reloadData() {
+
+        reloadPlayer()
+    }
+
     /// 重新加载播放器
     func reloadPlayer() {
 

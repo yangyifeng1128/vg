@@ -40,6 +40,18 @@ extension SceneEmulatorTransitionViewController {
 
         cell.titleLabel.text = nextSceneDescriptor.scene.title
 
+        // 准备「缩略图视图」
+
+        cell.thumbImageView.image = .sceneBackgroundThumb
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: nextSceneDescriptor.scene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    cell.thumbImageView.image = thumbImage
+                }
+            }
+        }
+
         return cell
     }
 

@@ -798,9 +798,11 @@ extension SceneEditorViewController: TargetAssetsViewControllerDelegate {
 
         if isSceneBundleEmpty(), let thumbImage = thumbImage {
 
-            MetaThumbManager.shared.saveSceneThumbImage(sceneUUID: sceneBundle.sceneUUID, gameUUID: sceneBundle.gameUUID, image: thumbImage) // 保存缩略图
-
-            GameEditorExternalChangeManager.shared.set(key: .updateSceneThumbImage, value: sceneBundle.sceneUUID) // 保存作品编辑器外部变更记录
+            DispatchQueue.global(qos: .utility).async { [weak self] in
+                guard let s = self else { return }
+                MetaThumbManager.shared.saveSceneThumbImage(sceneUUID: s.sceneBundle.sceneUUID, gameUUID: s.sceneBundle.gameUUID, image: thumbImage) // 保存缩略图
+                GameEditorExternalChangeManager.shared.set(key: .updateSceneThumbImage, value: s.sceneBundle.sceneUUID) // 保存作品编辑器外部变更记录
+            }
         }
     }
 

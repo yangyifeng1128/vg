@@ -36,10 +36,14 @@ extension GameEditorViewController: GameEditorSceneExplorerViewDataSource {
 
         // 准备「缩略图视图」
 
-        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: gameBundle.uuid) {
-            cell.endSceneThumbImageView.image = thumbImage
-        } else {
-            cell.endSceneThumbImageView.image = .sceneBackgroundThumb
+        cell.endSceneThumbImageView.image = .sceneBackgroundThumb
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    cell.endSceneThumbImageView.image = thumbImage
+                }
+            }
         }
 
         // 准备「结束场景标题标签」

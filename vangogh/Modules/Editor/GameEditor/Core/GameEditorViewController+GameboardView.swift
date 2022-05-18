@@ -27,8 +27,13 @@ extension GameEditorViewController: GameEditorGameboardViewDataSource {
         let sceneView: GameEditorSceneView = GameEditorSceneView(scene: scene)
         sceneView.delegate = self
 
-        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: gameBundle.uuid) {
-            sceneView.thumbImageView.image = thumbImage
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneView.scene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    sceneView.thumbImageView.image = thumbImage
+                }
+            }
         }
 
         return sceneView

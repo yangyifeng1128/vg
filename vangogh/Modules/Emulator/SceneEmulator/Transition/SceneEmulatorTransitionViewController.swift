@@ -30,7 +30,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
     /// 后续计时器
     var upNextTimer: Timer?
     /// 后续时间
-    var upNextTimeSeconds: Int = 8
+    var upNextTimeSeconds: Int = 5
 
     /// 初始化
     init(sceneBundle: MetaSceneBundle, gameBundle: MetaGameBundle) {

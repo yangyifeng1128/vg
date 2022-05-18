@@ -31,10 +31,14 @@ extension SceneSettingsViewController {
 
             cell.titleLabel.text = setting.title
 
-            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneBundle.sceneUUID, gameUUID: sceneBundle.gameUUID) {
-                cell.thumbImageView.image = thumbImage
-            } else {
-                cell.thumbImageView.image = .sceneBackgroundThumb
+            cell.thumbImageView.image = .sceneBackgroundThumb
+            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                guard let s = self else { return }
+                if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: s.sceneBundle.sceneUUID, gameUUID: s.sceneBundle.gameUUID) {
+                    DispatchQueue.main.async {
+                        cell.thumbImageView.image = thumbImage
+                    }
+                }
             }
 
             return cell

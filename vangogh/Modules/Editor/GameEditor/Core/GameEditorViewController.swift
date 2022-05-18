@@ -292,21 +292,35 @@ extension GameEditorViewController {
         for (key, value) in changes {
             switch key {
             case .updateGameTitle:
-                gameTitleLabel.text = game.title
+                DispatchQueue.main.async { [weak self] in
+                    guard let s = self else { return }
+                    s.gameTitleLabel.text = s.game.title
+                }
                 break
             case .updateSceneTitle:
                 guard let sceneUUID = value as? String else { continue }
-                gameboardView.updateSceneViewTitleLabel(sceneUUID: sceneUUID)
+                DispatchQueue.main.async { [weak self] in
+                    guard let s = self else { return }
+                    s.gameboardView.updateSceneViewTitleLabel(sceneUUID: sceneUUID)
+                }
                 break
             case .updateSceneThumbImage:
                 guard let sceneUUID = value as? String else { continue }
-                if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneUUID, gameUUID: gameBundle.uuid) {
-                    gameboardView.updateSceneViewThumbImageView(sceneUUID: sceneUUID, thumbImage: thumbImage)
+                DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                    guard let s = self else { return }
+                    if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: sceneUUID, gameUUID: s.gameBundle.uuid) {
+                        DispatchQueue.main.async {
+                            s.gameboardView.updateSceneViewThumbImageView(sceneUUID: sceneUUID, thumbImage: thumbImage)
+                        }
+                    }
                 }
                 break
             case .addTransition:
                 guard let transition = value as? MetaTransition else { continue }
-                addTransitionView(transition: transition)
+                DispatchQueue.main.async { [weak self] in
+                    guard let s = self else { return }
+                    s.addTransitionView(transition: transition)
+                }
                 break
             }
         }
@@ -502,10 +516,14 @@ extension GameEditorViewController {
 
         // 更新「添加穿梭器示意图视图」
 
-        if let scene = gameBundle.selectedScene(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: scene.uuid, gameUUID: gameBundle.uuid) {
-            addTransitionDiagramView.startSceneView.image = thumbImage
-        } else {
-            addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
+        addTransitionDiagramView.startSceneView.image = .sceneBackgroundThumb
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let s = self else { return }
+            if let scene = s.gameBundle.selectedScene(), let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: scene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    s.addTransitionDiagramView.startSceneView.image = thumbImage
+                }
+            }
         }
         addTransitionDiagramView.startSceneIndexLabel.text = gameBundle.selectedSceneIndex.description
         addTransitionDiagramView.isHidden = false

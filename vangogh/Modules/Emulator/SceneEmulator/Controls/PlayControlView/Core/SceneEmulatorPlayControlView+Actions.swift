@@ -46,7 +46,7 @@ extension SceneEmulatorPlayControlView {
 
         var gameTitleString: NSAttributedString
         let gameTitleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
-        gameTitleString = NSAttributedString(string: "草稿 2", attributes: gameTitleStringAttributes)
+        gameTitleString = NSAttributedString(string: "AR带你逛故宫", attributes: gameTitleStringAttributes)
         completeTitleString.append(gameTitleString)
 
         // 准备场景标题

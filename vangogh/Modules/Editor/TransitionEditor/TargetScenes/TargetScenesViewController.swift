@@ -159,8 +159,13 @@ class TargetScenesViewController: UIViewController {
         let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         startSceneView.contentMode = .scaleAspectFill
         startSceneView.image = .sceneBackgroundThumb
-        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: selectedScene.uuid, gameUUID: gameBundle.uuid) {
-            startSceneView.image = thumbImage
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: s.selectedScene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    startSceneView.image = thumbImage
+                }
+            }
         }
         diagramView.addSubview(startSceneView)
         startSceneView.snp.makeConstraints { make -> Void in

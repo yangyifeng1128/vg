@@ -31,10 +31,14 @@ extension GameSettingsViewController {
 
             cell.titleLabel.text = setting.title
 
-            if let thumbImage = MetaThumbManager.shared.loadGameThumbImage(gameUUID: game.uuid) {
-                cell.thumbImageView.image = thumbImage
-            } else {
-                cell.thumbImageView.image = .gameBackgroundThumb
+            cell.thumbImageView.image = .gameBackgroundThumb
+            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                guard let s = self else { return }
+                if let thumbImage = MetaThumbManager.shared.loadGameThumbImage(gameUUID: s.game.uuid) {
+                    DispatchQueue.main.async {
+                        cell.thumbImageView.image = thumbImage
+                    }
+                }
             }
 
             return cell

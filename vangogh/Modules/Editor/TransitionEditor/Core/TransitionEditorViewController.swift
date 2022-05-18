@@ -154,8 +154,13 @@ class TransitionEditorViewController: UIViewController {
         let startSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         startSceneView.contentMode = .scaleAspectFill
         startSceneView.image = .sceneBackgroundThumb
-        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: startScene.uuid, gameUUID: gameBundle.uuid) {
-            startSceneView.image = thumbImage
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: s.startScene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    startSceneView.image = thumbImage
+                }
+            }
         }
         diagramView.addSubview(startSceneView)
         startSceneView.snp.makeConstraints { make -> Void in
@@ -210,8 +215,13 @@ class TransitionEditorViewController: UIViewController {
         let endSceneView: RoundedImageView = RoundedImageView(cornerRadius: GVC.defaultViewCornerRadius)
         endSceneView.contentMode = .scaleAspectFill
         endSceneView.image = .sceneBackgroundThumb
-        if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: endScene.uuid, gameUUID: gameBundle.uuid) {
-            endSceneView.image = thumbImage
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let s = self else { return }
+            if let thumbImage = MetaThumbManager.shared.loadSceneThumbImage(sceneUUID: s.endScene.uuid, gameUUID: s.gameBundle.uuid) {
+                DispatchQueue.main.async {
+                    endSceneView.image = thumbImage
+                }
+            }
         }
         diagramView.addSubview(endSceneView)
         endSceneView.snp.makeConstraints { make -> Void in
