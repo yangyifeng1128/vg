@@ -117,9 +117,7 @@ extension CompositionViewController {
 
         // 准备「缩略图视图」
 
-        DispatchQueue.main.async {
-            cell.thumbImageView.image = .sceneBackgroundThumb
-        }
+        cell.thumbImageView.image = .gameBackgroundThumb
 
         return cell
     }
