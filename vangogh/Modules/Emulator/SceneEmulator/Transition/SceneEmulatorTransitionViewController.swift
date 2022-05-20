@@ -10,10 +10,17 @@ class SceneEmulatorTransitionViewController: UIViewController {
 
     /// 视图布局常量枚举值
     enum VC {
+        static let topButtonContainerWidth: CGFloat = 64
+        static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 20
         static let nextScenesTitleLabelFontSize: CGFloat = 16
         static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 16
     }
+
+    /// 关闭按钮容器
+    var closeButtonContainer: UIView!
+    /// 关闭按钮
+    var closeButton: CircleNavigationBarButton!
 
     /// 标题标签
     var titleLabel: UILabel!
@@ -95,6 +102,29 @@ class SceneEmulatorTransitionViewController: UIViewController {
     private func initViews() {
 
         view.backgroundColor = SceneEmulatorPlayerView.VC.backgroundColor
+
+        // 初始化「关闭按钮容器」
+
+        closeButtonContainer = UIView()
+        closeButtonContainer.backgroundColor = .clear
+        closeButtonContainer.isUserInteractionEnabled = true
+        closeButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonDidTap)))
+        view.addSubview(closeButtonContainer)
+        closeButtonContainer.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(VC.topButtonContainerWidth)
+            make.left.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        }
+
+        // 初始化「关闭按钮」
+
+        closeButton = CircleNavigationBarButton(icon: .close, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
+        closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
+        closeButtonContainer.addSubview(closeButton)
+        closeButton.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(CircleNavigationBarButton.VC.width)
+            make.right.bottom.equalToSuperview().offset(-VC.topButtonContainerPadding)
+        }
 
         // 初始化「标题标签」
 

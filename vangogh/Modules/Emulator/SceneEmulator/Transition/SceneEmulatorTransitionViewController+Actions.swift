@@ -9,6 +9,14 @@ import UIKit
 
 extension SceneEmulatorTransitionViewController {
 
+    @objc func closeButtonDidTap() {
+
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SceneEmulatorTransitionViewController {
+
     /// 准备「标题标签」文本
     func prepareTitleLabelText() -> String {
 

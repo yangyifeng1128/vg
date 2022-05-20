@@ -14,8 +14,11 @@ extension SceneEmulatorTransitionViewController {
         nextSceneDescriptors.append(defaultNextSceneDescriptor)
 
         gameBundle.scenes.forEach { scene in
-            let nextSceneDescriptor: NextSceneDescriptor = NextSceneDescriptor(type: .redirectTo, scene: scene)
-            nextSceneDescriptors.append(nextSceneDescriptor)
+            let selectedTransitions = gameBundle.selectedTransitions()
+            if let _ = selectedTransitions.first(where: { $0.to == scene.index }) {
+                let nextSceneDescriptor: NextSceneDescriptor = NextSceneDescriptor(type: .redirectTo, scene: scene)
+                nextSceneDescriptors.append(nextSceneDescriptor)
+            }
         }
 
         if let handler = handler {
