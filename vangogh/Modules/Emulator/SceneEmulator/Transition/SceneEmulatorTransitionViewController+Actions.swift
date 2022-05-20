@@ -63,6 +63,9 @@ extension SceneEmulatorTransitionViewController {
         if indexPath.item == 0 {
             cell.iconView.image = .replay
             cell.iconView.tintColor = .secondaryLabel
+        } else {
+            cell.iconView.image = .playCircle
+            cell.iconView.tintColor = .secondaryLabel
         }
 
         return cell

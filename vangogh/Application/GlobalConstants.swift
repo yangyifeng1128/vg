@@ -191,6 +191,7 @@ extension UIImage {
     static let openInNew: UIImage? = UIImage(named: "OpenInNew")
     static let pause: UIImage? = UIImage(named: "Pause")
     static let play: UIImage? = UIImage(named: "Play")
+    static let playCircle: UIImage? = UIImage(named: "PlayCircle")
     static let publish: UIImage? = UIImage(named: "Publish")
     static let rectangle: UIImage? = UIImage(named: "Rectangle")
     static let redo: UIImage? = UIImage(named: "Redo")

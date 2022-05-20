@@ -13,8 +13,8 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let titleLabelHeight: CGFloat = 48
-        static let titleLabelFontSize: CGFloat = 13
+        static let titleLabelHeight: CGFloat = 64
+        static let titleLabelFontSize: CGFloat = 16
         static let iconViewWidth: CGFloat = 80
     }
 
