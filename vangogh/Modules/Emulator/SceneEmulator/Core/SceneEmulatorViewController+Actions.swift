@@ -56,7 +56,9 @@ extension SceneEmulatorViewController {
 
         Logger.sceneEmulator.info("application will enter foreground")
 
-        reloadPlayer()
+        // 恢复播放器
+
+        resumePlayer()
     }
 }
 

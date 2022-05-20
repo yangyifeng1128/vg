@@ -42,10 +42,6 @@ extension SceneEmulatorTransitionViewController {
             fatalError("Unexpected cell type")
         }
 
-        // 准备「标题标签」
-
-        cell.titleLabel.text = nextSceneDescriptor.scene.title
-
         // 准备「缩略图视图」
 
         cell.thumbImageView.image = .sceneBackgroundThumb
@@ -58,14 +54,12 @@ extension SceneEmulatorTransitionViewController {
             }
         }
 
-        // 准备「图标视图」
+        // 准备「信息标签」
 
         if indexPath.item == 0 {
-            cell.iconView.image = .replay
-            cell.iconView.tintColor = .secondaryLabel
+            cell.prepareInfoLabelAttributedText(nextSceneDescriptor.scene.title, icon: .replay)
         } else {
-            cell.iconView.image = .playCircle
-            cell.iconView.tintColor = .secondaryLabel
+            cell.prepareInfoLabelAttributedText(nextSceneDescriptor.scene.title, icon: .playCircle)
         }
 
         return cell
@@ -139,9 +133,14 @@ extension SceneEmulatorTransitionViewController {
     /// 切换至手动穿梭
     func switchToManualTransition() {
 
+        if closeButtonContainer.isHidden {
+            closeButtonContainer.isHidden = false
+        }
+
         stopUpNextTimer() { [weak self] in
             guard let s = self else { return }
-            s.updateTitleLabelText(NSLocalizedString("SelectNextSceneManually", comment: ""))
+            s.titleLabel.text = NSLocalizedString("SelectNextSceneManually", comment: "")
+            s.titleLabel.tintColor = .mgLabel
         }
     }
 
@@ -156,15 +155,9 @@ extension SceneEmulatorTransitionViewController {
                     s.willRestartSelectedScene()
                 }
             } else {
-                s.updateTitleLabelText(String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), s.upNextTimeSeconds))
+                s.titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), s.upNextTimeSeconds)
             }
         }
-    }
-
-    /// 更新「标题标签」文本
-    func updateTitleLabelText(_ text: String) {
-
-        titleLabel.text = text
     }
 
     /// 停止后续计时器

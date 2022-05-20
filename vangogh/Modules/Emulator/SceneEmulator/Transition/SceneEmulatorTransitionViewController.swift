@@ -14,7 +14,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 20
         static let nextScenesTitleLabelFontSize: CGFloat = 16
-        static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 12
+        static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 16
     }
 
     /// 关闭按钮容器
@@ -106,6 +106,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
         // 初始化「关闭按钮容器」
 
         closeButtonContainer = UIView()
+        closeButtonContainer.isHidden = true
         closeButtonContainer.backgroundColor = .clear
         closeButtonContainer.isUserInteractionEnabled = true
         closeButtonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonDidTap)))
@@ -131,7 +132,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
         titleLabel = UILabel()
         titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), upNextTimeSeconds)
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
-        titleLabel.textColor = .mgLabel
+        titleLabel.textColor = .secondaryLabel
         titleLabel.textAlignment = .center
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in

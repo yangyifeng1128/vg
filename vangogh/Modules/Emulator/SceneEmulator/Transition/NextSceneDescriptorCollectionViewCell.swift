@@ -13,17 +13,15 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let titleLabelHeight: CGFloat = 64
-        static let titleLabelFontSize: CGFloat = 16
-        static let iconViewWidth: CGFloat = 80
+        static let infoLabelHeight: CGFloat = 64
+        static let infoLabelFontSize: CGFloat = 16
+        static let infoLabelIconWidth: CGFloat = 20
     }
 
     /// 缩略图视图
     var thumbImageView: UIImageView!
-    /// 标题标签
-    var titleLabel: AttributedLabel!
-    /// 图标视图
-    var iconView: UIImageView!
+    /// 信息标签
+    var infoLabel: AttributedLabel!
 
     /// 初始化
     override init(frame: CGRect) {
@@ -49,30 +47,21 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
         thumbImageView.contentMode = .scaleAspectFill
         contentView.addSubview(thumbImageView)
 
-        // 初始化「标题标签」
+        // 初始化「信息标签」
 
-        titleLabel = AttributedLabel()
-        titleLabel.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 4)
-        titleLabel.backgroundColor = UIColor.secondarySystemGroupedBackground.withAlphaComponent(0.6)
-        titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
-        titleLabel.textColor = .mgLabel
-        titleLabel.numberOfLines = 2
-        titleLabel.lineBreakMode = .byTruncatingTail
-        contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make -> Void in
+        infoLabel = AttributedLabel()
+        infoLabel.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 4)
+        infoLabel.backgroundColor = UIColor.secondarySystemGroupedBackground.withAlphaComponent(0.6)
+        infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
+        infoLabel.textColor = .mgLabel
+        infoLabel.numberOfLines = 2
+        infoLabel.lineBreakMode = .byTruncatingTail
+        contentView.addSubview(infoLabel)
+        infoLabel.snp.makeConstraints { make -> Void in
             make.width.equalToSuperview()
-            make.height.equalTo(VC.titleLabelHeight)
+            make.height.equalTo(VC.infoLabelHeight)
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
-        }
-
-        // 初始化「图标视图」
-
-        iconView = UIImageView()
-        contentView.addSubview(iconView)
-        iconView.snp.makeConstraints { make -> Void in
-            make.width.height.equalTo(VC.iconViewWidth)
-            make.center.equalToSuperview()
         }
     }
 
@@ -82,6 +71,35 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
         super.prepareForReuse()
 
         thumbImageView.image = nil
-        iconView.image = nil
+    }
+}
+
+extension NextSceneDescriptorCollectionViewCell {
+
+    /// 准备「信息标签」文本
+    func prepareInfoLabelAttributedText(_ text: String?, icon: UIImage?) {
+
+        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+
+        // 准备图标
+
+        if let icon = icon {
+            let iconAttachment: NSTextAttachment = NSTextAttachment()
+            iconAttachment.image = icon.withTintColor(.secondaryLabel)
+            let infoLabelFont: UIFont = UIFont.systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
+            let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
+            iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
+            let iconString: NSAttributedString = NSAttributedString(attachment: iconAttachment)
+            completeInfoString.append(iconString)
+        }
+
+        // 准备标题
+
+        if let text = text {
+            let titleString: NSAttributedString = NSAttributedString(string: " " + text)
+            completeInfoString.append(titleString)
+        }
+
+        infoLabel.attributedText = completeInfoString
     }
 }
