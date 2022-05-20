@@ -102,6 +102,7 @@
 "SceneThumbImage" = "Scene Thumb Image";
 "SceneTitle" = "Scene Title";
 "SelectManually" = "Select manually";
+"SelectNextSceneManually" = "Select Next Scene Manually";
 "SelectTargetScene" = "Select a target scene from the list below";
 "SelectTemplate" = "Or select a template below to start";
 "StartComposing" = "Start Composing";

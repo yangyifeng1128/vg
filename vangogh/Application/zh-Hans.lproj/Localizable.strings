@@ -102,6 +102,7 @@
 "SceneThumbImage" = "场景封面";
 "SceneTitle" = "场景标题";
 "SelectManually" = "手动选择";
+"SelectNextSceneManually" = "手动选择下一个场景";
 "SelectTargetScene" = "从下面的列表中选择目标场景";
 "SelectTemplate" = "或选择下面的模版开始创作";
 "StartComposing" = "开始创作";

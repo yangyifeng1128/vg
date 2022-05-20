@@ -21,12 +21,6 @@ extension SceneEmulatorTransitionViewController {
 
 extension SceneEmulatorTransitionViewController {
 
-    /// 准备「标题标签」文本
-    func prepareTitleLabelText() -> String {
-
-        return String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), upNextTimeSeconds)
-    }
-
     /// 准备后续场景描述符数量
     func prepareNextSceneDescriptorsCount() -> Int {
 
@@ -144,7 +138,7 @@ extension SceneEmulatorTransitionViewController {
 
         stopUpNextTimer() { [weak self] in
             guard let s = self else { return }
-            s.updateTitleLabelText("请选择下一个场景")
+            s.updateTitleLabelText(NSLocalizedString("SelectNextSceneManually", comment: ""))
         }
     }
 
@@ -159,7 +153,7 @@ extension SceneEmulatorTransitionViewController {
                     s.willRestartSelectedScene()
                 }
             } else {
-                s.updateTitleLabelText(s.prepareTitleLabelText())
+                s.updateTitleLabelText(String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), s.upNextTimeSeconds))
             }
         }
     }

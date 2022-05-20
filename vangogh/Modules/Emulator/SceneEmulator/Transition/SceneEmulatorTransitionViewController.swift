@@ -14,7 +14,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 20
         static let nextScenesTitleLabelFontSize: CGFloat = 16
-        static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 24
+        static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 12
     }
 
     /// 关闭按钮容器
@@ -129,7 +129,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
         // 初始化「标题标签」
 
         titleLabel = UILabel()
-        titleLabel.text = prepareTitleLabelText()
+        titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), upNextTimeSeconds)
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgLabel
         titleLabel.textAlignment = .center
