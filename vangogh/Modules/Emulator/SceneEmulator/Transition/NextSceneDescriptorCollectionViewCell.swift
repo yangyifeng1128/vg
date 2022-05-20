@@ -15,7 +15,7 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
     enum VC {
         static let titleLabelHeight: CGFloat = 48
         static let titleLabelFontSize: CGFloat = 13
-        static let iconViewWidth: CGFloat = 48
+        static let iconViewWidth: CGFloat = 80
     }
 
     /// 缩略图视图
