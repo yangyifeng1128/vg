@@ -11,7 +11,11 @@ extension SceneEmulatorTransitionViewController {
 
     @objc func closeButtonDidTap() {
 
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        guard let sceneEmulatorVC = presentingViewController as? SceneEmulatorViewController else { return }
+
+        sceneEmulatorVC.dismiss(animated: false) {
+            sceneEmulatorVC.presentingViewController?.dismiss(animated: true)
+        }
     }
 }
 
