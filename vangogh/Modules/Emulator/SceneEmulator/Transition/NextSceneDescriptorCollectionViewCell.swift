@@ -15,12 +15,15 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
     enum VC {
         static let titleLabelHeight: CGFloat = 48
         static let titleLabelFontSize: CGFloat = 13
+        static let iconViewWidth: CGFloat = 48
     }
 
     /// 缩略图视图
     var thumbImageView: UIImageView!
     /// 标题标签
     var titleLabel: AttributedLabel!
+    /// 图标视图
+    var iconView: UIImageView!
 
     /// 初始化
     override init(frame: CGRect) {
@@ -62,6 +65,15 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+
+        // 初始化「图标视图」
+
+        iconView = UIImageView()
+        contentView.addSubview(iconView)
+        iconView.snp.makeConstraints { make -> Void in
+            make.width.height.equalTo(VC.iconViewWidth)
+            make.center.equalToSuperview()
+        }
     }
 
     /// 准备重用单元格
@@ -70,5 +82,6 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
         super.prepareForReuse()
 
         thumbImageView.image = nil
+        iconView.image = nil
     }
 }

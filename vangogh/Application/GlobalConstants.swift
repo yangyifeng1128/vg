@@ -194,6 +194,7 @@ extension UIImage {
     static let publish: UIImage? = UIImage(named: "Publish")
     static let rectangle: UIImage? = UIImage(named: "Rectangle")
     static let redo: UIImage? = UIImage(named: "Redo")
+    static let replay: UIImage? = UIImage(named: "Replay")
     static let save: UIImage? = UIImage(named: "Save")
     static let scan: UIImage? = UIImage(named: "Scan")
     static let sceneBackground: UIImage? = UIImage(named: "SceneBackground")

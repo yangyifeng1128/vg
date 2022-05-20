@@ -64,6 +64,12 @@ extension SceneEmulatorTransitionViewController {
             }
         }
 
+        // 准备「图标视图」
+
+        if indexPath.item == 0 {
+            cell.iconView.image = .replay
+        }
+
         return cell
     }
 
