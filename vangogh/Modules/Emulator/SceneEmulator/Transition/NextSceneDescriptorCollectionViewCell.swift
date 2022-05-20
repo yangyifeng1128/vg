@@ -13,15 +13,17 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let infoLabelHeight: CGFloat = 64
         static let infoLabelFontSize: CGFloat = 16
         static let infoLabelIconWidth: CGFloat = 20
+        static let hintLabelFontSize: CGFloat = 20
     }
 
     /// 缩略图视图
     var thumbImageView: UIImageView!
     /// 信息标签
-    var infoLabel: AttributedLabel!
+    var infoLabel: BottomAlignedLabel!
+    /// 提示标签
+    var hintLabel: UILabel!
 
     /// 初始化
     override init(frame: CGRect) {
@@ -49,19 +51,35 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
 
         // 初始化「信息标签」
 
-        infoLabel = AttributedLabel()
-        infoLabel.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 4)
-        infoLabel.backgroundColor = UIColor.secondarySystemGroupedBackground.withAlphaComponent(0.6)
+        infoLabel = BottomAlignedLabel()
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
         infoLabel.textColor = .mgLabel
-        infoLabel.numberOfLines = 2
+        infoLabel.numberOfLines = 3
         infoLabel.lineBreakMode = .byTruncatingTail
+        infoLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+        infoLabel.layer.shadowOpacity = 1
+        infoLabel.layer.shadowRadius = 1
+        infoLabel.layer.shadowColor = UIColor.black.cgColor
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in
-            make.width.equalToSuperview()
-            make.height.equalTo(VC.infoLabelHeight)
-            make.left.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.left.right.equalToSuperview().inset(12)
+            make.bottom.equalToSuperview().offset(-12)
+        }
+
+        // 初始化「提示标签」
+
+        hintLabel = UILabel()
+        hintLabel.font = .systemFont(ofSize: VC.hintLabelFontSize, weight: .regular)
+        hintLabel.textColor = .mgLabel
+        hintLabel.textAlignment = .center
+        hintLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+        hintLabel.layer.shadowOpacity = 1
+        hintLabel.layer.shadowRadius = 1
+        hintLabel.layer.shadowColor = UIColor.black.cgColor
+        contentView.addSubview(hintLabel)
+        hintLabel.snp.makeConstraints { make -> Void in
+            make.width.height.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
 
@@ -79,7 +97,7 @@ extension NextSceneDescriptorCollectionViewCell {
     /// 准备「信息标签」文本
     func prepareInfoLabelAttributedText(_ text: String?, icon: UIImage?) {
 
-        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+        let completeInfoTextString: NSMutableAttributedString = NSMutableAttributedString(string: "")
 
         // 准备图标
 
@@ -90,16 +108,16 @@ extension NextSceneDescriptorCollectionViewCell {
             let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
             iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
             let iconString: NSAttributedString = NSAttributedString(attachment: iconAttachment)
-            completeInfoString.append(iconString)
+            completeInfoTextString.append(iconString)
         }
 
         // 准备标题
 
         if let text = text {
             let titleString: NSAttributedString = NSAttributedString(string: " " + text)
-            completeInfoString.append(titleString)
+            completeInfoTextString.append(titleString)
         }
 
-        infoLabel.attributedText = completeInfoString
+        infoLabel.attributedText = completeInfoTextString
     }
 }

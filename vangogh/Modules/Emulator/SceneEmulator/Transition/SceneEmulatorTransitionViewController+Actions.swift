@@ -54,10 +54,15 @@ extension SceneEmulatorTransitionViewController {
             }
         }
 
-        // 准备「信息标签」
+        // 准备「信息标签」与「提示标签」
 
         if indexPath.item == 0 {
-            cell.prepareInfoLabelAttributedText(nextSceneDescriptor.scene.title, icon: .replay)
+            cell.prepareInfoLabelAttributedText(nil, icon: nil)
+            if nextSceneDescriptor.type == .restart {
+                cell.hintLabel.text = "重新播放"
+            } else if nextSceneDescriptor.type == .resume {
+                cell.hintLabel.text = "继续播放"
+            }
         } else {
             cell.prepareInfoLabelAttributedText(nextSceneDescriptor.scene.title, icon: .playCircle)
         }
@@ -140,7 +145,6 @@ extension SceneEmulatorTransitionViewController {
         stopUpNextTimer() { [weak self] in
             guard let s = self else { return }
             s.titleLabel.text = NSLocalizedString("SelectNextSceneManually", comment: "")
-            s.titleLabel.textColor = .mgLabel
         }
     }
 

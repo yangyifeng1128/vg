@@ -177,10 +177,10 @@ class TransitionEditorViewController: UIViewController {
         startSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
         startSceneIndexLabel.textColor = .white
         startSceneIndexLabel.textAlignment = .center
-        startSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+        startSceneIndexLabel.layer.shadowOffset = .zero
         startSceneIndexLabel.layer.shadowOpacity = 1
-        startSceneIndexLabel.layer.shadowRadius = 0
-        startSceneIndexLabel.layer.shadowColor = UIColor.black.cgColor
+        startSceneIndexLabel.layer.shadowRadius = 1
+        startSceneIndexLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
         startSceneView.addSubview(startSceneIndexLabel)
         startSceneIndexLabel.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()

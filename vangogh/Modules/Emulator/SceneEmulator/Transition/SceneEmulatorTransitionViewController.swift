@@ -13,7 +13,6 @@ class SceneEmulatorTransitionViewController: UIViewController {
         static let topButtonContainerWidth: CGFloat = 64
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 20
-        static let nextScenesTitleLabelFontSize: CGFloat = 16
         static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 16
     }
 
@@ -132,7 +131,6 @@ class SceneEmulatorTransitionViewController: UIViewController {
         titleLabel = UILabel()
         titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), upNextTimeSeconds)
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
-        titleLabel.textColor = .secondaryLabel
         titleLabel.textAlignment = .center
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make -> Void in
