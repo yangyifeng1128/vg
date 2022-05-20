@@ -140,7 +140,7 @@ extension SceneEmulatorTransitionViewController {
         stopUpNextTimer() { [weak self] in
             guard let s = self else { return }
             s.titleLabel.text = NSLocalizedString("SelectNextSceneManually", comment: "")
-            s.titleLabel.tintColor = .mgLabel
+            s.titleLabel.textColor = .mgLabel
         }
     }
 
