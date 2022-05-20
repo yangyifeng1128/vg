@@ -14,7 +14,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
         static let topButtonContainerPadding: CGFloat = 12
         static let titleLabelFontSize: CGFloat = 20
         static let nextScenesTitleLabelFontSize: CGFloat = 16
-        static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 12
+        static let nextSceneDescriptorCollectionViewCellSpacing: CGFloat = 24
     }
 
     /// 关闭按钮容器
