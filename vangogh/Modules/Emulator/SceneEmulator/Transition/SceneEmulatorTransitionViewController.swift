@@ -149,6 +149,12 @@ extension SceneEmulatorTransitionViewController: UICollectionViewDelegate {
 
         selectNextSceneDescriptorCollectionViewCell(indexPath: indexPath)
     }
+
+    /// 滚动视图
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        switchToManualTransition()
+    }
 }
 
 extension SceneEmulatorTransitionViewController: UICollectionViewDelegateFlowLayout {

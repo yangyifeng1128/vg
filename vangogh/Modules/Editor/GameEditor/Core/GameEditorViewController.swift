@@ -338,6 +338,9 @@ extension GameEditorViewController {
                 guard let s = self else { return }
                 s.reloadSceneExplorerView(animated: false) {
                     s.gameboardView.highlightSelectionRelatedViews()
+                    s.gameboardView.centerSceneView(scene: scene, animated: false) { contentOffset in
+                        s.saveContentOffset(contentOffset)
+                    }
                 }
             }
 
@@ -346,15 +349,15 @@ extension GameEditorViewController {
             gameboardView.unhighlightSelectionRelatedViews()
             saveSelectedSceneIndex(0) { [weak self] in
                 guard let s = self else { return }
-                s.reloadToolBarView(animated: false)
+                s.reloadToolBarView(animated: false) {
+                    var contentOffset: CGPoint = s.gameBundle.contentOffset
+                    if contentOffset == GVC.defaultGameboardViewContentOffset {
+                        contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - s.view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - s.view.bounds.height) / 2)
+                    }
+                    s.gameboardView.contentOffset = contentOffset
+                }
             }
         }
-
-        var contentOffset: CGPoint = gameBundle.contentOffset
-        if contentOffset == GVC.defaultGameboardViewContentOffset {
-            contentOffset = CGPoint(x: (GameEditorGameboardView.VC.contentViewWidth - view.bounds.width) / 2, y: (GameEditorGameboardView.VC.contentViewHeight - view.bounds.height) / 2)
-        }
-        gameboardView.contentOffset = contentOffset
     }
 
     /// 显示消息

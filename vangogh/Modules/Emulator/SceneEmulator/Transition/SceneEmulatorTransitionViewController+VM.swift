@@ -32,4 +32,22 @@ extension SceneEmulatorTransitionViewController {
             handler(sceneBundle)
         }
     }
+
+    func redirectToScene(_ nextScene: MetaScene, completion handler: ((MetaSceneBundle, MetaGameBundle) -> Void)? = nil) {
+
+        // 重置当前场景资源包
+
+        sceneBundle.currentTimeMilliseconds = 0
+        MetaSceneBundleManager.shared.save(sceneBundle)
+
+        // 重定向至后续场景资源包
+
+        guard let nextSceneBundle = MetaSceneBundleManager.shared.load(sceneUUID: nextScene.uuid, gameUUID: gameBundle.uuid) else { return }
+        gameBundle.selectedSceneIndex = nextScene.index
+        MetaGameBundleManager.shared.save(gameBundle)
+
+        if let handler = handler {
+            handler(nextSceneBundle, gameBundle)
+        }
+    }
 }

@@ -83,14 +83,16 @@ extension SceneEmulatorTransitionViewController {
         let nextSceneDescriptor: NextSceneDescriptor = nextSceneDescriptors[indexPath.item]
 
         if nextSceneDescriptor.type == .restart {
-            willRestartSceneEmulator()
+            willRestartSelectedScene()
+        } else if nextSceneDescriptor.type == .redirectTo {
+            willRedirectToScene(nextSceneDescriptor.scene)
         }
 
         Logger.sceneEmulator.info("\"\(nextSceneDescriptor.type.rawValue)\" -> \"\(nextSceneDescriptor.scene)\"")
     }
 
     /// 即将重启场景模拟器
-    func willRestartSceneEmulator() {
+    func willRestartSelectedScene() {
 
         guard let sceneEmulatorVC = presentingViewController as? SceneEmulatorViewController else { return }
 
@@ -101,9 +103,31 @@ extension SceneEmulatorTransitionViewController {
             }
         }
     }
+
+    func willRedirectToScene(_ scene: MetaScene) {
+
+        guard let sceneEmulatorVC = presentingViewController as? SceneEmulatorViewController else { return }
+
+        redirectToScene(scene) { (sceneBundle, gameBundle) in
+            sceneEmulatorVC.sceneBundle = sceneBundle
+            sceneEmulatorVC.gameBundle = gameBundle
+            sceneEmulatorVC.dismiss(animated: true) {
+                sceneEmulatorVC.reloadPlayer()
+            }
+        }
+    }
 }
 
 extension SceneEmulatorTransitionViewController {
+
+    /// 切换至手动穿梭
+    func switchToManualTransition() {
+
+        stopUpNextTimer() { [weak self] in
+            guard let s = self else { return }
+            s.updateTitleLabelText("请选择下一个场景")
+        }
+    }
 
     /// 开启后续计时器
     func startUpNextTimer() {
@@ -112,26 +136,31 @@ extension SceneEmulatorTransitionViewController {
             guard let s = self else { return }
             s.upNextTimeSeconds -= 1
             if s.upNextTimeSeconds == 0 {
-                s.stopUpNextTimer()
-                s.willRestartSceneEmulator()
+                s.stopUpNextTimer() {
+                    s.willRestartSelectedScene()
+                }
             } else {
-                s.updateTitleLabelText()
+                s.updateTitleLabelText(s.prepareTitleLabelText())
             }
         }
     }
 
     /// 更新「标题标签」文本
-    func updateTitleLabelText() {
+    func updateTitleLabelText(_ text: String) {
 
-        titleLabel.text = prepareTitleLabelText()
+        titleLabel.text = text
     }
 
     /// 停止后续计时器
-    func stopUpNextTimer() {
+    func stopUpNextTimer(completion handler: (() -> Void)? = nil) {
 
         if let upNextTimer = upNextTimer {
             upNextTimer.invalidate()
         }
         upNextTimer = nil
+
+        if let handler = handler {
+            handler()
+        }
     }
 }
