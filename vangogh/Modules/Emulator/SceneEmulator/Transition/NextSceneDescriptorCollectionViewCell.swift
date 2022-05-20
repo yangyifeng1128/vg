@@ -63,7 +63,7 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().offset(-12)
+            make.bottom.equalToSuperview().offset(-18)
         }
 
         // 初始化「提示标签」
