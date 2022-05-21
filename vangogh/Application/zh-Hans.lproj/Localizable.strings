@@ -94,6 +94,8 @@
 "PublishInitialVersion" = "发布第一个版本";
 "PublishNewVersion" = "发布新版本";
 "Rescan" = "重新扫描";
+"Restart" = "重新播放";
+"Resume" = "继续播放";
 "Return" = "返回";
 "Saved" = "已保存";
 "Scene" = "场景";

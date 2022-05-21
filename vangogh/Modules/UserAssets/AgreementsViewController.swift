@@ -72,7 +72,7 @@ class AgreementsViewController: UIViewController {
         // 初始化「内容视图」
 
         let contentView: RoundedView = RoundedView()
-        contentView.backgroundColor = .mgHoneydew
+        contentView.backgroundColor = .white
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.contentViewWidth)
@@ -155,7 +155,7 @@ class AgreementsViewController: UIViewController {
         let infoTextView: UITextView = UITextView()
         infoTextView.delegate = self
         infoTextView.attributedText = prepareInfoTextViewAttributedText()
-        infoTextView.backgroundColor = .mgHoneydew
+        infoTextView.backgroundColor = .white
         infoTextView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         infoTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.accent!]
         infoTextView.isEditable = false

@@ -94,6 +94,8 @@
 "PublishInitialVersion" = "Publish the Initial Version";
 "PublishNewVersion" = "Publish a New Version";
 "Rescan" = "Rescan";
+"Restart" = "Restart";
+"Resume" = "Resume";
 "Return" = "Return";
 "Saved" = "saved";
 "Scene" = "Scene";

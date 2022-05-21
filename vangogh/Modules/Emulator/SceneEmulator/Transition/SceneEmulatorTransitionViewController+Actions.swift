@@ -59,9 +59,9 @@ extension SceneEmulatorTransitionViewController {
         if indexPath.item == 0 {
             cell.prepareInfoLabelAttributedText(nil, icon: nil)
             if nextSceneDescriptor.type == .restart {
-                cell.hintLabel.text = "重新播放"
+                cell.hintLabel.text = NSLocalizedString("Restart", comment: "")
             } else if nextSceneDescriptor.type == .resume {
-                cell.hintLabel.text = "继续播放"
+                cell.hintLabel.text = NSLocalizedString("Resume", comment: "")
             }
         } else {
             cell.prepareInfoLabelAttributedText(nextSceneDescriptor.scene.title, icon: .playCircle)
