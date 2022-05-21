@@ -72,7 +72,7 @@ class AgreementsViewController: UIViewController {
         // 初始化「内容视图」
 
         let contentView: RoundedView = RoundedView()
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .mgHoneydew
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make -> Void in
             make.width.equalTo(VC.contentViewWidth)
@@ -125,10 +125,10 @@ class AgreementsViewController: UIViewController {
 
         let agreeButton: RoundedButton = RoundedButton(cornerRadius: GVC.defaultViewCornerRadius)
         agreeButton.backgroundColor = .accent
-        agreeButton.tintColor = .white
+        agreeButton.tintColor = .mgHoneydew
         agreeButton.setTitle(NSLocalizedString("Agree", comment: ""), for: .normal)
         agreeButton.titleLabel?.font = .systemFont(ofSize: VC.agreeButtonTitleLabelFontSize, weight: .regular)
-        agreeButton.setTitleColor(.white, for: .normal)
+        agreeButton.setTitleColor(.mgHoneydew, for: .normal)
         agreeButton.addTarget(self, action: #selector(agreeButtonDidTap), for: .touchUpInside)
         bottomView.addSubview(agreeButton)
         agreeButton.snp.makeConstraints { make -> Void in
@@ -155,7 +155,7 @@ class AgreementsViewController: UIViewController {
         let infoTextView: UITextView = UITextView()
         infoTextView.delegate = self
         infoTextView.attributedText = prepareInfoTextViewAttributedText()
-        infoTextView.backgroundColor = .white
+        infoTextView.backgroundColor = .mgHoneydew
         infoTextView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         infoTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.accent!]
         infoTextView.isEditable = false

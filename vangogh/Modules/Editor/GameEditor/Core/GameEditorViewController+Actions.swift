@@ -98,14 +98,14 @@ extension GameEditorViewController {
 extension GameEditorViewController {
 
     /// 添加「场景视图」
-    func addSceneView(center location: CGPoint, completion handler: (() -> Void)? = nil) {
+    func addSceneView(center location: CGPoint, completion handler: ((MetaScene) -> Void)? = nil) {
 
         addScene(center: location) { [weak self] scene in
             guard let s = self else { return }
             s.gameboardView.addSceneView(scene: scene) { sceneView in
                 sceneView.delegate = self
                 if let handler = handler {
-                    handler()
+                    handler(scene)
                 }
                 Logger.gameEditor.info("added scene view: \"\(sceneView.scene)\"")
             }

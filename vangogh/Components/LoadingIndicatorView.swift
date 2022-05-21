@@ -56,7 +56,7 @@ extension LoadingIndicatorView {
 
         indicatorView = UIActivityIndicatorView()
         indicatorView.hidesWhenStopped = true
-        indicatorView.color = .white
+        indicatorView.color = .mgHoneydew
         addSubview(indicatorView)
         indicatorView.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.indicatorViewWidth)
@@ -67,7 +67,7 @@ extension LoadingIndicatorView {
 
         infoLabel = UILabel()
         infoLabel.font = .systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
-        infoLabel.textColor = .white
+        infoLabel.textColor = .mgHoneydew
         infoLabel.textAlignment = .center
         addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in

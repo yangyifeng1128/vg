@@ -13,7 +13,7 @@ class MetaMultipleChoiceOptionTableViewCell: UITableViewCell {
 
     /// 视图布局常量枚举值
     enum VC {
-        static let optionViewBackgroundColor: UIColor = .white
+        static let optionViewBackgroundColor: UIColor = .mgHoneydew!
         static let optionViewCornerRadius: CGFloat = 16
         static let optionViewBorderLayerLineWidth: CGFloat = 1
         static let optionViewBorderLayerStrokeColor: UIColor = .lightGray

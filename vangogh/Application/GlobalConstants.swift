@@ -134,7 +134,6 @@ extension UIColor {
     static let bcRed: UIColor? = UIColor(named: "BCRed")
     static let bcTeal: UIColor? = UIColor(named: "BCTeal")
     static let bcYellow: UIColor? = UIColor(named: "BCYellow")
-    static let mgLabel: UIColor? = UIColor(named: "MGLabel")
     static let fcBlue: UIColor? = UIColor(named: "FCBlue")
     static let fcBrown: UIColor? = UIColor(named: "FCBrown")
     static let fcCyan: UIColor? = UIColor(named: "FCCyan")
@@ -144,6 +143,9 @@ extension UIColor {
     static let fcRed: UIColor? = UIColor(named: "FCRed")
     static let fcTeal: UIColor? = UIColor(named: "FCTeal")
     static let fcYellow: UIColor? = UIColor(named: "FCYellow")
+
+    static let mgHoneydew: UIColor? = UIColor(named: "MGHoneydew")
+    static let mgLabel: UIColor? = UIColor(named: "MGLabel")
 }
 
 /// 自定义图像

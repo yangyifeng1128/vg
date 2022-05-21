@@ -53,7 +53,7 @@ class TargetAssetCollectionViewCell: RoundedCollectionViewCell {
         videoDurationLabel = UILabel()
         videoDurationLabel.isHidden = true
         videoDurationLabel.font = .systemFont(ofSize: VC.videoDurationLabelFontSize, weight: .regular)
-        videoDurationLabel.textColor = .white
+        videoDurationLabel.textColor = .mgHoneydew
         videoDurationLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         videoDurationLabel.layer.shadowOpacity = 1
         videoDurationLabel.layer.shadowRadius = 0

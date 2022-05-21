@@ -180,7 +180,7 @@ class TargetScenesViewController: UIViewController {
         let startSceneIndexLabel = UILabel()
         startSceneIndexLabel.text = selectedScene.index.description
         startSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
-        startSceneIndexLabel.textColor = .white
+        startSceneIndexLabel.textColor = .mgHoneydew
         startSceneIndexLabel.textAlignment = .center
         startSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         startSceneIndexLabel.layer.shadowOpacity = 1
@@ -229,7 +229,7 @@ class TargetScenesViewController: UIViewController {
         let endSceneIndexLabel: UILabel = UILabel()
         endSceneIndexLabel.text = "?"
         endSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
-        endSceneIndexLabel.textColor = .white
+        endSceneIndexLabel.textColor = .mgHoneydew
         endSceneIndexLabel.textAlignment = .center
         endSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         endSceneIndexLabel.layer.shadowOpacity = 1

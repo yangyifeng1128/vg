@@ -60,8 +60,8 @@ class GameScannerTorchButton: UIButton {
         setToggled()
 
         backgroundColor = GVC.defaultSceneControlBackgroundColor
-        tintColor = .white
-        imageView?.tintColor = .white
+        tintColor = .mgHoneydew
+        imageView?.tintColor = .mgHoneydew
         adjustsImageWhenHighlighted = false
     }
 

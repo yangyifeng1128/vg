@@ -48,7 +48,7 @@ class TransparentCoachMarkBodyView: UIControl, CoachMarkBodyView {
 
         hintTextView = UITextView()
         hintTextView.backgroundColor = .clear
-        hintTextView.textColor = .white
+        hintTextView.textColor = .mgHoneydew
         hintTextView.font = .systemFont(ofSize: VC.hintTextViewFontSize, weight: .medium)
         hintTextView.isEditable = false
         hintTextView.isSelectable = false

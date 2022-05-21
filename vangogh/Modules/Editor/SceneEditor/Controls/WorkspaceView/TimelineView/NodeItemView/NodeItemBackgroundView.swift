@@ -52,7 +52,7 @@ extension NodeItemBackgroundView {
 
         highlightLayer = CAGradientLayer()
         let startColor: CGColor = UIColor.accent!.cgColor
-        let endColor: CGColor = UIColor.white.cgColor
+        let endColor: CGColor = UIColor.mgHoneydew!.cgColor
         highlightLayer.colors = withLeftEar ? [startColor, endColor] : [endColor, startColor]
         highlightLayer.startPoint = CGPoint(x: 0, y: 0.5)
         highlightLayer.endPoint = CGPoint(x: 1, y: 0.5)

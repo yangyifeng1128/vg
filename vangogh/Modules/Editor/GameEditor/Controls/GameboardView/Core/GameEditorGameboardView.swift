@@ -68,7 +68,7 @@ extension GameEditorGameboardView {
     private func initContentView() {
 
         scrollsToTop = false // 禁止点击状态栏滚动至视图顶部
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = .systemFill
         contentInsetAdjustmentBehavior = .never
         showsVerticalScrollIndicator = true
         showsHorizontalScrollIndicator = true

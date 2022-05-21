@@ -83,7 +83,7 @@ class GameScannerViewController: UIViewController {
 
         // 初始化「关闭按钮」
 
-        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
+        let backButton: CircleNavigationBarButton = CircleNavigationBarButton(icon: .arrowBack, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .mgHoneydew)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         backButtonContainer.addSubview(backButton)
         backButton.snp.makeConstraints { make -> Void in

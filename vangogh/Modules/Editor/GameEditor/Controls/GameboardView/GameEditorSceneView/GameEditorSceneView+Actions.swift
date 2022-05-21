@@ -174,7 +174,7 @@ extension GameEditorSceneView {
     func highlight() {
 
         titleLabel.backgroundColor = .clear
-        titleLabel.textColor = .white
+        titleLabel.textColor = .mgHoneydew
     }
 
     /// 取消高亮

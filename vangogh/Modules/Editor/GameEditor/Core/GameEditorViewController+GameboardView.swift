@@ -4,6 +4,7 @@
 /// © 2022 Beijing Mengma Education Technology Co., Ltd
 ///
 
+import OSLog
 import UIKit
 
 extension GameEditorViewController: GameEditorGameboardViewDataSource {
@@ -68,12 +69,10 @@ extension GameEditorViewController: GameEditorGameboardViewDelegate {
     func gameboardViewDidTap(location: CGPoint) {
 
         if willAddScene {
-            addSceneView(center: location) { [weak self] in
+            addSceneView(center: location) { [weak self] scene in
                 guard let s = self else { return }
-                s.gameboardView.unhighlightSelectionRelatedViews()
-                s.saveSelectedSceneIndex(0) {
-                    s.reloadToolBarView(animated: false)
-                }
+                Logger.gameEditor.info("added scene view: \"\(scene)\"")
+                s.selectSceneView(scene: scene, animated: true)
             }
         } else {
             closeSceneView()

@@ -175,12 +175,12 @@ class TransitionEditorViewController: UIViewController {
         let startSceneIndexLabel = UILabel()
         startSceneIndexLabel.text = startScene.index.description
         startSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
-        startSceneIndexLabel.textColor = .white
+        startSceneIndexLabel.textColor = .mgHoneydew
         startSceneIndexLabel.textAlignment = .center
-        startSceneIndexLabel.layer.shadowOffset = .zero
+        startSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         startSceneIndexLabel.layer.shadowOpacity = 1
-        startSceneIndexLabel.layer.shadowRadius = 1
-        startSceneIndexLabel.layer.shadowColor = UIColor.secondarySystemBackground.cgColor
+        startSceneIndexLabel.layer.shadowRadius = 0
+        startSceneIndexLabel.layer.shadowColor = UIColor.black.cgColor
         startSceneView.addSubview(startSceneIndexLabel)
         startSceneIndexLabel.snp.makeConstraints { make -> Void in
             make.edges.equalToSuperview()
@@ -236,7 +236,7 @@ class TransitionEditorViewController: UIViewController {
         let endSceneIndexLabel = UILabel()
         endSceneIndexLabel.text = endScene.index.description
         endSceneIndexLabel.font = .systemFont(ofSize: VC.diagramSceneIndexLabelFontSize, weight: .regular)
-        endSceneIndexLabel.textColor = .white
+        endSceneIndexLabel.textColor = .mgHoneydew
         endSceneIndexLabel.textAlignment = .center
         endSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         endSceneIndexLabel.layer.shadowOpacity = 1

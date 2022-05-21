@@ -42,8 +42,8 @@ class SceneEmulatorPlayButton: UIButton {
                 tintColor = .gray
                 imageView?.tintColor = .gray
             } else {
-                tintColor = .white
-                imageView?.tintColor = .white
+                tintColor = .mgHoneydew
+                imageView?.tintColor = .mgHoneydew
             }
         }
     }
@@ -73,9 +73,9 @@ class SceneEmulatorPlayButton: UIButton {
         setToggled()
 
         backgroundColor = GVC.defaultSceneControlBackgroundColor
-        tintColor = .white
+        tintColor = .mgHoneydew
         adjustsImageWhenHighlighted = false
-        imageView?.tintColor = .white
+        imageView?.tintColor = .mgHoneydew
     }
 
     required init?(coder: NSCoder) {

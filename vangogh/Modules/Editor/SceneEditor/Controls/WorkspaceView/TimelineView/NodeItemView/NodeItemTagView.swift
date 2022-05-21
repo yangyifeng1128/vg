@@ -129,7 +129,7 @@ extension NodeItemTagView {
         borderLayer.lineWidth = VC.borderLayerWidth
         var strokeColor: UIColor? = .mgLabel
         if SceneEditorViewController.preferredUserInterfaceStyle == .dark {
-            strokeColor = .white
+            strokeColor = .mgHoneydew
         }
         borderLayer.strokeColor = strokeColor?.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor

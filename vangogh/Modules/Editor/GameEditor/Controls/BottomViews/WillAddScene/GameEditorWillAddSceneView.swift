@@ -77,7 +77,7 @@ class GameEditorWillAddSceneView: UIView {
         completeString.append(titleString)
         infoLabel.attributedText = completeString
         infoLabel.font = infoLabelFont
-        infoLabel.textColor = .white
+        infoLabel.textColor = .mgHoneydew
         infoLabel.textAlignment = .center
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in

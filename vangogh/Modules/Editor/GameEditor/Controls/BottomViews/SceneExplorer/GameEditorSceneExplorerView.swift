@@ -124,15 +124,15 @@ class GameEditorSceneExplorerView: BorderedView {
 
         let previewSceneButton: RoundedButton = RoundedButton()
         previewSceneButton.backgroundColor = .accent
-        previewSceneButton.tintColor = .white
+        previewSceneButton.tintColor = .mgHoneydew
         previewSceneButton.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
-        previewSceneButton.setTitleColor(.white, for: .normal)
+        previewSceneButton.setTitleColor(.mgHoneydew, for: .normal)
         previewSceneButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0)
         previewSceneButton.titleLabel?.font = .systemFont(ofSize: VC.bottomButtonTitleLabelFontSize, weight: .regular)
         previewSceneButton.setImage(.emulate, for: .normal)
         previewSceneButton.adjustsImageWhenHighlighted = false
         previewSceneButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 6)
-        previewSceneButton.imageView?.tintColor = .white
+        previewSceneButton.imageView?.tintColor = .mgHoneydew
         previewSceneButton.addTarget(self, action: #selector(previewSceneButtonDidTap), for: .touchUpInside)
         contentView.addSubview(previewSceneButton)
         previewSceneButton.snp.makeConstraints { make -> Void in

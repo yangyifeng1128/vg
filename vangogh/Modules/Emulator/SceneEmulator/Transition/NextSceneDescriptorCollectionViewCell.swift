@@ -14,7 +14,6 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
     /// 视图布局常量枚举值
     enum VC {
         static let infoLabelFontSize: CGFloat = 16
-        static let infoLabelIconWidth: CGFloat = 20
         static let hintLabelFontSize: CGFloat = 20
     }
 
@@ -97,31 +96,14 @@ extension NextSceneDescriptorCollectionViewCell {
     /// 准备「信息标签」文本
     func prepareInfoLabelAttributedText(_ text: String?, icon: UIImage?) {
 
-        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+        guard let text = text else { return }
 
-        // 准备图标
-
-        if let icon = icon {
-            let iconAttachment: NSTextAttachment = NSTextAttachment()
-            iconAttachment.image = icon.withTintColor(.secondaryLabel)
-            let infoLabelFont: UIFont = UIFont.systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
-            let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
-            iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
-            let iconString: NSAttributedString = NSAttributedString(attachment: iconAttachment)
-            completeInfoString.append(iconString)
-        }
-
-        // 准备标题
-
-        if let text = text {
-            let titleString: NSAttributedString = NSAttributedString(string: " " + text)
-            completeInfoString.append(titleString)
-        }
+        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: text)
 
         // 准备段落样式
 
         let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
+        paragraphStyle.lineSpacing = 8
         completeInfoString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeInfoString.length))
 
         infoLabel.attributedText = completeInfoString

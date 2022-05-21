@@ -77,8 +77,8 @@ extension TrackItemEarView {
     func highlight() {
 
         backgroundColor = .accent
-        tintColor = .white
-        imageView?.tintColor = .white
+        tintColor = .mgHoneydew
+        imageView?.tintColor = .mgHoneydew
     }
 
     func unhighlight() {

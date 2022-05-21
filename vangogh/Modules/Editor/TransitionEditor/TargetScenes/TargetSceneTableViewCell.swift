@@ -64,7 +64,7 @@ class TargetSceneTableViewCell: UITableViewCell {
 
         indexLabel = UILabel()
         indexLabel.font = .systemFont(ofSize: VC.indexLabelFontSize, weight: .regular)
-        indexLabel.textColor = .white
+        indexLabel.textColor = .mgHoneydew
         indexLabel.textAlignment = .center
         indexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         indexLabel.layer.shadowOpacity = 1

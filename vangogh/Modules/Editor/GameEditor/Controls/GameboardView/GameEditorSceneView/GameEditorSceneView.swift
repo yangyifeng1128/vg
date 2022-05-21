@@ -16,7 +16,7 @@ class GameEditorSceneView: RoundedView {
         static let borderWidth: CGFloat = 3
         static let titleLabelSmallFontSize: CGFloat = 12
         static let titleLabelLargeFontSize: CGFloat = 20
-        static let maskBackgroundColor: UIColor = UIColor.systemGray3.withAlphaComponent(0.6)
+        static let maskBackgroundColor: UIColor = UIColor.systemGray5.withAlphaComponent(0.7)
     }
 
     /// 代理

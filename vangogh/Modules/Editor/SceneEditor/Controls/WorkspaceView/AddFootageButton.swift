@@ -47,10 +47,10 @@ class AddFootageButton: UIButton {
         self.imageEdgeInset = imageEdgeInset
 
         backgroundColor = .accent
-        tintColor = .white
+        tintColor = .mgHoneydew
         setBackgroundImage(.add, for: .normal)
         adjustsImageWhenHighlighted = false
-        imageView?.tintColor = .white
+        imageView?.tintColor = .mgHoneydew
     }
 
     required init?(coder: NSCoder) {

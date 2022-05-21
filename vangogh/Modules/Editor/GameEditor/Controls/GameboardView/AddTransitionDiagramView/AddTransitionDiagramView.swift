@@ -99,7 +99,7 @@ class AddTransitionDiagramView: RoundedView {
 
         startSceneIndexLabel = UILabel()
         startSceneIndexLabel.font = .systemFont(ofSize: VC.sceneIndexLabelFontSize, weight: .regular)
-        startSceneIndexLabel.textColor = .white
+        startSceneIndexLabel.textColor = .mgHoneydew
         startSceneIndexLabel.textAlignment = .center
         startSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         startSceneIndexLabel.layer.shadowOpacity = 1
@@ -140,7 +140,7 @@ class AddTransitionDiagramView: RoundedView {
         endSceneIndexLabel = UILabel()
         endSceneIndexLabel.text = "?"
         endSceneIndexLabel.font = .systemFont(ofSize: VC.sceneIndexLabelFontSize, weight: .regular)
-        endSceneIndexLabel.textColor = .white
+        endSceneIndexLabel.textColor = .mgHoneydew
         endSceneIndexLabel.textAlignment = .center
         endSceneIndexLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         endSceneIndexLabel.layer.shadowOpacity = 1

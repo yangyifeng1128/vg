@@ -108,7 +108,7 @@ class GameEditorTransitionTableViewCell: UITableViewCell {
 
         endSceneTitleLabel = AttributedLabel()
         endSceneTitleLabel.insets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
-        endSceneTitleLabel.textColor = .white
+        endSceneTitleLabel.textColor = .mgHoneydew
         endSceneTitleLabel.textAlignment = .center
         endSceneTitleLabel.numberOfLines = 3
         endSceneTitleLabel.lineBreakMode = .byTruncatingTail

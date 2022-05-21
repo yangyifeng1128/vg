@@ -41,10 +41,10 @@ class MetaBulletScreenCell: DanmakuCell {
 
         context.setLineWidth(1)
         context.setLineJoin(.round)
-        context.setStrokeColor(UIColor.white.cgColor)
+        context.setStrokeColor(UIColor.mgHoneydew!.cgColor)
         context.saveGState()
         context.setTextDrawingMode(.stroke)
-        let attrs: [NSAttributedString.Key: Any] = [.font: model.font, .foregroundColor: UIColor.white]
+        let attrs: [NSAttributedString.Key: Any] = [.font: model.font, .foregroundColor: UIColor.mgHoneydew!]
         text.draw(at: .zero, withAttributes: attrs)
 
         context.restoreGState()

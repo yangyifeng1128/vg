@@ -201,7 +201,7 @@ class GameEditorViewController: UIViewController {
 
         // 初始化「发布按钮」
 
-        // publishButton = CircleNavigationBarButton(icon: .publish, backgroundColor: .accent, tintColor: .white, imageEdgeInset: 10) // 此处 .publish 图标稍大，所以单独设置了 imageEdgeInset
+        // publishButton = CircleNavigationBarButton(icon: .publish, backgroundColor: .accent, tintColor: .mgHoneydew, imageEdgeInset: 10) // 此处 .publish 图标稍大，所以单独设置了 imageEdgeInset
         // publishButton.addTarget(self, action: #selector(publishButtonDidTap), for: .touchUpInside)
         // publishButtonContainer.addSubview(publishButton)
         // publishButton.snp.makeConstraints { make -> Void in

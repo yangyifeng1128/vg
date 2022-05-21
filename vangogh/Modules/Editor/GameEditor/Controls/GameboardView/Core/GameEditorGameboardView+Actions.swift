@@ -307,6 +307,8 @@ extension GameEditorGameboardView {
         contentView.addSubview(transitionView)
         transitionViewList.append(transitionView)
 
+        bringRelatedSceneViewsToFront(transitionView: transitionView)
+
         if let handler = handler {
             handler(transitionView)
         }

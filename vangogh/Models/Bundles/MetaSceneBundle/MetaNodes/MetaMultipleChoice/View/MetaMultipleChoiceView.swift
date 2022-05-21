@@ -64,7 +64,7 @@ class MetaMultipleChoiceView: MetaNodeView {
 
         questionLabel = BottomAlignedLabel()
         questionLabel.text = multipleChoice.question
-        questionLabel.textColor = .white
+        questionLabel.textColor = .mgHoneydew
         questionLabel.numberOfLines = 4
         questionLabel.lineBreakMode = .byTruncatingTail
         questionLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
@@ -182,7 +182,7 @@ extension MetaMultipleChoiceView: UITableViewDelegate {
 
         guard let cell = tableView.cellForRow(at: indexPath) as? MetaMultipleChoiceOptionTableViewCell else { return }
         cell.optionView.backgroundColor = .accent
-        cell.titleLabel.textColor = .white
+        cell.titleLabel.textColor = .mgHoneydew
         // cell.optionView.borderLayer.strokeColor = UIColor.accent?.cgColor
     }
 

@@ -157,7 +157,7 @@ class SceneEmulatorViewController: UIViewController {
 
         // 初始化「关闭按钮」
 
-        closeButton = CircleNavigationBarButton(icon: .close, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .white)
+        closeButton = CircleNavigationBarButton(icon: .close, backgroundColor: GVC.defaultSceneControlBackgroundColor, tintColor: .mgHoneydew)
         closeButton.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
         closeButtonContainer.addSubview(closeButton)
         closeButton.snp.makeConstraints { make -> Void in

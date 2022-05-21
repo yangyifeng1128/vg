@@ -88,7 +88,7 @@ class MetaDuetView: MetaNodeView {
 
         hintLabel = BottomAlignedLabel()
         hintLabel.text = duet.hint
-        hintLabel.textColor = .white
+        hintLabel.textColor = .mgHoneydew
         hintLabel.textAlignment = .center
         hintLabel.numberOfLines = 2
         hintLabel.lineBreakMode = .byTruncatingTail
@@ -119,7 +119,7 @@ class MetaDuetView: MetaNodeView {
         // 更新「指示器按钮」布局
 
         indicatorButton.layer.cornerRadius = VC.indicatorButtonWidth * renderScale / 2
-        indicatorButton.backgroundColor = .white
+        indicatorButton.backgroundColor = .mgHoneydew
         let indicatorButtonMarginBottom: CGFloat = (VC.indicatorViewWidth - VC.indicatorButtonWidth) / 2 + VC.indicatorViewMarginBottom
         indicatorButton.snp.makeConstraints { make -> Void in
             make.width.height.equalTo(VC.indicatorButtonWidth * renderScale)
