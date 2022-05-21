@@ -97,7 +97,7 @@ extension NextSceneDescriptorCollectionViewCell {
     /// 准备「信息标签」文本
     func prepareInfoLabelAttributedText(_ text: String?, icon: UIImage?) {
 
-        let completeInfoTextString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")
 
         // 准备图标
 
@@ -108,16 +108,22 @@ extension NextSceneDescriptorCollectionViewCell {
             let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
             iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
             let iconString: NSAttributedString = NSAttributedString(attachment: iconAttachment)
-            completeInfoTextString.append(iconString)
+            completeInfoString.append(iconString)
         }
 
         // 准备标题
 
         if let text = text {
             let titleString: NSAttributedString = NSAttributedString(string: " " + text)
-            completeInfoTextString.append(titleString)
+            completeInfoString.append(titleString)
         }
 
-        infoLabel.attributedText = completeInfoTextString
+        // 准备段落样式
+
+        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        completeInfoString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeInfoString.length))
+
+        infoLabel.attributedText = completeInfoString
     }
 }

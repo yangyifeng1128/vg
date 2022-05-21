@@ -23,15 +23,15 @@ extension AboutViewController {
 
         let string = LocalDocumentManager.shared.load(type: .about)
         let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.systemFont(ofSize: VC.infoTextViewFontSize, weight: .regular)]
-        let completeInfoTextString: NSMutableAttributedString = NSMutableAttributedString(string: string, attributes: stringAttributes)
+        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: string, attributes: stringAttributes)
 
         // 准备段落样式
 
         let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         paragraphStyle.paragraphSpacing = 12
-        completeInfoTextString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeInfoTextString.length))
+        completeInfoString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, completeInfoString.length))
 
-        return completeInfoTextString
+        return completeInfoString
     }
 }

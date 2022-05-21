@@ -128,8 +128,8 @@ extension GameEditorSceneView {
     /// 激活
     func activate() {
 
-        cornerRadius = 12
-        bounds = CGRect(origin: .zero, size: CGSize(width: VC.width * 1.167, height: VC.height * 1.125))
+        cornerRadius = GVC.defaultViewCornerRadius + VC.borderWidth
+        bounds = CGRect(origin: .zero, size: CGSize(width: VC.width + VC.borderWidth * 2, height: VC.height + VC.borderWidth * 2))
 
         // 添加边框
 
@@ -139,7 +139,7 @@ extension GameEditorSceneView {
         }
 
         borderLayer = CAShapeLayer()
-        borderLayer.lineWidth = 8
+        borderLayer.lineWidth = VC.borderWidth * 2
         borderLayer.strokeColor = UIColor.accent?.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor
         borderLayer.frame = bounds

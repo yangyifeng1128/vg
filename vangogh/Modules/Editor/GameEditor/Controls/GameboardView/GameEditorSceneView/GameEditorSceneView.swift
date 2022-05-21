@@ -13,6 +13,7 @@ class GameEditorSceneView: RoundedView {
     enum VC {
         static let width: CGFloat = 48
         static let height: CGFloat = 64
+        static let borderWidth: CGFloat = 3
         static let titleLabelSmallFontSize: CGFloat = 12
         static let titleLabelLargeFontSize: CGFloat = 20
         static let maskBackgroundColor: UIColor = UIColor.systemGray3.withAlphaComponent(0.6)

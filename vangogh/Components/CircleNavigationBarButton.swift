@@ -24,7 +24,8 @@ class CircleNavigationBarButton: UIButton {
         set {
             super.bounds = newValue
             maskLayer.frame = newValue
-            let newPath: CGPath = UIBezierPath(roundedRect: bounds, cornerRadius: min(bounds.width, bounds.height)).cgPath
+            let cornerRadius: CGFloat = min(bounds.width, bounds.height)
+            let newPath: CGPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
             if let animation = layer.animation(forKey: "bounds.size")?.copy() as? CABasicAnimation {
                 animation.keyPath = "path"
                 animation.fromValue = maskLayer.path

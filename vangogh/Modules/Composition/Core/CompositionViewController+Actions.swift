@@ -267,6 +267,6 @@ extension CompositionViewController: UITextFieldDelegate {
         guard let text = textField.text else { return true }
         if range.length + range.location > text.count { return false }
         let newLength = text.count + string.count - range.length
-        return newLength <= 255
+        return newLength <= GVC.defaultMaxTitleLength
     }
 }

@@ -71,7 +71,7 @@ extension GameEditorSceneExplorerView {
 
         // 准备场景标题
 
-        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .underlineStyle: NSUnderlineStyle.single.rawValue, .underlineColor: UIColor.secondaryLabel]
+        let titleStringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!]
         var titleString: NSAttributedString
         if let title = scene.title, !title.isEmpty {
             titleString = NSAttributedString(string: title, attributes: titleStringAttributes)

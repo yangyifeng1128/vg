@@ -19,7 +19,7 @@ extension GameEditorToolBarView {
     /// 准备「信息标签」文本
     func prepareInfoLabelAttributedText() -> NSMutableAttributedString {
 
-        let completeInfoTextString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")
 
         // 准备信息图标
 
@@ -29,13 +29,13 @@ extension GameEditorToolBarView {
         let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
         iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
         let iconString: NSAttributedString = NSAttributedString(attachment: iconAttachment)
-        completeInfoTextString.append(iconString)
+        completeInfoString.append(iconString)
 
         // 准备信息标题
 
         let titleString: NSAttributedString = NSAttributedString(string: " " + NSLocalizedString("AddSceneInfo", comment: ""))
-        completeInfoTextString.append(titleString)
+        completeInfoString.append(titleString)
 
-        return completeInfoTextString
+        return completeInfoString
     }
 }

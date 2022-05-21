@@ -84,6 +84,8 @@ enum GVC {
     static let preferredTimescale: Int32 = 1000
     static let snappedTimeMillisecondsThreshold: Int64 = 300 /* 300ms */
 
+    static let defaultMaxTitleLength: Int = 24
+
     static let minProgressValue: CGFloat = 0
     static let maxProgressValue: CGFloat = 100
 
