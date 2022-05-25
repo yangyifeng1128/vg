@@ -85,7 +85,7 @@ class AgreementsViewController: UIViewController {
         let titleLabel: UILabel = UILabel()
         titleLabel.text = NSLocalizedString("Agreements", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .semibold)
-        titleLabel.textColor = .darkText
+        titleLabel.textColor = .mgLabel
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .byTruncatingTail

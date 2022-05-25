@@ -57,7 +57,7 @@ extension SceneEmulatorTransitionViewController {
         // 准备「信息标签」与「提示标签」
 
         if indexPath.item == 0 {
-            cell.prepareInfoLabelAttributedText(nil, icon: nil)
+            cell.prepareInfoLabelAttributedText(nextSceneDescriptor.scene.title, icon: .replay)
             if nextSceneDescriptor.type == .restart {
                 cell.hintLabel.text = NSLocalizedString("Restart", comment: "")
             } else if nextSceneDescriptor.type == .resume {
@@ -145,6 +145,7 @@ extension SceneEmulatorTransitionViewController {
         stopUpNextTimer() { [weak self] in
             guard let s = self else { return }
             s.titleLabel.text = NSLocalizedString("SelectNextSceneManually", comment: "")
+            s.upNextTimeSecondsLabel.text = ""
         }
     }
 
@@ -159,7 +160,7 @@ extension SceneEmulatorTransitionViewController {
                     s.willRestartSelectedScene()
                 }
             } else {
-                s.titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), s.upNextTimeSeconds)
+                s.upNextTimeSecondsLabel.text = s.upNextTimeSeconds.description
             }
         }
     }

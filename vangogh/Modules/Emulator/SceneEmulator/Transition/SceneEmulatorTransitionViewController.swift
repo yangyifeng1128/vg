@@ -23,6 +23,8 @@ class SceneEmulatorTransitionViewController: UIViewController {
 
     /// 标题标签
     var titleLabel: UILabel!
+    /// 后续时间标签
+    var upNextTimeSecondsLabel: UILabel!
     /// 后续场景描述符集合视图
     var nextSceneDescriptorsCollectionView: UICollectionView!
 
@@ -129,7 +131,7 @@ class SceneEmulatorTransitionViewController: UIViewController {
         // 初始化「标题标签」
 
         titleLabel = UILabel()
-        titleLabel.text = String.localizedStringWithFormat(NSLocalizedString("UpNextIn", comment: ""), upNextTimeSeconds)
+        titleLabel.text = NSLocalizedString("UpNextIn", comment: "")
         titleLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
         titleLabel.textColor = .mgHoneydew
         titleLabel.textAlignment = .center
@@ -137,6 +139,19 @@ class SceneEmulatorTransitionViewController: UIViewController {
         titleLabel.snp.makeConstraints { make -> Void in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(160)
+        }
+
+        // 初始化「后续时间标签」
+
+        upNextTimeSecondsLabel = UILabel()
+        upNextTimeSecondsLabel.text = upNextTimeSeconds.description
+        upNextTimeSecondsLabel.font = .systemFont(ofSize: VC.titleLabelFontSize, weight: .regular)
+        upNextTimeSecondsLabel.textColor = .mgHoneydew
+        upNextTimeSecondsLabel.textAlignment = .center
+        view.addSubview(upNextTimeSecondsLabel)
+        upNextTimeSecondsLabel.snp.makeConstraints { make -> Void in
+            make.left.equalTo(titleLabel.snp.right).offset(8)
+            make.centerY.equalTo(titleLabel)
         }
 
         // 初始化「后续场景描述符集合视图」

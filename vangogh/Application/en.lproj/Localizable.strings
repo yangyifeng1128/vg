@@ -104,14 +104,14 @@
 "SceneThumbImage" = "Scene Thumb Image";
 "SceneTitle" = "Scene Title";
 "SelectManually" = "Select manually";
-"SelectNextSceneManually" = "Select Next Scene Manually";
+"SelectNextSceneManually" = "Please Make Your Choice";
 "SelectTargetScene" = "Select a target scene from the list below";
 "SelectTemplate" = "Or select a template below to start";
 "StartComposing" = "Start Composing";
 "TermsOfService" = "Terms of Service";
 "Then" = ", THEN";
 "Untitled" = "Untitled";
-"UpNextIn" = "Up Next in %d";
+"UpNextIn" = "Up Next in";
 "Version" = "Version";
 "Videos" = "Videos";
 "WillAddSceneInfo" = "Tap the blank area above to complete";

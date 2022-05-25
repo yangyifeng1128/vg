@@ -47,7 +47,7 @@ extension AgreementsViewController {
 
         let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
         let string: String = "感谢您信任并使用「" + appName + "」的产品和服务！\n为了给您提供更好的创作与互动体验，在您使用「" + appName + "」具体功能的过程中，我们会向您收集必要的用户信息，或请求必要的设备权限。\n未经您同意，我们不会向任何第三方披露、共享您的个人信息。\n请完整地阅读《服务协议》与《隐私政策》来了解如何保护您的个人信息。\n"
-        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText, .font: UIFont.systemFont(ofSize: VC.infoTextViewFontSize, weight: .regular)]
+        let stringAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.mgLabel!, .font: UIFont.systemFont(ofSize: VC.infoTextViewFontSize, weight: .regular)]
         let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: string, attributes: stringAttributes)
 
         // 准备链接内容

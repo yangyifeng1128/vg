@@ -14,6 +14,7 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
     /// 视图布局常量枚举值
     enum VC {
         static let infoLabelFontSize: CGFloat = 16
+        static let infoLabelIconWidth: CGFloat = 20
         static let hintLabelFontSize: CGFloat = 20
     }
 
@@ -28,6 +29,8 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
     override init(frame: CGRect) {
 
         super.init(frame: frame)
+
+        cornerRadius = 12
 
         initViews()
     }
@@ -57,12 +60,12 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
         infoLabel.lineBreakMode = .byTruncatingTail
         infoLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         infoLabel.layer.shadowOpacity = 1
-        infoLabel.layer.shadowRadius = 1
+        infoLabel.layer.shadowRadius = 0
         infoLabel.layer.shadowColor = UIColor.black.cgColor
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make -> Void in
             make.left.right.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().offset(-18)
+            make.bottom.equalToSuperview().offset(-24)
         }
 
         // 初始化「提示标签」
@@ -73,7 +76,7 @@ class NextSceneDescriptorCollectionViewCell: RoundedCollectionViewCell {
         hintLabel.textAlignment = .center
         hintLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         hintLabel.layer.shadowOpacity = 1
-        hintLabel.layer.shadowRadius = 1
+        hintLabel.layer.shadowRadius = 0
         hintLabel.layer.shadowColor = UIColor.black.cgColor
         contentView.addSubview(hintLabel)
         hintLabel.snp.makeConstraints { make -> Void in
@@ -96,9 +99,26 @@ extension NextSceneDescriptorCollectionViewCell {
     /// 准备「信息标签」文本
     func prepareInfoLabelAttributedText(_ text: String?, icon: UIImage?) {
 
-        guard let text = text else { return }
+        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: "")
 
-        let completeInfoString: NSMutableAttributedString = NSMutableAttributedString(string: text)
+        // 准备图标
+
+        if let icon = icon {
+            let iconAttachment: NSTextAttachment = NSTextAttachment()
+            iconAttachment.image = icon.withTintColor(.secondaryLabel)
+            let infoLabelFont: UIFont = UIFont.systemFont(ofSize: VC.infoLabelFontSize, weight: .regular)
+            let iconAttachmentY: CGFloat = (infoLabelFont.capHeight - VC.infoLabelIconWidth) / 2
+            iconAttachment.bounds = CGRect(x: 0, y: iconAttachmentY, width: VC.infoLabelIconWidth, height: VC.infoLabelIconWidth)
+            let iconString: NSAttributedString = NSAttributedString(attachment: iconAttachment)
+            completeInfoString.append(iconString)
+        }
+
+        // 准备标题
+
+        if let text = text {
+            let titleString: NSAttributedString = NSAttributedString(string: " " + text)
+            completeInfoString.append(titleString)
+        }
 
         // 准备段落样式
 
